@@ -1,7 +1,7 @@
 name: Deploy
 on:
   push:
-    branches: [main] # main 브랜치에 push 발생하면 트리거
+    branches: [develop] # main 브랜치에 push 발생하면 트리거
   workflow_dispatch: # 디버깅용, actions 탭에서 직접 버튼 눌러서 트리거
 
 jobs:
