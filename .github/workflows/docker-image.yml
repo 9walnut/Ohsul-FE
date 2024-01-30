@@ -1,12 +1,13 @@
 name: Deploy
 on:
   push:
-    branches: [develop] # main 브랜치에 push 발생하면 트리거
-  workflow_dispatch: # 디버깅용, actions 탭에서 직접 버튼 눌러서 트리거
+    branches: ["develop"] # main 브랜치에 push 발생하면 트리거
+  pull_request:
+    branches: ["develop"]
 
 jobs:
-  deploy:
-    runs-on: self-hosted
+  build-docker-image:
+    runs-on: ubuntu-latest
 
     steps:
       - name: Checkout
@@ -51,7 +52,12 @@ jobs:
           file: ./client/Dockerfile
           push: true
           tags: ${{ secrets.DOCKERHUB_USERNAME }}/ohsul-fe
+          
 
+  run-docker-image-on-ec2:
+    needs: build-docker-image
+    runs-on: self-hosted
+    steps:
       - name: Pull and restart Docker Container
         run: |
           docker pull ${{ secrets.DOCKERHUB_USERNAME }}/ohsul-fe
