@@ -30,7 +30,7 @@ jobs:
         run: |
           cd client
           npm install
-          npm install react-scripts
+          npm install react-scripts --save
           echo "dependencies 오류"
 
       - name: Build
