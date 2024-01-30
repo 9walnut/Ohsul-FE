@@ -63,6 +63,7 @@ jobs:
     needs: build-docker-image
     runs-on: self-hosted
 
+
     steps:
       # 1. 최신 이미지를 풀받습니다
       - name: docker pull
