@@ -4,11 +4,13 @@ WORKDIR /app
 
 COPY package*.json ./
 
-RUN npm run build
-RUN npm install react-scripts --save
+RUN npm ci
+RUN npm list react-scripts || npm install react-scripts --save
 
 COPY . .
 
+
+RUN npm run build
 
 FROM nginx:stable-alpine
 
