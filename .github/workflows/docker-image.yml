@@ -59,11 +59,23 @@ jobs:
           
 
   run-docker-image-on-ec2:
+    # build-docker-image (위)과정이 완료되어야 실행됩니다.
     needs: build-docker-image
     runs-on: self-hosted
+
     steps:
-      - name: Pull and restart Docker Container
-        run: |
-          docker pull ${{ secrets.DOCKERHUB_USERNAME }}/ohsul-fe
-          docker stop ohsul-fe || true
-          docker run -d --rm --name ohsul-fe -p 80:80 ${{ secrets.DOCKERHUB_USERNAME }}/ohsul-fe
+      # 1. 최신 이미지를 풀받습니다
+      - name: docker pull
+        run: sudo docker pull ${{ secrets.DOCKERHUB_USERNAME }}/ohsul-fe
+      
+      # 2. 기존의 컨테이너를 중지시킵니다
+      - name: docker stop container
+        run: sudo docker stop Ohsul-be || true
+
+      # 3. 최신 이미지를 컨테이너화하여 실행시킵니다
+      - name: docker run new container
+        run: sudo docker run --name Ohsul-be --rm -d -p 8080:8080 ${{ secrets.DOCKERHUB_USERNAME }}/ohsul-fe
+
+      # 4. 미사용 이미지를 정리합니다
+      - name: delete old docker image
+        run: sudo docker system prune -f
