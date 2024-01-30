@@ -6,7 +6,7 @@ on:
 
 jobs:
   deploy:
-    runs-on: ubuntu-latest # ubuntu 최신 버전 환경에서 실행
+    runs-on: self-hoste 
 
     steps:
       - name: Checkout
