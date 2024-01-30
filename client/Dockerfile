@@ -2,7 +2,7 @@ FROM node:lts as build
 
 WORKDIR /app
 
-COPY package.json .
+COPY package*.json ./
 
 RUN npm i --also=dev
 
@@ -22,4 +22,4 @@ COPY --from=build /app/build /usr/share/nginx/html
 EXPOSE 80
 
 # nginx 실행
-CMD [ "nginx", "-g", "daemon off;" ] 
+CMD [ "nginx", "-g", "daemon off;" ]
