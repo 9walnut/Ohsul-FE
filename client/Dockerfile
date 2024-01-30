@@ -4,7 +4,7 @@ WORKDIR /app
 
 COPY package*.json ./
 
-RUN npm i --also=dev && npm i -g react-scripts
+RUN npm install react-scripts --save
 
 COPY . .
 
