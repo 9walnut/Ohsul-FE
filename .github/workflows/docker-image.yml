@@ -35,6 +35,7 @@ jobs:
 
       - name: Build
         run: |
+          cd client
           npm run build
           echo "run build 오류"  
 
