@@ -8,9 +8,8 @@ declare global {
 }
 
 const Map = styled.div`
-  width: 80%;
+  width: 90%;
   height: 700px;
-  margin: 20px;
 `;
 
 const KakaoMap01 = () => {
