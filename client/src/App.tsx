@@ -2,13 +2,16 @@ import React from "react";
 import "./App.css";
 import styled from "styled-components";
 import { FontTest } from "./components/FontTest";
+
 import KakaoMap01 from "./components/KakaoMap01";
+import Header from "./components/common/Header";
 
 function App() {
   return (
     <>
       <CenterLayout>
         <MainLayout>
+          <Header />
           <KakaoMap01 />
         </MainLayout>
       </CenterLayout>
