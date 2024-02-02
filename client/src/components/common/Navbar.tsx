@@ -1,27 +1,36 @@
 import React from "react";
 import styled from "styled-components";
+import { Link, useNavigate } from "react-router-dom";
 
 const Navbar = () => {
+  const navigate = useNavigate();
+
   return (
     <>
       <NavbarLayout>
         <NavbarList>
-          <NavbarItem>
-            <img src="/assets/images/navbar_today.png" alt="today" />
-            <p>내 주변의 술</p>
-          </NavbarItem>
+          <Link to={"/nearAlcohol"}>
+            <NavbarItem>
+              <img src="/assets/images/navbar_today.png" alt="today" />
+              <p>내 주변의 술</p>
+            </NavbarItem>
+          </Link>
         </NavbarList>
         <NavbarList>
-          <NavbarItem>
-            <img src="/assets/images/navbar_home.png" alt="home" />
-            <p>홈</p>
-          </NavbarItem>
+          <Link to={"/main"}>
+            <NavbarItem>
+              <img src="/assets/images/navbar_home.png" alt="home" />
+              <p>홈</p>
+            </NavbarItem>
+          </Link>
         </NavbarList>
         <NavbarList>
-          <NavbarItem>
-            <img src="/assets/images/navbar_search.png" alt="search" />
-            <p>오늘의 술 찾기</p>
-          </NavbarItem>
+          <Link to={"/searchAlcohol"}>
+            <NavbarItem>
+              <img src="/assets/images/navbar_search.png" alt="search" />
+              <p>오늘의 술 찾기</p>
+            </NavbarItem>
+          </Link>
         </NavbarList>
       </NavbarLayout>
     </>
@@ -38,7 +47,7 @@ const NavbarLayout = styled.nav`
   justify-content: space-around;
   align-items: center;
   position: sticky;
-  bottom: 0px;
+  bottom: 0;
   z-index: 999;
   background-color: #7588a3;
 `;
