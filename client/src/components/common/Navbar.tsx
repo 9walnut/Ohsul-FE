@@ -68,6 +68,9 @@ const NavbarList = styled.ul`
 const StyledNavLink = styled(NavLink)`
   width: 33vw;
   text-decoration: none;
+  &.active {
+    background-color: #5e7392;
+  }
 `;
 
 const NavbarItem = styled.li`
