@@ -1,5 +1,14 @@
 import { createGlobalStyle } from "styled-components";
 import YeongdeokSea from "./fonts/YeongdeokSea.woff";
+import PretendardBlack from "./fonts/PretendardBlack.woff";
+import PretendardBold from "./fonts/PretendardBold.woff";
+import PretendardExtraBold from "./fonts/PretendardExtraBold.woff";
+import PretendardExtraLight from "./fonts/PretendardExtraLight.woff";
+import PretendardLight from "./fonts/PretendardLight.woff";
+import PretendardMedium from "./fonts/PretendardMedium.woff";
+import PretendardRegular from "./fonts/PretendardRegular.woff";
+import PretendardSemiBold from "./fonts/PretendardSemiBold.woff";
+import PretendardThin from "./fonts/PretendardThin.woff";
 
 export const GlobalStyle = createGlobalStyle`
   @font-face {
@@ -8,23 +17,65 @@ export const GlobalStyle = createGlobalStyle`
     font-weight: normal;
     font-style: normal;
   }
+  @font-face {
+    font-family: 'PretendardBlack';
+    src: url(${PretendardBlack}) format('woff');
+    font-weight: normal;
+    font-style: normal;
+  }
+  @font-face {
+    font-family: 'PretendardBold';
+    src: url(${PretendardBold}) format('woff');
+    font-weight: normal;
+    font-style: normal;
+  }
+  @font-face {
+    font-family: 'PretendardExtraBold';
+    src: url(${PretendardExtraBold}) format('woff');
+    font-weight: normal;
+    font-style: normal;
+  }
+  @font-face {
+    font-family: 'PretendardExtraLight';
+    src: url(${PretendardExtraLight}) format('woff');
+    font-weight: normal;
+    font-style: normal;
+  }
+  @font-face {
+    font-family: 'PretendardLight';
+    src: url(${PretendardLight}) format('woff');
+    font-weight: normal;
+    font-style: normal;
+  }
+  @font-face {
+    font-family: 'PretendardMedium';
+    src: url(${PretendardMedium}) format('woff');
+    font-weight: normal;
+    font-style: normal;
+  }
+  @font-face {
+    font-family: 'PretendardRegular';
+    src: url(${PretendardRegular}) format('woff');
+    font-weight: normal;
+    font-style: normal;
+  }
+  @font-face {
+    font-family: 'PretendardSemiBold';
+    src: url(${PretendardSemiBold}) format('woff');
+    font-weight: normal;
+    font-style: normal;
+  }
+  @font-face {
+    font-family: 'PretendardThin';
+    src: url(${PretendardThin}) format('woff');
+    font-weight: normal;
+    font-style: normal;
+  }
+ 
 html,
-body,
-div,
-span,
 applet,
 object,
 iframe,
-h1,
-h2,
-h3,
-h4,
-h5,
-h6,
-p,
-blockquote,
-pre,
-a,
 abbr,
 acronym,
 address,
@@ -33,8 +84,6 @@ cite,
 code,
 del,
 dfn,
-em,
-img,
 ins,
 kbd,
 q,
@@ -47,28 +96,13 @@ sub,
 sup,
 tt,
 var,
-b,
-u,
-i,
 center,
-dl,
-dt,
-dd,
-ol,
-ul,
-li,
 fieldset,
 form,
 label,
 legend,
 table,
 caption,
-tbody,
-tfoot,
-thead,
-tr,
-th,
-td,
 article,
 aside,
 canvas,
@@ -76,11 +110,7 @@ details,
 embed,
 figure,
 figcaption,
-footer,
-header,
 hgroup,
-menu,
-nav,
 output,
 ruby,
 section,
