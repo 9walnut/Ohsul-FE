@@ -7,12 +7,19 @@ declare global {
   }
 }
 
-const Map = styled.div`
-  width: 90%;
-  height: 700px;
+interface KakaoMapSizeProps {
+  width: string;
+  height: string;
+}
+
+const Map = styled.div<KakaoMapSizeProps>`
+  /* width: 90%;
+  height: 700px; */
+  width: ${(props) => props.width};
+  height: ${(props) => props.height};
 `;
 
-const KakaoMap01 = () => {
+const KakaoMap01 = ({ width, height }: KakaoMapSizeProps) => {
   const [map, setMap] = useState<any>(null);
   const [centerRegion, setCenterRegion] = useState<string>("");
 
@@ -121,14 +128,15 @@ const KakaoMap01 = () => {
 
   return (
     <>
-      <h3>KakaoMap01 - 지역명 검색 시 "술집 카테고리" 더해져서 검색</h3>
+      {/* <h3>KakaoMap01 - 지역명 검색 시 "술집 카테고리" 더해져서 검색</h3>
       <ul>
         <li>"용산" 검색 시 "용산 술집", "용산 이자카야"로 검색되도록</li>
         <li>클릭했을떄 뜨는 정보 안사라진다</li>
-      </ul>
+      </ul> */}
       <span>지도중심기준 행정동 주소정보: </span>
       <span id="centerAddr"></span>
-      <Map id="map" />
+      {/* <Map id="map" /> */}
+      <Map id="map" width={width} height={height} />
       <div>
         <input type="text" id="searchInput" placeholder="장소를 검색하세요" />
         <button onClick={handleSearch}>검색</button>

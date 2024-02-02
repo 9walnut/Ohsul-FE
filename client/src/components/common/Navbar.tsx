@@ -47,7 +47,7 @@ const NavbarLayout = styled.nav`
   display: flex;
   justify-content: space-around;
   align-items: center;
-  position: sticky;
+  position: absolute;
   bottom: 0px;
   z-index: 999;
   background-color: #7588a3;
@@ -68,6 +68,9 @@ const NavbarList = styled.ul`
 const StyledNavLink = styled(NavLink)`
   width: 33vw;
   text-decoration: none;
+  &.active {
+    background-color: #5e7392;
+  }
 `;
 
 const NavbarItem = styled.li`

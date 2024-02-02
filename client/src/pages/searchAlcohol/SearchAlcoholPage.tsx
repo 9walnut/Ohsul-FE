@@ -1,7 +1,17 @@
 import React from "react";
 
-const SearchAlcoholPage = () => {
-  return <div>SearchAlcohol</div>;
+import Header from "../../components/common/Header";
+import KakaoMap01 from "../../components/common/KakaoMap01";
+
+const SearchAlcoholPage: React.FC = () => {
+  return (
+    <>
+      <Header title="오늘의 술 찾기" />
+      {/* 사이즈 직접 작성하면 props으로 넘어가서 이 사이즈로 적용! */}
+      <KakaoMap01 width="90%" height="300px" />
+      <div>SearchAlcohol</div>
+    </>
+  );
 };
 
 export default SearchAlcoholPage;

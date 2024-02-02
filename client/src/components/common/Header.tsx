@@ -1,12 +1,14 @@
 import React from "react";
 import styled from "styled-components";
 
-const Header = () => {
+import { HeaderTitle } from "../../types/Common";
+
+const Header: React.FC<HeaderTitle> = ({ title }) => {
   return (
     <>
       <HeaderLayout>
         <TitleBox>
-          <TitleParagraph>오늘의 술</TitleParagraph>
+          <TitleParagraph>{title}</TitleParagraph>
           <BorderBottom>
             <img src="/assets/images/header_BorderBottom.png" />
           </BorderBottom>
