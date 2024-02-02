@@ -1,6 +1,13 @@
 import { createGlobalStyle } from "styled-components";
+import YeongdeokSea from "./fonts/YeongdeokSea.woff";
 
 export const GlobalStyle = createGlobalStyle`
+  @font-face {
+    font-family: 'YeongdeokSea';
+    src: url(${YeongdeokSea}) format('woff');
+    font-weight: normal;
+    font-style: normal;
+  }
 html,
 body,
 div,

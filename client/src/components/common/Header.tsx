@@ -1,6 +1,5 @@
 import React from "react";
 import styled from "styled-components";
-import "../../styles/fonts/Font.css";
 
 const Header = () => {
   return (
@@ -49,7 +48,7 @@ const TitleBox = styled.div`
 `;
 
 const TitleParagraph = styled.div`
-  font-family: "Beeunhye";
+  font-family: YeongdeokSea;
   font-style: normal;
   font-weight: 900;
   font-size: 26px;
