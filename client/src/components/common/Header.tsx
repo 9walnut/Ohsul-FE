@@ -29,8 +29,6 @@ const HeaderLayout = styled.div`
   left: 0px;
   right: 0px;
   top: 44px;
-
-  /* background-color: red; */
 `;
 
 const TitleBox = styled.div`
@@ -43,8 +41,6 @@ const TitleBox = styled.div`
 
   width: 390px;
   height: 55px;
-
-  /* background-color: yellow; */
 `;
 
 const TitleParagraph = styled.div`
