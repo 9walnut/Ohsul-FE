@@ -12,7 +12,7 @@ const App = () => {
       <CenterLayout>
         <MainLayout>
           <Header />
-          <KakaoMap01 />
+          {/* <KakaoMap01 /> */}
           <Outlet />
           {/* Outlet에 Router.tsx에서 매칭시켜둔 element가 렌더링됨*/}
           <Navbar />
@@ -25,8 +25,10 @@ const App = () => {
 const MainLayout = styled.div`
   width: 100vw;
   max-width: 430px;
+  min-height: 950px;
   background-color: #f4ede6;
   text-align: center;
+  position: relative;
 `;
 
 const CenterLayout = styled.div`
