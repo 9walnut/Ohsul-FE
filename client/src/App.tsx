@@ -2,17 +2,13 @@ import React from "react";
 import "./App.css";
 import styled from "styled-components";
 import { Outlet } from "react-router-dom";
-import KakaoMap01 from "./components/KakaoMap01";
-import Header from "./components/common/Header";
 import Navbar from "./components/common/Navbar";
 
-const App = () => {
+const App: React.FC = () => {
   return (
     <>
       <CenterLayout>
         <MainLayout>
-          <Header />
-          {/* <KakaoMap01 /> */}
           <Outlet />
           {/* Outlet에 Router.tsx에서 매칭시켜둔 element가 렌더링됨*/}
           <Navbar />
