@@ -26,6 +26,11 @@ const MainLayout = styled.div`
   text-align: center;
   position: relative;
   padding-bottom: 140px;
+
+  /* 아래 추가했는데 혹시 하다가 이상해진다거나 하면 빼고 각 페이지에서 정렬..? */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 `;
 
 const CenterLayout = styled.div`

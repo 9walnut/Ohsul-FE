@@ -23,7 +23,8 @@ const ToggleLayout = styled.div`
   height: 46px;
   left: 24px;
   right: 23px;
-  top: 793px;
+  /* top: 793px; */
+  bottom: 80px;
 `;
 
 const ToggleLeftBox = styled.div`
