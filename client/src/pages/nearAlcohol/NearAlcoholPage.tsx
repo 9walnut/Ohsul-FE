@@ -7,8 +7,8 @@ const NearAlcoholPage: React.FC = () => {
   return (
     <>
       <Header title="내 주변의 술" />
-      <KakaoMap01 />
-      <div>NearAlcoholPage</div>;
+      <KakaoMap01 width="90%" height="700px" />
+      <div>NearAlcoholPage</div>
     </>
   );
 };
