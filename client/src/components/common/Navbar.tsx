@@ -37,7 +37,7 @@ const NavbarLayout = styled.nav`
   display: flex;
   justify-content: space-around;
   align-items: center;
-  position: fixed;
+  position: sticky;
   bottom: 0px;
   z-index: 999;
   background-color: #7588a3;
