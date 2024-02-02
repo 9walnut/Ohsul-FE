@@ -1,7 +1,7 @@
 import React from "react";
 
 import Header from "../../components/common/Header";
-import KakaoMap01 from "../../components/KakaoMap01";
+import KakaoMap01 from "../../components/common/KakaoMap01";
 
 const SearchAlcoholPage: React.FC = () => {
   return (
