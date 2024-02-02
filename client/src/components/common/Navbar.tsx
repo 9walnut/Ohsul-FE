@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import { Link, useNavigate } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 
 const Navbar = () => {
   const navigate = useNavigate();
@@ -8,30 +8,30 @@ const Navbar = () => {
   return (
     <>
       <NavbarLayout>
-        <NavbarList>
-          <Link to={"/nearAlcohol"}>
+        <StyledNavLink to={"/nearAlcohol"}>
+          <NavbarList>
             <NavbarItem>
               <img src="/assets/images/navbar_today.png" alt="today" />
               <p>내 주변의 술</p>
             </NavbarItem>
-          </Link>
-        </NavbarList>
-        <NavbarList>
-          <Link to={"/main"}>
+          </NavbarList>
+        </StyledNavLink>
+        <StyledNavLink to={"/main"}>
+          <NavbarList>
             <NavbarItem>
               <img src="/assets/images/navbar_home.png" alt="home" />
-              <p>홈</p>
+              <p style={{ width: "70px" }}>홈</p>
             </NavbarItem>
-          </Link>
-        </NavbarList>
-        <NavbarList>
-          <Link to={"/searchAlcohol"}>
+          </NavbarList>
+        </StyledNavLink>
+        <StyledNavLink to={"/searchAlcohol"}>
+          <NavbarList>
             <NavbarItem>
               <img src="/assets/images/navbar_search.png" alt="search" />
               <p>오늘의 술 찾기</p>
             </NavbarItem>
-          </Link>
-        </NavbarList>
+          </NavbarList>
+        </StyledNavLink>
       </NavbarLayout>
     </>
   );
@@ -40,6 +40,7 @@ const Navbar = () => {
 export default Navbar;
 
 const NavbarLayout = styled.nav`
+  font-family: YeongdeokSea;
   width: 100vw;
   max-width: 430px;
   height: 78px;
@@ -47,13 +48,12 @@ const NavbarLayout = styled.nav`
   justify-content: space-around;
   align-items: center;
   position: sticky;
-  bottom: 0;
+  bottom: 0px;
   z-index: 999;
   background-color: #7588a3;
 `;
 
 const NavbarList = styled.ul`
-  width: 33vw;
   height: 78px;
   display: flex;
   align-items: center;
@@ -63,13 +63,15 @@ const NavbarList = styled.ul`
   &:hover {
     background-color: #8396b0;
   }
+`;
 
-  &:active {
-    background-color: #5e7392;
-  }
+const StyledNavLink = styled(NavLink)`
+  width: 33vw;
+  text-decoration: none;
 `;
 
 const NavbarItem = styled.li`
+  padding: 12px;
   p {
     margin-top: 8px;
     font-size: 13px;

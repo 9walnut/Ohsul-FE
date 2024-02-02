@@ -23,7 +23,7 @@ const App = () => {
 };
 
 const MainLayout = styled.div`
-  width: 100%;
+  width: 100vw;
   max-width: 430px;
   background-color: #f4ede6;
   text-align: center;
