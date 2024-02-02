@@ -1,6 +1,5 @@
 import React from "react";
 import styled from "styled-components";
-import "../../styles/fonts/Font.css";
 
 const Header = () => {
   return (
@@ -30,8 +29,6 @@ const HeaderLayout = styled.div`
   left: 0px;
   right: 0px;
   top: 44px;
-
-  /* background-color: red; */
 `;
 
 const TitleBox = styled.div`
@@ -44,12 +41,10 @@ const TitleBox = styled.div`
 
   width: 390px;
   height: 55px;
-
-  /* background-color: yellow; */
 `;
 
 const TitleParagraph = styled.div`
-  font-family: "Beeunhye";
+  font-family: YeongdeokSea;
   font-style: normal;
   font-weight: 900;
   font-size: 26px;
