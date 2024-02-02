@@ -5,6 +5,7 @@ import { FontTest } from "./components/FontTest";
 
 import KakaoMap01 from "./components/KakaoMap01";
 import Header from "./components/common/Header";
+import Navbar from "./components/common/Navbar";
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
         <MainLayout>
           <Header />
           <KakaoMap01 />
+          <Navbar />
         </MainLayout>
       </CenterLayout>
     </>
