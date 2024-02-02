@@ -25,12 +25,13 @@ const MainLayout = styled.div`
   background-color: #f4ede6;
   text-align: center;
   position: relative;
+  padding-bottom: 140px;
 `;
 
 const CenterLayout = styled.div`
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: flex-start;
   /* height: 100%; */
 `;
 
