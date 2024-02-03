@@ -3,6 +3,9 @@ import MainPage from "./pages/main/MainPage";
 import App from "./App";
 import SearchAlcoholPage from "./pages/searchAlcohol/SearchAlcoholPage";
 import NearAlcoholPage from "./pages/nearAlcohol/NearAlcoholPage";
+import MyPage from "./pages/user/mypage/MyPage";
+import LoginPage from "./pages/user/register/LoginPage";
+import RegisterPage from "./pages/user/register/RegisterPage";
 
 const router = createBrowserRouter([
   {
@@ -32,6 +35,36 @@ const router = createBrowserRouter([
       {
         path: "",
         element: <NearAlcoholPage />,
+      },
+    ],
+  },
+  {
+    path: "/mypage",
+    element: <App />,
+    children: [
+      {
+        path: "",
+        element: <MyPage />,
+      },
+    ],
+  },
+  {
+    path: "/login",
+    element: <App />,
+    children: [
+      {
+        path: "",
+        element: <LoginPage />,
+      },
+    ],
+  },
+  {
+    path: "/register",
+    element: <App />,
+    children: [
+      {
+        path: "",
+        element: <RegisterPage />,
       },
     ],
   },
