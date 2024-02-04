@@ -29,7 +29,7 @@ const ExplainWrap = styled.div`
 `;
 
 const ExplainTextBox = styled.div`
-  width: 260px;
+  width: 240px;
   position: absolute;
   top: 50%;
   left: 50%;

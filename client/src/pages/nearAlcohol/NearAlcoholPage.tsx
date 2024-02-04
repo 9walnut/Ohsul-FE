@@ -1,6 +1,5 @@
 import React from "react";
 import styled from "styled-components";
-
 import Header from "../../components/common/Header";
 import KakaoMap01 from "../../components/common/KakaoMap01";
 import ToggleBtn from "../../components/nearAlcohol/ToggleBtn";
