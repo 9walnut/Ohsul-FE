@@ -1,18 +1,12 @@
 import { useEffect } from "react";
-import { useNavigate, To } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 
 const useScrollToTop = () => {
-  const navigate = useNavigate();
+  const location = useLocation();
 
   useEffect(() => {
-    const handleRouteChange = () => {
-      window.scrollTo(0, 0);
-    };
-
-    const unlisten = navigate(handleRouteChange as To, { replace: true });
-
-    return () => {};
-  }, [navigate]);
+    window.scrollTo(0, 0);
+  }, [location]);
 };
 
 export default useScrollToTop;
