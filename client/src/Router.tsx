@@ -1,4 +1,5 @@
-import { createBrowserRouter } from "react-router-dom";
+// Router.tsx
+import { createBrowserRouter, useNavigate } from "react-router-dom";
 import MainPage from "./pages/main/MainPage";
 import App from "./App";
 import SearchAlcoholPage from "./pages/searchAlcohol/SearchAlcoholPage";
