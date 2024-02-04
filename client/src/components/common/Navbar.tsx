@@ -6,14 +6,6 @@ const Navbar = () => {
   const [isLogin, setIsLogin] = useState<boolean>(false);
   const navigate = useNavigate();
 
-  const handleIsLogin = () => {
-    if (isLogin) {
-      navigate("/mypage");
-    } else {
-      navigate("/login");
-    }
-  };
-
   return (
     <>
       <NavbarLayout>
@@ -41,7 +33,7 @@ const Navbar = () => {
             </NavbarItem>
           </NavbarList>
         </StyledNavLink>
-        <NavbarOnClick onClick={handleIsLogin}>
+        <NavbarOnClick to={isLogin ? "/mypage" : "/login"}>
           <NavbarList>
             <NavbarItem>
               <img src="/assets/images/navbar_mypage.png" alt="mypage" />
@@ -90,12 +82,12 @@ const StyledNavLink = styled(NavLink)`
   }
 `;
 
-const NavbarOnClick = styled.div`
-  width: 33vw;
+const NavbarOnClick = styled(StyledNavLink)`
   &.active {
     background-color: #5e7392;
   }
 `;
+
 const NavbarItem = styled.li`
   padding: 12px;
   p {
