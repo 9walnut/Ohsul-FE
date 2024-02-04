@@ -27,10 +27,10 @@ const HeaderLayout = styled.div`
   padding: 4px 0px;
 
   /* position: absolute; */
-  height: 63px;
+  /* height: 63px;
   left: 0px;
   right: 0px;
-  top: 44px;
+  top: 44px; */
 `;
 
 const TitleBox = styled.div`
@@ -41,7 +41,7 @@ const TitleBox = styled.div`
   padding: 4px 8px 12px 16px;
   gap: 4px;
 
-  width: 390px;
+  width: 100%;
   height: 55px;
 `;
 
