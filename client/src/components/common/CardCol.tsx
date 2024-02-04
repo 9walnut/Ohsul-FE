@@ -31,7 +31,7 @@ const CardLayout = styled.div`
   padding: 10px 15px;
   gap: 20px;
 
-  width: 382px;
+  width: 100%;
   height: 163px;
 
   background: #fcfaf9;

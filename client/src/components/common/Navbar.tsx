@@ -58,7 +58,7 @@ export default Navbar;
 
 const NavbarLayout = styled.nav`
   font-family: YeongdeokSea;
-  width: 100%;
+  width: 100vw;
   max-width: 430px;
   height: 78px;
   display: flex;
