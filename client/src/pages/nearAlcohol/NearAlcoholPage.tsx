@@ -11,7 +11,7 @@ const NearAlcoholPage: React.FC = () => {
     <>
       <PageLayout>
         <Header title="내 주변의 술" />
-        <KakaoMap01 width="90%" height="700px" />
+        <KakaoMap01 width="100%" height="700px" />
         <CardCol
           barName="언더그라운드"
           barImg="/assets/images/common_AlternateImage.png"

@@ -11,8 +11,8 @@ const App: React.FC = () => {
         <MainLayout>
           <Outlet />
           {/* Outlet에 Router.tsx에서 매칭시켜둔 element가 렌더링됨*/}
-          <Navbar />
         </MainLayout>
+        <Navbar />
       </CenterLayout>
     </>
   );
@@ -38,6 +38,7 @@ const CenterLayout = styled.div`
   display: flex;
   justify-content: center;
   align-items: flex-start;
+  text-align: center;
   /* height: 100%; */
 `;
 
