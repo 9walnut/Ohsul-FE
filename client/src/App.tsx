@@ -4,19 +4,23 @@ import styled from "styled-components";
 import { Outlet } from "react-router-dom";
 import Navbar from "./components/common/Navbar";
 import useScrollToTop from "./hooks/useScrollToTop";
+import { ThemeProvider } from "styled-components";
+import theme from "./styles/theme";
 
 const App: React.FC = () => {
   useScrollToTop();
 
   return (
     <>
-      <CenterLayout>
-        <MainLayout>
-          <Outlet />
-          {/* Outlet에 Router.tsx에서 매칭시켜둔 element가 렌더링됨*/}
-        </MainLayout>
-        <Navbar />
-      </CenterLayout>
+      <ThemeProvider theme={theme}>
+        <CenterLayout>
+          <MainLayout>
+            <Outlet />
+            {/* Outlet에 Router.tsx에서 매칭시켜둔 element가 렌더링됨*/}
+          </MainLayout>
+          <Navbar />
+        </CenterLayout>
+      </ThemeProvider>
     </>
   );
 };
@@ -26,7 +30,7 @@ const MainLayout = styled.div`
   padding: 3%;
   max-width: 430px;
   min-height: 950px;
-  background-color: #f4ede6;
+  background-color: ${(props) => props.theme.colors.back};
   text-align: center;
   position: relative;
   padding-bottom: 140px;
