@@ -3,7 +3,8 @@ import styled from "styled-components";
 import Header from "../../components/common/Header";
 import KakaoMap01 from "../../components/common/KakaoMap01";
 import ToggleBtn from "../../components/nearAlcohol/ToggleBtn";
-import CardCol from "../../components/common/CardCol";
+import CardColTag from "../../components/common/CardColTag";
+import CardColReview from "../../components/common/CardColReview";
 
 const NearAlcoholPage: React.FC = () => {
   return (
@@ -11,14 +12,8 @@ const NearAlcoholPage: React.FC = () => {
       <PageLayout>
         <Header title="내 주변의 술" />
         <KakaoMap01 width="100%" height="700px" />
-        <CardCol
-          barName="언더그라운드"
-          barImg="/assets/images/common_AlternateImage.png"
-        />
-        <CardCol
-          barName="언더그라운드"
-          barImg="/assets/images/common_AlternateImage.png"
-        />
+        <CardColTag barName="언더그라운드" />
+        <CardColReview barName="언더그라운드" />
         <ToggleBtn />
       </PageLayout>
     </>
