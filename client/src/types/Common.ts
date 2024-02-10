@@ -9,7 +9,10 @@ type Tag = {
 export type Card = {
   barName: string;
   tag?: Tag;
-  barImg: string;
+  barImg?: string;
   score?: number;
   content?: string;
 };
+
+export type CardTag = Omit<Card, "content">;
+export type CardReview = Omit<Card, "tag">;
