@@ -4,9 +4,14 @@ import styled from "styled-components";
 interface ButtonProps {
   onClick: () => void;
   children: React.ReactNode;
+  type: "submit";
 }
-const RoundButton: React.FC<ButtonProps> = ({ onClick, children }) => {
-  return <Button onClick={onClick}>{children}</Button>;
+const RoundButton: React.FC<ButtonProps> = ({ onClick, children, type }) => {
+  return (
+    <Button onClick={onClick} type={type}>
+      {children}
+    </Button>
+  );
 };
 
 export default RoundButton;
