@@ -34,6 +34,7 @@ const InputFieldText: React.FC<InputProps> = ({
             type={type}
             placeholder={placeholder}
             value={value}
+            onChange={handleChange}
           />
         </InputFieldBox>
       </InputLayout>
