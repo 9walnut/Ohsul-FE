@@ -60,12 +60,14 @@ const LoginPage: React.FC = () => {
           >
             비밀번호
           </InputFieldText>
+        </form>
+        <ButtonBox>
           <RoundButton type="submit" onClick={handleClick}>
             로그인
           </RoundButton>
-        </form>
-        {/* <Link to="/register" style={{ textDecoration: "none" }}> */}
-        <StyledLink to="/register">회원가입</StyledLink>
+          {/* <Link to="/register" style={{ textDecoration: "none" }}> */}
+          <StyledLink to="/register">회원가입</StyledLink>
+        </ButtonBox>
       </LoginBox>
     </>
   );
@@ -91,4 +93,11 @@ const StyledLink = styled(Link)`
   text-decoration: none;
   font-size: 10px;
   color: #6f6f6f;
+`;
+
+const ButtonBox = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
 `;
