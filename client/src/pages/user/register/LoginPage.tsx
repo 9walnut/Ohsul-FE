@@ -1,92 +1,86 @@
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import React from "react";
+import { useForm, SubmitHandler } from "react-hook-form";
 
-import styled from "styled-components";
+import * as S from "./LoginPageStyle";
 
 import Header from "../../../components/common/Header";
+import BackButton from "../../../components/common/BackButton";
 import RoundButton from "../../../components/common/RoundButton";
-import InputFieldText from "../../../components/common/InputFieldText";
 
-// ⭐️ 리액트 훅 폼 변경.....
-// ⭐️ 페이지 레이아웃
+type LoginFormInputs = {
+  userId: string;
+  password: string;
+};
+const LoginPage = (props: any) => {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<LoginFormInputs>();
 
-const LoginPage: React.FC = () => {
-  const [idValue, setIdValue] = useState("");
-  const [pwValue, setPwValue] = useState("");
-
-  const handleClick = () => {
-    console.log("버튼 클릭");
-  };
-
-  const handleIdChange = (value: string) => {
-    console.log("아이디 입력값: ", value);
-    setIdValue(value);
-  };
-
-  const handlePwChange = (value: string) => {
-    console.log("비밀번호 입력값: ", value);
-    setPwValue(value);
-  };
-
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    console.log("handleSubmit 버튼 클릭");
+  const onSubmit: SubmitHandler<LoginFormInputs> = (data) => {
+    console.log("로그인 입력:", data);
   };
 
   return (
     <>
       <Header title="로그인" />
-      <LoginBox>
-        <form onSubmit={handleSubmit}>
-          <InputFieldText
-            name="id"
-            id="id"
-            type="text"
-            placeholder="아이디를 입력해주세요."
-            value={idValue}
-            onChange={handleIdChange}
-          >
-            아이디
-          </InputFieldText>
-          <InputFieldText
-            name="pw"
-            id="pw"
-            type="password"
-            placeholder="8~20자 영문 숫자 조합."
-            value={pwValue}
-            onChange={handlePwChange}
-          >
-            비밀번호
-          </InputFieldText>
-          <RoundButton type="submit" onClick={handleClick}>
-            로그인
-          </RoundButton>
+      <BackButton />
+      <S.LoginBox>
+        <form onSubmit={handleSubmit(onSubmit)}>
+          <S.InputLayout>
+            <S.StyledLabel>아이디</S.StyledLabel>
+            <S.InputFieldBox>
+              <S.StyledInput
+                type="text"
+                id="userId"
+                {...register("userId", { required: true })}
+              />
+            </S.InputFieldBox>
+            {errors.userId && (
+              <S.ErrorMessage>아이디를 입력해주세요.</S.ErrorMessage>
+            )}
+          </S.InputLayout>
+          <S.InputLayout>
+            <S.StyledLabel>비밀번호</S.StyledLabel>
+            <S.InputFieldBox>
+              <S.StyledInput
+                type="password"
+                {...register("password", {
+                  required: true,
+                  minLength: 8,
+                  maxLength: 20,
+                  pattern: /^(?=.*[a-zA-Z])(?=.*\d).{8,20}$/,
+                })}
+              />
+            </S.InputFieldBox>
+            {errors.password?.type === "required" && (
+              <S.ErrorMessage>비밀번호를 입력해주세요.</S.ErrorMessage>
+            )}
+            {errors.password?.type === "minLength" && (
+              <S.ErrorMessage>
+                비밀번호는 최소 8자 이상이어야 합니다.
+              </S.ErrorMessage>
+            )}
+            {errors.password?.type === "maxLength" && (
+              <S.ErrorMessage>
+                비밀번호는 최대 20자 이하여야 합니다.
+              </S.ErrorMessage>
+            )}
+            {errors.password?.type === "pattern" && (
+              <S.ErrorMessage>
+                비밀번호는 영문과 숫자의 조합이어야 합니다.
+              </S.ErrorMessage>
+            )}
+          </S.InputLayout>
+          <S.ButtonBox>
+            <RoundButton type="submit">로그인</RoundButton>
+          </S.ButtonBox>
         </form>
-        {/* <Link to="/register" style={{ textDecoration: "none" }}> */}
-        <StyledLink to="/register">회원가입</StyledLink>
-      </LoginBox>
+        <S.StyledLink to="/register">회원가입</S.StyledLink>
+      </S.LoginBox>
     </>
   );
 };
 
 export default LoginPage;
-
-const LoginBox = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 0px 20px;
-  gap: 60px;
-
-  position: absolute;
-  width: 383px;
-  height: 252px;
-  left: 3px;
-  top: 221px;
-`;
-
-const StyledLink = styled(Link)`
-  text-decoration: none;
-  font-size: 10px;
-  color: #6f6f6f;
-`;
