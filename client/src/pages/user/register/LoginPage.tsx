@@ -8,7 +8,7 @@ import BackButton from "../../../components/common/BackButton";
 import RoundButton from "../../../components/common/RoundButton";
 
 type LoginFormInputs = {
-  username: string;
+  userId: string;
   password: string;
 };
 const LoginPage = (props: any) => {
@@ -33,11 +33,11 @@ const LoginPage = (props: any) => {
             <S.InputFieldBox>
               <S.StyledInput
                 type="text"
-                id="id"
-                {...register("username", { required: true })}
+                id="userId"
+                {...register("userId", { required: true })}
               />
             </S.InputFieldBox>
-            {errors.username && (
+            {errors.userId && (
               <S.ErrorMessage>아이디를 입력해주세요.</S.ErrorMessage>
             )}
           </S.InputLayout>
