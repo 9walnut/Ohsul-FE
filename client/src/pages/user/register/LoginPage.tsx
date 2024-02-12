@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 import Header from "../../../components/common/Header";
+import BackButton from "../../../components/common/BackButton";
 import RoundButton from "../../../components/common/RoundButton";
 import InputFieldText from "../../../components/common/InputFieldText";
 
@@ -36,6 +37,7 @@ const LoginPage: React.FC = () => {
   return (
     <>
       <Header title="로그인" />
+      <BackButton />
       <LoginBox>
         <form onSubmit={handleSubmit}>
           <InputFieldText
