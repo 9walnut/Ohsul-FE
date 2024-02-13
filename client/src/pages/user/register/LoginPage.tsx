@@ -34,6 +34,7 @@ const LoginPage = (props: any) => {
               <S.StyledInput
                 type="text"
                 id="userId"
+                placeholder="아이디를 입력해주세요."
                 {...register("userId", { required: true })}
               />
             </S.InputFieldBox>
@@ -46,6 +47,7 @@ const LoginPage = (props: any) => {
             <S.InputFieldBox>
               <S.StyledInput
                 type="password"
+                placeholder="8~20자 영문 숫자 조합."
                 {...register("password", {
                   required: true,
                   minLength: 8,
