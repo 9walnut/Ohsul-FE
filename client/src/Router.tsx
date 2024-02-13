@@ -6,6 +6,8 @@ import NearAlcoholPage from "./pages/nearAlcohol/NearAlcoholPage";
 import MyPage from "./pages/user/mypage/MyPage";
 import LoginPage from "./pages/user/register/LoginPage";
 import RegisterPage from "./pages/user/register/RegisterPage";
+import FavoritePage from "./pages/user/mypage/FavoritePage";
+import MyReviewPage from "./pages/user/mypage/MyReviewPage";
 
 const router = createBrowserRouter([
   {
@@ -45,6 +47,14 @@ const router = createBrowserRouter([
       {
         path: "",
         element: <MyPage />,
+      },
+      {
+        path: "favorite",
+        element: <FavoritePage />,
+      },
+      {
+        path: "myreview",
+        element: <MyReviewPage />,
       },
     ],
   },
