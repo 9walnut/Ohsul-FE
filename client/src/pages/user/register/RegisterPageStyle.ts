@@ -37,6 +37,7 @@ export const InputLayout = styled.div`
   gap: 10px;
   width: 343px;
   height: 57px;
+  margin-bottom: 40px;
 `;
 
 export const StyledLabel = styled.label`
@@ -49,7 +50,7 @@ export const InputFieldBox = styled.div`
   flex-direction: row;
   align-items: center;
   padding: 12px 16px;
-  gap: 8px;
+  gap: 7px;
   width: 222px;
   height: 29px;
   background: #fcfaf9;
@@ -64,7 +65,7 @@ export const StyledInput = styled.input`
   background-color: transparent;
   &::placeholder {
     font-weight: 400;
-    font-size: 10px;
+    font-size: 12px;
     line-height: 24px;
     text-align: center;
   }
@@ -72,5 +73,6 @@ export const StyledInput = styled.input`
 
 export const ErrorMessage = styled.span`
   color: #4d607b;
-  font-size: 8px;
+  border-bottom: 0.5px solid #4d607b;
+  font-size: 11px;
 `;
