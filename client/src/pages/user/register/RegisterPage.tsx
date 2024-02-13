@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 
 import * as S from "./RegisterPageStyle";
@@ -6,10 +6,6 @@ import * as S from "./RegisterPageStyle";
 import Header from "../../../components/common/Header";
 import BackButton from "../../../components/common/BackButton";
 import RoundButton from "../../../components/common/RoundButton";
-
-//⭐️ 입력 시 검사되도록
-// 에러메시지 스타일 변경
-// 레이아웃 디테일 잡아야함. 로그인도
 
 type RegisterFormInputs = {
   userId: string;
@@ -25,12 +21,27 @@ const RegisterPage = (props: any) => {
     handleSubmit,
     formState: { errors },
     getValues,
-    trigger,
-  } = useForm<RegisterFormInputs>();
+    watch,
+    setError,
+    clearErrors,
+  } = useForm<RegisterFormInputs>({ mode: "onChange" });
 
   const onSubmit: SubmitHandler<RegisterFormInputs> = (data) => {
     console.log("회원가입 입력", data);
   };
+
+  useEffect(() => {
+    const passwordWatch = watch("password");
+    const pwCheckWatch = watch("pwCheck");
+    if (passwordWatch !== pwCheckWatch && pwCheckWatch) {
+      setError("pwCheck", {
+        type: "password-mismatch",
+        message: "비밀번호가 일치하지 않습니다",
+      });
+    } else {
+      clearErrors("pwCheck");
+    }
+  }, [watch("password"), watch("pwCheck"), setError, clearErrors]);
 
   return (
     <>
@@ -65,9 +76,6 @@ const RegisterPage = (props: any) => {
                   maxLength: 20,
                   pattern: /^(?=.*[a-zA-Z])(?=.*\d).{8,20}$/,
                 })}
-                // onChange={() => {
-                //   trigger("password");
-                // }}
               />
             </S.InputFieldBox>
             {errors.password?.type === "required" && (
@@ -75,12 +83,12 @@ const RegisterPage = (props: any) => {
             )}
             {errors.password?.type === "minLength" && (
               <S.ErrorMessage>
-                비밀번호는 최소 8자 이상이어야 합니다.
+                비밀번호는 최소 8자 이상 영문과 숫자의 조합이여야 합니다.
               </S.ErrorMessage>
             )}
             {errors.password?.type === "maxLength" && (
               <S.ErrorMessage>
-                비밀번호는 최대 20자 이하여야 합니다.
+                비밀번호는 20자 이하 영문과 숫자의 조합이여야 합니다.
               </S.ErrorMessage>
             )}
             {errors.password?.type === "pattern" && (
@@ -99,13 +107,19 @@ const RegisterPage = (props: any) => {
                 placeholder="비밀번호를 확인해주세요."
                 {...register("pwCheck", {
                   required: true,
+                  // validate: {
+                  //   matchPassword: (value) => {
+                  //     // const { password } = getValues();
+                  //     return (
+                  //       value === getValues("password") ||
+                  //       "비밀번호가 일치하지 않습니다"
+                  //     );
+                  //   },
+                  // },
                   validate: (value) =>
                     value === getValues("password") ||
                     "비밀번호가 일치하지 않습니다.",
                 })}
-                // onChange={() => {
-                //   trigger("pwCheck");
-                // }}
               />
             </S.InputFieldBox>
             {errors.pwCheck?.type === "required" && (
@@ -126,9 +140,6 @@ const RegisterPage = (props: any) => {
                   required: true,
                   minLength: 2,
                 })}
-                // onChange={() => {
-                //   trigger("name");
-                // }}
               />
             </S.InputFieldBox>
             {errors.name?.type === "required" && (
@@ -151,9 +162,6 @@ const RegisterPage = (props: any) => {
                   required: true,
                   minLength: 2,
                 })}
-                // onChange={() => {
-                //   trigger("nickName");
-                // }}
               />
             </S.InputFieldBox>
             {errors.nickName?.type === "required" && (
