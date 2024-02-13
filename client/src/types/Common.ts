@@ -16,3 +16,12 @@ export type Card = {
 
 export type CardTag = Omit<Card, "content">;
 export type CardReview = Omit<Card, "tag">;
+
+export type CardBarReview = {
+  userNickname: string;
+  score: number;
+  barImg?: string;
+  tag?: Tag;
+  content?: string;
+  date: string;
+};
