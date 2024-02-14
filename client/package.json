@@ -13,6 +13,7 @@
     "@types/styled-components": "^5.1.34",
     "pretendard": "^1.3.9",
     "react": "^18.2.0",
+    "styled-reset": "^4.5.2",
     "react-dom": "^18.2.0",
     "react-hook-form": "^7.50.1",
     "react-router-dom": "^6.22.0",
