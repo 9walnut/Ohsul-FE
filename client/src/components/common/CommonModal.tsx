@@ -19,7 +19,7 @@ const CommonModal: React.FC<Modal> = ({ message, isClose }) => {
             </CloseBtn>
           )}
           <MessageBox>{message}</MessageBox>
-          <WideButton onClick={() => setModal(false)}>하이</WideButton>
+          <WideButton onClick={() => setModal(false)}>확인</WideButton>
         </ModalLayout>
       )}
     </>

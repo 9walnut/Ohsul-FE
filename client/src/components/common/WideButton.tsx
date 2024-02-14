@@ -14,15 +14,10 @@ export default WideButton;
 const Button = styled.button`
   /* width: 343px; */
   width: 90%;
-  height: 46px;
+  /* height: 46px; */
+  padding: 4px;
 
-  /* position: absolute; */
-  left: 1.5px;
-  right: 1.5px;
-  top: 0%;
-  bottom: 44.62%;
-
-  background: #4d607b;
+  background: ${({ theme }) => theme.colors.btnBlue};
   border-radius: 10px;
   border: none;
   outline: none;
