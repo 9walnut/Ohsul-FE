@@ -2,6 +2,7 @@ import React from "react";
 import styled from "styled-components";
 
 import { Card } from "../../types/Common";
+import StarRating from "./StarRating";
 
 // ✅삼항연산자로 태그 잇냐없냐에 따라 레이아웃 다르게?
 
@@ -14,7 +15,8 @@ const CardCol: React.FC<Card> = ({ barName, barImg, score, tag }) => {
           <ImgBox>
             <img src={process.env.PUBLIC_URL + barImg} alt={barName} />
           </ImgBox>
-          <div>여기는 별점{score}</div>
+          {/* @ts-ignore */}
+          <StarRating score={score} />
           {/* <div>{tag}</div> */}
         </BasicBox>
       </CardLayout>
@@ -31,7 +33,7 @@ const CardLayout = styled.div`
   padding: 10px 15px;
   gap: 20px;
 
-  width: 100%;
+  width: 382px;
   height: 163px;
 
   background: #fcfaf9;

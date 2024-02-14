@@ -21,7 +21,7 @@ const Navbar = () => {
           <NavbarList>
             <NavbarItem>
               <img src="/assets/images/navbar_home.png" alt="home" />
-              <p style={{ width: "70px" }}>홈</p>
+              <p>홈</p>
             </NavbarItem>
           </NavbarList>
         </StyledNavLink>
@@ -33,6 +33,7 @@ const Navbar = () => {
             </NavbarItem>
           </NavbarList>
         </StyledNavLink>
+        {/* 로그인 여부에 따른 UI & 페이지 이동 */}
         <NavbarOnClick to={isLogin ? "/mypage" : "/login"}>
           <NavbarList>
             <NavbarItem>
@@ -91,6 +92,7 @@ const NavbarOnClick = styled(StyledNavLink)`
 const NavbarItem = styled.li`
   padding: 12px;
   p {
+    width: 70px;
     margin-top: 8px;
     font-size: 13px;
     color: #fbf7f5;

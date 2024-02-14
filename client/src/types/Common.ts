@@ -2,6 +2,10 @@ export type HeaderTitle = {
   title: string;
 };
 
+export type StarRatingProps = {
+  score: number;
+};
+
 type Tag = {
   [key: string]: string[];
 };
