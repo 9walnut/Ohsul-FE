@@ -7,6 +7,8 @@ import CardColTag from "../../components/common/CardColTag";
 import CardColReview from "../../components/common/CardColReview";
 import BarReviewCard from "../../components/common/BarReviewCard";
 
+import Toggle2 from "../../components/nearAlcohol/Toggle2";
+
 const DUMMYBarReviewCard = {
   userNickname: "졸린공룡",
   score: 4,
@@ -42,6 +44,7 @@ const NearAlcoholPage: React.FC = () => {
           date={DUMMYBarReviewCard.date}
         />
         <ToggleBtn />
+        <Toggle2 />
       </PageLayout>
     </>
   );
