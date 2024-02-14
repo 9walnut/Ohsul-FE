@@ -32,7 +32,7 @@ const Button = styled.button`
   outline: none;
   cursor: pointer;
 
-  font-family: "Yeongdeok Sea";
+  font-family: "YeongdeokSea";
   font-style: normal;
   font-weight: 400;
   font-size: 18px;

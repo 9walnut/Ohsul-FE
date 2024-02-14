@@ -7,12 +7,13 @@ export const LoginBox = styled.div`
   align-items: center;
   padding: 0px 20px;
   gap: 10px;
+  margin-top: 100px;
 
-  position: absolute;
-  width: 383px;
+  /* position: absolute; */
+  /* width: 383px;
   height: 252px;
   left: 3px;
-  top: 221px;
+  top: 221px; */
 `;
 
 export const StyledLink = styled(Link)`
@@ -35,8 +36,8 @@ export const InputLayout = styled.div`
   align-items: center;
   padding: 0px;
   gap: 10px;
-  width: 343px;
-  height: 57px;
+  /* width: 343px; */
+  /* height: 57px; */
   margin-bottom: 40px;
 `;
 
@@ -49,10 +50,10 @@ export const InputFieldBox = styled.div`
   display: flex;
   flex-direction: row;
   align-items: center;
-  padding: 12px 16px;
+  padding: 0px 8px;
   gap: 7px;
-  width: 222px;
-  height: 29px;
+  /* width: 222px; */
+  /* height: 29px; */
   background: #fcfaf9;
   border-radius: 50px;
 `;
