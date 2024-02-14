@@ -29,3 +29,8 @@ export type CardBarReview = {
   content?: string;
   date: string;
 };
+
+export type Modal = {
+  message: string;
+  isClose: boolean;
+};
