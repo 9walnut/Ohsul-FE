@@ -25,7 +25,12 @@ const ExplainWrap = styled.div`
   /* width: 100%; */
   box-sizing: border-box;
   position: relative;
-  font-family: YeongdeokSea;
+  font-family: "YeongdeokSea";
+
+  img {
+    width: 100%;
+    height: auto;
+  }
 `;
 
 const ExplainTextBox = styled.div`

@@ -2,7 +2,6 @@ export type HeaderTitle = {
   title: string;
 };
 
-//오술태그 타입
 type Tag = {
   [key: string]: string[];
 };
