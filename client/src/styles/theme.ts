@@ -3,12 +3,13 @@ import { DefaultTheme } from "styled-components";
 const theme: DefaultTheme = {
   colors: {
     bgColor: "#F4EDE6",
+    bgLightColor: "#fcfaf9",
     mainBlue: "#7588A3",
     darkFont: "#3C3630",
     lightFont: "#FBF9F9",
-    btnBlue: "#4D607B",
-    blueFont: "#FCFAF9",
+    blueFont: "#4D607B",
     greyFont: "#646464",
+    btnBlue: "#4D607B",
   },
   fonts: {
     ydFont: "YeongdeokSea",
