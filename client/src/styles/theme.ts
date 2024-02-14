@@ -7,7 +7,7 @@ const theme: DefaultTheme = {
     darkFont: "#3C3630",
     lightFont: "#FBF9F9",
     btnBlue: "#4D607B",
-    blueFont: "#FCFAF9",
+    blueFont: "#4D607B",
     greyFont: "#646464",
   },
   fonts: {
