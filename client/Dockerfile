@@ -2,9 +2,9 @@ FROM node:lts as build
 
 WORKDIR /app
 
-COPY package*.json ./
+COPY package.json ./
 
-RUN npm ci
+RUN npm i
 RUN npm list react-scripts || npm install react-scripts --save
 
 COPY . .
