@@ -10,7 +10,12 @@ const Header: React.FC<HeaderTitle> = ({ title }) => {
         <TitleBox>
           <TitleParagraph>{title}</TitleParagraph>
           <BorderBottom>
-            <img src="/assets/images/header_BorderBottom.png" />
+            <img
+              src={
+                process.env.PUBLIC_URL + "assets/images/header_borderBottom.png"
+              }
+              alt="header_borderBottom"
+            />
           </BorderBottom>
         </TitleBox>
       </HeaderLayout>
@@ -63,56 +68,3 @@ const BorderBottom = styled.div`
     object-fit: contain;
   }
 `;
-// /* title */
-
-// /* Auto layout */
-// display: flex;
-// flex-direction: column;
-// justify-content: center;
-// align-items: center;
-// padding: 4px 8px 12px 16px;
-// gap: 4px;
-
-// width: 390px;
-// height: 55px;
-
-// /* Blur / 24px */
-// backdrop-filter: blur(12px);
-// /* Note: backdrop-filter has minimal browser support */
-
-// /* Inside auto layout */
-// flex: none;
-// order: 0;
-// align-self: stretch;
-// flex-grow: 0;
-
-// /* 오늘의 술 */
-
-// width: 366px;
-// height: 33px;
-
-// font-family: 'Yeongdeok Sea';
-// font-style: normal;
-// font-weight: 400;
-// font-size: 26px;
-// line-height: 32px;
-// /* or 123% */
-// text-align: center;
-
-// /* Inside auto layout */
-// flex: none;
-// order: 0;
-// flex-grow: 1;
-
-// /* Border bottom */
-
-// width: 276px;
-// height: 2px;
-
-// /* Line/Dark */
-// border: 3px solid #000000;
-
-// /* Inside auto layout */
-// flex: none;
-// order: 1;
-// flex-grow: 0;

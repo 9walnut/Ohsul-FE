@@ -9,19 +9,19 @@ const Navbar = () => {
   return (
     <>
       <NavbarLayout>
+        <StyledNavLink to={"/"}>
+          <NavbarList>
+            <NavbarItem>
+              <img src="/assets/images/navbar_home.png" alt="home" />
+              <p>홈</p>
+            </NavbarItem>
+          </NavbarList>
+        </StyledNavLink>
         <StyledNavLink to={"/nearAlcohol"}>
           <NavbarList>
             <NavbarItem>
               <img src="/assets/images/navbar_today.png" alt="today" />
               <p>내 주변의 술</p>
-            </NavbarItem>
-          </NavbarList>
-        </StyledNavLink>
-        <StyledNavLink to={"/main"}>
-          <NavbarList>
-            <NavbarItem>
-              <img src="/assets/images/navbar_home.png" alt="home" />
-              <p>홈</p>
             </NavbarItem>
           </NavbarList>
         </StyledNavLink>

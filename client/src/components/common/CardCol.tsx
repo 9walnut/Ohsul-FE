@@ -13,7 +13,7 @@ const CardCol: React.FC<Card> = ({ barName, barImg, score, tag }) => {
         <BasicBox>
           <TitleBox>{barName}</TitleBox>
           <ImgBox>
-            <img src={process.env.PUBLIC_URL + barImg} alt={barName} />
+            {/* <img src={process.env.PUBLIC_URL + barImg} alt={barName} /> */}
           </ImgBox>
           {/* @ts-ignore */}
           <StarRating score={score} />

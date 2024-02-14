@@ -29,7 +29,7 @@ const MainLayout = styled.div`
   padding: 4%;
   max-width: 430px;
   min-height: 950px;
-  background-color: ${({ theme }) => theme.colors.back};
+  background-color: ${({ theme }) => theme.colors.bgColor};
   text-align: center;
   position: relative;
   padding-bottom: 140px;
