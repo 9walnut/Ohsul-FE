@@ -7,12 +7,12 @@ export const RegisterBox = styled.div`
   align-items: center;
   padding: 0px 20px;
   gap: 10px;
-
-  position: absolute;
+  margin-top: 50px;
+  /* position: absolute;
   width: 383px;
   height: 252px;
   left: 3px;
-  top: 221px;
+  top: 221px; */
 `;
 
 export const StyledLink = styled(Link)`

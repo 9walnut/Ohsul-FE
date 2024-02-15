@@ -42,7 +42,7 @@ export const InputFieldBox = styled.div`
   display: flex;
   flex-direction: row;
   align-items: center;
-  padding: 12px 16px;
+  padding: 0px 8px;
   gap: 7px;
   width: 222px;
   height: 29px;

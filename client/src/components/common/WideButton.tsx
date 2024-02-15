@@ -12,22 +12,18 @@ const WideButton: React.FC<ButtonProps> = ({ onClick, children }) => {
 export default WideButton;
 
 const Button = styled.button`
-  width: 343px;
-  height: 46px;
+  /* width: 343px; */
+  width: 90%;
+  /* height: 46px; */
+  padding: 4px;
 
-  /* position: absolute; */
-  left: 1.5px;
-  right: 1.5px;
-  top: 0%;
-  bottom: 44.62%;
-
-  background: #4d607b;
-  border-radius: 100px;
+  background: ${({ theme }) => theme.colors.btnBlue};
+  border-radius: 10px;
   border: none;
   outline: none;
   cursor: pointer;
 
-  font-family: "Yeongdeok Sea";
+  font-family: ${({ theme }) => theme.fonts.ydFont};
   font-style: normal;
   font-weight: 400;
   font-size: 18px;
