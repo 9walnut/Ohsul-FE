@@ -5,7 +5,19 @@ import WideButton from "./WideButton";
 
 const ConfirmModal: React.FC<Modal> = ({ message, isClose }) => {
   const [modal, setModal] = useState(true);
-  console.log(message, "메시지");
+
+  const handlerCancel = () => {
+    console.log("취소요");
+    setModal(false);
+    return false;
+  };
+
+  const handlerCheck = () => {
+    console.log("확인요");
+    setModal(false);
+    return true;
+  };
+
   return (
     <>
       {modal && (
@@ -20,17 +32,24 @@ const ConfirmModal: React.FC<Modal> = ({ message, isClose }) => {
           )}
           <MessageBox>{message}</MessageBox>
           <BtnWrapper>
-            <CancelBtn>취소</CancelBtn>
-            <CheckBtn>확인</CheckBtn>
+            <CheckBtn isCheck={false} onClick={handlerCancel}>
+              취소
+            </CheckBtn>
+            <CheckBtn isCheck={true} onClick={handlerCheck}>
+              확인
+            </CheckBtn>
           </BtnWrapper>
         </ModalLayout>
       )}
     </>
   );
 };
+interface BtnProps {
+  isCheck: boolean;
+}
 
 const ModalLayout = styled.div`
-  width: 80vw;
+  width: 80%;
   position: absolute;
   top: 40%;
   background-color: #fcfaf9;
@@ -44,6 +63,7 @@ const CloseBtn = styled.div`
   img {
     position: absolute;
     right: 0;
+    cursor: pointer;
   }
 `;
 
@@ -52,13 +72,18 @@ const MessageBox = styled.div`
 `;
 
 const BtnWrapper = styled.div`
-  width: 90vw;
+  width: 100%;
+  display: flex;
+  justify-content: space-evenly;
 `;
 
-const CheckBtn = styled.button`
-  background: ${({ theme }) => theme.colors.btnBlue};
+const CheckBtn = styled.button<BtnProps>`
+  width: 45%;
+  background: ${({ isCheck, theme }) =>
+    isCheck ? theme.colors.btnBlue : "none"};
   border-radius: 10px;
-  border: none;
+  border-color: ${({ isCheck, theme }) =>
+    isCheck ? theme.colors.btnBlue : "none"};
   outline: none;
   cursor: pointer;
   font-family: ${({ theme }) => theme.fonts.ydFont};
@@ -67,22 +92,23 @@ const CheckBtn = styled.button`
   font-size: 18px;
   line-height: 27px;
   text-align: center;
-  color: #ffffff;
-`;
+  color: ${({ isCheck, theme }) =>
+    isCheck ? theme.colors.lightFont : theme.colors.blueFont};
 
-const CancelBtn = styled.button`
-  background: none;
-  border-radius: 10px;
-  border-color: ${({ theme }) => theme.colors.btnBlue};
-  outline: none;
-  cursor: pointer;
-  font-family: ${({ theme }) => theme.fonts.ydFont};
-  font-style: normal;
-  font-weight: 400;
-  font-size: 18px;
-  line-height: 27px;
-  text-align: center;
-  color: ${({ theme }) => theme.colors.blueFont};
+  // const CancelBtn = styled.button
 `;
+//   background: none;
+//   border-radius: 10px;
+//   border-color: ${({ theme }) => theme.colors.btnBlue};
+//   outline: none;
+//   cursor: pointer;
+//   font-family: ${({ theme }) => theme.fonts.ydFont};
+//   font-style: normal;
+//   font-weight: 400;
+//   font-size: 18px;
+//   line-height: 27px;
+//   text-align: center;
+//   color: ${({ theme }) => theme.colors.blueFont};
+// `;
 
 export default ConfirmModal;
