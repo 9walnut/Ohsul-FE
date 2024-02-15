@@ -1,29 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { Map, MapMarker } from "react-kakao-maps-sdk";
 import styled from "styled-components";
-
-// 상태 타입 및 마커 타입 정의
-interface State {
-  center: {
-    lat: number;
-    lng: number;
-  } | null;
-  errMsg: string | null;
-  isLoading: boolean;
-}
-
-interface MarkerInfo {
-  position: {
-    lat: number;
-    lng: number;
-  };
-  content: string;
-}
+import { State, MarkerInfo, SearchResult } from "../../types/Map";
 
 const KakaoMap04 = () => {
   const [info, setInfo] = useState<MarkerInfo | null>(null);
   const [searchWord, setSearchWord] = useState<string>("");
   const [markers, setMarkers] = useState<MarkerInfo[]>([]);
+  const [searchResults, setSearchResults] = useState<SearchResult[]>([]);
   const [state, setState] = useState<State>({
     center: null,
     errMsg: null,
@@ -32,7 +16,6 @@ const KakaoMap04 = () => {
 
   const [map, setMap] = useState<kakao.maps.Map | null>(null);
 
-  // 검색할 카테고리 목록
   const categories = [
     "술집",
     "호프",
@@ -43,11 +26,17 @@ const KakaoMap04 = () => {
     "일본식주점",
     "칵테일바",
   ];
+  const handleMyLocation = () => {
+    if (state.center && map)
+      map.setCenter(new kakao.maps.LatLng(state.center.lat, state.center.lng));
+  };
 
+  // 검색
   const handleSearch = () => {
     if (!map || !searchWord) return;
     const ps = new kakao.maps.services.Places();
-    let totalMarkers: MarkerInfo[] = []; // totalMarkers의 타입을 MarkerInfo[]로 명시
+    let totalMarkers: MarkerInfo[] = [];
+    let totalResults: SearchResult[] = [];
 
     categories.forEach((category, index) => {
       const searchQuery = `${searchWord} ${category}`;
@@ -63,6 +52,14 @@ const KakaoMap04 = () => {
             content: item.place_name,
           }));
 
+          const newResults: SearchResult[] = data.map((item) => ({
+            name: item.place_name,
+            address: item.address_name,
+            lat: parseFloat(item.y),
+            lng: parseFloat(item.x),
+            phone: item.phone,
+          }));
+
           newMarkers.forEach((marker) => {
             totalMarkers.push(marker);
             bounds.extend(
@@ -70,9 +67,11 @@ const KakaoMap04 = () => {
             );
           });
 
+          totalResults = [...totalResults, ...newResults];
+
           if (index === categories.length - 1) {
-            // 마지막 카테고리 검색이 완료된 경우
             setMarkers(totalMarkers);
+            setSearchResults(totalResults);
             map.setBounds(bounds);
           }
         }
@@ -80,7 +79,6 @@ const KakaoMap04 = () => {
     });
   };
 
-  // 내 위치 로딩
   useEffect(() => {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(
@@ -106,68 +104,51 @@ const KakaoMap04 = () => {
     } else {
       setState({
         center: null,
-        errMsg: "Geolocation is not supported by this browser.",
+        errMsg: "Geolocation err",
         isLoading: false,
       });
     }
   }, []);
-
-  // 내 위치로 이동
-  const moveToCurrentLocation = () => {
-    if (navigator.geolocation && map) {
-      navigator.geolocation.getCurrentPosition(
-        (position) => {
-          const lat = position.coords.latitude;
-          const lng = position.coords.longitude;
-          map.setCenter(new kakao.maps.LatLng(lat, lng));
-        },
-        (error) => {
-          console.error("Geolocation failed: ", error);
-        }
-      );
-    } else {
-      alert("이 브라우저에서는 Geolocation이 지원되지 않습니다.");
-    }
-  };
 
   return (
     <>
       {state.isLoading ? (
         <p>Loading...</p>
       ) : state.center ? (
-        <Map
-          center={state.center}
-          style={{ width: "100%", height: "450px" }}
-          level={3}
-          onCreate={setMap}
-        >
-          {markers.map((marker, index) => (
-            <MapMarker
-              key={`marker-${index}`}
-              position={marker.position}
-              // onClick 전화번호를 보내고 일치하는 술집 데이터를 받아오는 axios 요청 추가
-              onClick={() => setInfo(marker)}
-            >
-              {info && info.content === marker.content && (
-                <InfoBox>{marker.content}</InfoBox>
-              )}
-            </MapMarker>
-          ))}
-        </Map>
+        <>
+          <Map
+            center={state.center}
+            style={{ width: "100%", height: "450px" }}
+            level={3}
+            onCreate={setMap}
+          >
+            {markers.map((marker, index) => (
+              <MapMarker
+                key={`marker-${index}`}
+                position={marker.position}
+                onClick={() => setInfo(marker)}
+              >
+                {info && info.content === marker.content && (
+                  <InfoBox>{marker.content}</InfoBox>
+                )}
+              </MapMarker>
+            ))}
+          </Map>
+          <div>
+            <input
+              type="text"
+              value={searchWord}
+              onChange={(e) => setSearchWord(e.target.value)}
+            />
+            <button onClick={handleSearch}>검색</button>
+          </div>
+          <SearchResultsList results={searchResults} />
+        </>
       ) : (
         <p>{state.errMsg || "위치 정보를 가져올 수 없습니다."}</p>
       )}
       <div>
-        <button onClick={moveToCurrentLocation}>내 위치로</button>
-      </div>
-      <br />
-      <div>
-        <input
-          type="text"
-          value={searchWord}
-          onChange={(e) => setSearchWord(e.target.value)}
-        />
-        <button onClick={handleSearch}>검색</button>
+        <button onClick={handleMyLocation}>내 위치</button>
       </div>
     </>
   );
@@ -176,5 +157,23 @@ const KakaoMap04 = () => {
 const InfoBox = styled.div`
   padding: 4px;
 `;
+
+const SearchResultsList: React.FC<{ results: SearchResult[] }> = ({
+  results,
+}) => (
+  <>
+    <ul>
+      {results.map((result, index) => (
+        <li key={index} style={{ marginBottom: "10px" }}>
+          <strong>{result.name}</strong>
+          <br />
+          {result.address}
+          <br />
+          {result.phone}
+        </li>
+      ))}
+    </ul>
+  </>
+);
 
 export default KakaoMap04;
