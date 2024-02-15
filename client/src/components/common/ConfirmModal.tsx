@@ -6,13 +6,13 @@ import WideButton from "./WideButton";
 const ConfirmModal: React.FC<Modal> = ({ message, isClose }) => {
   const [modal, setModal] = useState(true);
 
-  const cancelHandler = () => {
+  const handlerCancel = () => {
     console.log("취소요");
     setModal(false);
     return false;
   };
 
-  const checkHandler = () => {
+  const handlerCheck = () => {
     console.log("확인요");
     setModal(false);
     return true;
@@ -32,10 +32,10 @@ const ConfirmModal: React.FC<Modal> = ({ message, isClose }) => {
           )}
           <MessageBox>{message}</MessageBox>
           <BtnWrapper>
-            <CheckBtn isCheck={false} onClick={cancelHandler}>
+            <CheckBtn isCheck={false} onClick={handlerCancel}>
               취소
             </CheckBtn>
-            <CheckBtn isCheck={true} onClick={checkHandler}>
+            <CheckBtn isCheck={true} onClick={handlerCheck}>
               확인
             </CheckBtn>
           </BtnWrapper>

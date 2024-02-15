@@ -5,7 +5,9 @@ import WideButton from "./WideButton";
 
 const CommonModal: React.FC<Modal> = ({ message, isClose }) => {
   const [modal, setModal] = useState(true);
-  console.log(message, "메시지");
+
+  // console.log(message, "메시지");
+
   return (
     <>
       {modal && (
