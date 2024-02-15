@@ -32,20 +32,10 @@ const ConfirmModal: React.FC<Modal> = ({ message, isClose }) => {
           )}
           <MessageBox>{message}</MessageBox>
           <BtnWrapper>
-            <CheckBtn
-              isCheck={false}
-              onClick={() => {
-                cancelHandler();
-              }}
-            >
+            <CheckBtn isCheck={false} onClick={cancelHandler}>
               취소
             </CheckBtn>
-            <CheckBtn
-              isCheck={true}
-              onClick={() => {
-                checkHandler();
-              }}
-            >
+            <CheckBtn isCheck={true} onClick={checkHandler}>
               확인
             </CheckBtn>
           </BtnWrapper>

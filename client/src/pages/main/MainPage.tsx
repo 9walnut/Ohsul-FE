@@ -5,6 +5,7 @@ import ExplainBox from "../../components/main/ExplainBox";
 import StarRating from "../../components/common/StarRating";
 import CommonModal from "../../components/common/CommonModal";
 import ConfirmModal from "../../components/common/ConfirmModal";
+import CardRow from "../../components/common/CardRow";
 
 const MainPage: React.FC = () => {
   const [ratingIndex, setRatingIndex] = useState(1);
@@ -22,6 +23,7 @@ const MainPage: React.FC = () => {
         message="메시지이이ㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣ"
         isClose={true}
       />
+      <CardRow />
     </>
   );
 };
