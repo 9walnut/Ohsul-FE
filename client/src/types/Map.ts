@@ -22,3 +22,9 @@ export interface SearchResult {
   lng: number;
   phone: string;
 }
+export interface SearchCenter {
+  position: {
+    lat: number;
+    lng: number;
+  };
+}
