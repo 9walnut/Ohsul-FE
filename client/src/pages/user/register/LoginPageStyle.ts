@@ -7,26 +7,20 @@ export const LoginBox = styled.div`
   align-items: center;
   padding: 0px 20px;
   gap: 10px;
-  margin-top: 100px;
 
-  /* position: absolute; */
-  /* width: 383px;
-  height: 252px;
-  left: 3px;
-  top: 221px; */
+  height: 80vh;
+  position: relative;
+  justify-content: center;
+  justify-items: center;
 `;
 
 export const StyledLink = styled(Link)`
   text-decoration: none;
   font-size: 10px;
-  color: #6f6f6f;
+  color: ${({ theme }) => theme.colors.greyFont};
 `;
 
 export const ButtonBox = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 10px;
   margin-top: 60px;
 `;
 
@@ -36,8 +30,6 @@ export const InputLayout = styled.div`
   align-items: center;
   padding: 0px;
   gap: 10px;
-  /* width: 343px; */
-  /* height: 57px; */
   margin-bottom: 40px;
 `;
 
@@ -52,9 +44,9 @@ export const InputFieldBox = styled.div`
   align-items: center;
   padding: 0px 8px;
   gap: 7px;
-  /* width: 222px; */
-  /* height: 29px; */
-  background: #fcfaf9;
+  width: 222px;
+  height: 29px;
+  background: ${({ theme }) => theme.colors.bgLightColor};
   border-radius: 50px;
 `;
 
@@ -73,7 +65,7 @@ export const StyledInput = styled.input`
 `;
 
 export const ErrorMessage = styled.span`
-  color: #4d607b;
+  color: ${({ theme }) => theme.colors.blueFont};
   border-bottom: 0.5px solid #4d607b;
   font-size: 11px;
 `;
