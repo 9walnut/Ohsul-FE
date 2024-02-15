@@ -12,7 +12,8 @@ const Header: React.FC<HeaderTitle> = ({ title }) => {
           <BorderBottom>
             <img
               src={
-                process.env.PUBLIC_URL + "assets/images/header_borderBottom.png"
+                process.env.PUBLIC_URL +
+                "/assets/images/header_borderBottom.png"
               }
               alt="header_borderBottom"
             />

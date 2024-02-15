@@ -1,5 +1,6 @@
 import React from "react";
 import { useState } from "react";
+import { NavLink, useNavigate } from "react-router-dom";
 import Header from "../../components/common/Header";
 import ExplainBox from "../../components/main/ExplainBox";
 import StarRating from "../../components/common/StarRating";
@@ -24,6 +25,8 @@ const MainPage: React.FC = () => {
         isClose={true}
       />
       <CardRow />
+      <br />
+      <NavLink to={"/barReviews/addReview"}>리뷰페이지 이동</NavLink>
     </>
   );
 };

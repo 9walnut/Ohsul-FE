@@ -8,6 +8,7 @@ import LoginPage from "./pages/user/register/LoginPage";
 import RegisterPage from "./pages/user/register/RegisterPage";
 import FavoritePage from "./pages/user/mypage/FavoritePage";
 import MyReviewPage from "./pages/user/mypage/MyReviewPage";
+import BarAddReviewPage from "./pages/review/BarAddReviewPage";
 
 const router = createBrowserRouter([
   {
@@ -75,6 +76,16 @@ const router = createBrowserRouter([
       {
         path: "",
         element: <RegisterPage />,
+      },
+    ],
+  },
+  {
+    path: "/barReviews",
+    element: <App />,
+    children: [
+      {
+        path: "addReview",
+        element: <BarAddReviewPage />,
       },
     ],
   },

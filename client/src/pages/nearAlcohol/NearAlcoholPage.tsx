@@ -8,6 +8,7 @@ import CardColReview from "../../components/common/CardColReview";
 import BarReviewCard from "../../components/common/BarReviewCard";
 
 import Toggle2 from "../../components/nearAlcohol/Toggle2";
+import KakaoMap04 from "../../components/common/KakaoMap04";
 
 const DUMMYBarReviewCard = {
   userNickname: "졸린공룡",
@@ -29,7 +30,7 @@ const NearAlcoholPage: React.FC = () => {
     <>
       <PageLayout>
         <Header title="내 주변의 술" />
-        <KakaoMap01 width="100%" height="700px" />
+        <KakaoMap04 />
         <p>얘는 가로형 카드 태그형</p>
         <CardColTag barName="언더그라운드" />
         <p>얘는 가로형 카드 리뷰형</p>
