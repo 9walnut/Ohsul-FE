@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Map, MapMarker } from "react-kakao-maps-sdk";
 import styled from "styled-components";
-import { State, MarkerInfo, SearchResult } from "../../types/Map";
+import { State, MarkerInfo, SearchResult, SearchCenter } from "../../types/Map";
 
 const KakaoMap04 = () => {
   const [info, setInfo] = useState<MarkerInfo | null>(null);
@@ -13,6 +13,9 @@ const KakaoMap04 = () => {
     errMsg: null,
     isLoading: true,
   });
+
+  const [address, setAddress] = useState<string>("");
+  const [data, setData] = useState<SearchCenter | null>(null);
 
   const [map, setMap] = useState<kakao.maps.Map | null>(null);
 
@@ -110,6 +113,20 @@ const KakaoMap04 = () => {
     }
   }, []);
 
+  // 좌표를 주소로 변환
+  const convertCoordsToAddress = (x: number, y: number) => {
+    const geocoder = new kakao.maps.services.Geocoder();
+    const coord = new kakao.maps.LatLng(y, x);
+    const callback = function (result: any, status: any) {
+      if (status === kakao.maps.services.Status.OK) {
+        setAddress(result[0].address.address_name);
+      } else {
+        setAddress("주소 변환에 실패했습니다.");
+      }
+    };
+    geocoder.coord2Address(coord.getLng(), coord.getLat(), callback);
+  };
+
   return (
     <>
       {state.isLoading ? (
@@ -121,6 +138,18 @@ const KakaoMap04 = () => {
             style={{ width: "100%", height: "450px" }}
             level={3}
             onCreate={setMap}
+            onCenterChanged={(map) => {
+              //지도 중심 변경 시 좌표 가져오기
+              const latlng = map.getCenter();
+
+              setData({
+                position: {
+                  lat: latlng.getLat(),
+                  lng: latlng.getLng(),
+                },
+              });
+              convertCoordsToAddress(latlng.getLng(), latlng.getLat());
+            }}
           >
             {markers.map((marker, index) => (
               <MapMarker
@@ -134,6 +163,19 @@ const KakaoMap04 = () => {
               </MapMarker>
             ))}
           </Map>
+          {data && (
+            <>
+              <div>
+                <p>✅ 지도 이동 시: </p>
+                <p>
+                  위도 {data.position.lat}
+                  <br /> 경도 {data.position.lng}
+                </p>
+                <br />
+                <p>✅ 현재 주소: {address}</p>
+              </div>
+            </>
+          )}
           <div>
             <input
               type="text"
