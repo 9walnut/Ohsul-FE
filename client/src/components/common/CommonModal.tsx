@@ -27,7 +27,7 @@ const CommonModal: React.FC<Modal> = ({ message, isClose }) => {
 };
 
 const ModalLayout = styled.div`
-  width: 80vw;
+  width: 80%;
   position: absolute;
   top: 20%;
   background-color: #fcfaf9;
@@ -41,6 +41,7 @@ const CloseBtn = styled.div`
   img {
     position: absolute;
     right: 0;
+    cursor: pointer;
   }
 `;
 
