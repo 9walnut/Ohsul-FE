@@ -20,7 +20,8 @@ const KakaoMap05 = () => {
   const [map, setMap] = useState<kakao.maps.Map | null>(null);
 
   const [moveKeyword, setMoveKeyword] = useState<string>("");
-
+  const [clickedResult, setClickedResult] = useState<SearchResult | null>(null);
+  const [getInfo, setGetInfo] = useState("");
   const categories = [
     "술집",
     "호프",
@@ -189,12 +190,53 @@ const KakaoMap05 = () => {
     geocoder.coord2Address(coord.getLng(), coord.getLat(), callback);
   };
 
+  //   // 마커 클릭 시 정보 설정
+  //   const handleMarkerClick = (markerInfo: MarkerInfo) => {
+  //     const result = searchResults.find(
+  //       (result) => result.name === markerInfo.content
+  //     );
+  //     console.log(result);
+  //     if (result) {
+  //         // setGetInfo(result);
+  //         // console.log(getInfo)
+  //       setInfo(markerInfo);
+  //     } else {
+  //       setInfo(null);
+  //     }
+  //   };
+
+  // 마커 클릭 시 정보 설정
+  const handleMarkerClick = (markerInfo: MarkerInfo) => {
+    const result = searchResults.find(
+      (result) => result.name === markerInfo.content
+    );
+    if (result) {
+      setClickedResult(result);
+    } else {
+      setClickedResult(null);
+    }
+    setInfo(markerInfo);
+  };
+
   return (
     <>
       {state.isLoading ? (
         <p>Loading...</p>
       ) : state.center ? (
         <>
+          {data && (
+            <>
+              <div>
+                <p>✅ 지도 이동 시: </p>
+                <p>
+                  위도 {data.position.lat}
+                  <br /> 경도 {data.position.lng}
+                </p>
+                <br />
+                <p>✅ 현재 주소: {address}</p>
+              </div>
+            </>
+          )}
           <Map
             center={state.center}
             style={{ width: "100%", height: "450px" }}
@@ -223,6 +265,7 @@ const KakaoMap05 = () => {
               });
               convertCoordsToAddress(latlng.getLng(), latlng.getLat());
               console.log("onDragEnd", moveKeyword);
+
               handleMovedSearch();
             }}
           >
@@ -230,27 +273,37 @@ const KakaoMap05 = () => {
               <MapMarker
                 key={`marker-${index}`}
                 position={marker.position}
-                onClick={() => setInfo(marker)}
+                // onClick={() => setInfo(marker)}
+                onClick={() => handleMarkerClick(marker)}
+                // image={{
+                //   src: `${process.env.PUBLIC_URL}/assets/images/map_pin.png`,
+                //   size: {
+                //     width: 15,
+                //     height: 19,
+                //   },
+
+                // }}
               >
                 {info && info.content === marker.content && (
                   <InfoBox>{marker.content}</InfoBox>
                 )}
               </MapMarker>
             ))}
+            {/* 내 위치 마커*/}
+            {state.center && (
+              <MapMarker
+                position={state.center}
+                image={{
+                  src: `${process.env.PUBLIC_URL}/assets/images/map_mylocation.png`,
+                  size: {
+                    width: 33,
+                    height: 33,
+                  },
+                }}
+              />
+            )}
           </Map>
-          {data && (
-            <>
-              <div>
-                <p>✅ 지도 이동 시: </p>
-                <p>
-                  위도 {data.position.lat}
-                  <br /> 경도 {data.position.lng}
-                </p>
-                <br />
-                <p>✅ 현재 주소: {address}</p>
-              </div>
-            </>
-          )}
+
           <div>
             <input
               type="text"
@@ -259,7 +312,6 @@ const KakaoMap05 = () => {
             />
             <button onClick={handleSearch}>검색</button>
           </div>
-          <SearchResultsList results={searchResults} />
         </>
       ) : (
         <p>{state.errMsg || "위치 정보를 가져올 수 없습니다."}</p>
@@ -267,6 +319,29 @@ const KakaoMap05 = () => {
       <div>
         <button onClick={handleMyLocation}>내 위치</button>
       </div>
+      <br />
+      {clickedResult && (
+        <DetailBox>
+          <img
+            src={
+              process.env.PUBLIC_URL + "assets/images/common_alternateImage.png"
+            }
+            alt="리뷰이미지"
+            width="100px"
+          />
+          <br />
+          <p>{clickedResult.name}</p>
+          <br />
+          {clickedResult.address}
+          <br />
+          {clickedResult.phone
+            ? clickedResult.phone
+            : "연락처 정보가 없습니다."}
+        </DetailBox>
+      )}
+      <h2>😀 술집 리스트 😀</h2>
+      <br />
+      <SearchResultsList results={searchResults} />
     </>
   );
 };
@@ -292,5 +367,11 @@ const SearchResultsList: React.FC<{ results: SearchResult[] }> = ({
     </ul>
   </>
 );
+
+const DetailBox = styled.div`
+  width: 300px;
+  height: 200px;
+  background-color: #beae95;
+`;
 
 export default KakaoMap05;
