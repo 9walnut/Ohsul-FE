@@ -16,7 +16,6 @@ const KakaoMap04 = () => {
 
   const [address, setAddress] = useState<string>("");
   const [data, setData] = useState<SearchCenter | null>(null);
-
   const [map, setMap] = useState<kakao.maps.Map | null>(null);
 
   const categories = [
@@ -29,6 +28,7 @@ const KakaoMap04 = () => {
     "일본식주점",
     "칵테일바",
   ];
+
   const handleMyLocation = () => {
     if (state.center && map)
       map.setCenter(new kakao.maps.LatLng(state.center.lat, state.center.lng));

@@ -4,7 +4,7 @@ import styled from "styled-components";
 import { State, MarkerInfo, SearchResult, SearchCenter } from "../../types/Map";
 import MapToggle from "./MapToggle";
 
-const KakaoMap05 = () => {
+const KakaoMap06 = () => {
   const [info, setInfo] = useState<MarkerInfo | null>(null);
   const [searchWord, setSearchWord] = useState<string>("");
   const [markers, setMarkers] = useState<MarkerInfo[]>([]);
@@ -138,7 +138,7 @@ const KakaoMap05 = () => {
           if (index === categories.length - 1) {
             setMarkers(totalMarkers);
             setSearchResults(totalResults);
-            //map.setBounds(bounds);
+            // map.setBounds(bounds);
           }
         }
       });
@@ -421,4 +421,4 @@ const SearchWrapper = styled.div`
   }
 `;
 
-export default KakaoMap05;
+export default KakaoMap06;
