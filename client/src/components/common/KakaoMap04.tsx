@@ -120,6 +120,7 @@ const KakaoMap04 = () => {
     const callback = function (result: any, status: any) {
       if (status === kakao.maps.services.Status.OK) {
         setAddress(result[0].address.address_name);
+        console.log("주소임", address);
       } else {
         setAddress("주소 변환에 실패했습니다.");
       }
