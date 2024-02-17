@@ -8,6 +8,8 @@ import CommonModal from "../../components/common/CommonModal";
 import ConfirmModal from "../../components/common/ConfirmModal";
 import CardRow from "../../components/common/CardRow";
 
+import SlickSlider from "../../components/common/SlickSlider";
+
 const MainPage: React.FC = () => {
   const [ratingIndex, setRatingIndex] = useState(1);
   return (
@@ -15,6 +17,7 @@ const MainPage: React.FC = () => {
       <Header title="오늘의 술" />
       <ExplainBox />
       <div>메인 떴냐</div>
+      <SlickSlider />
       <StarRating ratingIndex={ratingIndex} setRatingIndex={setRatingIndex} />
       <CommonModal
         message="메시지이이ㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣ"
