@@ -8,7 +8,6 @@ import theme from "./styles/theme";
 
 const App: React.FC = () => {
   useScrollToTop();
-
   return (
     <>
       <ThemeProvider theme={theme}>

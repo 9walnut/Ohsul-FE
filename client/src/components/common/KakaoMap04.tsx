@@ -16,7 +16,6 @@ const KakaoMap04 = () => {
 
   const [address, setAddress] = useState<string>("");
   const [data, setData] = useState<SearchCenter | null>(null);
-
   const [map, setMap] = useState<kakao.maps.Map | null>(null);
 
   const categories = [
@@ -29,6 +28,7 @@ const KakaoMap04 = () => {
     "일본식주점",
     "칵테일바",
   ];
+
   const handleMyLocation = () => {
     if (state.center && map)
       map.setCenter(new kakao.maps.LatLng(state.center.lat, state.center.lng));
@@ -120,6 +120,7 @@ const KakaoMap04 = () => {
     const callback = function (result: any, status: any) {
       if (status === kakao.maps.services.Status.OK) {
         setAddress(result[0].address.address_name);
+        console.log("주소임", address);
       } else {
         setAddress("주소 변환에 실패했습니다.");
       }
