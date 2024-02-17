@@ -3,7 +3,7 @@ import styled from "styled-components";
 
 import { CardTag } from "../../types/Common";
 
-const CardCol: React.FC<CardTag> = ({ barName, barImg, score, tag }) => {
+const CardColTag: React.FC<CardTag> = ({ barName, barImg, score, tag }) => {
   return (
     <>
       <CardLayout>
@@ -48,7 +48,7 @@ const CardCol: React.FC<CardTag> = ({ barName, barImg, score, tag }) => {
   );
 };
 
-export default CardCol;
+export default CardColTag;
 
 const CardLayout = styled.div`
   display: flex;
