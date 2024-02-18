@@ -5,39 +5,29 @@ import CheckboxGroup from "./CheckboxGroup";
 import Checkbox from "./Checkbox";
 
 const TagBox = () => {
-  const [alcohol, setAlcohol] = useState<any>(["alcohol_default"]);
-  const [music, setMusic] = useState<any>(["music_default"]);
-  const [mood, setMood] = useState<any>(["mood_default"]);
-  const [etc, setEtc] = useState<any>([]);
-  const [snack, setSnack] = useState<any>([]);
+  const [tags, setTags] = useState({
+    alcohol: ["alcohol_default"],
+    music: ["music_default"],
+    mood: ["mood_default"],
+    etc: [],
+    snack: [],
+  });
 
-  const handleAlcoholChange = (values: string[]) => {
-    setAlcohol(values);
-    console.log({ 술: values });
+  const handleTagChange = (values: string[], tag: string) => {
+    setTags((prevTags) => ({
+      ...prevTags,
+      [tag]: values,
+    }));
+    console.log({ [tag]: values });
   };
-  const handleMusicChange = (values: string[]) => {
-    setMusic(values);
-    console.log({ 음악: values });
-  };
-  const handleMoodChange = (values: string[]) => {
-    setMood(values);
-    console.log({ 분위기: values });
-  };
-  const handleEtcChange = (values: string[]) => {
-    setEtc(values);
-    console.log({ 기타: values });
-  };
-  const handleSnackChange = (values: string[]) => {
-    setSnack(values);
-    console.log({ 맛: values });
-  };
+
   return (
     <>
       <StyledGroupLayout>
         <CheckboxGroup
           label="술 선택"
-          values={alcohol}
-          onChange={handleAlcoholChange}
+          values={tags.alcohol}
+          onChange={(values: string[]) => handleTagChange(values, "alcohol")}
         >
           <Checkbox id="alcohol_default" value="alcohol_default">
             술이면 다 돼요
@@ -81,8 +71,8 @@ const TagBox = () => {
       <StyledGroupLayout>
         <CheckboxGroup
           label="음악 선택"
-          values={music}
-          onChange={handleMusicChange}
+          values={tags.music}
+          onChange={(values: string[]) => handleTagChange(values, "music")}
         >
           <Checkbox id="music_default" value="music_default">
             상관없어요
@@ -117,8 +107,8 @@ const TagBox = () => {
       <StyledGroupLayout>
         <CheckboxGroup
           label="분위기 선택"
-          values={mood}
-          onChange={handleMoodChange}
+          values={tags.mood}
+          onChange={(values: string[]) => handleTagChange(values, "mood")}
         >
           <Checkbox id="mood_default" value="mood_default">
             상관없어요
@@ -150,8 +140,8 @@ const TagBox = () => {
       <StyledGroupLayout>
         <CheckboxGroup
           label="기타 선택"
-          values={etc}
-          onChange={handleEtcChange}
+          values={tags.etc}
+          onChange={(values: string[]) => handleTagChange(values, "etc")}
         >
           <StyledColGroup>
             <Checkbox id="etc_1" value="etc_1">
@@ -164,7 +154,11 @@ const TagBox = () => {
         </CheckboxGroup>
       </StyledGroupLayout>
       <StyledGroupLayout>
-        <CheckboxGroup label="맛" values={snack} onChange={handleSnackChange}>
+        <CheckboxGroup
+          label="맛"
+          values={tags.snack}
+          onChange={(values: string[]) => handleTagChange(values, "snack")}
+        >
           <StyledColGroup>
             <Checkbox id="snack_1" value="snack_1">
               안주 맛집 인정
