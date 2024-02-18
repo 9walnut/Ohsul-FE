@@ -13,6 +13,16 @@ import TagBox from "../../components/ohsulTag/TagBox";
 
 const MainPage: React.FC = () => {
   const [ratingIndex, setRatingIndex] = useState(1);
+
+  //오술태그 선택된 값 넣기
+  const DUMMYTags = {
+    alcohol: ["alcohol_1", "alcohol_2", "alcohol_5"],
+    music: ["music_3", "music_5"],
+    mood: ["mood_1", "mood_3"],
+    etc: ["etc_1"],
+    snack: ["snack_2"],
+  };
+
   return (
     <>
       <Header title="오늘의 술" />
@@ -31,7 +41,8 @@ const MainPage: React.FC = () => {
       <CardRow />
       <br />
       <NavLink to={"/barReviews/addReview"}>리뷰페이지 이동</NavLink>
-      <TagBox />
+      <TagBox checkedTags={DUMMYTags} />
+      {/* <TagBox /> */}
     </>
   );
 };

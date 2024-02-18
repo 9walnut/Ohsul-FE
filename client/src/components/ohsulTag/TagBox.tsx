@@ -4,14 +4,18 @@ import styled from "styled-components";
 import CheckboxGroup from "./CheckboxGroup";
 import Checkbox from "./Checkbox";
 
-const TagBox = () => {
-  const [tags, setTags] = useState({
+interface TagBoxProps {
+  checkedTags?: { [key: string]: string[] };
+}
+const TagBox: React.FC<TagBoxProps> = ({ checkedTags }) => {
+  const defaultTag = {
     alcohol: ["alcohol_default"],
     music: ["music_default"],
     mood: ["mood_default"],
     etc: [],
     snack: [],
-  });
+  };
+  const [tags, setTags] = useState(checkedTags || defaultTag);
 
   const handleTagChange = (values: string[], tag: string) => {
     setTags((prevTags) => ({
