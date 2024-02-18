@@ -2,13 +2,7 @@ import React, { ChangeEvent } from "react";
 import styled from "styled-components";
 import CheckboxContext from "./CheckboxContext";
 
-interface CheckboxProps {
-  onChange?: () => void;
-  children: React.ReactNode;
-  id: string;
-  value: string;
-  checked?: any;
-}
+import { CheckboxProps } from "../../types/OhsulTag";
 
 const Checkbox: React.FC<CheckboxProps> = ({
   children,

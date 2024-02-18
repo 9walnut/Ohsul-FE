@@ -3,12 +3,8 @@ import styled from "styled-components";
 
 import CheckboxContext from "./CheckboxContext";
 
-interface CheckboxGroupProps {
-  label: string;
-  children: React.ReactNode;
-  values: string[];
-  onChange: (values: string[]) => void;
-}
+import { CheckboxGroupProps } from "../../types/OhsulTag";
+
 const CheckboxGroup: React.FC<CheckboxGroupProps> = ({
   label,
   children,
