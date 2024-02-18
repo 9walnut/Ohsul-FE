@@ -9,6 +9,7 @@ import ConfirmModal from "../../components/common/ConfirmModal";
 import CardRow from "../../components/common/CardRow";
 
 import SlickSlider from "../../components/common/SlickSlider";
+import TagBox from "../../components/ohsulTag/TagBox";
 
 const MainPage: React.FC = () => {
   const [ratingIndex, setRatingIndex] = useState(1);
@@ -30,6 +31,7 @@ const MainPage: React.FC = () => {
       <CardRow />
       <br />
       <NavLink to={"/barReviews/addReview"}>리뷰페이지 이동</NavLink>
+      <TagBox />
     </>
   );
 };
