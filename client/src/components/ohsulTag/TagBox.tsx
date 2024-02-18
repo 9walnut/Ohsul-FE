@@ -153,20 +153,26 @@ const TagBox = () => {
           values={etc}
           onChange={handleEtcChange}
         >
-          <Checkbox id="etc_1" value="etc_1">
-            주차장 있어요
-          </Checkbox>
-          <Checkbox id="etc_2" value="etc_2">
-            화장실 안에 있어요
-          </Checkbox>
+          <StyledColGroup>
+            <Checkbox id="etc_1" value="etc_1">
+              주차장 있어요
+            </Checkbox>
+            <Checkbox id="etc_2" value="etc_2">
+              화장실 안에 있어요
+            </Checkbox>
+          </StyledColGroup>
         </CheckboxGroup>
+      </StyledGroupLayout>
+      <StyledGroupLayout>
         <CheckboxGroup label="맛" values={snack} onChange={handleSnackChange}>
-          <Checkbox id="snack_1" value="snack_1">
-            안주 맛집 인정
-          </Checkbox>
-          <Checkbox id="snack_2" value="snack_2">
-            평범해요
-          </Checkbox>
+          <StyledColGroup>
+            <Checkbox id="snack_1" value="snack_1">
+              안주 맛집 인정
+            </Checkbox>
+            <Checkbox id="snack_2" value="snack_2">
+              평범해요
+            </Checkbox>
+          </StyledColGroup>
         </CheckboxGroup>
       </StyledGroupLayout>
     </>
@@ -176,7 +182,9 @@ const TagBox = () => {
 export default TagBox;
 
 const StyledGroupLayout = styled.div`
+  display: flex;
   justify-content: center;
+  align-items: center;
   margin: 20px;
 `;
 

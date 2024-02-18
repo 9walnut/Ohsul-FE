@@ -54,5 +54,5 @@ const StyledLegend = styled.legend`
   font-size: 18px;
   font-family: ${({ theme }) => theme.fonts.ydFont};
   color: ${({ theme }) => theme.colors.blueFont};
-  margin: 5px;
+  margin: 7px 0px;
 `;
