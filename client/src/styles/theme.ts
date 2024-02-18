@@ -21,3 +21,6 @@ const theme: DefaultTheme = {
 };
 
 export default theme;
+
+//이러케 사용
+//font-family: ${({ theme }) => theme.fonts.ydFont};
