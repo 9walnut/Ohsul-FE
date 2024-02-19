@@ -53,7 +53,7 @@ export const InputFieldBox = styled.div`
   gap: 7px;
   width: 222px;
   height: 29px;
-  background: #fcfaf9;
+  background: ${({ theme }) => theme.colors.bgLightColor};
   border-radius: 50px;
 `;
 
@@ -72,7 +72,7 @@ export const StyledInput = styled.input`
 `;
 
 export const ErrorMessage = styled.span`
-  color: #4d607b;
-  border-bottom: 0.5px solid #4d607b;
+  color: ${({ theme }) => theme.colors.blueFont};
+  border-bottom: 0.5px solid ${({ theme }) => theme.colors.blueFont};
   font-size: 11px;
 `;

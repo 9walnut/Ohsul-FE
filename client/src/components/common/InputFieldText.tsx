@@ -70,7 +70,7 @@ const InputFieldBox = styled.div`
   width: 222px;
   height: 29px;
 
-  background: #fcfaf9;
+  background: ${({ theme }) => theme.colors.bgLightColor};
   border-radius: 50px;
 `;
 

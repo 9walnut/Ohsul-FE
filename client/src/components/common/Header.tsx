@@ -52,7 +52,7 @@ const TitleBox = styled.div`
 `;
 
 const TitleParagraph = styled.div`
-  font-family: YeongdeokSea;
+  font-family: ${({ theme }) => theme.fonts.ydFont};
   font-style: normal;
   font-weight: 900;
   font-size: 26px;

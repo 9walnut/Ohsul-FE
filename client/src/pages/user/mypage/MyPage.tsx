@@ -1,7 +1,7 @@
-import React from "react";
-import { Outlet } from "react-router-dom";
+import React, { useState } from "react";
+
 import * as S from "./MyPageStyle";
-import { Routes, Route } from "react-router-dom";
+
 import Header from "../../../components/common/Header";
 import MenuBar from "../../../components/myPage/MenuBar";
 import FavoritePage from "./FavoritePage";
@@ -10,7 +10,21 @@ import MyReviewPage from "./MyReviewPage";
 //DUMMY
 const userNickname = "졸린공룡";
 
-const MyPage = () => {
+//렌더링 될 컴포넌트 지정
+type ComponentType = "favorite" | "myreview";
+
+const MyPage: React.FC = () => {
+  const [selectedPage, setSelectedPage] = useState<ComponentType>("favorite");
+
+  const renderPage = () => {
+    switch (selectedPage) {
+      case "favorite":
+        return <FavoritePage />;
+      case "myreview":
+        return <MyReviewPage />;
+    }
+  };
+
   return (
     <>
       <Header title="마이페이지" />
@@ -24,11 +38,8 @@ const MyPage = () => {
           <S.StyledLink to="/register">로그아웃</S.StyledLink>
         </S.UserBox>
       </S.MyInfoBox>
-      <MenuBar></MenuBar>
-      <Routes>
-        <Route path="/mypage/favorite" element={<FavoritePage />} />
-        <Route path="/mypage/myreview" element={<MyReviewPage />} />
-      </Routes>
+      <MenuBar setSelectedPage={setSelectedPage} />
+      {renderPage()}
     </>
   );
 };

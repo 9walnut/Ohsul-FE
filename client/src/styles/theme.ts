@@ -5,6 +5,7 @@ const theme: DefaultTheme = {
     bgColor: "#F4EDE6",
     bgLightColor: "#fcfaf9",
     mainBlue: "#7588A3",
+    iconBlue: "#4D607B",
     darkFont: "#3C3630",
     lightFont: "#FBF9F9",
     blueFont: "#4D607B",
