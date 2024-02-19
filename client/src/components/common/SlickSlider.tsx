@@ -4,69 +4,28 @@ import styled from "styled-components";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-
-import CardColTag from "./CardColTag";
+import CardRow from "./CardRow";
 
 function SlickSlider() {
   const settings = {
-    dots: true,
+    dots: false,
     infinite: false,
     speed: 500,
-    slidesToShow: 3,
+    slidesToShow: 5,
     slidesToScroll: 3,
   };
+
   return (
     <div className="slider-container">
       <Slider {...settings}>
-        <Box>
-          <img
-            src={
-              process.env.PUBLIC_URL + "assets/images/common_alternateImage.png"
-            }
-            alt="Score"
-          />
-        </Box>
-        <Box>
-          <img
-            src={
-              process.env.PUBLIC_URL + "assets/images/common_alternateImage.png"
-            }
-            alt="Score"
-          />
-        </Box>
-        <Box>
-          <img
-            src={
-              process.env.PUBLIC_URL + "assets/images/common_alternateImage.png"
-            }
-            alt="Score"
-          />
-        </Box>
-        <Box>
-          <img
-            src={
-              process.env.PUBLIC_URL + "assets/images/common_alternateImage.png"
-            }
-            alt="Score"
-          />
-        </Box>
-        <Box>
-          <img
-            src={
-              process.env.PUBLIC_URL + "assets/images/common_alternateImage.png"
-            }
-            alt="Score"
-          />
-        </Box>
+        <CardRow barName="언더그라운드" />
+        <CardRow barName="언더그라운드" />
+        <CardRow barName="언더그라운드" />
+        <CardRow barName="언더그라운드" />
+        <CardRow barName="언더그라운드" />
       </Slider>
     </div>
   );
 }
 
 export default SlickSlider;
-
-const Box = styled.div`
-  width: 100%;
-  height: 200px;
-  background-color: red;
-`;
