@@ -8,6 +8,7 @@ import CommonModal from "../../components/common/CommonModal";
 import ConfirmModal from "../../components/common/ConfirmModal";
 import CardRow from "../../components/common/CardRow";
 import SlickSlider from "../../components/common/SlickSlider";
+import TagBox from "../../components/ohsulTag/TagBox";
 
 const DUMMYBarReviewCard = {
   userNickname: "졸린공룡",
@@ -26,6 +27,16 @@ const DUMMYBarReviewCard = {
 
 const MainPage: React.FC = () => {
   const [ratingIndex, setRatingIndex] = useState(1);
+
+  //오술태그 선택된 값 넣기
+  const DUMMYTags = {
+    alcohol: ["alcohol_1", "alcohol_2", "alcohol_5"],
+    music: ["music_3", "music_5"],
+    mood: ["mood_1", "mood_3"],
+    etc: ["etc_1"],
+    snack: ["snack_2"],
+  };
+
   return (
     <>
       <Header title="오늘의 술" />
@@ -46,6 +57,8 @@ const MainPage: React.FC = () => {
       <br />
       <br />
       <NavLink to={"/barReviews/addReview"}>리뷰페이지 이동</NavLink>
+      <TagBox checkedTags={DUMMYTags} />
+      {/* <TagBox /> */}
     </>
   );
 };
