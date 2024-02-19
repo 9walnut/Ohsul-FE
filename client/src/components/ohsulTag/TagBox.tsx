@@ -179,16 +179,19 @@ const TagBox: React.FC<TagBoxProps> = ({ checkedTags }) => {
 
 export default TagBox;
 
+const BasicStyle = `
+display: flex;
+justify-content: center;
+`;
+
 const StyledGroupLayout = styled.div`
-  display: flex;
-  justify-content: center;
+  ${BasicStyle}
   align-items: center;
   margin: 20px;
 `;
 
 const StyledColGroup = styled.div`
-  display: flex;
+  ${BasicStyle}
   flex-direction: row;
-  justify-content: center;
   gap: 2px;
 `;

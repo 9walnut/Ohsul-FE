@@ -49,21 +49,21 @@ const StyledCheckBox = styled.div`
 
   input[type="checkbox"] + label {
     ${BasicStyle}
-    color: #7588a3;
-    background: #f4ede6;
+    color: ${({ theme }) => theme.colors.mainBlue};
+    background: ${({ theme }) => theme.colors.bgColor};
     flex: 1;
     display: inline-block;
     margin: 2px;
     text-align: center;
-    border: 1px dashed #7588a3;
+    border: 1px dashed ${({ theme }) => theme.colors.mainBlue};
     border-radius: 5px;
   }
 
   input[type="checkbox"]:checked + label {
     ${BasicStyle}
-    color: #f4ede6;
-    background: #7588a3;
-    border: 1px solid #7588a3;
+    color: ${({ theme }) => theme.colors.bgColor};
+    background: ${({ theme }) => theme.colors.mainBlue};
+    border: 1px solid ${({ theme }) => theme.colors.mainBlue};
     z-index: 1;
   }
 `;
