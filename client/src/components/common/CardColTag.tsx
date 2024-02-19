@@ -62,8 +62,8 @@ const CardLayout = styled.div`
   width: 100%;
   height: 163px;
 
-  background: #fcfaf9;
-  border: 1px solid #4d607b;
+  background: ${({ theme }) => theme.colors.bgLightColor};
+  border: 1px solid ${({ theme }) => theme.colors.blueFont};
   box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.02);
   border-radius: 14px;
 
@@ -91,7 +91,7 @@ const TitleBox = styled.div`
   width: 152px;
   height: 24px;
 
-  font-family: "Yeongdeok Sea";
+  font-family: ${({ theme }) => theme.fonts.ydFont};
   font-style: normal;
   font-weight: 400;
   font-size: 16px;
@@ -135,7 +135,7 @@ const ScoreText = styled.div`
   width: 17px;
   height: 15px;
 
-  font-family: "Yeongdeok Sea";
+  font-family: ${({ theme }) => theme.fonts.ydFont};
   font-style: normal;
   font-weight: 400;
   font-size: 11px;
