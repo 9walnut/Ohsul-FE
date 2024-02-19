@@ -16,7 +16,7 @@ const CardCol: React.FC<Card> = ({ barName, barImg, score, tag }) => {
             {/* <img src={process.env.PUBLIC_URL + barImg} alt={barName} /> */}
           </ImgBox>
           {/* @ts-ignore */}
-          <StarRating score={score} />
+          {/* <StarRating score={score} /> */}
           {/* <div>{tag}</div> */}
         </BasicBox>
       </CardLayout>
@@ -32,15 +32,12 @@ const CardLayout = styled.div`
   align-items: center;
   padding: 10px 15px;
   gap: 20px;
-
   width: 382px;
   height: 163px;
-
   background: #fcfaf9;
   border: 1px solid #4d607b;
   box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.02);
   border-radius: 14px;
-
   margin: 5px 0 5px 0;
 `;
 
@@ -50,7 +47,6 @@ const BasicBox = styled.div`
   align-items: flex-start;
   padding: 2px 10px;
   gap: 3px;
-
   width: 172px;
   height: 149px;
 `;
