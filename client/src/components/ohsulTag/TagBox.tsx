@@ -4,10 +4,14 @@ import styled from "styled-components";
 import CheckboxGroup from "./CheckboxGroup";
 import Checkbox from "./Checkbox";
 
+// ✅ <TagBox checkedTags={DUMMYTags} disabled={true} />
+// 상위 컴포넌트 사용 시 disabled={true} 전달하면 클릭 불가!
 interface TagBoxProps {
   checkedTags?: { [key: string]: string[] };
+  disabled?: boolean;
 }
-const TagBox: React.FC<TagBoxProps> = ({ checkedTags }) => {
+const TagBox: React.FC<TagBoxProps> = ({ checkedTags, disabled }) => {
+  console.log(disabled);
   const defaultTag = {
     alcohol: ["alcohol_default"],
     music: ["music_default"],
@@ -27,17 +31,19 @@ const TagBox: React.FC<TagBoxProps> = ({ checkedTags }) => {
 
   return (
     <>
+      <input type="checkbox" disabled={true}></input>
       <StyledGroupLayout>
         <CheckboxGroup
           label="술 선택"
           values={tags.alcohol}
           onChange={(values: string[]) => handleTagChange(values, "alcohol")}
+          disabled={disabled}
         >
           <Checkbox id="alcohol_default" value="alcohol_default">
             술이면 다 돼요
           </Checkbox>
           <StyledColGroup>
-            <Checkbox id="alcohol_1" value="alcohol_1">
+            <Checkbox id="alcohol_1" value="alcohol_1" disabled={disabled}>
               소주 / 맥주
             </Checkbox>
             <Checkbox id="alcohol_2" value="alcohol_2">
@@ -77,6 +83,7 @@ const TagBox: React.FC<TagBoxProps> = ({ checkedTags }) => {
           label="음악 선택"
           values={tags.music}
           onChange={(values: string[]) => handleTagChange(values, "music")}
+          disabled={disabled}
         >
           <Checkbox id="music_default" value="music_default">
             상관없어요
@@ -113,6 +120,7 @@ const TagBox: React.FC<TagBoxProps> = ({ checkedTags }) => {
           label="분위기 선택"
           values={tags.mood}
           onChange={(values: string[]) => handleTagChange(values, "mood")}
+          disabled={disabled}
         >
           <Checkbox id="mood_default" value="mood_default">
             상관없어요
@@ -146,6 +154,7 @@ const TagBox: React.FC<TagBoxProps> = ({ checkedTags }) => {
           label="기타 선택"
           values={tags.etc}
           onChange={(values: string[]) => handleTagChange(values, "etc")}
+          disabled={disabled}
         >
           <StyledColGroup>
             <Checkbox id="etc_1" value="etc_1">
@@ -162,6 +171,7 @@ const TagBox: React.FC<TagBoxProps> = ({ checkedTags }) => {
           label="맛"
           values={tags.snack}
           onChange={(values: string[]) => handleTagChange(values, "snack")}
+          disabled={disabled}
         >
           <StyledColGroup>
             <Checkbox id="snack_1" value="snack_1">

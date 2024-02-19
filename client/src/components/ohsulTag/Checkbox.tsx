@@ -10,9 +10,12 @@ const Checkbox: React.FC<CheckboxProps> = ({
   checked,
   onChange,
   id,
+  disabled,
 }: CheckboxProps) => {
   const context = React.useContext(CheckboxContext);
-  const { isChecked, toggleValue } = context;
+  const { isChecked, toggleValue, isDisabled } = context;
+
+  console.log("context:", isDisabled(disabled));
 
   return (
     <>
@@ -25,6 +28,7 @@ const Checkbox: React.FC<CheckboxProps> = ({
           onChange={({ target: { checked } }) =>
             toggleValue({ checked, value })
           }
+          disabled={isDisabled(disabled)}
         />
         <label htmlFor={id}>{children}</label>
       </StyledCheckBox>

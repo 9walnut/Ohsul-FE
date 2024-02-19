@@ -3,6 +3,7 @@ export interface CheckboxGroupProps {
   children: React.ReactNode;
   values: string[];
   onChange: (values: string[]) => void;
+  disabled?: boolean;
 }
 
 export interface CheckboxProps {
@@ -11,4 +12,5 @@ export interface CheckboxProps {
   id: string;
   value: string;
   checked?: any;
+  disabled?: boolean;
 }
