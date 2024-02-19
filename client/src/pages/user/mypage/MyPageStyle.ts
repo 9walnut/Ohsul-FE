@@ -13,6 +13,8 @@ export const MyInfoBox = styled.div`
 
   width: 382px;
   height: 125px;
+
+  top: 100px;
 `;
 
 export const MsgBox = styled.div`
