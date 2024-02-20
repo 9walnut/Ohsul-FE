@@ -2,7 +2,6 @@ import React from "react";
 import styled from "styled-components";
 
 import CheckboxContext from "./CheckboxContext";
-
 import { CheckboxGroupProps } from "../../types/OhsulTag";
 
 const CheckboxGroup: React.FC<CheckboxGroupProps> = ({
@@ -10,6 +9,7 @@ const CheckboxGroup: React.FC<CheckboxGroupProps> = ({
   children,
   values,
   onChange,
+  disabled,
 }: CheckboxGroupProps) => {
   const isChecked = (value: string) => values.includes(value);
 
@@ -26,11 +26,15 @@ const CheckboxGroup: React.FC<CheckboxGroupProps> = ({
       onChange(values.filter((v) => v !== value));
     }
   };
+  const isDisabled = () => disabled;
+
   return (
     <>
       <fieldset>
         <StyledLegend>{label}</StyledLegend>
-        <CheckboxContext.Provider value={{ isChecked, toggleValue }}>
+        <CheckboxContext.Provider
+          value={{ isChecked, toggleValue, isDisabled }}
+        >
           {children}
         </CheckboxContext.Provider>
         {/* <div>

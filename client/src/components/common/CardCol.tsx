@@ -34,8 +34,8 @@ const CardLayout = styled.div`
   gap: 20px;
   width: 382px;
   height: 163px;
-  background: #fcfaf9;
-  border: 1px solid #4d607b;
+  background: ${({ theme }) => theme.colors.bgLightColor};
+  border: 1px solid ${({ theme }) => theme.colors.blueFont};
   box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.02);
   border-radius: 14px;
   margin: 5px 0 5px 0;
@@ -58,7 +58,7 @@ const TitleBox = styled.div`
   padding: 0px;
   gap: 3px;
 
-  font-family: "Yeongdeok Sea";
+  font-family: ${({ theme }) => theme.fonts.ydFont};
   font-style: normal;
   font-weight: 400;
   font-size: 16px;

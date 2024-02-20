@@ -56,7 +56,7 @@ const MainPage: React.FC = () => {
       <br />
       <br />
       <NavLink to={"/barReviews/addReview"}>리뷰페이지 이동</NavLink>
-      <TagBox checkedTags={DUMMYTags} />
+      <TagBox checkedTags={DUMMYTags} disabled={true} />
       {/* <TagBox /> */}
     </>
   );

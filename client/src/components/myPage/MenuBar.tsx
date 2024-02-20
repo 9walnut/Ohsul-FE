@@ -2,38 +2,41 @@ import React from "react";
 import { NavLink } from "react-router-dom";
 import styled from "styled-components";
 
-const MenuBar = () => {
+type ComponentType = "favorite" | "myreview";
+
+//setSelectedPage는 콜백함수! 이런 경우 보통 type으로 Dispatch를 사용한다.
+//useState를 통한 세터함수로 업데이트하는거기 떄문에 React.SetStateAction 이다.
+//그리고 state의 타입을 지정해준다.
+interface MenuBarProps {
+  setSelectedPage: React.Dispatch<React.SetStateAction<ComponentType>>;
+}
+
+const MenuBar: React.FC<MenuBarProps> = ({ setSelectedPage }) => {
   return (
     <MenuBarLayout>
       <MenuBarBox>
-        <FavoriteLayout>
-          <NavLink to="/mypage/favorite">
-            {" "}
-            {/* Favorite 페이지로 이동 */}
-            <FavoriteImg>
-              <img
-                src={
-                  process.env.PUBLIC_URL + "assets/images/common_favorite.png"
-                }
-                alt="Favorite"
-              />
-            </FavoriteImg>
-          </NavLink>
+        <FavoriteLayout onClick={() => setSelectedPage("favorite")}>
+          <FavoriteImg>
+            <img
+              src={
+                process.env.PUBLIC_URL +
+                "assets/images/mypage_favorite_active.png"
+              }
+              alt="Favorite"
+            />
+          </FavoriteImg>
           <FavoriteBar />
         </FavoriteLayout>
-        <MyReviewLayout>
-          <NavLink to="/mypage/myreview">
-            {" "}
-            {/* MyReview 페이지로 이동 */}
-            <MyReviewImg>
-              <img
-                src={
-                  process.env.PUBLIC_URL + "assets/images/common_favorite.png"
-                }
-                alt="My Review"
-              />
-            </MyReviewImg>
-          </NavLink>
+        <MyReviewLayout onClick={() => setSelectedPage("myreview")}>
+          <MyReviewImg>
+            <img
+              src={
+                process.env.PUBLIC_URL +
+                "assets/images/mypage_myreview_active.png"
+              }
+              alt="My Review"
+            />
+          </MyReviewImg>
           <MyReviewBar />
         </MyReviewLayout>
       </MenuBarBox>
@@ -73,18 +76,19 @@ const FavoriteLayout = styled.nav`
   gap: 3px;
   width: 326px;
   height: 33px;
+  cursor: pointer;
 `;
 const FavoriteBar = styled.div`
   width: 156px;
   height: 3px;
 
-  background: #4d607b;
+  background: ${({ theme }) => theme.colors.iconBlue};
   border-radius: 20px;
 `;
 
 const FavoriteImg = styled.div`
   img {
-    width: 16px;
+    width: 15px;
     height: 22px;
     object-fit: contain;
   }
@@ -97,18 +101,19 @@ const MyReviewLayout = styled.nav`
   gap: 3px;
   width: 326px;
   height: 33px;
+  cursor: pointer;
 `;
 const MyReviewBar = styled.div`
   width: 156px;
   height: 3px;
 
-  background: #4d607b;
+  background: ${({ theme }) => theme.colors.iconBlue};
   border-radius: 20px;
 `;
 
 const MyReviewImg = styled.div`
   img {
-    width: 16px;
+    width: 22px;
     height: 22px;
     object-fit: contain;
   }

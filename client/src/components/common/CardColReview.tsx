@@ -67,6 +67,13 @@ const CardColReview: React.FC<CardReview> = ({
 
 export default CardColReview;
 
+const BasicStyle = `
+display: flex;
+flex-direction: row;
+justify-content: center;
+align-items: center;
+`;
+
 const CardLayout = styled.div`
   display: flex;
   flex-direction: column;
@@ -79,8 +86,8 @@ const CardLayout = styled.div`
   width: 100%;
   height: 163px;
 
-  background: #fcfaf9;
-  border: 1px solid #4d607b;
+  background: ${({ theme }) => theme.colors.bgLightColor};
+  border: 1px solid ${({ theme }) => theme.colors.blueFont};
   box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.02);
   border-radius: 14px;
 
@@ -111,7 +118,7 @@ const TitleBox = styled.div`
   width: 161px;
   height: 24px;
 
-  font-family: "Yeongdeok Sea";
+  font-family: ${({ theme }) => theme.fonts.ydFont};
   font-style: normal;
   font-weight: 400;
   font-size: 16px;
@@ -120,6 +127,7 @@ const TitleBox = styled.div`
 `;
 
 const FavoriteBox = styled.div`
+  ${BasicStyle}
   display: flex;
   flex-direction: row;
   justify-content: center;
@@ -140,10 +148,7 @@ const FavoriteImg = styled.div`
 `;
 
 const ContentLayout = styled.div`
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
+  ${BasicStyle}
   padding: 0px;
   gap: 10px;
 
@@ -198,7 +203,7 @@ const ScoreText = styled.div`
   width: 17px;
   height: 15px;
 
-  font-family: "Yeongdeok Sea";
+  font-family: ${({ theme }) => theme.fonts.ydFont};
   font-style: normal;
   font-weight: 400;
   font-size: 11px;
@@ -218,14 +223,10 @@ const RightContent = styled.div`
 `;
 
 const ContentWrapper = styled.div`
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
+  ${BasicStyle}
   padding: 5px;
   gap: 10px;
   isolation: isolate;
-
   margin: 0 auto;
   width: 222px;
   height: 95px;
@@ -241,29 +242,23 @@ const ReviewBox = styled.div`
   font-size: 10px;
   line-height: 12px;
   letter-spacing: 0.0125em;
-  color: #7588a3;
+  color: ${({ theme }) => theme.colors.mainBlue};
 `;
 
 const Button = styled.button`
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  padding: 10px 16px;
-  gap: 10px;
-
+  ${BasicStyle}
   width: 45px;
   height: 25px;
   left: 166.5px;
   top: 35px;
 
-  background: #7588a3;
+  background: ${({ theme }) => theme.colors.mainBlue};
   border-radius: 4px;
   border: none;
   outline: none;
   cursor: pointer;
 
-  font-family: "Yeongdeok Sea";
+  font-family: ${({ theme }) => theme.fonts.ydFont};
   font-style: normal;
   font-weight: 400;
   line-height: 12px;

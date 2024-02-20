@@ -100,7 +100,7 @@ const CardLayout = styled.div`
   height: 201px;
   /* height: auto; */
 
-  background: #fcfaf9;
+  background: ${({ theme }) => theme.colors.bgLightColor};
   border: 1px solid #4d607b;
   box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.02);
   border-radius: 14px;
@@ -141,7 +141,7 @@ const UserImg = styled.div`
 `;
 
 const UserNickname = styled.div`
-  font-family: "Yeongdeok Sea";
+  font-family: ${({ theme }) => theme.fonts.ydFont};
   font-style: normal;
   font-size: 13px;
 `;
@@ -169,7 +169,7 @@ const ScoreText = styled.div`
   width: 17px;
   height: 15px;
 
-  font-family: "Yeongdeok Sea";
+  font-family: ${({ theme }) => theme.fonts.ydFont};
   font-style: normal;
   font-weight: 400;
   font-size: 11px;
@@ -234,7 +234,7 @@ const ReviewBox = styled.div`
   font-size: 10px;
   line-height: 14px;
   letter-spacing: 0.0125em;
-  color: #7588a3;
+  color: ${({ theme }) => theme.colors.mainBlue};
 `;
 
 const ContentBox4 = styled.div`

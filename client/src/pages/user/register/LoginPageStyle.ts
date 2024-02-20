@@ -66,6 +66,6 @@ export const StyledInput = styled.input`
 
 export const ErrorMessage = styled.span`
   color: ${({ theme }) => theme.colors.blueFont};
-  border-bottom: 0.5px solid #4d607b;
+  border-bottom: 0.5px solid ${({ theme }) => theme.colors.blueFont};
   font-size: 11px;
 `;
