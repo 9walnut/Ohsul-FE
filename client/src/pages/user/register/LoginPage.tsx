@@ -26,6 +26,8 @@ const LoginPage = (props: any) => {
       const res = await axios.post("api/login", data);
       console.log("로그인 응답", res);
     } catch (error) {
+      const res = await axios.post("/api/login", data);
+      console.log("로그인 응답22", res);
       console.log("로그인 err", error);
     }
   };
