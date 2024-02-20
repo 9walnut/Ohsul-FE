@@ -1,8 +1,7 @@
 import React from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
-
 import * as S from "./LoginPageStyle";
-
+import { useNavigate } from "react-router";
 import Header from "../../../components/common/Header";
 import BackButton from "../../../components/common/BackButton";
 import RoundButton from "../../../components/common/RoundButton";
@@ -10,9 +9,10 @@ import axios from "axios";
 
 type LoginFormInputs = {
   userId: string;
-  password: string;
+  userPw: string;
 };
 const LoginPage = (props: any) => {
+  const navigate = useNavigate();
   const {
     register,
     handleSubmit,
@@ -23,8 +23,16 @@ const LoginPage = (props: any) => {
   const onSubmit: SubmitHandler<LoginFormInputs> = async (data) => {
     console.log("로그인 입력:", data);
     try {
-      const res = await axios.post("api/login", data);
+      const res = await axios.post("api/login", data, {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
       console.log("로그인 응답", res);
+      console.log("response status", res.status);
+      if (res.status == 200) {
+        navigate("/");
+      }
     } catch (error) {
       const res = await axios.post("/api/login", data);
       console.log("로그인 응답22", res);
@@ -58,7 +66,7 @@ const LoginPage = (props: any) => {
               <S.StyledInput
                 type="password"
                 placeholder="8~20자 영문 숫자 조합."
-                {...register("password", {
+                {...register("userPw", {
                   required: true,
                   minLength: 8,
                   maxLength: 20,
@@ -66,20 +74,20 @@ const LoginPage = (props: any) => {
                 })}
               />
             </S.InputFieldBox>
-            {errors.password?.type === "required" && (
+            {errors.userPw?.type === "required" && (
               <S.ErrorMessage>비밀번호를 입력해주세요.</S.ErrorMessage>
             )}
-            {errors.password?.type === "minLength" && (
+            {errors.userPw?.type === "minLength" && (
               <S.ErrorMessage>
                 비밀번호는 최소 8자 이상이어야 합니다.
               </S.ErrorMessage>
             )}
-            {errors.password?.type === "maxLength" && (
+            {errors.userPw?.type === "maxLength" && (
               <S.ErrorMessage>
                 비밀번호는 최대 20자 이하여야 합니다.
               </S.ErrorMessage>
             )}
-            {errors.password?.type === "pattern" && (
+            {errors.userPw?.type === "pattern" && (
               <S.ErrorMessage>
                 비밀번호는 영문과 숫자의 조합이어야 합니다.
               </S.ErrorMessage>
