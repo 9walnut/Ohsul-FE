@@ -21,8 +21,6 @@ COPY conf/conf.d /etc/nginx/conf.d
 COPY --from=build /app/build /usr/share/nginx/html
 
 COPY conf/conf.d/default.conf /etc/nginx/nginx.conf
-COPY /etc/letsencrypt/options-ssl-nginx.conf /etc/letsencrypt/options-ssl-nginx.conf
-COPY /etc/letsencrypt/ssl-dhparams.pem /etc/letsencrypt/ssl-dhparams.pem
 
 EXPOSE 80 443
 
