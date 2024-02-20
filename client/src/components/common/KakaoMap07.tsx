@@ -359,7 +359,6 @@ const KakaoMap07 = () => {
       <h2>😀 술집 리스트 😀</h2>
       <br />
       <SearchResultsList results={searchResults} />
-      <button onClick={() => setIsReSearch(!isReSearch)}>dd</button>
     </>
   );
 };

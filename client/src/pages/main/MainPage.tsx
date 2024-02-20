@@ -42,8 +42,7 @@ const MainPage: React.FC = () => {
     <>
       <Header title="오늘의 술" />
       <ExplainBox />
-      <div>메인 떴냐</div>
-      <StarRating ratingIndex={ratingIndex} setRatingIndex={setRatingIndex} />
+      {/* <StarRating ratingIndex={ratingIndex} setRatingIndex={setRatingIndex} /> */}
       {/* <CommonModal
         message="메시지이이ㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣ"
         isClose={true}
@@ -52,11 +51,14 @@ const MainPage: React.FC = () => {
         message="메시지이이ㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣ"
         isClose={true}
       /> */}
-      <SwiperSlider />
+      {/* <SwiperSlider /> */}
       <br />
+      <NavLink to={"/barReviews"}>바 리뷰 페이지 이동</NavLink>
       <br />
-      <NavLink to={"/barReviews/addReview"}>리뷰페이지 이동</NavLink>
-      <TagBox checkedTags={DUMMYTags} disabled={true} />
+      <NavLink to={"/barReviews/addReview"}>리뷰 작성 페이지 이동</NavLink>
+      <br />
+      <NavLink to={"/barReviews/editReview"}>리뷰 수정 페이지 이동</NavLink>
+      {/* <TagBox checkedTags={DUMMYTags} disabled={true} /> */}
       {/* <TagBox /> */}
     </>
   );
