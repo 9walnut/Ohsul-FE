@@ -6,6 +6,7 @@ import * as S from "./RegisterPageStyle";
 import Header from "../../../components/common/Header";
 import BackButton from "../../../components/common/BackButton";
 import RoundButton from "../../../components/common/RoundButton";
+import axios from "axios";
 
 type RegisterFormInputs = {
   userId: string;
@@ -26,8 +27,14 @@ const RegisterPage = (props: any) => {
     clearErrors,
   } = useForm<RegisterFormInputs>({ mode: "onChange" });
 
-  const onSubmit: SubmitHandler<RegisterFormInputs> = (data) => {
+  const onSubmit: SubmitHandler<RegisterFormInputs> = async (data) => {
     console.log("회원가입 입력", data);
+    try {
+      const res = await axios.post("api/register", data);
+      console.log("회원가입 응답", res);
+    } catch (error) {
+      console.log("회원가입 err", error);
+    }
   };
 
   useEffect(() => {
@@ -47,6 +54,7 @@ const RegisterPage = (props: any) => {
     <>
       <Header title="회원가입" />
       <BackButton />
+      변경
       <S.RegisterBox>
         <form onSubmit={handleSubmit(onSubmit)}>
           <S.InputLayout>
