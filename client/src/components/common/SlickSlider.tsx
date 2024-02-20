@@ -18,14 +18,18 @@ function SlickSlider() {
   return (
     <div className="slider-container">
       <Slider {...settings}>
+        {/* <CardWrapper> */}
         <CardRow barName="언더그라운드" />
         <CardRow barName="언더그라운드" />
         <CardRow barName="언더그라운드" />
         <CardRow barName="언더그라운드" />
         <CardRow barName="언더그라운드" />
+        {/* </CardWrapper> */}
       </Slider>
     </div>
   );
 }
+
+const CardWrapper = styled.div``;
 
 export default SlickSlider;
