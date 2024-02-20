@@ -11,6 +11,7 @@ import MyReviewPage from "./pages/user/mypage/MyReviewPage";
 import BarAddReviewPage from "./pages/review/BarAddReviewPage";
 import BarEditReviewPage from "./pages/review/BarEditReviewPage";
 import BarInfoPage from "./pages/bar/BarInfoPage";
+import BarReviewPage from "./pages/review/BarReviewPage";
 
 const router = createBrowserRouter([
   {
@@ -105,6 +106,10 @@ const router = createBrowserRouter([
     path: "/barReviews",
     element: <App />,
     children: [
+      {
+        path: "",
+        element: <BarReviewPage />,
+      },
       {
         // 가게 리뷰 작성
         path: "addReview",
