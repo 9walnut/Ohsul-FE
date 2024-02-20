@@ -6,6 +6,7 @@ import * as S from "./LoginPageStyle";
 import Header from "../../../components/common/Header";
 import BackButton from "../../../components/common/BackButton";
 import RoundButton from "../../../components/common/RoundButton";
+import axios from "axios";
 
 type LoginFormInputs = {
   userId: string;
@@ -18,8 +19,15 @@ const LoginPage = (props: any) => {
     formState: { errors },
   } = useForm<LoginFormInputs>();
 
-  const onSubmit: SubmitHandler<LoginFormInputs> = (data) => {
+  // 로그인
+  const onSubmit: SubmitHandler<LoginFormInputs> = async (data) => {
     console.log("로그인 입력:", data);
+    try {
+      const res = await axios.post("api/login", data);
+      console.log("로그인 응답", res);
+    } catch (error) {
+      console.log("로그인 err", error);
+    }
   };
 
   return (

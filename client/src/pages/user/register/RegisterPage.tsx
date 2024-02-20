@@ -27,6 +27,7 @@ const RegisterPage = (props: any) => {
     clearErrors,
   } = useForm<RegisterFormInputs>({ mode: "onChange" });
 
+  // 회원가입
   const onSubmit: SubmitHandler<RegisterFormInputs> = async (data) => {
     console.log("회원가입 입력", data);
     try {
@@ -56,7 +57,7 @@ const RegisterPage = (props: any) => {
       <BackButton />
       변경
       <S.RegisterBox>
-        <form onSubmit={handleSubmit(onSubmit)}>
+        <form onSubmit={handleSubmit(onSubmit)} method="POST">
           <S.InputLayout>
             <S.StyledLabel htmlFor="id">아이디</S.StyledLabel>
             <S.InputFieldBox>
