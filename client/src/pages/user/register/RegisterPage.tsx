@@ -33,7 +33,7 @@ const RegisterPage = (props: any) => {
     try {
       const res = await axios.post("api/register", data);
       console.log("회원가입 응답", res);
-      const res2 = await axios.post("register", data);
+      const res2 = await axios.post("/api/register", data);
       console.log("회원가입 응답", res2);
     } catch (error) {
       const res = await axios.post("/register", data);
@@ -58,7 +58,7 @@ const RegisterPage = (props: any) => {
     <>
       <Header title="회원가입" />
       <BackButton />
-      변경22
+      변경3
       <S.RegisterBox>
         <form onSubmit={handleSubmit(onSubmit)} method="POST">
           <S.InputLayout>

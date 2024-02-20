@@ -20,7 +20,7 @@ const SearchAlcoholPage: React.FC = () => {
       <KakaoMap07 />
       <TagBox checkedTags={DUMMYTags} disabled={true} />
       <img src="/assets/images/border_dot.png" alt="border_dot" />
-      CardCol ~~
+      CardCol ~~ㅋㅋ
     </>
   );
 };
