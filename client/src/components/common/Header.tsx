@@ -11,10 +11,7 @@ const Header: React.FC<HeaderTitle> = ({ title }) => {
           <TitleParagraph>{title}</TitleParagraph>
           <BorderBottom>
             <img
-              src={
-                process.env.PUBLIC_URL +
-                "/assets/images/header_borderBottom.png"
-              }
+              src="/assets/images/header_borderBottom.png"
               alt="header_borderBottom"
             />
           </BorderBottom>
