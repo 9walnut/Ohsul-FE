@@ -8,11 +8,6 @@ export const RegisterBox = styled.div`
   padding: 0px 20px;
   gap: 10px;
   margin-top: 50px;
-  /* position: absolute;
-  width: 383px;
-  height: 252px;
-  left: 3px;
-  top: 221px; */
 `;
 
 export const StyledLink = styled(Link)`
@@ -43,6 +38,17 @@ export const InputLayout = styled.div`
 export const StyledLabel = styled.label`
   font-weight: 500;
   font-size: 12px;
+`;
+
+// 중복 확인 버튼 ui
+export const CheckBtn = styled.button`
+  border: none;
+  outline: none;
+  background-color: ${({ theme }) => theme.colors.btnBlue};
+  color: ${({ theme }) => theme.colors.lightFont};
+  font-family: ${({ theme }) => theme.fonts.ydFont};
+  border-radius: 15px;
+  cursor: pointer;
 `;
 
 export const InputFieldBox = styled.div`
