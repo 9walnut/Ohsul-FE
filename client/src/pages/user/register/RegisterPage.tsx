@@ -32,10 +32,14 @@ const RegisterPage = (props: any) => {
     console.log("회원가입 입력", data);
     try {
       const res = await axios.post("api/register", data);
+      console.log("요청 지나감");
+
       console.log("회원가입 응답", res);
       const res2 = await axios.post("/api/register", data);
       console.log("회원가입 응답", res2);
+      console.log("요청 지나감2");
     } catch (error) {
+      console.log("err들어옴");
       const res = await axios.post("/register", data);
       console.log("회원가입 err1", error);
     }
