@@ -9,6 +9,7 @@ import ConfirmModal from "../../components/common/ConfirmModal";
 import CardRow from "../../components/common/CardRow";
 import SlickSlider from "../../components/common/SlickSlider";
 import TagBox from "../../components/ohsulTag/TagBox";
+import SwiperSlider from "../../components/common/SwiperSlider";
 
 const DUMMYBarReviewCard = {
   userNickname: "졸린공룡",
@@ -51,9 +52,7 @@ const MainPage: React.FC = () => {
         message="메시지이이ㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣ"
         isClose={true}
       /> */}
-      <SlickSlider />
-      <br />
-      <br />
+      <SwiperSlider />
       <br />
       <br />
       <NavLink to={"/barReviews/addReview"}>리뷰페이지 이동</NavLink>
