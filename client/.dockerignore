@@ -3,4 +3,3 @@ build
 .gitignore
 .github
 README.md
-*.pem

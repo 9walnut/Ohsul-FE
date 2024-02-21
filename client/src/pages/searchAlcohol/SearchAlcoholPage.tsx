@@ -1,17 +1,27 @@
 import React from "react";
 import Header from "../../components/common/Header";
-import KakaoMap04 from "../../components/common/KakaoMap04";
-import KakaoMap05 from "../../components/common/KakaoMap05";
-import KakaoMap06 from "../../components/common/KakaoMap06";
+import styled from "styled-components";
 import KakaoMap07 from "../../components/common/KakaoMap07";
+import TagBox from "../../components/ohsulTag/TagBox";
 
 const SearchAlcoholPage: React.FC = () => {
+  //오술태그 선택된 값 넣기
+  const DUMMYTags = {
+    alcohol: ["alcohol_1", "alcohol_2", "alcohol_5"],
+    music: ["music_3", "music_5"],
+    mood: ["mood_1", "mood_3"],
+    etc: ["etc_1"],
+    snack: ["snack_2"],
+  };
+
   return (
     <>
       <Header title="오늘의 술 찾기" />
-      {/* 사이즈 직접 작성하면 props으로 넘어가서 이 사이즈로 적용! */}
       <KakaoMap07 />
-      <div>SearchAlcohol</div>
+      <TagBox checkedTags={DUMMYTags} disabled={true} />
+      {/* dot Img */}
+      <img src="/assets/images/border_dot.png" alt="border_dot" />
+      CardCol
     </>
   );
 };

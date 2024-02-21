@@ -10,7 +10,7 @@ const BackButton: React.FC = () => {
     <ButtonLayout>
       <StyledButton onClick={() => navigate(-1)}>
         <img
-          src={process.env.PUBLIC_URL + "assets/images/common_backArrow.png"}
+          src={process.env.PUBLIC_URL + "/assets/images/common_backArrow.png"}
           alt="뒤로가기"
         />
       </StyledButton>
