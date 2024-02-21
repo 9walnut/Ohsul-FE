@@ -33,6 +33,7 @@ const LoginPage = (props: any) => {
       console.log("로그인 응답", res);
       console.log("response status", res.status);
       if (res.status == 200) {
+        localStorage.setItem("isLogin", "true");
         navigate("/");
       }
     } catch (error) {
