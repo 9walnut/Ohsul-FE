@@ -6,6 +6,7 @@ const RatingContainer = styled.div`
   display: flex;
   text-align: center;
   margin: 13px 0px;
+
   .inactive {
     color: #4d607b;
   }
@@ -29,6 +30,7 @@ interface RatingSectionProps {
 
 function StarRating({ ratingIndex, setRatingIndex }: RatingSectionProps) {
   const ArrayIndexes = [1, 2, 3, 4, 5];
+  console.log("별점", ratingIndex);
 
   return (
     <>
