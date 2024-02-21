@@ -5,6 +5,7 @@ import "./index.css";
 import { GlobalStyle } from "./styles/GlobalStyle";
 import { RouterProvider } from "react-router-dom";
 import router from "./Router";
+import { CookiesProvider } from "react-cookie";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
@@ -14,7 +15,9 @@ root.render(
   // <React.StrictMode>
   <>
     <GlobalStyle />
-    <RouterProvider router={router} />
+    <CookiesProvider>
+      <RouterProvider router={router} />
+    </CookiesProvider>
   </>
   // </React.StrictMode>
 );
