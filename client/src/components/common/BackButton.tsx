@@ -21,16 +21,8 @@ const BackButton: React.FC = () => {
 export default BackButton;
 
 const ButtonLayout = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  padding: 5px 36px;
-
-  position: absolute;
-  height: 22.78px;
-  left: 0px;
-  right: 0px;
-  top: 109px;
+  width: 100%;
+  padding: 5px;
 `;
 
 const StyledButton = styled.div`
