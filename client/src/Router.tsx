@@ -12,6 +12,7 @@ import BarAddReviewPage from "./pages/review/BarAddReviewPage";
 import BarEditReviewPage from "./pages/review/BarEditReviewPage";
 import BarInfoPage from "./pages/bar/BarInfoPage";
 import BarReviewPage from "./pages/review/BarReviewPage";
+import EditMyInfoPage from "./pages/user/mypage/EditMyInfoPage";
 
 const router = createBrowserRouter([
   {
@@ -65,6 +66,11 @@ const router = createBrowserRouter([
         // 내가 작성한 리뷰
         path: "myReview",
         element: <MyReviewPage />,
+      },
+      {
+        // 내 정보 수정
+        path: "editMyInfo",
+        element: <EditMyInfoPage />,
       },
     ],
   },
