@@ -11,6 +11,13 @@ const BarReviewCard: React.FC<CardBarReview> = ({
   content,
   date,
 }) => {
+  const tagData = tag || { drink: [], mood: [], music: [] };
+  const drink: string[] = tagData.drink;
+  const mood: string[] = tagData.mood;
+  const music: string[] = tagData.music;
+
+  console.log(drink);
+
   const etxText = (text: string, maxLength: number) => {
     if (text.length > maxLength) {
       return text.substring(0, maxLength) + "...";
@@ -56,7 +63,26 @@ const BarReviewCard: React.FC<CardBarReview> = ({
               alt="리뷰이미지"
             />
           </ImgBox>
-          <TagLayout>여기 태그</TagLayout>
+          <TagLayout>
+            <TagBox>
+              <TagTitle>술</TagTitle>
+              {drink.map((item, index) => (
+                <TagContent key={index}>{item}</TagContent>
+              ))}
+            </TagBox>
+            <TagBox>
+              <TagTitle>분위기</TagTitle>
+              {mood.map((item, index) => (
+                <TagContent key={index}>{item}</TagContent>
+              ))}
+            </TagBox>
+            <TagBox>
+              <TagTitle>음악</TagTitle>
+              {music.map((item, index) => (
+                <TagContent key={index}>{item}</TagContent>
+              ))}
+            </TagBox>
+          </TagLayout>
         </ContentBox2>
 
         <ContentBox3>
@@ -179,10 +205,10 @@ const ScoreText = styled.div`
 const ContentBox2 = styled.div`
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
+  /* justify-content: space-between; */
   align-items: center;
   padding: 2px 10px 2px 5px;
-  gap: 3px;
+  gap: 15px;
 
   /* width: 341px; */
   width: 100%;
@@ -202,10 +228,39 @@ const ImgBox = styled.div`
 `;
 
 const TagLayout = styled.div`
-  width: 151px;
+  width: auto;
   height: 71px;
+`;
+const TagBasic = `
+height: 20px;
+font-size: 12px;
+border-radius: 5px;
+display: flex;
+justify-content: center;
+align-items: center;
+margin: 2px 1px;
+`;
+const TagTitle = styled.div`
+  color: ${({ theme }) => theme.colors.mainBlue};
+  background: ${({ theme }) => theme.colors.bgLightColor};
+  border: 1px dashed ${({ theme }) => theme.colors.mainBlue};
+  width: 46px;
+  ${TagBasic}
+`;
 
-  background-color: gainsboro;
+const TagBox = styled.div`
+  display: flex;
+  gap: 2px;
+`;
+
+const TagContent = styled.div`
+  color: ${({ theme }) => theme.colors.bgColor};
+  background: ${({ theme }) => theme.colors.mainBlue};
+  border: 1px solid ${({ theme }) => theme.colors.mainBlue};
+  width: auto;
+  padding: 7px;
+  margin: 4px;
+  ${TagBasic}
 `;
 
 const ContentBox3 = styled.div`

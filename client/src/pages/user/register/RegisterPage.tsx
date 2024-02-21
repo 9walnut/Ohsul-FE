@@ -1,22 +1,23 @@
 import React, { useEffect } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
-
 import * as S from "./RegisterPageStyle";
-
 import Header from "../../../components/common/Header";
 import BackButton from "../../../components/common/BackButton";
 import RoundButton from "../../../components/common/RoundButton";
+import { useNavigate } from "react-router";
 import axios from "axios";
 
 type RegisterFormInputs = {
   userId: string;
+  userPw: string;
+  pwCheck: string; // 비밀번호 확인 필드는 그대로 유지
+  userName: string;
+  userNickname: string;
   password: string;
-  pwCheck: string;
-  name: string;
-  nickName: string;
 };
 
 const RegisterPage = (props: any) => {
+  const navigate = useNavigate();
   const {
     register,
     handleSubmit,
@@ -29,24 +30,34 @@ const RegisterPage = (props: any) => {
 
   // 회원가입
   const onSubmit: SubmitHandler<RegisterFormInputs> = async (data) => {
-    console.log("회원가입 입력", data);
-    try {
-      const res = await axios.post("api/register", data);
-      console.log("요청 지나감");
+    const { userId, userPw, userName, userNickname } = data;
+    const postData = {
+      userId,
+      userPw, // 변경됨
+      userName, // 변경됨
+      userNickname, // 변경됨
+    };
 
-      console.log("회원가입 응답", res);
-      const res2 = await axios.post("/api/register", data);
-      console.log("회원가입 응답", res2);
-      console.log("요청 지나감2");
+    console.log("회원가입 입력", postData);
+    try {
+      const res = await axios.post("api/register", postData, {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      console.log("response data", res.data); // data
+      console.log("response status", res.status); // 200
+      console.log("response text", res.statusText); // OK
+      if (res.status == 200) {
+        navigate("/login");
+      }
     } catch (error) {
-      console.log("err들어옴");
-      const res = await axios.post("/register", data);
       console.log("회원가입 err1", error);
     }
   };
 
   useEffect(() => {
-    const passwordWatch = watch("password");
+    const passwordWatch = watch("userPw");
     const pwCheckWatch = watch("pwCheck");
     if (passwordWatch !== pwCheckWatch && pwCheckWatch) {
       setError("pwCheck", {
@@ -56,7 +67,7 @@ const RegisterPage = (props: any) => {
     } else {
       clearErrors("pwCheck");
     }
-  }, [watch("password"), watch("pwCheck"), setError, clearErrors]);
+  }, [watch("userPw"), watch("pwCheck"), setError, clearErrors]);
 
   return (
     <>
@@ -84,9 +95,9 @@ const RegisterPage = (props: any) => {
             <S.InputFieldBox>
               <S.StyledInput
                 type="password"
-                id="password"
+                id="userPw"
                 placeholder="8~20자 영문 대소문자, 숫자 조합."
-                {...register("password", {
+                {...register("userPw", {
                   required: true,
                   minLength: 8,
                   maxLength: 20,
@@ -94,20 +105,20 @@ const RegisterPage = (props: any) => {
                 })}
               />
             </S.InputFieldBox>
-            {errors.password?.type === "required" && (
+            {errors.userPw?.type === "required" && (
               <S.ErrorMessage>비밀번호를 입력해주세요.</S.ErrorMessage>
             )}
-            {errors.password?.type === "minLength" && (
+            {errors.userPw?.type === "minLength" && (
               <S.ErrorMessage>
                 비밀번호는 최소 8자 이상 영문과 숫자의 조합이여야 합니다.
               </S.ErrorMessage>
             )}
-            {errors.password?.type === "maxLength" && (
+            {errors.userPw?.type === "maxLength" && (
               <S.ErrorMessage>
                 비밀번호는 20자 이하 영문과 숫자의 조합이여야 합니다.
               </S.ErrorMessage>
             )}
-            {errors.password?.type === "pattern" && (
+            {errors.userPw?.type === "pattern" && (
               <S.ErrorMessage>
                 비밀번호는 영문과 숫자의 조합이어야 합니다.
               </S.ErrorMessage>
@@ -133,7 +144,7 @@ const RegisterPage = (props: any) => {
                   //   },
                   // },
                   validate: (value) =>
-                    value === getValues("password") ||
+                    value === getValues("userPw") ||
                     "비밀번호가 일치하지 않습니다.",
                 })}
               />
@@ -150,18 +161,18 @@ const RegisterPage = (props: any) => {
             <S.InputFieldBox>
               <S.StyledInput
                 type="text"
-                id="name"
+                id="userName"
                 placeholder="이름을 입력해주세요."
-                {...register("name", {
+                {...register("userName", {
                   required: true,
                   minLength: 2,
                 })}
               />
             </S.InputFieldBox>
-            {errors.name?.type === "required" && (
+            {errors.userName?.type === "required" && (
               <S.ErrorMessage>이름을 입력해주세요.</S.ErrorMessage>
             )}
-            {errors.name?.type === "minLength" && (
+            {errors.userName?.type === "minLength" && (
               <S.ErrorMessage>
                 이름은 최소 2글자 이상으로 작성해주세요.
               </S.ErrorMessage>
@@ -172,18 +183,18 @@ const RegisterPage = (props: any) => {
             <S.InputFieldBox>
               <S.StyledInput
                 type="text"
-                id="nickName"
+                id="userNickname"
                 placeholder="사용하실 닉네임을 입력해주세요."
-                {...register("nickName", {
+                {...register("userNickname", {
                   required: true,
                   minLength: 2,
                 })}
               />
             </S.InputFieldBox>
-            {errors.nickName?.type === "required" && (
+            {errors.userNickname?.type === "required" && (
               <S.ErrorMessage>닉네임을 입력해주세요.</S.ErrorMessage>
             )}
-            {errors.nickName?.type === "minLength" && (
+            {errors.userNickname?.type === "minLength" && (
               <S.ErrorMessage>
                 닉네임은 최소 2글자 이상으로 작성해주세요.
               </S.ErrorMessage>

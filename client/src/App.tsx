@@ -25,7 +25,7 @@ const App: React.FC = () => {
 
 const MainLayout = styled.div`
   width: 100vw;
-  padding: 4%;
+  padding: 5%;
   max-width: 430px;
   min-height: 950px;
   background-color: ${({ theme }) => theme.colors.bgColor};
