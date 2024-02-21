@@ -22,6 +22,10 @@ COPY --from=build /app/build /usr/share/nginx/html
 
 COPY conf/conf.d/default.conf /etc/nginx/nginx.conf
 
+ARG REACT_APP_KAKAOMAP_KEY
+
+ENV REACT_APP_KAKAOMAP_KEY=$REACT_APP_KAKAOMAP_KEY
+
 EXPOSE 80 443
 
 # nginx 실행
