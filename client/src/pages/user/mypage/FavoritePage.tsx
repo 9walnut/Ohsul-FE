@@ -4,7 +4,7 @@ import Header from "../../../components/common/Header";
 const FavoritePage = () => {
   return (
     <>
-      <Header title="마이페이지" />
+      <div>즐겨찾기 장소</div>
     </>
   );
 };

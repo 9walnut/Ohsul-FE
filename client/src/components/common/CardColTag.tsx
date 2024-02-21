@@ -4,6 +4,11 @@ import styled from "styled-components";
 import { CardTag } from "../../types/Common";
 
 const CardColTag: React.FC<CardTag> = ({ barName, barImg, score, tag }) => {
+  const tagData = tag || { drink: [], mood: [], music: [] };
+  const drink: string[] = tagData.drink;
+  const mood: string[] = tagData.mood;
+  const music: string[] = tagData.music;
+
   return (
     <>
       <CardLayout>
@@ -41,7 +46,27 @@ const CardColTag: React.FC<CardTag> = ({ barName, barImg, score, tag }) => {
               />
             </FavoriteImg>
           </FavoriteBox>
-          <TagLayout>여기 태그</TagLayout>
+          <TagLayout>
+            {" "}
+            <TagBox>
+              <TagTitle>술</TagTitle>
+              {drink.map((item, index) => (
+                <TagContent key={index}>{item}</TagContent>
+              ))}
+            </TagBox>
+            <TagBox>
+              <TagTitle>분위기</TagTitle>
+              {mood.map((item, index) => (
+                <TagContent key={index}>{item}</TagContent>
+              ))}
+            </TagBox>
+            <TagBox>
+              <TagTitle>음악</TagTitle>
+              {music.map((item, index) => (
+                <TagContent key={index}>{item}</TagContent>
+              ))}
+            </TagBox>
+          </TagLayout>
         </RightContent>
       </CardLayout>
     </>
@@ -55,8 +80,8 @@ const CardLayout = styled.div`
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  padding: 10px 15px;
-  gap: 5px;
+  padding: 10px 10px;
+  gap: 12px;
 
   /* width: 382px; */
   width: 100%;
@@ -77,7 +102,7 @@ const LeftContent = styled.div`
   padding: 2px 5px;
   gap: 3px;
 
-  width: 162px;
+  width: 90px;
   height: 149px;
 `;
 
@@ -149,7 +174,7 @@ const RightContent = styled.div`
   padding: 2px 5px;
   gap: 20px;
 
-  width: 162px;
+  width: 100%;
   height: 149px;
 `;
 
@@ -161,7 +186,7 @@ const FavoriteBox = styled.div`
   padding: 0px;
   gap: 3px;
 
-  width: 152px;
+  width: 100%;
   height: 24px;
 `;
 const FavoriteImg = styled.div`
@@ -173,8 +198,37 @@ const FavoriteImg = styled.div`
 `;
 
 const TagLayout = styled.div`
-  width: 151px;
+  width: auto;
   height: 71px;
+`;
+const TagBasic = `
+height: 20px;
+font-size: 12px;
+border-radius: 5px;
+display: flex;
+justify-content: center;
+align-items: center;
+margin: 2px 1px;
+`;
+const TagTitle = styled.div`
+  color: ${({ theme }) => theme.colors.mainBlue};
+  background: ${({ theme }) => theme.colors.bgLightColor};
+  border: 1px dashed ${({ theme }) => theme.colors.mainBlue};
+  width: 46px;
+  ${TagBasic}
+`;
 
-  background-color: gainsboro;
+const TagBox = styled.div`
+  display: flex;
+  gap: 2px;
+`;
+
+const TagContent = styled.div`
+  color: ${({ theme }) => theme.colors.bgColor};
+  background: ${({ theme }) => theme.colors.mainBlue};
+  border: 1px solid ${({ theme }) => theme.colors.mainBlue};
+  width: auto;
+  padding: 7px;
+  margin: 4px;
+  ${TagBasic}
 `;

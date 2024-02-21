@@ -4,7 +4,7 @@ import Header from "../../../components/common/Header";
 const MyReviewPage = () => {
   return (
     <>
-      <Header title="마이페이지" />
+      <div>내가 작성한 리뷰</div>
     </>
   );
 };
