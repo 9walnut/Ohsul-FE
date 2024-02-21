@@ -6,6 +6,7 @@ import Header from "../../../components/common/Header";
 import BackButton from "../../../components/common/BackButton";
 import RoundButton from "../../../components/common/RoundButton";
 import axios from "axios";
+import Cookies from "universal-cookie";
 
 type LoginFormInputs = {
   userId: string;
@@ -14,6 +15,7 @@ type LoginFormInputs = {
 
 const LoginPage = (props: any) => {
   const navigate = useNavigate();
+  const cookies = new Cookies();
 
   const {
     register,
@@ -30,24 +32,28 @@ const LoginPage = (props: any) => {
           "Content-Type": "application/json",
         },
       });
+      // 세션 쿠키를 서버에서 받아와서 저장
+      const sessionId = "receivedSessionId"; // 서버에서 받아온 JSESSIONID 값
+      cookies.set("sessionId", sessionId, { path: "/" });
+      // 로그인 상태를 저장
+      cookies.set("isLoggedIn", true, { path: "/" });
+      // const userId = res.data.userId;
+      // console.log(userId);
+      // localStorage.setItem("userId", userId);
 
-      const userId = res.data.userId;
-      console.log(userId);
-      localStorage.setItem("userId", userId);
+      // console.log("로그인 응답", res);
+      // console.log("response status", res.status);
+      // console.log("로그인 응답 res.data", res.data);
+      // console.log("로그인 응답 res.data.userId", res.data.userId);
+      // localStorage.setItem("token", res.data.token);
+      // localStorage.setItem("userId", res.data.userId);
+      // localStorage.setItem("isLoggedIn", "true");
+      // localStorage.setItem("key1", JSON.stringify({ key1: "10" }));
+      // localStorage.setItem("key2", JSON.stringify({ key2: "userId" }));
 
-      console.log("로그인 응답", res);
-      console.log("response status", res.status);
-      console.log("로그인 응답 res.data", res.data);
-      console.log("로그인 응답 res.data.userId", res.data.userId);
-      localStorage.setItem("token", res.data.token);
-      localStorage.setItem("userId", res.data.userId);
-      localStorage.setItem("isLoggedIn", "true");
-      localStorage.setItem("key1", JSON.stringify({ key1: "10" }));
-      localStorage.setItem("key2", JSON.stringify({ key2: "userId" }));
-
-      console.log(localStorage.getItem("userId"));
-      console.log(localStorage.getItem("token"));
-      console.log(localStorage.getItem("isLoggedIn"));
+      // console.log(localStorage.getItem("userId"));
+      // console.log(localStorage.getItem("token"));
+      // console.log(localStorage.getItem("isLoggedIn"));
       if (res.status == 200) {
         // localStorage.setItem("isLogin", "true");
         // localStorage.setItem("userId", res.data.userId

@@ -4,6 +4,8 @@ import { NavLink, useNavigate } from "react-router-dom";
 import Header from "../../components/common/Header";
 import ExplainBox from "../../components/main/ExplainBox";
 
+import Cookies from "universal-cookie";
+
 const DUMMYBarReviewCard = {
   userNickname: "졸린공룡",
   score: 4,
@@ -20,6 +22,9 @@ const DUMMYBarReviewCard = {
 };
 
 const MainPage: React.FC = () => {
+  const cookies = new Cookies();
+  const isLoggedIn = cookies.get("isLoggedIn") === "true";
+
   //오술태그 선택된 값 넣기
   const DUMMYTags = {
     alcohol: ["alcohol_1", "alcohol_2", "alcohol_5"],
@@ -50,6 +55,9 @@ const MainPage: React.FC = () => {
       <NavLink to={"/barReviews/editReview"}>리뷰 수정 페이지 이동</NavLink>
       {/* <TagBox checkedTags={DUMMYTags} disabled={true} /> */}
       {/* <TagBox /> */}
+      <div>
+        {isLoggedIn ? <p>로그인 되어 있음</p> : <p>로그인되어 있지 않음</p>}
+      </div>
     </>
   );
 };
