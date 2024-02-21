@@ -1,7 +1,6 @@
 import React from "react";
 import styled from "styled-components";
 import Header from "../../components/common/Header";
-import KakaoMap01 from "../../components/common/KakaoMap01";
 import ToggleBtn from "../../components/nearAlcohol/ToggleBtn";
 import CardColTag from "../../components/common/CardColTag";
 import CardColReview from "../../components/common/CardColReview";
@@ -41,7 +40,7 @@ const NearAlcoholPage: React.FC = () => {
     <>
       <PageLayout>
         <Header title="내 주변의 술" />
-        <KakaoMap07 />
+        {/* <KakaoMap07 /> */}
         <p>얘는 가로형 카드 태그형</p>
         <CardColTag
           barName={DUMMYCardColTag.barName}

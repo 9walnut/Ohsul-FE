@@ -5,6 +5,16 @@ import { State, MarkerInfo, SearchResult, SearchCenter } from "../../types/Map";
 import MapToggle from "./MapToggle";
 
 const KakaoMap07 = () => {
+  useEffect(() => {
+    const script = document.createElement("script");
+    script.src = `//dapi.kakao.com/v2/maps/sdk.js?appkey=c4a8fe0afcb6e392c9cd360155098ed5&libraries=services,clusterer`;
+    script.async = true;
+    document.head.appendChild(script);
+
+    return () => {
+      document.head.removeChild(script);
+    };
+  }, []);
   const [info, setInfo] = useState<MarkerInfo | null>(null);
   const [searchWord, setSearchWord] = useState<string>("");
   const [markers, setMarkers] = useState<MarkerInfo[]>([]);
