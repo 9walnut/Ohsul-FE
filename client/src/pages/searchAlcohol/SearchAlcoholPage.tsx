@@ -18,7 +18,7 @@ const SearchAlcoholPage: React.FC = () => {
     <>
       <Header title="오늘의 술 찾기" />
       <KakaoMap07 />
-      <TagBox checkedTags={DUMMYTags} disabled={true} />
+      <TagBox checkedTags={DUMMYTags} />
       {/* dot Img */}
       <img src="/assets/images/border_dot.png" alt="border_dot" />
       CardCol
