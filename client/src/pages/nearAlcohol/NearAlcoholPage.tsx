@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import Header from "../../components/common/Header";
 import ToggleBtn from "../../components/nearAlcohol/ToggleBtn";
@@ -30,18 +30,24 @@ const DUMMYCardColTag = {
     "https://search.pstatic.net/common/?src=https%3A%2F%2Fpup-review-phinf.pstatic.net%2FMjAyMzAyMDNfNjkg%2FMDAxNjc1MzU3OTAwMDc1.nDuEbsyEjQNKrN5JJn4PN7QN2himoQXkjdsOidYPEQ4g.hc5nBIjfzB85bNZRKiYcGhwY3ETdxAtLQUQhAi_hZ3cg.JPEG%2Fimage.jpg",
   tag: {
     drink: ["칵테일", "양주"],
-    mood: ["다같이 즐기는", "이야기 나누기 적당한"],
+    mood: ["다같이 즐기는", "힙한"],
     music: ["힙합"],
   },
 };
 
 const NearAlcoholPage: React.FC = () => {
+  const [viewMap, setViewMap] = useState(true);
+
+  const handleViewChange = (newViewMap: boolean) => {
+    setViewMap(newViewMap);
+  };
+
   return (
     <>
       <PageLayout>
         <Header title="내 주변의 술" />
         {/* <KakaoMap07 /> */}
-        <p>얘는 가로형 카드 태그형</p>
+        <p>여기 지도 들어옴</p>
         <CardColTag
           barName={DUMMYCardColTag.barName}
           score={DUMMYCardColTag.score}
@@ -60,7 +66,9 @@ const NearAlcoholPage: React.FC = () => {
           date={DUMMYBarReviewCard.date}
         /> */}
         {/* <ToggleBtn /> */}
-        <Toggle2 />
+        {/* <Toggle2 /> */}
+        {viewMap ? <p>지도 보기 컴포넌트</p> : <p>리스트 보기 컴포넌트</p>}
+        <Toggle2 viewMap={viewMap} onViewChange={handleViewChange} />
       </PageLayout>
     </>
   );
