@@ -208,7 +208,7 @@ const ContentBox2 = styled.div`
   /* justify-content: space-between; */
   align-items: center;
   padding: 2px 10px 2px 5px;
-  gap: 3px;
+  gap: 15px;
 
   /* width: 341px; */
   width: 100%;

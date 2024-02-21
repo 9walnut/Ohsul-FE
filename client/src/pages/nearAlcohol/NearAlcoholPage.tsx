@@ -49,9 +49,9 @@ const NearAlcoholPage: React.FC = () => {
           barImg={DUMMYCardColTag.barImg}
           tag={DUMMYCardColTag.tag}
         />
-        <p>얘는 가로형 카드 리뷰형</p>
-        <CardColReview barName="언더그라운드" />
-        <p>리뷰 페이지에 보여지는 리뷰카드</p>
+        {/* <p>얘는 가로형 카드 리뷰형</p>
+        <CardColReview barName="언더그라운드" /> */}
+        {/* <p>리뷰 페이지에 보여지는 리뷰카드</p>
         <BarReviewCard
           userNickname={DUMMYBarReviewCard.userNickname}
           score={DUMMYBarReviewCard.score}
@@ -59,8 +59,8 @@ const NearAlcoholPage: React.FC = () => {
           tag={DUMMYBarReviewCard.tag}
           content={DUMMYBarReviewCard.content}
           date={DUMMYBarReviewCard.date}
-        />
-        <ToggleBtn />
+        /> */}
+        {/* <ToggleBtn /> */}
         <Toggle2 />
       </PageLayout>
     </>

@@ -80,8 +80,8 @@ const CardLayout = styled.div`
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  padding: 10px 15px;
-  gap: 5px;
+  padding: 10px 10px;
+  gap: 12px;
 
   /* width: 382px; */
   width: 100%;
@@ -102,7 +102,7 @@ const LeftContent = styled.div`
   padding: 2px 5px;
   gap: 3px;
 
-  width: 162px;
+  width: 90px;
   height: 149px;
 `;
 
@@ -186,7 +186,7 @@ const FavoriteBox = styled.div`
   padding: 0px;
   gap: 3px;
 
-  width: 152px;
+  width: 100%;
   height: 24px;
 `;
 const FavoriteImg = styled.div`
