@@ -7,7 +7,7 @@ import MapToggle from "./MapToggle";
 const KakaoMap07 = () => {
   useEffect(() => {
     const script = document.createElement("script");
-    script.src = `//dapi.kakao.com/v2/maps/sdk.js?appkey=${process.env.REACT_APP_KAKAOMAP_KEY}&libraries=services,clusterer`;
+    script.src = `//dapi.kakao.com/v2/maps/sdk.js?appkey=c4a8fe0afcb6e392c9cd360155098ed5&libraries=services,clusterer`;
     script.async = true;
     document.head.appendChild(script);
 
