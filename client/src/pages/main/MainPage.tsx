@@ -58,6 +58,7 @@ const MainPage: React.FC = () => {
       <div>
         {isLoggedIn ? <p>로그인 되어 있음</p> : <p>로그인되어 있지 않음</p>}
       </div>
+      <p>설마 안되고있니??????</p>
     </>
   );
 };
