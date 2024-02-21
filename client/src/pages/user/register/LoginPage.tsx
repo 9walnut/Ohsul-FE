@@ -32,19 +32,20 @@ const LoginPage = (props: any) => {
       });
       console.log("로그인 응답", res);
       console.log("response status", res.status);
+      console.log("로그인 응답 res.data", res.data);
+      console.log("로그인 응답 res.data.userId", res.data.userId);
+      localStorage.setItem("token", res.data.token);
+      localStorage.setItem("userId", res.data.userId);
+      localStorage.setItem("isLoggedIn", "true");
+
+      console.log(localStorage.getItem("userId"));
+      console.log(localStorage.getItem("token"));
+      console.log(localStorage.getItem("isLoggedIn"));
       if (res.status == 200) {
         // localStorage.setItem("isLogin", "true");
         // localStorage.setItem("userId", res.data.userId
         // );
-        console.log("로그인 응답 res.data", res.data);
-        console.log("로그인 응답 res.data.userId", res.data.userId);
-        localStorage.setItem("token", res.data.token);
-        localStorage.setItem("userId", res.data.userId);
-        localStorage.setItem("isLoggedIn", "true");
 
-        console.log(localStorage.getItem("userId"));
-        console.log(localStorage.getItem("token"));
-        console.log(localStorage.getItem("isLoggedIn"));
         navigate("/");
       }
     } catch (error) {
