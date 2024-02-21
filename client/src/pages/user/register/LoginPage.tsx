@@ -11,8 +11,10 @@ type LoginFormInputs = {
   userId: string;
   userPw: string;
 };
+
 const LoginPage = (props: any) => {
   const navigate = useNavigate();
+
   const {
     register,
     handleSubmit,
