@@ -36,7 +36,8 @@ const LoginPage = (props: any) => {
         // localStorage.setItem("isLogin", "true");
         // localStorage.setItem("userId", res.data.userId
         // );
-
+        console.log("로그인 응답 res.data", res.data);
+        console.log("로그인 응답 res.data.userId", res.data.userId);
         localStorage.setItem("token", res.data.token);
         localStorage.setItem("userId", res.data.userId);
         localStorage.setItem("isLoggedIn", "true");
