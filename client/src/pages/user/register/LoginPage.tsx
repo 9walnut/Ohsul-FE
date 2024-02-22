@@ -27,7 +27,7 @@ const LoginPage = (props: any) => {
     try {
       const res = await axios.post("api/login", data, {
         headers: {
-          "Content-Type": "application/json",
+          "Content-Type": "applcation/json",
         },
       });
       console.log("로그인 응답", res);
