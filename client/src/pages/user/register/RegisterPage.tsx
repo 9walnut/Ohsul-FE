@@ -40,7 +40,7 @@ const RegisterPage = (props: any) => {
 
     console.log("회원가입 입력", postData);
     try {
-      const res = await axios.post("api/register", postData, {
+      const res = await axios.post("/api/register", postData, {
         headers: {
           "Content-Type": "application/json",
         },

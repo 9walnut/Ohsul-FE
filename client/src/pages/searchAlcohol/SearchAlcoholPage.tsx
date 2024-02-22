@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Header from "../../components/common/Header";
 import styled from "styled-components";
 import KakaoMap07 from "../../components/common/KakaoMap07";
@@ -8,6 +8,16 @@ import CardColReview from "../../components/common/CardColReview";
 
 const SearchAlcoholPage: React.FC = () => {
   const [searchResults, setSearchResults] = useState<SearchResult[]>([]);
+
+  useEffect(() => {
+    console.log("주소들어옴", searchResults);
+
+    const phoneNumbers = searchResults
+      .filter((result) => result.phone)
+      .map((result) => result.phone);
+
+    console.log("번호 모음", phoneNumbers);
+  }, [searchResults]);
 
   const handleSearchResults = (results: SearchResult[]) => {
     setSearchResults(results);
