@@ -3,6 +3,8 @@ import { useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import Header from "../../components/common/Header";
 import ExplainBox from "../../components/main/ExplainBox";
+import CommonModal from "../../components/common/CommonModal";
+import ConfirmModal from "../../components/common/ConfirmModal";
 
 import Cookies from "universal-cookie";
 
@@ -50,8 +52,8 @@ const MainPage: React.FC = () => {
       {/* <CommonModal
         message="메시지이이ㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣ"
         isClose={true}
-      />
-      <ConfirmModal
+      /> */}
+      {/* <ConfirmModal
         message="메시지이이ㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣ"
         isClose={true}
       /> */}

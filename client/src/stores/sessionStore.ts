@@ -1,11 +1,14 @@
+// authStore.js
 import create from "zustand";
 
-interface SessionState {
-  session: string | null;
-  setSession: (session: string | null) => void;
-}
+// interface UserState {
+//   isLoggedIn: boolean;
+//   setLoggedIn;
+// }
+// Zustand를 사용하여 전역 상태로 isLoggedIn 값을 관리하는 스토어 생성
+// const useAuthStore = create((set) => ({
+//   isLoggedIn: false, // 초기값은 false로 설정
+//   setLoggedIn: (value) => set({ isLoggedIn: value }), // isLoggedIn 값을 설정하는 액션
+// }));
 
-export const useSessionStore = create<SessionState>((set) => ({
-  session: null, // 초기 세션 상태는 null
-  setSession: (session) => set({ session }),
-}));
+// export default useAuthStore;

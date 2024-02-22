@@ -9,6 +9,7 @@ import Header from "../../../components/common/Header";
 import MenuBar from "../../../components/myPage/MenuBar";
 import FavoritePage from "./FavoritePage";
 import MyReviewPage from "./MyReviewPage";
+import ConfirmModal from "../../../components/common/ConfirmModal";
 
 //DUMMY
 const userNickname = "졸린공룡";
@@ -42,6 +43,7 @@ const MyPage: React.FC = () => {
   const handleLogout = async () => {
     try {
       const res = await axios.post("api/logout");
+      <ConfirmModal message="로그아웃 완료" isClose={true} />;
       if (res.status == 200) {
         console.log(res);
         cookies.set("isLoggedIn", false, { path: "/" });
