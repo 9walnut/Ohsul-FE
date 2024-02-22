@@ -7,6 +7,7 @@ import BackButton from "../../../components/common/BackButton";
 import RoundButton from "../../../components/common/RoundButton";
 import axios from "axios";
 import Cookies from "universal-cookie";
+import useAuthStore from "../../../stores/useAuthStore";
 
 type LoginFormInputs = {
   userId: string;
@@ -36,13 +37,14 @@ const LoginPage = (props: any) => {
         console.log(res);
         console.log(res.data);
 
+        //--- cookie LogIn
         const sessionId = "receivedSessionId";
         cookies.set("sessionId", sessionId, { path: "/" });
         cookies.set("isLoggedIn", true, { path: "/" });
 
-        // console.log(cookies.getAll());
-        // console.log(cookies.get("sessionId"));
-        console.log("isLoggedIn?: ", cookies.get("isLoggedIn"));
+        //--- zustand LogIn
+        useAuthStore.setState({ isLoggedIn: true });
+        console.log("zustand isLoggedIn:", useAuthStore.getState().isLoggedIn);
 
         navigate("/");
       }
