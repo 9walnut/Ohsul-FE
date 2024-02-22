@@ -4,6 +4,10 @@ type AuthStore = {
   isLoggedIn: boolean;
   login: () => void;
   logout: () => void;
+  userId: string | null;
+  setUserId: (userId: string) => void;
+  userNickname: string | null;
+  setUserNickname: (userId: string) => void;
 };
 
 // Zustand 스토어 생성
@@ -11,6 +15,10 @@ const useAuthStore = createStore<AuthStore>((set) => ({
   isLoggedIn: false,
   login: () => set({ isLoggedIn: true }),
   logout: () => set({ isLoggedIn: false }),
+  userId: null,
+  setUserId: (userId: string) => set({ userId: userId }),
+  userNickname: null,
+  setUserNickname: (userId: string) => set({ userId: userId }),
 }));
 
 export default useAuthStore;

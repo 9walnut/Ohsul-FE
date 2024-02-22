@@ -46,6 +46,19 @@ const LoginPage = (props: any) => {
         useAuthStore.setState({ isLoggedIn: true });
         console.log("zustand isLoggedIn:", useAuthStore.getState().isLoggedIn);
 
+        //--- zustand userId 저장
+        const userId = res.data.userId;
+        useAuthStore.setState({ userId: userId });
+        console.log("zustand userId:", useAuthStore.getState().userId);
+
+        //--- zustand userNickname 저장
+        const userNickname = res.data.userNickname;
+        useAuthStore.setState({ userNickname: userNickname });
+        console.log(
+          "zustand userNickname:",
+          useAuthStore.getState().userNickname
+        );
+
         navigate("/");
       }
     } catch (error) {
