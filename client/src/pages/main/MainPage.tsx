@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import Header from "../../components/common/Header";
@@ -23,7 +23,16 @@ const DUMMYBarReviewCard = {
 
 const MainPage: React.FC = () => {
   const cookies = new Cookies();
-  const isLoggedIn = cookies.get("isLoggedIn") === "true";
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  //const isLoggedInCookie = cookies.get("isLoggedIn") === "true";
+  useEffect(() => {
+    const isLoggedInCookie = cookies.get("isLoggedIn");
+    setIsLoggedIn(isLoggedInCookie);
+
+    console.log("MainPage: isLoggedIn? ", cookies.get("isLoggedIn"));
+    // console.log(isLoggedInCookie);
+    // console.log(isLoggedIn);
+  }, []);
 
   //오술태그 선택된 값 넣기
   const DUMMYTags = {
@@ -53,12 +62,10 @@ const MainPage: React.FC = () => {
       <NavLink to={"/barReviews/addReview"}>리뷰 작성 페이지 이동</NavLink>
       <br />
       <NavLink to={"/barReviews/editReview"}>리뷰 수정 페이지 이동</NavLink>
-      {/* <TagBox checkedTags={DUMMYTags} disabled={true} /> */}
-      {/* <TagBox /> */}
       <div>
+        {isLoggedIn}
         {isLoggedIn ? <p>로그인 되어 있음</p> : <p>로그인되어 있지 않음</p>}
       </div>
-      <p>설마 안되고있니??????</p>
     </>
   );
 };
