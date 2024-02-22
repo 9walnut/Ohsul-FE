@@ -1,13 +1,40 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Header from "../../components/common/Header";
 import styled from "styled-components";
 import KakaoMap07 from "../../components/common/KakaoMap07";
 import TagBox from "../../components/ohsulTag/TagBox";
 import { SearchResult } from "../../types/Map";
 import CardColReview from "../../components/common/CardColReview";
+import axios from "axios";
 
 const SearchAlcoholPage: React.FC = () => {
   const [searchResults, setSearchResults] = useState<SearchResult[]>([]);
+
+  useEffect(() => {
+    console.log("주소들어옴", searchResults);
+
+    const phoneNumbers = searchResults
+      .filter((result) => result.phone)
+      .map((result) => result.phone.replace(/-/g, ""));
+
+    console.log("번호 모음", phoneNumbers);
+    postStoreInfo(phoneNumbers);
+  }, [searchResults]);
+
+  const postStoreInfo = async (phoneNumbers: any) => {
+    console.log("보내는 데이터임", phoneNumbers);
+    try {
+      const res = await axios.post("/api/ohsul/near", phoneNumbers, {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      console.log("알코올 응답", res);
+      console.log("알콜 응답 데이터 ~!!~!", res.data);
+    } catch (error) {
+      console.log("알콜 응답 에러", error);
+    }
+  };
 
   const handleSearchResults = (results: SearchResult[]) => {
     setSearchResults(results);

@@ -4,6 +4,17 @@ import styled from "styled-components";
 import { State, MarkerInfo, SearchResult, SearchCenter } from "../../types/Map";
 import MapToggle from "./MapToggle";
 import CardColTag from "./CardColTag";
+import Select from "react-select";
+
+interface SelectOptionsTypes {
+  value: string;
+  label: string;
+}
+
+const SelectOptions: SelectOptionsTypes[] = [
+  { value: "local", label: "지역명" },
+  { value: "store", label: "매장명" },
+];
 
 const KakaoMap07 = ({
   onSearchResults,
@@ -20,10 +31,20 @@ const KakaoMap07 = ({
       document.head.removeChild(script);
     };
   }, []);
+
+  const [selectedValue, setSelectedValue] = useState<string>(
+    SelectOptions[0].value
+  );
+
+  const handleChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    setSelectedValue(event.target.value);
+  };
   const [info, setInfo] = useState<MarkerInfo | null>(null);
   const [searchWord, setSearchWord] = useState<string>("");
   const [markers, setMarkers] = useState<MarkerInfo[]>([]);
   const [searchResults, setSearchResults] = useState<SearchResult[]>([]);
+  const [activeOverlay, setActiveOverlay] =
+    useState<kakao.maps.CustomOverlay | null>(null);
   const [isReSearch, setIsReSearch] = useState<boolean>(false);
   const [state, setState] = useState<State>({
     center: null,
@@ -37,6 +58,15 @@ const KakaoMap07 = ({
   const [moveKeyword, setMoveKeyword] = useState<string>("");
   const [clickedResult, setClickedResult] = useState<SearchResult | null>(null);
   const [getInfo, setGetInfo] = useState("");
+  const [isOpen, setIsOpen] = useState(false);
+  const [selectedLabel, setSelectedLabel] = useState("지역명");
+
+  const toggleDropdown = () => setIsOpen(!isOpen);
+
+  const handleSelect = (label: string) => {
+    setSelectedLabel(label);
+    setIsOpen(false);
+  };
   const categories = [
     "술집",
     "호프",
@@ -70,9 +100,13 @@ const KakaoMap07 = ({
     let totalResults: SearchResult[] = [];
 
     categories.forEach((category, index) => {
-      const searchQuery = `${searchWord} ${category}`;
+      let searchQuery = searchWord;
+      if (selectedLabel === "지역명") {
+        searchQuery += ` ${category}`;
+      }
 
       ps.keywordSearch(searchQuery, (data, status, _pagination) => {
+        console.log("검색문", searchQuery);
         if (status === kakao.maps.services.Status.OK) {
           const bounds = new kakao.maps.LatLngBounds();
           const newMarkers: MarkerInfo[] = data.map((item) => ({
@@ -224,12 +258,42 @@ const KakaoMap07 = ({
     const result = searchResults.find(
       (result) => result.name === markerInfo.content
     );
+
+    // 가게 상세 정보 요청 추가.....합시...다
+
     if (result) {
       setClickedResult(result);
     } else {
       setClickedResult(null);
     }
-    setInfo(markerInfo);
+
+    // 이전에 활성화된 오버레이가 있다면 제거
+    if (activeOverlay) {
+      activeOverlay.setMap(null);
+      setActiveOverlay(null);
+    }
+
+    if (result && map) {
+      // 커스텀 오버레이에 표시될 내용
+      const content = `<div class="custom-overlay">${result.name}</div>`;
+
+      // 새 커스텀 오버레이 생성
+      const overlay = new kakao.maps.CustomOverlay({
+        content: content,
+        position: new kakao.maps.LatLng(
+          markerInfo.position.lat,
+          markerInfo.position.lng
+        ),
+        xAnchor: 0.5,
+        yAnchor: 1.4,
+      });
+
+      // 지도에 커스텀 오버레이 표시
+      overlay.setMap(map);
+
+      // 활성화된 오버레이 상태 업데이트
+      setActiveOverlay(overlay);
+    }
   };
 
   const handleDrag = () => {
@@ -243,11 +307,29 @@ const KakaoMap07 = ({
           type="text"
           value={searchWord}
           onChange={(e) => setSearchWord(e.target.value)}
-          placeholder="지역 또는 매장명으로 찾기"
+          placeholder={`${selectedLabel}으로 찾기`}
         />
         <button onClick={handleSearch}>
           <img src="/assets/images/map_search.png" alt="search" />
         </button>
+        <Dropdown>
+          <DropdownButton onClick={toggleDropdown}>
+            {selectedLabel}
+            <img src="/assets/images/select_arrow.png" />
+          </DropdownButton>
+          {isOpen && (
+            <DropdownContent>
+              {SelectOptions.map((option) => (
+                <DropdownItem
+                  key={option.value}
+                  onClick={() => handleSelect(option.label)}
+                >
+                  {option.label}
+                </DropdownItem>
+              ))}
+            </DropdownContent>
+          )}
+        </Dropdown>
       </SearchWrapper>
 
       {state.isLoading ? (
@@ -297,7 +379,6 @@ const KakaoMap07 = ({
                 // handleMovedSearch();
               }}
             >
-              {/* <MapToggle /> */}
               <SearchBtn onClick={handleMyLocation}>
                 <img src="/assets/images/map_myloc.png" alt="myLoc" />내 위치
               </SearchBtn>
@@ -316,9 +397,7 @@ const KakaoMap07 = ({
                   //   },
                   // }}
                 >
-                  {info && info.content === marker.content && (
-                    <InfoBox>{marker.content}</InfoBox>
-                  )}
+                  {info && info.content === marker.content && marker.content}
                 </MapMarker>
               ))}
               {/* 내 위치 마커*/}
@@ -344,24 +423,6 @@ const KakaoMap07 = ({
 
       {clickedResult && (
         <>
-          {/* <DetailBox>
-            <img
-              src={
-                process.env.PUBLIC_URL +
-                "assets/images/common_alternateImage.png"
-              }
-              alt="리뷰이미지"
-              width="100px"
-            />
-            <br />
-            <p>{clickedResult.name}</p>
-            <br />
-            {clickedResult.address}
-            <br />
-            {clickedResult.phone
-              ? clickedResult.phone
-              : "연락처 정보가 없습니다."}
-          </DetailBox> */}
           <CardColTag barName={clickedResult.name} />
         </>
       )}
@@ -378,34 +439,9 @@ const KakaoMap07 = ({
           </div>
         </>
       )}
-      {/* <h2>😀 술집 리스트 😀</h2> */}
-      <br />
-      {/* <SearchResultsList results={searchResults} /> */}
     </>
   );
 };
-
-const InfoBox = styled.div`
-  padding: 4px;
-`;
-
-// const SearchResultsList: React.FC<{ results: SearchResult[] }> = ({
-//   results,
-// }) => (
-//   <>
-//     <ul>
-//       {results.map((result, index) => (
-//         <li key={index} style={{ marginBottom: "10px" }}>
-//           <strong>{result.name}</strong>
-//           <br />
-//           {result.address}
-//           <br />
-//           {result.phone}
-//         </li>
-//       ))}
-//     </ul>
-//   </>
-// );
 
 const ReSearchModal = styled.div`
   align-items: center;
@@ -439,13 +475,19 @@ const ReSearchModal = styled.div`
   }
 `;
 
-// const DetailBox = styled.div`
-//   width: 300px;
-//   height: 200px;
-//   background-color: #beae95;
-// `;
-
 const MapWrapper = styled.div`
+  /* 커스텀 마커 */
+  .custom-overlay {
+    font-family: ${({ theme }) => theme.fonts.ydFont};
+    padding: 8px 12px;
+    background: ${({ theme }) => theme.colors.btnBlue};
+    color: ${({ theme }) => theme.colors.lightFont};
+    letter-spacing: 1px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    position: relative;
+    bottom: 30px;
+  }
   position: relative;
   width: 100%;
 `;
@@ -474,7 +516,7 @@ const SearchBtn = styled.button`
 const SearchWrapper = styled.div`
   position: relative;
   input {
-    width: 240px;
+    width: 300px;
     padding: 6px 20px;
     border-radius: 100px;
     border: 1px solid #4d607b;
@@ -500,4 +542,45 @@ const SearchWrapper = styled.div`
   }
 `;
 
+const Dropdown = styled.div`
+  font-family: ${({ theme }) => theme.fonts.ydFont};
+  position: absolute;
+  z-index: 4;
+  left: 6px;
+  top: 4px;
+  width: 60px;
+  font-size: 14px;
+  border-radius: 14px;
+`;
+
+const DropdownButton = styled.div`
+  padding: 4px;
+  background-color: #ffffff;
+  cursor: pointer;
+  img {
+    margin-left: 4px;
+  }
+`;
+
+const DropdownContent = styled.ul`
+  opacity: 0.9;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+  overflow-y: auto;
+`;
+
+const DropdownItem = styled.li`
+  padding: 8px;
+  cursor: pointer;
+  &:hover {
+    background-color: #f0f0f0;
+  }
+`;
 export default KakaoMap07;
