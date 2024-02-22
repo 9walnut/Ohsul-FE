@@ -64,3 +64,11 @@ export const StyledLink = styled(Link)`
   font-size: 10px;
   color: #6f6f6f;
 `;
+export const LogoutBtn = styled.button`
+  text-decoration: none;
+  font-size: 10px;
+  color: #6f6f6f;
+  background: none;
+  border: none;
+  cursor: pointer;
+`;

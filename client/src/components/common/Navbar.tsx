@@ -1,8 +1,21 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { NavLink, useNavigate } from "react-router-dom";
+import Cookies from "universal-cookie";
 
 const Navbar = () => {
+  const cookies = new Cookies();
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  //const isLoggedInCookie = cookies.get("isLoggedIn") === "true";
+  useEffect(() => {
+    const isLoggedInCookie = cookies.get("isLoggedIn");
+    setIsLoggedIn(isLoggedInCookie);
+
+    console.log("MainPage: isLoggedIn? ", cookies.get("isLoggedIn"));
+    // console.log(isLoggedInCookie);
+    // console.log(isLoggedIn);
+  }, []);
+
   const [isLogin, setIsLogin] = useState<boolean>(false);
   const navigate = useNavigate();
 
@@ -34,11 +47,11 @@ const Navbar = () => {
           </NavbarList>
         </StyledNavLink>
         {/* 로그인 여부에 따른 UI & 페이지 이동 */}
-        <NavbarOnClick to={isLogin ? "/mypage" : "/login"}>
+        <NavbarOnClick to={isLoggedIn ? "/mypage" : "/login"}>
           <NavbarList>
             <NavbarItem>
               <img src="/assets/images/navbar_mypage.png" alt="mypage" />
-              {isLogin ? <p>마이페이지</p> : <p>로그인</p>}
+              {isLoggedIn ? <p>마이페이지</p> : <p>로그인</p>}
             </NavbarItem>
           </NavbarList>
         </NavbarOnClick>
