@@ -12,7 +12,9 @@ import MyReviewPage from "./MyReviewPage";
 import ConfirmModal from "../../../components/common/ConfirmModal";
 import useAuthStore from "../../../stores/useAuthStore";
 
-const userNickname = useAuthStore.getState().userNickname;
+//const userNickname = useAuthStore.getState().userNickname;
+//const userNickname = useAuthStore((state) => state.userNickname);
+//const { userNickname } = useAuthStore.getState();
 
 //렌더링 될 컴포넌트 지정
 type ComponentType = "favorite" | "myreview";
@@ -22,6 +24,10 @@ const MyPage: React.FC = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const navigate = useNavigate();
   const [selectedPage, setSelectedPage] = useState<ComponentType>("favorite");
+  const { userNickname } = useAuthStore.getState();
+  // useEffect(() => {
+  //   useAuthStore.getState().userNickname;
+  // }, []);
 
   const renderPage = () => {
     switch (selectedPage) {
@@ -60,7 +66,7 @@ const MyPage: React.FC = () => {
       <Header title="마이페이지" />
       <S.MyInfoBox>
         <S.MsgBox>
-          {userNickname && <S.Msg1>안녕하세요 {userNickname}님!</S.Msg1>}
+          <S.Msg1>안녕하세요 {userNickname}님!</S.Msg1>
           <S.Msg2>오늘도 한 잔 하실까요? 🍻 </S.Msg2>
         </S.MsgBox>
         <S.UserBox>
