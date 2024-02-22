@@ -8,20 +8,4 @@ module.exports = function (app) {
       changeOrigin: true,
     })
   );
-
-  // app.use(
-  //   createProxyMiddleware("/api/register", {
-  //     target: "http://localhost:8080",
-  //     changeOrigin: true,
-  //   })
-  // );
-
-  // app.use(
-  //   createProxyMiddleware("/api/login", {
-  //     target: "http://localhost:8080",
-  //     changeOrigin: true,
-  //   })
-  // );
-
-  //test 주석
 };

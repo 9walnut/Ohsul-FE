@@ -27,7 +27,7 @@ const LoginPage = (props: any) => {
   const onSubmit: SubmitHandler<LoginFormInputs> = async (data) => {
     console.log("로그인 입력:", data);
     try {
-      const res = await axios.post("api/login", data, {
+      const res = await axios.post("/api/login", data, {
         headers: {
           "Content-Type": "application/json",
         },
