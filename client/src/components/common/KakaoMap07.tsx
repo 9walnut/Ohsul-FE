@@ -255,19 +255,11 @@ const KakaoMap07 = ({
 
   // 마커 클릭 시 정보 설정
   const handleMarkerClick = (markerInfo: MarkerInfo) => {
-    // 기존 마커 클릭 시 뜨는 정보
-    // const result = searchResults.find(
-    //   (result) => result.name === markerInfo.content
-    // );
-    // if (result) {
-    //   setClickedResult(result);
-    // } else {
-    //   setClickedResult(null);
-    // }
-    // setInfo(markerInfo);
     const result = searchResults.find(
       (result) => result.name === markerInfo.content
     );
+
+    // 가게 상세 정보 요청 추가.....합시...다
 
     if (result) {
       setClickedResult(result);
