@@ -5,6 +5,7 @@ import Header from "../../components/common/Header";
 import StarRating from "../../components/common/StarRating";
 import BackButton from "../../components/common/BackButton";
 import TagBox from "../../components/ohsulTag/TagBox";
+import axios from "axios";
 
 const DUMMYTags = {
   alcohol: ["alcohol_1", "alcohol_2", "alcohol_5"],
