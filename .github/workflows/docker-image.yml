@@ -1,7 +1,7 @@
 name: Deploy
 on:
   push:
-    branches: ["develop"] # main 브랜치에 push 발생하면 트리거
+    branches: ["develop"] 
   pull_request:
     branches: ["develop"]
 
@@ -56,17 +56,10 @@ jobs:
           tags: ${{ secrets.DOCKERHUB_USERNAME }}/ohsul-fe
 
   run-docker-image-on-ec2:
-    # build-docker-image (위)과정이 완료되어야 실행됩니다.
     needs: build-docker-image
     runs-on: self-hosted
 
-    steps:
-
-      - name: Execute Shell Script
-        run: |
-          chmod +x /home/ubuntu/gitaction-runner-fe/run.sh
-          /home/ubuntu/gitaction-runner-fe/run.sh
-          
+    steps:          
       # 1. 최신 이미지를 풀받습니다
       - name: docker pull
         run: sudo docker pull ${{ secrets.DOCKERHUB_USERNAME }}/ohsul-fe
