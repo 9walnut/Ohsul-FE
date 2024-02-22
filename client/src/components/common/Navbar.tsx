@@ -2,21 +2,12 @@ import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { NavLink, useNavigate } from "react-router-dom";
 import Cookies from "universal-cookie";
+import useAuthStore from "../../stores/useAuthStore";
 
 const Navbar = () => {
-  const cookies = new Cookies();
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-  //const isLoggedInCookie = cookies.get("isLoggedIn") === "true";
-  useEffect(() => {
-    const isLoggedInCookie = cookies.get("isLoggedIn");
-    setIsLoggedIn(isLoggedInCookie);
+  const isLoggedIn = useAuthStore.getState().isLoggedIn;
+  console.log("zustand Navbar isLoggedIn:", useAuthStore.getState().isLoggedIn);
 
-    console.log("MainPage: isLoggedIn? ", cookies.get("isLoggedIn"));
-    // console.log(isLoggedInCookie);
-    // console.log(isLoggedIn);
-  }, []);
-
-  const [isLogin, setIsLogin] = useState<boolean>(false);
   const navigate = useNavigate();
 
   return (

@@ -7,6 +7,7 @@ import CommonModal from "../../components/common/CommonModal";
 import ConfirmModal from "../../components/common/ConfirmModal";
 
 import Cookies from "universal-cookie";
+import useAuthStore from "../../stores/useAuthStore";
 
 const DUMMYBarReviewCard = {
   userNickname: "졸린공룡",
@@ -24,17 +25,11 @@ const DUMMYBarReviewCard = {
 };
 
 const MainPage: React.FC = () => {
-  const cookies = new Cookies();
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-  //const isLoggedInCookie = cookies.get("isLoggedIn") === "true";
-  useEffect(() => {
-    const isLoggedInCookie = cookies.get("isLoggedIn");
-    setIsLoggedIn(isLoggedInCookie);
-
-    console.log("MainPage: isLoggedIn? ", cookies.get("isLoggedIn"));
-    // console.log(isLoggedInCookie);
-    // console.log(isLoggedIn);
-  }, []);
+  const isLoggedIn = useAuthStore.getState().isLoggedIn;
+  console.log(
+    "zustand MainPage isLoggedIn:",
+    useAuthStore.getState().isLoggedIn
+  );
 
   //오술태그 선택된 값 넣기
   const DUMMYTags = {
@@ -65,8 +60,8 @@ const MainPage: React.FC = () => {
       <br />
       <NavLink to={"/barReviews/editReview"}>리뷰 수정 페이지 이동</NavLink>
       <div>
-        {isLoggedIn}
-        {isLoggedIn ? <p>로그인 되어 있음</p> : <p>로그인되어 있지 않음</p>}
+        <br />
+        {isLoggedIn ? <p>로그인 상태!</p> : <p>로그아웃 상태!</p>}
       </div>
     </>
   );

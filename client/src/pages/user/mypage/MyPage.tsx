@@ -10,25 +10,17 @@ import MenuBar from "../../../components/myPage/MenuBar";
 import FavoritePage from "./FavoritePage";
 import MyReviewPage from "./MyReviewPage";
 import ConfirmModal from "../../../components/common/ConfirmModal";
+import useAuthStore from "../../../stores/useAuthStore";
 
-//DUMMY
-const userNickname = "졸린공룡";
+const userNickname = useAuthStore.getState().userNickname;
 
 //렌더링 될 컴포넌트 지정
 type ComponentType = "favorite" | "myreview";
 
 const MyPage: React.FC = () => {
-  const navigate = useNavigate();
   const cookies = new Cookies();
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  useEffect(() => {
-    const isLoggedInCookie = cookies.get("isLoggedIn");
-    setIsLoggedIn(isLoggedInCookie);
-
-    console.log("MyPage: isLoggedIn? ", cookies.get("isLoggedIn"));
-    // console.log(isLoggedInCookie);
-    // console.log(isLoggedIn);
-  }, []);
+  const navigate = useNavigate();
   const [selectedPage, setSelectedPage] = useState<ComponentType>("favorite");
 
   const renderPage = () => {
@@ -43,13 +35,21 @@ const MyPage: React.FC = () => {
   const handleLogout = async () => {
     try {
       const res = await axios.post("api/logout");
-      <ConfirmModal message="로그아웃 완료" isClose={true} />;
+      // <ConfirmModal message="로그아웃 완료" isClose={true} />;
       if (res.status == 200) {
         console.log(res);
         cookies.set("isLoggedIn", false, { path: "/" });
-        console.log("isLoggedIn?: ", cookies.get("isLoggedIn"));
+        //console.log("isLoggedIn?: ", cookies.get("isLoggedIn"));
+
+        //--- zustand Logout
+        useAuthStore.setState({ isLoggedIn: false });
+        console.log(
+          "zustand isLoggedIn Logout?:",
+          useAuthStore.getState().isLoggedIn
+        );
+        //--- cookie Logout
+        setIsLoggedIn(false);
         navigate("/");
-        // setIsLoggedIn(false);
       }
     } catch (error) {
       console.log("로그아웃err", error);
