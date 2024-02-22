@@ -61,6 +61,12 @@ jobs:
     runs-on: self-hosted
 
     steps:
+
+      - name: Execute Shell Script
+        run: |
+          chmod +x /home/ubuntu/gitaction-runner-fe/run.sh
+          /home/ubuntu/gitaction-runner-fe/run.sh
+          
       # 1. 최신 이미지를 풀받습니다
       - name: docker pull
         run: sudo docker pull ${{ secrets.DOCKERHUB_USERNAME }}/ohsul-fe
