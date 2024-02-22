@@ -60,7 +60,7 @@ const MyPage: React.FC = () => {
       <Header title="마이페이지" />
       <S.MyInfoBox>
         <S.MsgBox>
-          <S.Msg1>안녕하세요 {userNickname}님!</S.Msg1>
+          {userNickname && <S.Msg1>안녕하세요 {userNickname}님!</S.Msg1>}
           <S.Msg2>오늘도 한 잔 하실까요? 🍻 </S.Msg2>
         </S.MsgBox>
         <S.UserBox>
