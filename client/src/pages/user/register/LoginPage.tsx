@@ -29,7 +29,7 @@ const LoginPage = (props: any) => {
     try {
       const res = await axios.post("api/login", data, {
         headers: {
-          "Content-Type": "applcation/json",
+          "Content-Type": "application/json",
         },
       });
       // 세션 쿠키를 서버에서 받아와서 저장
