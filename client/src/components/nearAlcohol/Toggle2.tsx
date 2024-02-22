@@ -5,12 +5,15 @@ interface ToggleProps {
   viewMap: boolean;
 }
 
-const Toggle2: React.FC = () => {
-  const [viewMap, setViewMap] = useState(true);
-
+const Toggle2: React.FC<{
+  viewMap: boolean;
+  onViewChange: (viewMap: boolean) => void;
+}> = ({ viewMap, onViewChange }) => {
   const toggleHandler = () => {
-    setViewMap((prev) => !prev);
+    onViewChange(!viewMap);
   };
+
+  console.log(viewMap);
 
   return (
     <ToggleLayout>

@@ -83,8 +83,8 @@ const CardLayout = styled.div`
   padding: 10px 10px;
   gap: 12px;
 
-  /* width: 382px; */
-  width: 100%;
+  width: 382px;
+  /* width: 100%; */
   height: 163px;
 
   background: ${({ theme }) => theme.colors.bgLightColor};

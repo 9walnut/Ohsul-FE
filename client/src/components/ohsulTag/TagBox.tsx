@@ -31,7 +31,6 @@ const TagBox: React.FC<TagBoxProps> = ({ checkedTags, disabled }) => {
 
   return (
     <>
-      <input type="checkbox" disabled={true}></input>
       <StyledGroupLayout>
         <CheckboxGroup
           label="술 선택"

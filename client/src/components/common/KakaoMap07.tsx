@@ -3,8 +3,13 @@ import { Map, MapMarker } from "react-kakao-maps-sdk";
 import styled from "styled-components";
 import { State, MarkerInfo, SearchResult, SearchCenter } from "../../types/Map";
 import MapToggle from "./MapToggle";
+import CardColTag from "./CardColTag";
 
-const KakaoMap07 = () => {
+const KakaoMap07 = ({
+  onSearchResults,
+}: {
+  onSearchResults: (results: SearchResult[]) => void;
+}) => {
   useEffect(() => {
     const script = document.createElement("script");
     script.src = `//dapi.kakao.com/v2/maps/sdk.js?appkey=c4a8fe0afcb6e392c9cd360155098ed5&libraries=services,clusterer`;
@@ -98,6 +103,7 @@ const KakaoMap07 = () => {
           if (index === categories.length - 1) {
             setMarkers(totalMarkers);
             setSearchResults(totalResults);
+            onSearchResults(totalResults);
             map.setBounds(bounds);
           }
         }
@@ -160,6 +166,7 @@ const KakaoMap07 = () => {
           if (index === categories.length - 1) {
             setMarkers(totalMarkers); // 지도 내부에 있는 마커만 업데이트
             setSearchResults(totalResults);
+            onSearchResults(totalResults);
           }
         }
       });
@@ -334,6 +341,30 @@ const KakaoMap07 = () => {
         <p>{state.errMsg || "위치 정보를 가져올 수 없습니다."}</p>
       )}
       <br />
+
+      {clickedResult && (
+        <>
+          {/* <DetailBox>
+            <img
+              src={
+                process.env.PUBLIC_URL +
+                "assets/images/common_alternateImage.png"
+              }
+              alt="리뷰이미지"
+              width="100px"
+            />
+            <br />
+            <p>{clickedResult.name}</p>
+            <br />
+            {clickedResult.address}
+            <br />
+            {clickedResult.phone
+              ? clickedResult.phone
+              : "연락처 정보가 없습니다."}
+          </DetailBox> */}
+          <CardColTag barName={clickedResult.name} />
+        </>
+      )}
       {data && (
         <>
           <div>
@@ -347,28 +378,9 @@ const KakaoMap07 = () => {
           </div>
         </>
       )}
-      {clickedResult && (
-        <DetailBox>
-          <img
-            src={
-              process.env.PUBLIC_URL + "assets/images/common_alternateImage.png"
-            }
-            alt="리뷰이미지"
-            width="100px"
-          />
-          <br />
-          <p>{clickedResult.name}</p>
-          <br />
-          {clickedResult.address}
-          <br />
-          {clickedResult.phone
-            ? clickedResult.phone
-            : "연락처 정보가 없습니다."}
-        </DetailBox>
-      )}
-      <h2>😀 술집 리스트 😀</h2>
+      {/* <h2>😀 술집 리스트 😀</h2> */}
       <br />
-      <SearchResultsList results={searchResults} />
+      {/* <SearchResultsList results={searchResults} /> */}
     </>
   );
 };
@@ -377,23 +389,23 @@ const InfoBox = styled.div`
   padding: 4px;
 `;
 
-const SearchResultsList: React.FC<{ results: SearchResult[] }> = ({
-  results,
-}) => (
-  <>
-    <ul>
-      {results.map((result, index) => (
-        <li key={index} style={{ marginBottom: "10px" }}>
-          <strong>{result.name}</strong>
-          <br />
-          {result.address}
-          <br />
-          {result.phone}
-        </li>
-      ))}
-    </ul>
-  </>
-);
+// const SearchResultsList: React.FC<{ results: SearchResult[] }> = ({
+//   results,
+// }) => (
+//   <>
+//     <ul>
+//       {results.map((result, index) => (
+//         <li key={index} style={{ marginBottom: "10px" }}>
+//           <strong>{result.name}</strong>
+//           <br />
+//           {result.address}
+//           <br />
+//           {result.phone}
+//         </li>
+//       ))}
+//     </ul>
+//   </>
+// );
 
 const ReSearchModal = styled.div`
   align-items: center;
@@ -427,11 +439,11 @@ const ReSearchModal = styled.div`
   }
 `;
 
-const DetailBox = styled.div`
-  width: 300px;
-  height: 200px;
-  background-color: #beae95;
-`;
+// const DetailBox = styled.div`
+//   width: 300px;
+//   height: 200px;
+//   background-color: #beae95;
+// `;
 
 const MapWrapper = styled.div`
   position: relative;
