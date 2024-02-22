@@ -23,8 +23,7 @@ const useAuthStore = createStore<AuthStore>((set) => ({
 
 export default useAuthStore;
 
-//-------------------사용 할 때
-
+//-------------------사용 할 때 [상태 확인, 상태에 따른 처리]
 //1) 상단에 store 불러오기
 // import useAuthStore from "../../stores/useAuthStore";
 
@@ -33,9 +32,15 @@ export default useAuthStore;
 
 //3)끝...
 
+//-------------------사용 할 때 [저장된 값 사용]
+//1) 상단에 store 불러오기
+// import useAuthStore from "../../stores/useAuthStore";
+
+//2) 사용하기 ...끝....
+//const userNickname = useAuthStore.getState().userNickname;
+
+//---------------------------------------------------------
 //진행하면서 확인하려고 console.log 주석처리 안해놓아서
 //하면서 적용 잘 되는지 보면 될 거 같습니다!
 //코드가 생각보다 너무 적어서 이게 맞나 싶지만 콘솔창을 보니 잘 되는거같기는합니다..
 //작업하다가 이상한 부분이 있따면 말씀해주세요!
-
-//새로고침하면 로그아웃되어서 이건 더 찾아볼예정!

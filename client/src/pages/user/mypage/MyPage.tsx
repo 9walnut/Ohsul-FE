@@ -12,8 +12,7 @@ import MyReviewPage from "./MyReviewPage";
 import ConfirmModal from "../../../components/common/ConfirmModal";
 import useAuthStore from "../../../stores/useAuthStore";
 
-//DUMMY
-const userNickname = "졸린공룡";
+const userNickname = useAuthStore.getState().userNickname;
 
 //렌더링 될 컴포넌트 지정
 type ComponentType = "favorite" | "myreview";
