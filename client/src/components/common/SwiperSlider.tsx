@@ -1,69 +1,51 @@
-// import React from "react";
-// import SwiperCore, {
-//   Navigation,
-//   Pagination,
-//   Mousewheel,
-//   Keyboard,
-// } from "swiper";
-// import { Swiper, SwiperSlide } from "swiper/react";
-// import styled from "styled-components";
-
-// // Swiper 모듈들 초기화
-// SwiperCore.use([Navigation, Pagination, Mousewheel, Keyboard]);
-
-// const CardSliderWrapper = styled.div`
-//   width: 100%;
-//   padding: 20px 0;
-// `;
-
-// const CardSlide = styled.div`
-//   width: 300px;
-//   height: 200px;
-//   background-color: #f0f0f0;
-//   margin-right: 20px;
-//   border-radius: 10px;
-//   display: flex;
-//   justify-content: center;
-//   align-items: center;
-//   font-size: 24px;
-// `;
-
-// const SwiperSlider: React.FC = () => {
-//   return (
-//     <CardSliderWrapper>
-//       <Swiper
-//         spaceBetween={30}
-//         slidesPerView={3}
-//         navigation
-//         pagination={{ clickable: true }}
-//         mousewheel
-//         keyboard
-//       >
-//         <SwiperSlide>
-//           <CardSlide>Slide 1</CardSlide>
-//         </SwiperSlide>
-//         <SwiperSlide>
-//           <CardSlide>Slide 2</CardSlide>
-//         </SwiperSlide>
-//         <SwiperSlide>
-//           <CardSlide>Slide 3</CardSlide>
-//         </SwiperSlide>
-//         <SwiperSlide>
-//           <CardSlide>Slide 4</CardSlide>
-//         </SwiperSlide>
-//         <SwiperSlide>
-//           <CardSlide>Slide 5</CardSlide>
-//         </SwiperSlide>
-//       </Swiper>
-//     </CardSliderWrapper>
-//   );
-// };
-
-// export default SwiperSlider;
 import React from "react";
+import { Swiper, SwiperSlide } from "swiper/react";
+import styled from "styled-components";
 
-const SwiperSlider = () => {
-  return <div>SwiperSlider</div>;
+const SWIPER_INLINE_OPTIONS = {
+  direction: "horizontal",
+  longSwipes: true,
+  longSwipesRatio: 0,
+  resistance: true,
+  resistanceRatio: 0,
+  slidesPerView: "auto" as const,
 };
+
+const SwiperSlider: React.FC = () => {
+  return (
+    <>
+      <Wrapper>
+        <List>
+          {/* @ts-ignore */}
+          <Swiper {...SWIPER_INLINE_OPTIONS}>
+            {[1, 2, 3, 4, 5].map((_) => (
+              <SwiperSlide>
+                <Card />
+              </SwiperSlide>
+            ))}
+          </Swiper>
+        </List>
+      </Wrapper>
+    </>
+  );
+};
+
+const Wrapper = styled.div``;
+
+const List = styled.div`
+  margin-top: 30px;
+  .swiper {
+    .swiper-slide {
+      width: auto !important;
+      margin-right: 15px;
+    }
+  }
+`;
+
+const Card = styled.div`
+  background-color: aliceblue;
+  width: 150px;
+  height: 150px;
+`;
 
 export default SwiperSlider;

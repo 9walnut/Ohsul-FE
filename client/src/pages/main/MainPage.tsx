@@ -5,9 +5,8 @@ import Header from "../../components/common/Header";
 import ExplainBox from "../../components/main/ExplainBox";
 import CommonModal from "../../components/common/CommonModal";
 import ConfirmModal from "../../components/common/ConfirmModal";
-
-import Cookies from "universal-cookie";
 import useAuthStore from "../../stores/useAuthStore";
+import SwiperSlider from "../../components/common/SwiperSlider";
 
 const DUMMYBarReviewCard = {
   userNickname: "졸린공룡",
@@ -52,7 +51,6 @@ const MainPage: React.FC = () => {
         message="메시지이이ㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣ"
         isClose={true}
       /> */}
-      {/* <SwiperSlider /> */}
       <br />
       <NavLink to={"/barReviews"}>바 리뷰 페이지 이동</NavLink>
       <br />
@@ -63,6 +61,7 @@ const MainPage: React.FC = () => {
         <br />
         {isLoggedIn ? <p>로그인 상태!</p> : <p>로그아웃 상태!</p>}
       </div>
+      <SwiperSlider />
     </>
   );
 };

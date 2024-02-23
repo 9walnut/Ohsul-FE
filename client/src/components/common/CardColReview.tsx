@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import { Link } from "react-router-dom";
 
 import { CardReview } from "../../types/Common";
 
@@ -9,57 +10,63 @@ const CardColReview: React.FC<CardReview> = ({
   score,
   content,
 }) => {
+  const barPhone = "027935965";
+
   return (
     <>
       <CardLayout>
-        <TopBox>
-          <TitleBox>{barName}</TitleBox>
-          <FavoriteBox>
-            <FavoriteImg>
-              <img
-                src={
-                  process.env.PUBLIC_URL + "assets/images/common_favorite.png"
-                }
-                alt="Score"
-              />
-            </FavoriteImg>
-          </FavoriteBox>
-        </TopBox>
-
-        <ContentLayout>
-          <LeftContent>
-            <ImgBox>
-              <img
-                src={
-                  barImg
-                    ? process.env.PUBLIC_URL + barImg
-                    : process.env.PUBLIC_URL +
-                      "assets/images/common_alternateImage.png"
-                }
-                alt={barName}
-              />
-            </ImgBox>
-            <ScoreBox>
-              <ScoreImg>
+        <Link to={`/ohsul/bar/${barPhone}`} style={{ textDecoration: "none" }}>
+          <TopBox>
+            <TitleBox>{barName}</TitleBox>
+            <FavoriteBox>
+              <FavoriteImg>
                 <img
-                  src={process.env.PUBLIC_URL + "assets/images/common_star.png"}
+                  src={
+                    process.env.PUBLIC_URL + "assets/images/common_favorite.png"
+                  }
                   alt="Score"
                 />
-              </ScoreImg>
-              <ScoreText>99{score}</ScoreText>
-            </ScoreBox>
-          </LeftContent>
+              </FavoriteImg>
+            </FavoriteBox>
+          </TopBox>
 
-          <RightContent>
-            <ContentWrapper>
-              <ReviewBox>
-                이러코저러코 리뷰리뷰리뷰리뷰리뷰 리뷰리뷰리뷰리뷰
-                리뷰리뷰리리뷰가 들어와여 리뷰리뷰리뷰리뷰 리리뷰리뷰 리뷰리뷰
-              </ReviewBox>
-              <Button> GO </Button>
-            </ContentWrapper>
-          </RightContent>
-        </ContentLayout>
+          <ContentLayout>
+            <LeftContent>
+              <ImgBox>
+                <img
+                  src={
+                    barImg
+                      ? process.env.PUBLIC_URL + barImg
+                      : process.env.PUBLIC_URL +
+                        "assets/images/common_alternateImage.png"
+                  }
+                  alt={barName}
+                />
+              </ImgBox>
+              <ScoreBox>
+                <ScoreImg>
+                  <img
+                    src={
+                      process.env.PUBLIC_URL + "assets/images/common_star.png"
+                    }
+                    alt="Score"
+                  />
+                </ScoreImg>
+                <ScoreText>99{score}</ScoreText>
+              </ScoreBox>
+            </LeftContent>
+
+            <RightContent>
+              <ContentWrapper>
+                <ReviewBox>
+                  이러코저러코 리뷰리뷰리뷰리뷰리뷰 리뷰리뷰리뷰리뷰
+                  리뷰리뷰리리뷰가 들어와여 리뷰리뷰리뷰리뷰 리리뷰리뷰 리뷰리뷰
+                </ReviewBox>
+                <Button> GO </Button>
+              </ContentWrapper>
+            </RightContent>
+          </ContentLayout>
+        </Link>
       </CardLayout>
     </>
   );
@@ -75,6 +82,7 @@ align-items: center;
 `;
 
 const CardLayout = styled.div`
+  color: ${({ theme }) => theme.colors.darkFont};
   display: flex;
   flex-direction: column;
   justify-content: center;
