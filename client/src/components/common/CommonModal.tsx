@@ -3,11 +3,15 @@ import styled from "styled-components";
 import { Modal } from "../../types/Common";
 import WideButton from "./WideButton";
 
-const CommonModal: React.FC<Modal> = ({ message, isClose }) => {
+const CommonModal: React.FC<Modal> = ({ message, isClose, onConfirm }) => {
   const [modal, setModal] = useState(true);
 
   // console.log(message, "메시지");
 
+  const handleClick = () => {
+    setModal(false);
+    onConfirm && onConfirm();
+  };
   return (
     <>
       {modal && (
@@ -21,7 +25,7 @@ const CommonModal: React.FC<Modal> = ({ message, isClose }) => {
             </CloseBtn>
           )}
           <MessageBox>{message}</MessageBox>
-          <WideButton onClick={() => setModal(false)}>확인</WideButton>
+          <WideButton onClick={handleClick}>확인</WideButton>
         </ModalLayout>
       )}
     </>
