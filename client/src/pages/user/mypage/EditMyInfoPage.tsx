@@ -10,7 +10,6 @@ import axios from "axios";
 import useAuthStore from "../../../stores/useAuthStore";
 import ConfirmModal from "../../../components/common/ConfirmModal";
 
-//✅ 탈퇴하기 클릭 -> 모달 닫기 후 다시 누르면 모달 안열림, 모달 버튼 그림자 머냐 없애자
 //✅ axios patch server500 error
 //✅ 비밀번호 값 못가져온다. 비밀번호 변경 페이지 따로 빼야하나?
 
