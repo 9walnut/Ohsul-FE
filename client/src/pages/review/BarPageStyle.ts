@@ -59,3 +59,28 @@ export const ExplainBox = styled.div`
   font-size: 14px;
   border-radius: 4px;
 `;
+
+export const ContentWrapper = styled.div`
+  width: 100%;
+  display: flex;
+`;
+
+export const ContentBox = styled.input`
+  width: 100%;
+  padding: 20px;
+  background-color: ${({ theme }) => theme.colors.bgLightColor};
+  border: 1px solid #4d607b;
+  border-radius: 12px;
+  outline: none;
+`;
+
+export const Button = styled.button`
+  width: 100%;
+  padding: 12px;
+  background-color: ${({ theme }) => theme.colors.btnBlue};
+  color: ${({ theme }) => theme.colors.lightFont};
+  font-family: ${({ theme }) => theme.fonts.ydFont};
+  outline: none;
+  border: none;
+  border-radius: 12px;
+`;

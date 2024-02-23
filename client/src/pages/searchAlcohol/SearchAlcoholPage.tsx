@@ -10,6 +10,7 @@ import axios from "axios";
 const SearchAlcoholPage: React.FC = () => {
   const [searchResults, setSearchResults] = useState<SearchResult[]>([]);
 
+  // 이 지역 재검색 클릭 시
   useEffect(() => {
     console.log("주소들어옴", searchResults);
 
@@ -21,7 +22,7 @@ const SearchAlcoholPage: React.FC = () => {
     postStoreInfo(phoneNumbers);
   }, [searchResults]);
 
-  const postStoreInfo = async (phoneNumbers: any) => {
+  const postStoreInfo = async (phoneNumbers: string[]) => {
     console.log("보내는 데이터임", phoneNumbers);
     try {
       const res = await axios.post("/api/ohsul/near", phoneNumbers, {
