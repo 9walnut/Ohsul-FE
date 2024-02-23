@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 
-export const RegisterBox = styled.div`
+export const EditMyInfoBox = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -68,8 +68,8 @@ export const StyledInput = styled.input`
   outline: none;
   width: 222px;
   height: 29px;
-  background-color: transparent;
   color: ${({ theme }) => theme.colors.greyFont};
+  background-color: transparent;
   &::placeholder {
     font-weight: 400;
     font-size: 12px;
@@ -82,4 +82,14 @@ export const ErrorMessage = styled.span`
   color: ${({ theme }) => theme.colors.blueFont};
   border-bottom: 0.5px solid ${({ theme }) => theme.colors.blueFont};
   font-size: 11px;
+`;
+
+export const DelUserBtn = styled.button`
+  text-decoration: none;
+  font-size: 10px;
+  color: #6f6f6f;
+  background: none;
+  border: none;
+  cursor: pointer;
+  margin: 15px;
 `;

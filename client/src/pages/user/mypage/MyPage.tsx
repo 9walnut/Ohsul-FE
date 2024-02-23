@@ -70,7 +70,7 @@ const MyPage: React.FC = () => {
           <S.Msg2>오늘도 한 잔 하실까요? 🍻 </S.Msg2>
         </S.MsgBox>
         <S.UserBox>
-          <S.StyledLink to="/register">내 정보 수정</S.StyledLink>
+          <S.StyledLink to="/mypage/editMyInfo">내 정보 수정</S.StyledLink>
           <S.LogoutBtn onClick={handleLogout}>로그아웃</S.LogoutBtn>
         </S.UserBox>
       </S.MyInfoBox>
