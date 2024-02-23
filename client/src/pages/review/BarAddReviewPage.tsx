@@ -17,12 +17,14 @@ const DUMMYTags = {
 
 const BarAddReviewPage: React.FC = () => {
   const selectImg = useRef<HTMLInputElement>(null);
+  const [nickName, setNickName] = useState("");
+  const [reviewPw, setReviewPw] = useState("");
   const [isLogin, setIsLogin] = useState(true);
   const [score, setScore] = useState(1);
   const [content, setContent] = useState("");
   const [reviewImg, setReviewImg] = useState(null);
 
-  const onChageImg = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const onChangeImg = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files.length > 0) {
       const img = e.target.files[0];
       //@ts-ignore
@@ -30,6 +32,30 @@ const BarAddReviewPage: React.FC = () => {
       const formData = new FormData();
       formData.append("file", img);
       console.log("사진들어왓기약아악", formData);
+    }
+  };
+  const barId = 4;
+
+  const postReview = async () => {
+    const formData = new FormData();
+    if (reviewImg) {
+      formData.append("reviewImg", reviewImg);
+    }
+    formData.append("content", content);
+    formData.append("score", score.toString());
+    formData.append("reviewPw", reviewPw);
+    formData.append("nickname", nickName);
+    formData.append("alcoholTags", JSON.stringify(DUMMYTags.alcohol));
+    formData.append("musicTags", JSON.stringify(DUMMYTags.music));
+    formData.append("moodTags", JSON.stringify(DUMMYTags.mood));
+    try {
+      const res = await axios.post(`/api/ohsul/${barId}/review`, formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
+    } catch (error) {
+      console.log("postReview err", error);
     }
   };
 
@@ -41,11 +67,21 @@ const BarAddReviewPage: React.FC = () => {
         <S.InputBoxWrapper>
           <S.InputBox>
             <S.ExplainInput>닉네임</S.ExplainInput>
-            <S.StyledInput placeholder="리뷰 작성 시 사용할 닉네임을 입력해주세요." />
+            <S.StyledInput
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+                setNickName(e.target.value);
+              }}
+              placeholder="리뷰 작성 시 사용할 닉네임을 입력해주세요."
+            />
           </S.InputBox>
           <S.InputBox>
             <S.ExplainInput>비밀번호</S.ExplainInput>
-            <S.StyledInput placeholder="리뷰 수정, 삭제 시 비밀번호가 일치해야합니다." />
+            <S.StyledInput
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+                setReviewPw(e.target.value);
+              }}
+              placeholder="리뷰 수정, 삭제 시 비밀번호가 일치해야합니다."
+            />
           </S.InputBox>
         </S.InputBoxWrapper>
       )}
@@ -68,7 +104,7 @@ const BarAddReviewPage: React.FC = () => {
 
         <input
           type="file"
-          onChange={onChageImg}
+          onChange={onChangeImg}
           ref={selectImg}
           style={{ display: "none" }}
         />
@@ -77,6 +113,14 @@ const BarAddReviewPage: React.FC = () => {
           업로드
         </S.ImgUploadBtn>
       </S.ImgUploadWrapper>
+      <S.ContentWrapper>
+        <S.ContentBox
+          onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+            setContent(e.target.value)
+          }
+        />
+      </S.ContentWrapper>
+      <S.Button onClick={postReview}>리뷰 작성하기</S.Button>
     </>
   );
 };

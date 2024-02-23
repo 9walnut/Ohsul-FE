@@ -98,7 +98,7 @@ const router = createBrowserRouter([
   },
   {
     // 가게 상세 정보
-    path: "/barInfo",
+    path: "/ohsul/bar/:barPhone",
     element: <App />,
     children: [
       {
