@@ -10,6 +10,9 @@ import axios from "axios";
 import useAuthStore from "../../../stores/useAuthStore";
 import ConfirmModal from "../../../components/common/ConfirmModal";
 
+//✅ axios patch server500 error
+//✅ 비밀번호 값 못가져온다. 비밀번호 변경 페이지 따로 빼야하나?
+
 type EditMypageFormInputs = {
   userId: string;
   userPw: string;
@@ -85,7 +88,7 @@ const EditMyInfoPage = () => {
 
     console.log("내정보수정 입력", patchData);
     try {
-      const res = await axios.patch("/api//mypage/info", patchData, {
+      const res = await axios.patch("/api/mypage/info", patchData, {
         headers: {
           "Content-Type": "application/json",
         },
@@ -113,6 +116,41 @@ const EditMyInfoPage = () => {
       clearErrors("pwCheck");
     }
   }, [watch("userPw"), watch("pwCheck"), setError, clearErrors]);
+
+  //----------닉네임 중복 확인
+  const [userNicknameMessage, setUserNicknameMessage] = useState<string | null>(
+    null
+  );
+  const checkDuplicateNickname = async (userNickname: string) => {
+    try {
+      const res = await axios.post(
+        "/api//register/userNicknameCheck",
+        { userNickname },
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      console.log(res);
+      console.log(res.data);
+      setUserNicknameMessage(
+        res.data ? "이미 사용중인 닉네임입니다." : "사용가능한 닉네임입니다."
+      );
+    } catch (error) {
+      console.log("닉네임 중복확인 err", error);
+    }
+  };
+  useEffect(() => {
+    const userNickname = watch("userNickname");
+    if (userNickname.length > 0) {
+      setTimeout(() => {
+        checkDuplicateNickname(userNickname);
+      }, 1000);
+    } else {
+      setUserNicknameMessage("");
+    }
+  }, [watch("userNickname")]);
 
   return (
     <>
@@ -235,6 +273,7 @@ const EditMyInfoPage = () => {
                 })}
               />
             </S.InputFieldBox>
+            <S.ErrorMessage>{userNicknameMessage}</S.ErrorMessage>
             {errors.userNickname?.type === "required" && (
               <S.ErrorMessage>닉네임을 입력해주세요.</S.ErrorMessage>
             )}

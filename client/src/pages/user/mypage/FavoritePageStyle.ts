@@ -14,6 +14,4 @@ export const FavoritePageLayout = styled.div`
   height: 300px;
 
   top: 320px;
-
-  background-color: bisque;
 `;

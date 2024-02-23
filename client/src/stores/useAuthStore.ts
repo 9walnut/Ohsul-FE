@@ -7,14 +7,19 @@ type AuthStore = {
   userId: string | null;
   setUserId: (userId: string) => void;
   userNickname: string | null;
-  setUserNickname: (userId: string) => void;
+  setUserNickname: (userNickname: string) => void;
 };
 
 // Zustand 스토어 생성
 const useAuthStore = createStore<AuthStore>((set) => ({
   isLoggedIn: false,
   login: () => set({ isLoggedIn: true }),
-  logout: () => set({ isLoggedIn: false }),
+  logout: () =>
+    set((state) => ({
+      isLoggedIn: false,
+      userId: null,
+      userNickname: null,
+    })),
   userId: null,
   setUserId: (userId: string) => set({ userId: userId }),
   userNickname: null,
@@ -38,9 +43,4 @@ export default useAuthStore;
 
 //2) 사용하기 ...끝....
 //const userNickname = useAuthStore.getState().userNickname;
-
-//---------------------------------------------------------
-//진행하면서 확인하려고 console.log 주석처리 안해놓아서
-//하면서 적용 잘 되는지 보면 될 거 같습니다!
-//코드가 생각보다 너무 적어서 이게 맞나 싶지만 콘솔창을 보니 잘 되는거같기는합니다..
-//작업하다가 이상한 부분이 있따면 말씀해주세요!
+// const { userNickname } = useAuthStore.getState();
