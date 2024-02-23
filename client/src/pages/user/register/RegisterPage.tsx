@@ -7,6 +7,7 @@ import RoundButton from "../../../components/common/RoundButton";
 import { useNavigate } from "react-router";
 import axios from "axios";
 
+//✅ 아이디 닉네임 중복확인
 type RegisterFormInputs = {
   userId: string;
   userPw: string;
@@ -16,7 +17,7 @@ type RegisterFormInputs = {
   password: string;
 };
 
-const RegisterPage = (props: any) => {
+const RegisterPage = () => {
   const navigate = useNavigate();
   const {
     register,
@@ -73,7 +74,6 @@ const RegisterPage = (props: any) => {
     <>
       <Header title="회원가입" />
       <BackButton />
-      변경3
       <S.RegisterBox>
         <form onSubmit={handleSubmit(onSubmit)} method="POST">
           <S.InputLayout>

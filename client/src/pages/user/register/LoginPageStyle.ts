@@ -1,6 +1,11 @@
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 
+export const LoginPageLayout = styled.div`
+  position: relative;
+  width: 100%;
+  height: auto;
+`;
 export const LoginBox = styled.div`
   display: flex;
   flex-direction: column;
