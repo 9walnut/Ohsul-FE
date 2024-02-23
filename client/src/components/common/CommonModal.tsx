@@ -40,6 +40,7 @@ const ModalLayout = styled.div`
   border: 1px solid #4d607b;
   padding: 4px 10px 15px 10px;
   border-radius: 15px;
+  z-index: 10;
 `;
 
 const CloseBtn = styled.div`
@@ -54,6 +55,7 @@ const CloseBtn = styled.div`
 const MessageBox = styled.div`
   padding: 20px;
   font-size: 14px;
+  line-height: 16px;
 `;
 
 export default CommonModal;
