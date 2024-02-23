@@ -18,6 +18,7 @@ const theme: DefaultTheme = {
   isActive: {
     active: "#4D607B",
     nonActive: "#CCD2DB",
+    nonActive2: "#B9B7B7",
   },
 };
 

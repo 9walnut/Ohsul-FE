@@ -91,7 +91,7 @@ const MyPage: React.FC = () => {
           <S.LogoutBtn onClick={handleLogout}>로그아웃</S.LogoutBtn>
         </S.UserBox>
       </S.MyInfoBox>
-      <MenuBar setSelectedPage={setSelectedPage} />
+      <MenuBar selectedPage={selectedPage} setSelectedPage={setSelectedPage} />
       {renderPage()}
     </>
   );
