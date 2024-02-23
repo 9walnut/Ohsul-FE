@@ -45,7 +45,7 @@ const FavoritePage = () => {
                 가기 😀
               </>
             }
-            isClose={true}
+            isClose={false}
             onConfirm={handleNavigate}
           />
         )}
