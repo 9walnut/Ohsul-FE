@@ -3,18 +3,25 @@ import styled from "styled-components";
 import { Modal } from "../../types/Common";
 import WideButton from "./WideButton";
 
-const ConfirmModal: React.FC<Modal> = ({ message, isClose }) => {
+const ConfirmModal: React.FC<Modal> = ({
+  message,
+  isClose,
+  onCancel,
+  onConfirm,
+}) => {
   const [modal, setModal] = useState(true);
 
   const handlerCancel = () => {
     console.log("취소요");
     setModal(false);
+    onCancel && onCancel();
     return false;
   };
 
   const handlerCheck = () => {
     console.log("확인요");
     setModal(false);
+    onConfirm && onConfirm();
     return true;
   };
 

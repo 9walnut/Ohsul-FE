@@ -6,7 +6,7 @@ interface ButtonProps {
   children: React.ReactNode;
   type?: "submit";
 }
-const RoundButton: React.FC<ButtonProps> = ({ onClick, children, type }) => {
+const RoundButton02: React.FC<ButtonProps> = ({ onClick, children, type }) => {
   return (
     <Button onClick={onClick} type={type}>
       {children}
@@ -14,13 +14,13 @@ const RoundButton: React.FC<ButtonProps> = ({ onClick, children, type }) => {
   );
 };
 
-export default RoundButton;
+export default RoundButton02;
 
 const Button = styled.button`
   width: 146px;
   height: 36px;
 
-  background: ${({ theme }) => theme.colors.btnBlue};
+  background: ${({ theme }) => theme.colors.bgColor};
   border-radius: 100px;
   border: none;
   outline: none;
@@ -32,5 +32,6 @@ const Button = styled.button`
   font-size: 18px;
   line-height: 27px;
   text-align: center;
-  color: #ffffff;
+  color: ${({ theme }) => theme.colors.blueFont};
+  border: 1px solid ${({ theme }) => theme.colors.blueFont};
 `;
