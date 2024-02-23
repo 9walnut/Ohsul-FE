@@ -49,6 +49,7 @@ const CloseBtn = styled.div`
 
 const MessageBox = styled.div`
   padding: 20px;
+  font-size: 14px;
 `;
 
 export default CommonModal;

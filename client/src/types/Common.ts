@@ -33,6 +33,6 @@ export type CardBarReview = {
 export type Modal = {
   message: string;
   isClose: boolean;
-  onCancel: () => void;
-  onConfirm: () => void;
+  onCancel?: () => void;
+  onConfirm?: () => void;
 };
