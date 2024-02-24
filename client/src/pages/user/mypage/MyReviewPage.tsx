@@ -17,7 +17,8 @@ const MyReviewPage = () => {
           params: { userId },
         });
         if (res.status == 200) {
-          console.log(res);
+          console.log("MyReviewPage res: ", res);
+          console.log("MyReviewPage res.data: ", res.data);
         }
       } catch (error) {
         console.log("myReview render error : ", error);
