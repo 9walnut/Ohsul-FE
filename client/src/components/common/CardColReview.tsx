@@ -5,12 +5,13 @@ import { Link } from "react-router-dom";
 import { CardReview } from "../../types/Common";
 
 const CardColReview: React.FC<CardReview> = ({
+  barPhone,
   barName,
   barImg,
   score,
   content,
 }) => {
-  const barPhone = "027935965";
+  // const barPhone = "027935965";
 
   return (
     <>

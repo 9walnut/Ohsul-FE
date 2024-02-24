@@ -8,9 +8,10 @@ import Checkbox from "./Checkbox";
 // 상위 컴포넌트 사용 시 disabled={true} 전달하면 클릭 불가!
 interface TagBoxProps {
   checkedTags?: { [key: string]: string[] };
+  isReview?: boolean;
   disabled?: boolean;
 }
-const TagBox: React.FC<TagBoxProps> = ({ checkedTags, disabled }) => {
+const TagBox: React.FC<TagBoxProps> = ({ checkedTags, disabled, isReview }) => {
   console.log(disabled);
   const defaultTag = {
     alcohol: ["alcohol_default"],
@@ -27,6 +28,7 @@ const TagBox: React.FC<TagBoxProps> = ({ checkedTags, disabled }) => {
       [tag]: values,
     }));
     console.log({ [tag]: values });
+    console.log(tags, "태그스ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ");
   };
 
   return (
@@ -38,9 +40,12 @@ const TagBox: React.FC<TagBoxProps> = ({ checkedTags, disabled }) => {
           onChange={(values: string[]) => handleTagChange(values, "alcohol")}
           disabled={disabled}
         >
-          <Checkbox id="alcohol_default" value="alcohol_default">
-            술이면 다 돼요
-          </Checkbox>
+          {!isReview && (
+            <Checkbox id="alcohol_default" value="alcohol_default">
+              술이면 다 돼요
+            </Checkbox>
+          )}
+
           <StyledColGroup>
             <Checkbox id="alcohol_1" value="alcohol_1" disabled={disabled}>
               소주 / 맥주
@@ -84,9 +89,12 @@ const TagBox: React.FC<TagBoxProps> = ({ checkedTags, disabled }) => {
           onChange={(values: string[]) => handleTagChange(values, "music")}
           disabled={disabled}
         >
-          <Checkbox id="music_default" value="music_default">
-            상관없어요
-          </Checkbox>
+          {!isReview && (
+            <Checkbox id="music_default" value="music_default">
+              상관없어요
+            </Checkbox>
+          )}
+
           <StyledColGroup>
             <Checkbox id="music_1" value="music_1">
               댄스 / 아이돌
@@ -121,9 +129,12 @@ const TagBox: React.FC<TagBoxProps> = ({ checkedTags, disabled }) => {
           onChange={(values: string[]) => handleTagChange(values, "mood")}
           disabled={disabled}
         >
-          <Checkbox id="mood_default" value="mood_default">
-            상관없어요
-          </Checkbox>
+          {!isReview && (
+            <Checkbox id="mood_default" value="mood_default">
+              상관없어요
+            </Checkbox>
+          )}
+
           <StyledColGroup>
             <Checkbox id="mood_1" value="mood_1">
               혼술 가능한

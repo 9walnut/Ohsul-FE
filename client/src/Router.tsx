@@ -109,11 +109,11 @@ const router = createBrowserRouter([
   },
   {
     // 가게 리뷰
-    path: "/barReviews",
+    path: "/ohsul/:barId",
     element: <App />,
     children: [
       {
-        path: "",
+        path: "review",
         element: <BarReviewPage />,
       },
       {

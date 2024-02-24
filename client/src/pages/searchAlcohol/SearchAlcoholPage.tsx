@@ -41,6 +41,10 @@ const SearchAlcoholPage: React.FC = () => {
     setSearchResults(results);
   };
 
+  const handleBarPhone = (phone: string) => {
+    return phone.replace(/-/g, "");
+  };
+
   //오술태그 선택된 값 넣기
   const DUMMYTags = {
     alcohol: ["alcohol_1", "alcohol_2", "alcohol_5"],
@@ -69,7 +73,11 @@ const SearchAlcoholPage: React.FC = () => {
         ))}
       </ul> */}
       {searchResults.map((result, index) => (
-        <CardColReview barName={result.name} key={index} />
+        <CardColReview
+          barName={result.name}
+          key={index}
+          barPhone={handleBarPhone(result.phone)}
+        />
       ))}
     </>
   );
