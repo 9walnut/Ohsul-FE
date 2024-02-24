@@ -9,6 +9,8 @@ type AuthStore = {
   setUserId: (userId: string) => void;
   userNickname: string | null;
   setUserNickname: (userNickname: string) => void;
+  userNumber: number | null;
+  setUserNumber: (userNumber: number) => void;
 };
 
 //Zustand persist
@@ -19,16 +21,19 @@ const useAuthStore = createStore(
       isLoggedIn: false,
       login: () => set({ isLoggedIn: true }),
       logout: () =>
-        set((state) => ({
+        set({
           isLoggedIn: false,
           userId: null,
           userNickname: null,
-        })),
+          userNumber: null,
+        }),
       userId: null,
       setUserId: (userId: string) => set({ userId: userId }),
       userNickname: null,
       setUserNickname: (userNickname: string) =>
         set({ userNickname: userNickname }),
+      userNumber: null,
+      setUserNumber: (userNumber: number) => set({ userNumber: userNumber }),
     }),
     {
       name: "userInfoStorage", //Storage 이름 지정 (default: localStorage)
