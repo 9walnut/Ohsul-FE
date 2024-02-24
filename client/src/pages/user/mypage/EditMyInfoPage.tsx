@@ -297,7 +297,9 @@ const EditMyInfoPage = () => {
           </S.InputLayout>
           <S.ButtonBox>
             <RoundButton type="submit">수정하기</RoundButton>
-            <RoundButton02 onClick={() => navigate(-1)}>취소</RoundButton02>
+            <RoundButton02 onClick={() => navigate("/mypage/pwCheck")}>
+              비밀번호 변경
+            </RoundButton02>
           </S.ButtonBox>
           <S.DelUserBtn onClick={handleDelUser}>회원 탈퇴하기</S.DelUserBtn>
         </form>

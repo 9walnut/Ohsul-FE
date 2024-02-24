@@ -15,7 +15,7 @@ type LoginFormInputs = {
   userPw: string;
 };
 
-const LoginPage = (props: any) => {
+const LoginPage = () => {
   const navigate = useNavigate();
   const cookies = new Cookies();
   const [modalOpen, setModalOpen] = useState(false);

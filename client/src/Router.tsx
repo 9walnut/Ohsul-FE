@@ -13,6 +13,8 @@ import BarEditReviewPage from "./pages/review/BarEditReviewPage";
 import BarInfoPage from "./pages/bar/BarInfoPage";
 import BarReviewPage from "./pages/review/BarReviewPage";
 import EditMyInfoPage from "./pages/user/mypage/EditMyInfoPage";
+import PwCheckPage from "./pages/user/mypage/PwCheckPage";
+import PwChangePage from "./pages/user/mypage/PwChangePage";
 
 const router = createBrowserRouter([
   {
@@ -71,6 +73,16 @@ const router = createBrowserRouter([
         // 내 정보 수정
         path: "editMyInfo",
         element: <EditMyInfoPage />,
+      },
+      {
+        // 비밀번호 확인
+        path: "pwCheck",
+        element: <PwCheckPage />,
+      },
+      {
+        // 비밀번호 수정
+        path: "pwChange",
+        element: <PwChangePage />,
       },
     ],
   },
