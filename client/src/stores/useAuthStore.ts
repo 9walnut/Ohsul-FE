@@ -12,6 +12,7 @@ type AuthStore = {
 };
 
 //Zustand persist
+//타입스크립트 사용 시에는 타입을 create 뒤가 아닌 persist 뒤에 붙여준다.
 const useAuthStore = createStore(
   persist<AuthStore>(
     (set) => ({
@@ -30,7 +31,8 @@ const useAuthStore = createStore(
         set({ userNickname: userNickname }),
     }),
     {
-      name: "userInfoStorage",
+      name: "userInfoStorage", //Storage 이름 지정 (default: localStorage)
+      //storage: createJSONStorage(() => sessionStorage
     }
   )
   //)
