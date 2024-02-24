@@ -31,12 +31,14 @@ const EditMyInfoPage = () => {
   const [modalOpen, setModalOpen] = useState(false);
   const [showModal, setShowModal] = useState(false);
 
+  const { userId } = useAuthStore.getState();
+
   useEffect(() => {
     const { userId } = useAuthStore.getState();
 
     const FetchData = async () => {
       try {
-        const res = await axios.get("/api//mypage/info", {
+        const res = await axios.get("/api/mypage/info", {
           params: { userId },
         });
         if (res.status == 200) {
@@ -52,21 +54,31 @@ const EditMyInfoPage = () => {
 
     FetchData();
   }, []);
-
+  //----------회원 탈퇴
   const handleDelUser = () => {
     setModalOpen(true);
     console.log("탈퇴버튼클릭");
   };
 
   const handleDeleteConfirm = async () => {
-    console.log("탈퇴 모달 확인 클릭");
-    // try {
-    //   const res = await axios.post("/api/");
-    //   console.log(res.data);
+    const logout = useAuthStore.getState().logout;
 
-    // } catch (error) {
-    //   console.error("탈퇴 요청 에러:", error);
-    // }
+    try {
+      const res = await axios.delete("/api/mypage", {
+        data: {
+          userId: { userId },
+        },
+      });
+      if (res.status == 200) {
+        console.log(res);
+        console.log(res.data);
+
+        logout();
+        navigate("/");
+      }
+    } catch (error) {
+      console.error("탈퇴 요청 에러:", error);
+    }
   };
 
   const {
@@ -103,7 +115,7 @@ const EditMyInfoPage = () => {
       console.log("내정보수정 err1", error);
     }
   };
-
+  //----------비밀번호 일치 확인
   useEffect(() => {
     const passwordWatch = watch("userPw");
     const pwCheckWatch = watch("pwCheck");
@@ -285,7 +297,9 @@ const EditMyInfoPage = () => {
           </S.InputLayout>
           <S.ButtonBox>
             <RoundButton type="submit">수정하기</RoundButton>
-            <RoundButton02 onClick={() => navigate(-1)}>취소</RoundButton02>
+            <RoundButton02 onClick={() => navigate("/mypage/pwCheck")}>
+              비밀번호 변경
+            </RoundButton02>
           </S.ButtonBox>
           <S.DelUserBtn onClick={handleDelUser}>회원 탈퇴하기</S.DelUserBtn>
         </form>

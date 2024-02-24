@@ -5,7 +5,7 @@ import ToggleBtn from "../../components/nearAlcohol/ToggleBtn";
 import CardColTag from "../../components/common/CardColTag";
 import CardColReview from "../../components/common/CardColReview";
 import BarReviewCard from "../../components/common/BarReviewCard";
-
+import { SearchResult } from "../../types/Map";
 import Toggle2 from "../../components/nearAlcohol/Toggle2";
 import KakaoMap07 from "../../components/common/KakaoMap07";
 
@@ -37,17 +37,20 @@ const DUMMYCardColTag = {
 
 const NearAlcoholPage: React.FC = () => {
   const [viewMap, setViewMap] = useState(true);
+  const [searchResults, setSearchResults] = useState<SearchResult[]>([]);
 
   const handleViewChange = (newViewMap: boolean) => {
     setViewMap(newViewMap);
   };
-
+  const handleSearchResults = (results: SearchResult[]) => {
+    setSearchResults(results);
+  };
   return (
     <>
       <PageLayout>
         <Header title="내 주변의 술" />
         {/* <KakaoMap07 /> */}
-        <p>여기 지도 들어옴</p>
+        <KakaoMap07 onSearchResults={handleSearchResults} />
         <CardColTag
           barName={DUMMYCardColTag.barName}
           score={DUMMYCardColTag.score}
@@ -65,8 +68,6 @@ const NearAlcoholPage: React.FC = () => {
           content={DUMMYBarReviewCard.content}
           date={DUMMYBarReviewCard.date}
         /> */}
-        {/* <ToggleBtn /> */}
-        {/* <Toggle2 /> */}
         {viewMap ? <p>지도 보기 컴포넌트</p> : <p>리스트 보기 컴포넌트</p>}
         <Toggle2 viewMap={viewMap} onViewChange={handleViewChange} />
       </PageLayout>

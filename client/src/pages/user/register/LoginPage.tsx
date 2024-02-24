@@ -15,7 +15,7 @@ type LoginFormInputs = {
   userPw: string;
 };
 
-const LoginPage = (props: any) => {
+const LoginPage = () => {
   const navigate = useNavigate();
   const cookies = new Cookies();
   const [modalOpen, setModalOpen] = useState(false);
@@ -52,6 +52,11 @@ const LoginPage = (props: any) => {
         const userId = res.data.userId;
         useAuthStore.setState({ userId: userId });
         console.log("zustand userId:", useAuthStore.getState().userId);
+
+        //--- zustand userNumber 저장
+        const userNumber = res.data.userNumber;
+        useAuthStore.setState({ userNumber: userNumber });
+        console.log("zustand userNumber:", useAuthStore.getState().userNumber);
 
         //--- zustand userNickname 저장
         const userNickname = res.data.userNickname;
