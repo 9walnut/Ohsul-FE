@@ -61,7 +61,6 @@ const MainPage: React.FC = () => {
         <br />
         {isLoggedIn ? <p>로그인 상태!</p> : <p>로그아웃 상태!</p>}
       </div>
-      <SwiperSlider />
     </>
   );
 };

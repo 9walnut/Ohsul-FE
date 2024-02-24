@@ -80,6 +80,7 @@ const CloseBtn = styled.div`
 
 const MessageBox = styled.div`
   padding: 20px;
+  font-size: 14px;
 `;
 
 const BtnWrapper = styled.div`
@@ -93,14 +94,15 @@ const CheckBtn = styled.button<BtnProps>`
   background: ${({ isCheck, theme }) =>
     isCheck ? theme.colors.btnBlue : "none"};
   border-radius: 10px;
-  border-color: ${({ isCheck, theme }) =>
-    isCheck ? theme.colors.btnBlue : "none"};
+  border-style: none;
+  border: 1px solid
+    ${({ isCheck, theme }) => (isCheck ? "none" : theme.colors.btnBlue)};
   outline: none;
   cursor: pointer;
   font-family: ${({ theme }) => theme.fonts.ydFont};
   font-style: normal;
   font-weight: 400;
-  font-size: 18px;
+  font-size: 16px;
   line-height: 27px;
   text-align: center;
   color: ${({ isCheck, theme }) =>

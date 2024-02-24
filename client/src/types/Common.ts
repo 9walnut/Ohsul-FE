@@ -31,8 +31,8 @@ export type CardBarReview = {
 };
 
 export type Modal = {
-  message: string;
+  message: string | React.ReactNode;
   isClose: boolean;
-  onCancel: () => void;
-  onConfirm: () => void;
+  onCancel?: () => void;
+  onConfirm?: () => void;
 };

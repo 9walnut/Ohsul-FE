@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { Modal } from "../../types/Common";
 import WideButton from "./WideButton";
 
-const CommonModal: React.FC<Modal> = ({ message, isClose }) => {
+const CommonModal: React.FC<Modal> = ({ message, isClose, onConfirm }) => {
   const [modal, setModal] = useState(true);
 
   useEffect(() => {
@@ -12,6 +12,10 @@ const CommonModal: React.FC<Modal> = ({ message, isClose }) => {
 
   // console.log(message, "메시지");
 
+  const handleClick = () => {
+    setModal(false);
+    onConfirm && onConfirm();
+  };
   return (
     <>
       {modal && (
@@ -25,7 +29,7 @@ const CommonModal: React.FC<Modal> = ({ message, isClose }) => {
             </CloseBtn>
           )}
           <MessageBox>{message}</MessageBox>
-          <WideButton onClick={() => setModal(false)}>확인</WideButton>
+          <WideButton onClick={handleClick}>확인</WideButton>
         </ModalLayout>
       )}
     </>
@@ -40,6 +44,7 @@ const ModalLayout = styled.div`
   border: 1px solid #4d607b;
   padding: 4px 10px 15px 10px;
   border-radius: 15px;
+  z-index: 10;
 `;
 
 const CloseBtn = styled.div`
@@ -53,6 +58,8 @@ const CloseBtn = styled.div`
 
 const MessageBox = styled.div`
   padding: 20px;
+  font-size: 14px;
+  line-height: 16px;
 `;
 
 export default CommonModal;
