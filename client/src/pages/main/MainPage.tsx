@@ -52,11 +52,6 @@ const MainPage: React.FC = () => {
         isClose={true}
       /> */}
       <br />
-      <NavLink to={"/barReviews"}>바 리뷰 페이지 이동</NavLink>
-      <br />
-      <NavLink to={"/barReviews/addReview"}>리뷰 작성 페이지 이동</NavLink>
-      <br />
-      <NavLink to={"/barReviews/editReview"}>리뷰 수정 페이지 이동</NavLink>
       <div>
         <br />
         {isLoggedIn ? <p>로그인 상태!</p> : <p>로그아웃 상태!</p>}

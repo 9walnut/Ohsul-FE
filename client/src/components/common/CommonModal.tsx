@@ -1,10 +1,14 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { Modal } from "../../types/Common";
 import WideButton from "./WideButton";
 
 const CommonModal: React.FC<Modal> = ({ message, isClose, onConfirm }) => {
   const [modal, setModal] = useState(true);
+
+  useEffect(() => {
+    setModal(true);
+  });
 
   // console.log(message, "메시지");
 

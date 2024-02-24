@@ -2,13 +2,14 @@ export type HeaderTitle = {
   title: string;
 };
 
-type Tag = {
+export type Tag = {
   [key: string]: string[];
 };
 
 //공통 카드 컴포넌트
 export type Card = {
   barName: string;
+  barPhone?: string;
   tag?: Tag;
   barImg?: string;
   score?: number;

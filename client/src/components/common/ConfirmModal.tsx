@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { Modal } from "../../types/Common";
 import WideButton from "./WideButton";
@@ -9,6 +9,10 @@ const ConfirmModal: React.FC<Modal> = ({
   onCancel,
   onConfirm,
 }) => {
+  useEffect(() => {
+    setModal(true);
+  }, [message]);
+
   const [modal, setModal] = useState(true);
 
   const handlerCancel = () => {

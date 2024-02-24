@@ -6,17 +6,12 @@ import StarRating from "../../components/common/StarRating";
 import BackButton from "../../components/common/BackButton";
 import TagBox from "../../components/ohsulTag/TagBox";
 import axios from "axios";
-
-const DUMMYTags = {
-  alcohol: ["alcohol_1", "alcohol_2", "alcohol_5"],
-  music: ["music_3", "music_5"],
-  mood: ["mood_1", "mood_3"],
-  etc: ["etc_1"],
-  snack: ["snack_2"],
-};
+import { useParams } from "react-router";
+import { Tag } from "../../types/Common";
 
 const BarAddReviewPage: React.FC = () => {
   const selectImg = useRef<HTMLInputElement>(null);
+  const { barId } = useParams();
   const [nickName, setNickName] = useState("");
   const [reviewPw, setReviewPw] = useState("");
   const [isLogin, setIsLogin] = useState(true);
@@ -24,38 +19,57 @@ const BarAddReviewPage: React.FC = () => {
   const [content, setContent] = useState("");
   const [reviewImg, setReviewImg] = useState(null);
 
+  const [tags, setTags] = useState<Tag>({
+    alcohol: [],
+    music: [],
+    mood: [],
+    etc: [],
+    snack: [],
+  });
+
+  const [tags2, setTags2] = useState<Tag>({
+    alcohol: [],
+    music: [],
+    mood: [],
+  });
+
   const onChangeImg = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files.length > 0) {
       const img = e.target.files[0];
       //@ts-ignore
       setReviewImg(img);
-      const formData = new FormData();
-      formData.append("file", img);
-      console.log("사진들어왓기약아악", formData);
     }
   };
-  const barId = 4;
 
   const postReview = async () => {
     const formData = new FormData();
-    if (reviewImg) {
-      formData.append("reviewImg", reviewImg);
-    }
-    formData.append("content", content);
-    formData.append("score", score.toString());
-    formData.append("reviewPw", reviewPw);
-    formData.append("nickname", nickName);
-    formData.append("alcoholTags", JSON.stringify(DUMMYTags.alcohol));
-    formData.append("musicTags", JSON.stringify(DUMMYTags.music));
-    formData.append("moodTags", JSON.stringify(DUMMYTags.mood));
+
+    // if (reviewImg) {
+    //   formData.append("reviewImg", reviewImg); // 이미지 파일 추가
+    // }
+
+    // BarReviewDTO 데이터를 JSON 문자열로 변환하여 추가
+    const reviewData = JSON.stringify({
+      content: content,
+      score: score,
+      nickname: nickName,
+      reviewPw: reviewPw,
+      userId: "qwer1234",
+      ...tags2,
+    });
+
+    console.log("데이터임", reviewData);
+
+    formData.append(
+      "barReviewDTO",
+      new Blob([reviewData], { type: "application/json" })
+    );
+
     try {
-      const res = await axios.post(`/api/ohsul/${barId}/review`, formData, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
-      });
+      const res = await axios.post(`/api/ohsul/${barId}/review`, formData);
+      console.log("Review submission response:", res);
     } catch (error) {
-      console.log("postReview err", error);
+      console.error("Review submission error:", error);
     }
   };
 
@@ -89,7 +103,7 @@ const BarAddReviewPage: React.FC = () => {
       <S.ExplainBox>
         태그는 각 최소 1개씩 필수입니다 ! (각 최대 3개)
       </S.ExplainBox>
-      <TagBox checkedTags={DUMMYTags} disabled={true} />
+      <TagBox checkedTags={tags} isReview={true} />
       <S.ExplainBox>별점은 필수 선택입니다 !</S.ExplainBox>
       <StarRating ratingIndex={score} setRatingIndex={setScore} />
 
@@ -105,6 +119,7 @@ const BarAddReviewPage: React.FC = () => {
         <input
           type="file"
           onChange={onChangeImg}
+          accept=".png, .jpeg, .jpg"
           ref={selectImg}
           style={{ display: "none" }}
         />
