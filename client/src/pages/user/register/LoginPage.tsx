@@ -53,6 +53,11 @@ const LoginPage = () => {
         useAuthStore.setState({ userId: userId });
         console.log("zustand userId:", useAuthStore.getState().userId);
 
+        //--- zustand userName 저장
+        const userName = res.data.userName;
+        useAuthStore.setState({ userName: userName });
+        console.log("zustand userName:", useAuthStore.getState().userName);
+
         //--- zustand userNumber 저장
         const userNumber = res.data.userNumber;
         useAuthStore.setState({ userNumber: userNumber });
