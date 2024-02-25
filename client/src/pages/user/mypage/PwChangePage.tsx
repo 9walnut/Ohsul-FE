@@ -6,6 +6,7 @@ import BackButton from "../../../components/common/BackButton";
 import RoundButton from "../../../components/common/RoundButton";
 import RoundButton02 from "../../../components/common/RoundButton02";
 import { useNavigate } from "react-router";
+import CommonModal from "../../../components/common/CommonModal";
 import axios from "axios";
 
 type PwChangeFormInputs = {
@@ -15,6 +16,8 @@ type PwChangeFormInputs = {
 
 const PwChangePage = () => {
   const navigate = useNavigate();
+  const [modalOpen, setModalOpen] = useState(false);
+
   const {
     register,
     handleSubmit,
@@ -42,11 +45,15 @@ const PwChangePage = () => {
       console.log("response status", res.status); // 200
       console.log("response text", res.statusText); // OK
       if (res.status == 200) {
-        navigate("/mypage");
+        setModalOpen(true);
       }
     } catch (error) {
       console.log("비밀번호 변경 err1", error);
     }
+  };
+
+  const handleConfirm = () => {
+    navigate("/mypage");
   };
 
   //----------비밀번호 중복 확인
@@ -67,6 +74,13 @@ const PwChangePage = () => {
     <>
       <Header title="비밀번호 변경" />
       <BackButton />
+      {modalOpen && (
+        <CommonModal
+          message="비밀번호가 변경되었습니다."
+          isClose={true}
+          onConfirm={handleConfirm}
+        />
+      )}
       <S.PwChangeBox>
         <form onSubmit={handleSubmit(onSubmit)} method="POST">
           <S.InputLayout>
