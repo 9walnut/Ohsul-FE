@@ -1,13 +1,59 @@
 import React from "react";
 import styled from "styled-components";
+import axios from "axios";
+import useAuthStore from "../../stores/useAuthStore";
+import useFavoriteStore from "../../stores/\buseFavoriteStore";
 
 import { CardTag } from "../../types/Common";
 
-const CardColTag: React.FC<CardTag> = ({ barName, barImg, score, tag }) => {
+const CardColTag: React.FC<CardTag> = ({
+  barName,
+  barImg,
+  score,
+  tag,
+  barId,
+}) => {
   const tagData = tag || { drink: [], mood: [], music: [] };
   const drink: string[] = tagData.drink;
   const mood: string[] = tagData.mood;
   const music: string[] = tagData.music;
+
+  const { userNumber } = useAuthStore.getState();
+
+  //------------------------------호출방식 변경 필요
+  // const isFavorite = useFavoriteStore((state) => state.favoriteBars[barId] || false);
+
+  // const handleToggleFavorite = () => {
+  //   useFavoriteStore((state) => {
+  //     state.toggleFavorite(barId);
+  //   });
+  // };
+  //------------------------------
+
+  //400error
+  //- 가게정보가 DUMMY DATA 에 없을 시 400 err
+  //- 가게정보 있을 시 barId : undefined 400 err
+  const handleFavorite = async () => {
+    console.log("favorite click");
+    const favoriteData = {
+      userNumber: userNumber,
+      barId: barId,
+    };
+    console.log(favoriteData);
+    try {
+      const res = await axios.post("/api/favorite/add", favoriteData, {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      if (res.status == 200) {
+        console.log(res);
+        console.log(res.data);
+      }
+    } catch (error) {
+      console.log("favorite add err: ", error);
+    }
+  };
 
   return (
     <>
@@ -37,7 +83,7 @@ const CardColTag: React.FC<CardTag> = ({ barName, barImg, score, tag }) => {
         </LeftContent>
         <RightContent>
           <FavoriteBox>
-            <FavoriteImg>
+            <FavoriteImg onClick={handleFavorite}>
               <img
                 src={
                   process.env.PUBLIC_URL + "assets/images/common_favorite.png"
@@ -69,6 +115,18 @@ const CardColTag: React.FC<CardTag> = ({ barName, barImg, score, tag }) => {
           </TagLayout>
         </RightContent>
       </CardLayout>
+
+      {/* test */}
+      {/* <FavoriteBox onClick={handleToggleFavorite}>
+            <FavoriteImg onClick={handleFavorite}>
+              <img
+                src={
+                  isFavorite ? process.env.PUBLIC_URL + "assets/images/mypage_favorite_active.png" : process.env.PUBLIC_URL + "assets/images/mypage_favorite_nonactive.png"
+                }
+                alt="Score"
+              />
+            </FavoriteImg>
+          </FavoriteBox> */}
     </>
   );
 };
@@ -190,6 +248,7 @@ const FavoriteBox = styled.div`
   height: 24px;
 `;
 const FavoriteImg = styled.div`
+  cursor: pointer;
   img {
     width: 16px;
     height: 22px;
