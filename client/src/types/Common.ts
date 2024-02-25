@@ -14,6 +14,7 @@ export type Card = {
   barImg?: string;
   score?: number;
   content?: string;
+  barId?: number;
 };
 
 //카드 컴포넌트 태그타입

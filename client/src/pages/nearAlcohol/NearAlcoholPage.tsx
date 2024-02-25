@@ -1,13 +1,14 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
-import Header from "../../components/common/Header";
-import ToggleBtn from "../../components/nearAlcohol/ToggleBtn";
-import CardColTag from "../../components/common/CardColTag";
-import CardColReview from "../../components/common/CardColReview";
-import BarReviewCard from "../../components/common/BarReviewCard";
+import axios from "axios";
 import { SearchResult } from "../../types/Map";
+
+import Header from "../../components/common/Header";
+import CardColTag from "../../components/common/CardColTag";
 import Toggle2 from "../../components/nearAlcohol/Toggle2";
 import KakaoMap07 from "../../components/common/KakaoMap07";
+
+import CardColReview from "../../components/common/CardColReview";
 
 const DUMMYBarReviewCard = {
   userNickname: "졸린공룡",
@@ -24,6 +25,7 @@ const DUMMYBarReviewCard = {
   date: "2024-02-22",
 };
 const DUMMYCardColTag = {
+  barId: 2,
   barName: "언더그라운드",
   score: 4,
   barImg:
@@ -39,19 +41,68 @@ const NearAlcoholPage: React.FC = () => {
   const [viewMap, setViewMap] = useState(true);
   const [searchResults, setSearchResults] = useState<SearchResult[]>([]);
 
+  //view mode - 지도 보기 , 리스트 보기
   const handleViewChange = (newViewMap: boolean) => {
     setViewMap(newViewMap);
   };
+
+  //지도 결과 가져오는 콜백함수
   const handleSearchResults = (results: SearchResult[]) => {
     setSearchResults(results);
   };
+
+  // 이 지역 재검색 클릭 시
+  useEffect(() => {
+    console.log("searchResults: ", searchResults);
+
+    const phoneNumbers = searchResults
+      .filter((result) => result.phone)
+      .map((result) => result.phone.replace(/-/g, ""));
+
+    console.log("result - phoneNumbers: ", phoneNumbers);
+    postStoreInfo(phoneNumbers);
+  }, [searchResults]);
+
+  const postStoreInfo = async (phoneNumbers: string[]) => {
+    console.log("postStoreInfo: ", phoneNumbers);
+    try {
+      const res = await axios.post("/api/ohsul/near", phoneNumbers, {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      console.log("NearAlcoholPage res: ", res);
+      console.log("NearAlcoholPage res.data: ", res.data);
+    } catch (error) {
+      console.log("NearAlcoholPage error: ", error);
+    }
+  };
+
+  const handleBarPhone = (phone: string) => {
+    return phone.replace(/-/g, "");
+  };
+
   return (
     <>
       <PageLayout>
         <Header title="내 주변의 술" />
-        {/* <KakaoMap07 /> */}
         <KakaoMap07 onSearchResults={handleSearchResults} />
+        {/* {searchResults.map((result, index) => (
+          <CardColTag
+            barName={result.name}
+            key={index}
+            barPhone={handleBarPhone(result.phone)}
+          />
+        ))}
+        {searchResults.map((result, index) => (
+          <CardColReview
+            barName={result.name}
+            key={index}
+            barPhone={handleBarPhone(result.phone)}
+          />
+        ))} */}
         <CardColTag
+          barId={DUMMYCardColTag.barId}
           barName={DUMMYCardColTag.barName}
           score={DUMMYCardColTag.score}
           barImg={DUMMYCardColTag.barImg}
@@ -59,15 +110,7 @@ const NearAlcoholPage: React.FC = () => {
         />
         {/* <p>얘는 가로형 카드 리뷰형</p>
         <CardColReview barName="언더그라운드" /> */}
-        {/* <p>리뷰 페이지에 보여지는 리뷰카드</p>
-        <BarReviewCard
-          userNickname={DUMMYBarReviewCard.userNickname}
-          score={DUMMYBarReviewCard.score}
-          barImg={DUMMYBarReviewCard.barImg}
-          tag={DUMMYBarReviewCard.tag}
-          content={DUMMYBarReviewCard.content}
-          date={DUMMYBarReviewCard.date}
-        /> */}
+
         {viewMap ? <p>지도 보기 컴포넌트</p> : <p>리스트 보기 컴포넌트</p>}
         <Toggle2 viewMap={viewMap} onViewChange={handleViewChange} />
       </PageLayout>
