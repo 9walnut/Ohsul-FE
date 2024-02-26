@@ -5,10 +5,40 @@ import axios from "axios";
 import useAuthStore from "../../../stores/useAuthStore";
 import CommonModal from "../../../components/common/CommonModal";
 import { useNavigate } from "react-router";
+import CardColTag from "../../../components/common/CardColTag";
+
+//DUMMY
+const DUMMYCardColTag = [
+  {
+    barId: 2,
+    barName: "언더그라운드",
+    score: 4,
+    barImg:
+      "https://search.pstatic.net/common/?src=https%3A%2F%2Fpup-review-phinf.pstatic.net%2FMjAyMzAyMDNfNjkg%2FMDAxNjc1MzU3OTAwMDc1.nDuEbsyEjQNKrN5JJn4PN7QN2himoQXkjdsOidYPEQ4g.hc5nBIjfzB85bNZRKiYcGhwY3ETdxAtLQUQhAi_hZ3cg.JPEG%2Fimage.jpg",
+    tag: {
+      drink: ["칵테일", "양주"],
+      mood: ["다같이 즐기는", "힙한"],
+      music: ["힙합"],
+    },
+  },
+  {
+    barId: 3,
+    barName: "언더그라운드",
+    score: 3,
+    barImg:
+      "https://search.pstatic.net/common/?src=https%3A%2F%2Fpup-review-phinf.pstatic.net%2FMjAyMzAyMDNfNjkg%2FMDAxNjc1MzU3OTAwMDc1.nDuEbsyEjQNKrN5JJn4PN7QN2himoQXkjdsOidYPEQ4g.hc5nBIjfzB85bNZRKiYcGhwY3ETdxAtLQUQhAi_hZ3cg.JPEG%2Fimage.jpg",
+    tag: {
+      drink: ["칵테일", "양주"],
+      mood: ["다같이 즐기는", "힙한"],
+      music: ["힙합"],
+    },
+  },
+];
 
 const FavoritePage = () => {
   const navigate = useNavigate();
-  const [modalOpen, setModalOpen] = useState(true);
+  const [modalOpen, setModalOpen] = useState(false);
+  const [isFavoritePlace, setIsFavoritePlace] = useState(true);
 
   //✅ 어떻게 들어오냐
   useEffect(() => {
@@ -36,18 +66,34 @@ const FavoritePage = () => {
   return (
     <>
       <S.FavoritePageLayout>
-        <div>즐겨찾기 장소</div>
-        {modalOpen && (
-          <CommonModal
-            message={
-              <>
-                아직 즐겨찾기 한 장소가 없어요. <br /> 내 근처 술집 둘러보러
-                가기 😀
-              </>
-            }
-            isClose={false}
-            onConfirm={handleNavigate}
-          />
+        {isFavoritePlace ? (
+          <>
+            {DUMMYCardColTag.map((content, index) => (
+              <CardColTag
+                key={index}
+                barId={content.barId}
+                barName={content.barName}
+                score={content.score}
+                barImg={content.barImg}
+                tag={content.tag}
+              />
+            ))}
+          </>
+        ) : (
+          <>
+            {modalOpen && (
+              <CommonModal
+                message={
+                  <>
+                    아직 즐겨찾기 한 장소가 없어요. <br /> 내 근처 술집 둘러보러
+                    가기 😀
+                  </>
+                }
+                isClose={false}
+                onConfirm={handleNavigate}
+              />
+            )}
+          </>
         )}
       </S.FavoritePageLayout>
     </>

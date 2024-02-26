@@ -10,8 +10,8 @@ export const FavoritePageLayout = styled.div`
 
   position: absolute;
 
-  width: 382px;
+  width: 100%;
   height: 300px;
 
-  top: 320px;
+  top: 400px;
 `;
