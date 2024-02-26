@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import axios from "axios";
 import { SearchResult } from "../../types/Map";
+import { Card, getBarInfo } from "../../types/Common";
 
 import Header from "../../components/common/Header";
 import CardColTag from "../../components/common/CardColTag";
@@ -37,9 +38,13 @@ const DUMMYCardColTag = {
   },
 };
 
+type CombinedData = (SearchResult | getBarInfo)[];
+
 const NearAlcoholPage: React.FC = () => {
   const [viewMap, setViewMap] = useState(true);
   const [searchResults, setSearchResults] = useState<SearchResult[]>([]);
+  const [fetchBarData, setFetchBarData] = useState<SearchResult[]>([]);
+  const [barData, setBarData] = useState<CombinedData>([]);
 
   //view mode - 지도 보기 , 리스트 보기
   const handleViewChange = (newViewMap: boolean) => {
@@ -50,31 +55,63 @@ const NearAlcoholPage: React.FC = () => {
   const handleSearchResults = (results: SearchResult[]) => {
     setSearchResults(results);
   };
-
   // 이 지역 재검색 클릭 시
   useEffect(() => {
-    console.log("searchResults: ", searchResults);
+    console.log("주소들어옴", searchResults);
 
     const phoneNumbers = searchResults
       .filter((result) => result.phone)
       .map((result) => result.phone.replace(/-/g, ""));
 
-    console.log("result - phoneNumbers: ", phoneNumbers);
-    postStoreInfo(phoneNumbers);
+    const barNames = searchResults
+      .filter((result) => result.name)
+      .map((result) => result.name);
+
+    console.log("번호 모음", phoneNumbers);
+    postStoreInfo(phoneNumbers, barNames);
   }, [searchResults]);
 
-  const postStoreInfo = async (phoneNumbers: string[]) => {
-    console.log("postStoreInfo: ", phoneNumbers);
+  const postStoreInfo = async (phoneNumbers: string[], barNames: string[]) => {
+    const data = {
+      telephones: phoneNumbers,
+      barNames: barNames,
+    };
+    console.log("보내는 데이터임", data);
+
     try {
-      const res = await axios.post("/api/ohsul/near", phoneNumbers, {
+      const res = await axios.post("/api/ohsul/near", data, {
         headers: {
           "Content-Type": "application/json",
         },
       });
-      console.log("NearAlcoholPage res: ", res);
-      console.log("NearAlcoholPage res.data: ", res.data);
+      if (res.status === 200) {
+        const fetchData: any[] = res.data; // 응답 데이터 타입을 any 배열로 지정
+
+        // 검색 결과와 응답 데이터를 합친 배열을 생성
+        // 더미데이터에 없으면 barId 안들어옴 -> 데이터 보내면서 생성되고 barid 가져와야 될 듯
+        const combinedData = searchResults.map((searchResult) => {
+          const matchedData = fetchData.find(
+            (data) => data.barName === searchResult.name
+          );
+          if (matchedData) {
+            return {
+              ...searchResult,
+              barId: matchedData.barId,
+              barImg: matchedData.barImg,
+              alcoholTags: matchedData.alcoholTags,
+              moodTags: matchedData.moodTags,
+              musicTags: matchedData.musicTags,
+            };
+          }
+          return searchResult;
+        });
+        setBarData(combinedData);
+
+        console.log("combinedData: ", combinedData);
+        console.log("barData: ", barData);
+      }
     } catch (error) {
-      console.log("NearAlcoholPage error: ", error);
+      console.log("알콜 응답 에러", error);
     }
   };
 
@@ -87,27 +124,43 @@ const NearAlcoholPage: React.FC = () => {
       <PageLayout>
         <Header title="내 주변의 술" />
         <KakaoMap07 onSearchResults={handleSearchResults} />
+        {barData &&
+          barData.map((result, index) => (
+            <CardColTag
+              key={index}
+              barName={result.name}
+              barPhone={handleBarPhone(result.phone)}
+              barId={result.barId}
+            />
+          ))}
+        {/* {barData &&
+          barData.map((result) => {
+            if ("barId" in result) {
+              return (
+                <CardColTag
+                  key={result.barId}
+                  barName={result.name}
+                  barPhone={handleBarPhone(result.phone)}
+                />
+              );
+            } else {
+              return null; // SearchResult 타입인 경우 처리
+            }
+          })} */}
         {/* {searchResults.map((result, index) => (
-          <CardColTag
-            barName={result.name}
-            key={index}
-            barPhone={handleBarPhone(result.phone)}
-          />
-        ))}
-        {searchResults.map((result, index) => (
           <CardColReview
             barName={result.name}
             key={index}
             barPhone={handleBarPhone(result.phone)}
           />
         ))} */}
-        <CardColTag
+        {/* <CardColTag
           barId={DUMMYCardColTag.barId}
           barName={DUMMYCardColTag.barName}
           score={DUMMYCardColTag.score}
           barImg={DUMMYCardColTag.barImg}
           tag={DUMMYCardColTag.tag}
-        />
+        /> */}
         {/* <p>얘는 가로형 카드 리뷰형</p>
         <CardColReview barName="언더그라운드" /> */}
 
