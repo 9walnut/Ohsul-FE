@@ -14,7 +14,7 @@ export type Card = {
   barImg?: string;
   score?: number;
   content?: string;
-  barId?: number;
+  barId?: number | string;
 };
 
 //카드 컴포넌트 태그타입
@@ -37,4 +37,15 @@ export type Modal = {
   isClose: boolean;
   onCancel?: () => void;
   onConfirm?: () => void;
+};
+
+export type getBarInfo = {
+  barId: number | string;
+  barImg: string;
+  barName: string;
+  name: string;
+  phone: string;
+  alcoholTags?: string[];
+  moodTags?: string[];
+  musicTags?: string[];
 };

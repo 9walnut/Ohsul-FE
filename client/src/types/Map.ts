@@ -21,6 +21,8 @@ export interface SearchResult {
   lat: number;
   lng: number;
   phone: string;
+  barId?: number | string;
+  barName?: string;
 }
 export interface SearchCenter {
   position: {

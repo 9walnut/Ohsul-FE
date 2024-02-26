@@ -3,7 +3,7 @@ import styled from "styled-components";
 import axios from "axios";
 import useAuthStore from "../../stores/useAuthStore";
 import useFavoriteStore from "../../stores/\buseFavoriteStore";
-
+import { Link } from "react-router-dom";
 import { CardTag } from "../../types/Common";
 
 const CardColTag: React.FC<CardTag> = ({
@@ -12,6 +12,7 @@ const CardColTag: React.FC<CardTag> = ({
   score,
   tag,
   barId,
+  barPhone,
 }) => {
   const tagData = tag || { drink: [], mood: [], music: [] };
   const drink: string[] = tagData.drink;
@@ -28,9 +29,6 @@ const CardColTag: React.FC<CardTag> = ({
 
   //------------------------------
 
-  //400error
-  //- 가게정보가 DUMMY DATA 에 없을 시 400 err
-  //- 가게정보 있을 시 barId : undefined 400 err
   const handleFavorite = async () => {
     console.log("favorite click");
     const favoriteData = {
@@ -56,6 +54,10 @@ const CardColTag: React.FC<CardTag> = ({
   return (
     <>
       <CardLayout>
+        <Link
+          to={`/ohsul/bar/${barPhone}`}
+          style={{ textDecoration: "none" }}
+        ></Link>
         <LeftContent>
           <TitleBox>{barName}</TitleBox>
           <ImgBox>
