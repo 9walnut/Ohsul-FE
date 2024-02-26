@@ -18,18 +18,28 @@ const SearchAlcoholPage: React.FC = () => {
       .filter((result) => result.phone)
       .map((result) => result.phone.replace(/-/g, ""));
 
+    const barNames = searchResults
+      .filter((result) => result.name)
+      .map((result) => result.name);
+
     console.log("번호 모음", phoneNumbers);
-    postStoreInfo(phoneNumbers);
+    postStoreInfo(phoneNumbers, barNames);
   }, [searchResults]);
 
-  const postStoreInfo = async (phoneNumbers: string[]) => {
-    console.log("보내는 데이터임", phoneNumbers);
+  const postStoreInfo = async (phoneNumbers: string[], barNames: string[]) => {
+    const data = {
+      telephones: phoneNumbers,
+      barNames: barNames,
+    };
+    console.log("보내는 데이터임", data);
+
     try {
-      const res = await axios.post("/api/ohsul/near", phoneNumbers, {
+      const res = await axios.post("/api/ohsul/searchAlcohol", data, {
         headers: {
           "Content-Type": "application/json",
         },
       });
+
       console.log("알코올 응답", res);
       console.log("알콜 응답 데이터 ~!!~!", res.data);
     } catch (error) {

@@ -27,10 +27,10 @@ const BarAddReviewPage: React.FC = () => {
     snack: [],
   });
 
-  const [tags2, setTags2] = useState<Tag>({
-    alcohol: [],
-    music: [],
-    mood: [],
+  const [tags2, setTags2] = useState({
+    alcoholTags: [1],
+    musicTags: [1],
+    moodTags: [1],
   });
 
   const onChangeImg = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -44,21 +44,19 @@ const BarAddReviewPage: React.FC = () => {
   const postReview = async () => {
     const formData = new FormData();
 
-    // if (reviewImg) {
-    //   formData.append("reviewImg", reviewImg); // 이미지 파일 추가
-    // }
+    // 이미지 파일이 선택되었을 경우, formData에 추가
+    if (reviewImg) {
+      formData.append("reviewImg", reviewImg);
+    }
 
-    // BarReviewDTO 데이터를 JSON 문자열로 변환하여 추가
     const reviewData = JSON.stringify({
-      content: content,
-      score: score,
       nickname: nickName,
       reviewPw: reviewPw,
+      score: score,
+      content: content,
       userId: "qwer1234",
       ...tags2,
     });
-
-    console.log("데이터임", reviewData);
 
     formData.append(
       "barReviewDTO",
@@ -66,10 +64,19 @@ const BarAddReviewPage: React.FC = () => {
     );
 
     try {
-      const res = await axios.post(`/api/ohsul/${barId}/review`, formData);
-      console.log("Review submission response:", res);
+      console.log(formData, "폼데타");
+      const response = await axios.post(`/api/ohsul/${barId}/review`, formData);
+      console.log("Review submission response:", response);
     } catch (error) {
-      console.error("Review submission error:", error);
+      if (axios.isAxiosError(error)) {
+        console.error("Review submission error: ", error.message);
+        if (error.response) {
+          console.error("Response data: ", error.response.data);
+          console.error("Status code: ", error.response.status);
+        }
+      } else {
+        console.error("An error occurred: ", error);
+      }
     }
   };
 
