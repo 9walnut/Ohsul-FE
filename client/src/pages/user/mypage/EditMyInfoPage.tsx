@@ -54,6 +54,11 @@ const EditMyInfoPage = () => {
     console.log("탈퇴버튼클릭");
   };
 
+  const handleCancel = () => {
+    setModalOpen(false);
+    //navigate("/mypage/editMyInfo");
+  };
+
   const handleDeleteConfirm = async () => {
     const logout = useAuthStore.getState().logout;
 
@@ -72,6 +77,8 @@ const EditMyInfoPage = () => {
       }
     } catch (error) {
       console.error("탈퇴 요청 에러:", error);
+    } finally {
+      setShowModal(false);
     }
   };
 
@@ -151,7 +158,7 @@ const EditMyInfoPage = () => {
       {modalOpen && (
         <ConfirmModal
           message="정말 탈퇴하시겠습니까?"
-          onCancel={() => setShowModal(false)}
+          onCancel={handleCancel}
           onConfirm={handleDeleteConfirm}
           isClose={true}
         />
