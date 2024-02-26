@@ -19,15 +19,13 @@ const CardColTag: React.FC<CardTag> = ({
   const music: string[] = tagData.music;
 
   const { userNumber } = useAuthStore.getState();
+  //------------------------------즐겨찾기 zustand
+  const favoriteStore = useFavoriteStore();
 
-  //------------------------------호출방식 변경 필요
-  // const isFavorite = useFavoriteStore((state) => state.favoriteBars[barId] || false);
+  const handleToggleFavorite = (barId: number) => {
+    favoriteStore.toggleFavorite(barId);
+  };
 
-  // const handleToggleFavorite = () => {
-  //   useFavoriteStore((state) => {
-  //     state.toggleFavorite(barId);
-  //   });
-  // };
   //------------------------------
 
   //400error
@@ -116,7 +114,10 @@ const CardColTag: React.FC<CardTag> = ({
         </RightContent>
       </CardLayout>
 
-      {/* test */}
+      {/* zustand test */}
+      {/* 아이디 바로 담을 때
+      <button onClick={() => handleToggleFavorite(1)}>
+       */}
       {/* <FavoriteBox onClick={handleToggleFavorite}>
             <FavoriteImg onClick={handleFavorite}>
               <img
