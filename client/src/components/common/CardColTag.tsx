@@ -20,11 +20,11 @@ const CardColTag: React.FC<CardTag> = ({
 
   const { userNumber } = useAuthStore.getState();
   //------------------------------즐겨찾기 zustand
-  const favoriteStore = useFavoriteStore();
+  // const favoriteStore = useFavoriteStore();
 
-  const handleToggleFavorite = (barId: number) => {
-    favoriteStore.toggleFavorite(barId);
-  };
+  // const handleToggleFavorite = (barId: number) => {
+  //   favoriteStore.toggleFavorite(barId);
+  // };
 
   //------------------------------
 
