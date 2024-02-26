@@ -8,7 +8,7 @@ const CommonModal: React.FC<Modal> = ({ message, isClose, onConfirm }) => {
 
   useEffect(() => {
     setModal(true);
-  });
+  }, []);
 
   // console.log(message, "메시지");
 
