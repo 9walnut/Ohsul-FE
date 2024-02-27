@@ -66,11 +66,12 @@ const SearchAlcoholPage: React.FC = () => {
 
   //오술태그 선택된 값 넣기
   const DUMMYTags = {
-    alcohol: ["alcohol_1", "alcohol_2", "alcohol_5"],
-    music: ["music_3", "music_5"],
-    mood: ["mood_1", "mood_3"],
-    etc: ["etc_1"],
-    snack: ["snack_2"],
+    alcoholTags: [],
+    musicTags: [],
+    moodTags: [],
+    toilet: [],
+    parkingArea: [],
+    snack: [],
   };
 
   return (
