@@ -21,16 +21,14 @@ const CardColTag: React.FC<FavoriteBar> = ({
 
   const { userNumber } = useAuthStore.getState();
 
-  //즐겨찾기 상태 useState *
   const [isFavorite, setIsFavorite] = useState(false);
   const [favoriteBarId, setFavoriteBarId] = useState<number[]>([]);
+  const [imageError, setImageError] = useState(false);
 
   useEffect(() => {
     fetchFavorite();
   }, []);
 
-  //barId 필수로 다시 해야함
-  // 즐겨찾기된 barId들을 기반으로 isFavorite 상태 업데이트
   useEffect(() => {
     if (barId) {
       setIsFavorite(favoriteBarId.includes(barId));
@@ -127,12 +125,15 @@ const CardColTag: React.FC<FavoriteBar> = ({
             <ImgBox>
               <img
                 src={
-                  barImg
-                    ? process.env.PUBLIC_URL + barImg
-                    : process.env.PUBLIC_URL +
+                  imageError
+                    ? process.env.PUBLIC_URL +
                       "assets/images/common_alternateImage.png"
+                    : barImg
+                    ? process.env.PUBLIC_URL + barImg
+                    : ""
                 }
                 alt={barName}
+                onError={() => setImageError(true)}
               />
             </ImgBox>
             <ScoreBox>
@@ -152,8 +153,8 @@ const CardColTag: React.FC<FavoriteBar> = ({
               <img
                 src={
                   isFavorite
-                    ? "assets/images/mypage_favorite_nonactive.png"
-                    : "assets/images/mypage_favorite_active.png"
+                    ? "assets/images/mypage_favorite_active.png"
+                    : "assets/images/mypage_favorite_nonactive.png"
                 }
                 alt="Score"
               />
@@ -240,7 +241,7 @@ const TitleBox = styled.div`
   align-items: flex-start;
   padding: 0px;
   gap: 3px;
-
+  margin-bottom: 5px;
   width: 152px;
   height: 24px;
 
@@ -257,6 +258,7 @@ const ImgBox = styled.div`
   height: 96px;
   overflow: hidden;
   border-radius: 12px;
+  margin-bottom: 5px;
   img {
     width: 100%;
     height: 100%;

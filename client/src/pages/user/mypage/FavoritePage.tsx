@@ -6,6 +6,7 @@ import useAuthStore from "../../../stores/useAuthStore";
 import CommonModal from "../../../components/common/CommonModal";
 import { useNavigate } from "react-router";
 import CardColTag from "../../../components/common/CardColTag";
+import { FavoriteBar } from "../../../types/Common";
 
 //DUMMY
 const DUMMYCardColTag = [
@@ -39,6 +40,7 @@ const FavoritePage = () => {
   const navigate = useNavigate();
   const [modalOpen, setModalOpen] = useState(false);
   const [isFavoritePlace, setIsFavoritePlace] = useState(true);
+  const [favoriteData, setFavoriteData] = useState<FavoriteBar[]>([]);
 
   useEffect(() => {
     const { userId } = useAuthStore.getState();
@@ -48,7 +50,9 @@ const FavoritePage = () => {
         const res = await axios.get("/api/mypage/favorite");
         if (res.status == 200) {
           console.log("FavoritePage res: ", res);
-          console.log("FavoritePage res.data", res.data);
+          console.log("FavoritePage res.data", res.data.favorites);
+          setIsFavoritePlace(true);
+          setFavoriteData(res.data.favorites);
         }
       } catch (error) {
         console.log("favorite render error : ", error);
@@ -65,7 +69,7 @@ const FavoritePage = () => {
       <S.FavoritePageLayout>
         {isFavoritePlace ? (
           <>
-            {DUMMYCardColTag.map((content, index) => (
+            {favoriteData.map((content, index) => (
               <CardColTag
                 key={index}
                 barId={content.barId}
