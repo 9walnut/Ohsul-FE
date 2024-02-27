@@ -8,6 +8,7 @@ import Header from "../../components/common/Header";
 import CardColTag from "../../components/common/CardColTag";
 import Toggle2 from "../../components/nearAlcohol/Toggle2";
 import KakaoMap07 from "../../components/common/KakaoMap07";
+import KakaoMap08 from "../../components/common/KakaoMap08";
 
 import CardColReview from "../../components/common/CardColReview";
 
@@ -71,7 +72,7 @@ const NearAlcoholPage: React.FC = () => {
   return (
     <>
       <Header title="내 주변의 술" />
-      <KakaoMap07 onSearchResults={handleSearchResults} />
+      <KakaoMap08 onSearchResults={handleSearchResults} />
       {barInfo &&
         barInfo.map((result, index) => (
           <CardColTag
