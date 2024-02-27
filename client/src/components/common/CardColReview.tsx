@@ -68,7 +68,14 @@ const CardColReview: React.FC<CardReview> = ({
                 이러코저러코 리뷰리뷰리뷰리뷰리뷰 리뷰리뷰리뷰리뷰
                 리뷰리뷰리리뷰가 들어와여 리뷰리뷰리뷰리뷰 리리뷰리뷰 리뷰리뷰
               </ReviewBox>
-              <Button> GO </Button>
+              <Button>
+                <Link
+                  to={`/ohsul/bar/${barId}`}
+                  style={{ textDecoration: "none", color: "black" }}
+                >
+                  GO
+                </Link>
+              </Button>
             </ContentWrapper>
           </RightContent>
         </ContentLayout>

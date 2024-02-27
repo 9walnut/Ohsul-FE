@@ -2,40 +2,64 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import { Card } from "../../types/Common";
 import StarRating from "./StarRating";
+import { Link } from "react-router-dom";
+interface Bar {
+  barId: number;
+  barName: string;
+  barImg: string;
+  alcoholTags: Array<number>;
+  musicTags: Array<number>;
+  moodTags: Array<number>;
+  barAvgScore: number;
+}
 
-const CardRow: React.FC<Card> = ({ barName, barImg, score, tag, content }) => {
+interface BarData {
+  bar: Bar;
+}
+
+const CardRow: React.FC<BarData> = ({ bar }) => {
   const [isTag, setIsTag] = useState(false);
   const [isContent, setIsContent] = useState(false);
+  console.log(bar, "바스바스");
   return (
     <>
       <CardLayout>
-        <BarImgBox>
-          <img src="/assets/images/common_alternateImage.png" />
-        </BarImgBox>
-        <BarWrapper>
-          <BarTitleBox>{barName}</BarTitleBox>
-          {isTag ? (
-            <TagBox>태그 ㅋ</TagBox>
-          ) : isContent ? (
-            <BarReviewBox>
-              리뷰ㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠ
-            </BarReviewBox>
-          ) : (
-            <BarReviewBox>
-              현재 작성된 리뷰가 없어요
-              <br />
-              방문 후 리뷰를 작성해주세요.
-            </BarReviewBox>
-          )}
+        <Link
+          to={`/ohsul/bar/${bar.barId}`}
+          style={{ textDecoration: "none", color: "black" }}
+        >
+          <BarImgBox>
+            {bar.barImg ? (
+              <img src={bar.barImg} />
+            ) : (
+              <img src="/assets/images/common_alternateImage.png" />
+            )}
+          </BarImgBox>
+          <BarWrapper>
+            <BarTitleBox>{bar.barName}</BarTitleBox>
+            {isTag ? (
+              <TagBox>태그 ㅋ</TagBox>
+            ) : isContent ? (
+              <BarReviewBox>
+                리뷰ㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠ
+              </BarReviewBox>
+            ) : (
+              <BarReviewBox>
+                현재 작성된 리뷰가 없어요
+                <br />
+                방문 후 리뷰를 작성해주세요.
+              </BarReviewBox>
+            )}
 
-          <ScoreBox>
-            <img
-              src={process.env.PUBLIC_URL + "assets/images/star.png"}
-              alt="Score"
-            />
-            <div>9{score}</div>
-          </ScoreBox>
-        </BarWrapper>
+            <ScoreBox>
+              <img
+                src={process.env.PUBLIC_URL + "assets/images/star.png"}
+                alt="Score"
+              />
+              {bar.barAvgScore ? <div>{bar.barAvgScore}</div> : <div>?</div>}
+            </ScoreBox>
+          </BarWrapper>
+        </Link>
       </CardLayout>
     </>
   );
@@ -55,6 +79,7 @@ const BarImgBox = styled.div`
   width: 100%;
   img {
     /* object-fit: contain; */
+    border-radius: 14px;
     width: 100%;
     height: 130px;
   }

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useRef } from "react";
 import * as S from "./BarPageStyle";
 import Header from "../../components/common/Header";
@@ -35,6 +35,21 @@ const BarEditReviewPage = () => {
     }
   };
   const barId = 4;
+  const reviewId = 4;
+
+  useEffect(() => {
+    getReview();
+  }, [reviewId]);
+
+  const getReview = async () => {
+    try {
+      const res = await axios.get(`/api/ohsul/${barId}/review/${reviewId}`);
+      console.log("getReview res", res);
+    } catch (error) {
+      console.log("getReview err", error);
+    }
+  };
+
   const patchReview = async () => {
     const formData = new FormData();
     if (reviewImg) {
@@ -53,6 +68,9 @@ const BarEditReviewPage = () => {
           "Content-Type": "multipart/form-data",
         },
       });
+      if (res.status == 200) {
+        console.log("수정 완료 ~");
+      }
     } catch (error) {
       console.log("patchReview err", error);
     }
