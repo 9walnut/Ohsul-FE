@@ -4,7 +4,7 @@ import styled from "styled-components";
 import { State, MarkerInfo, SearchResult, SearchCenter } from "../../types/Map";
 import MapToggle from "./MapToggle";
 import CardColTag from "./CardColTag";
-import Select from "react-select";
+import MapLoading from "./MapLoading";
 
 interface SelectOptionsTypes {
   value: string;
@@ -333,7 +333,7 @@ const KakaoMap07 = ({
       </SearchWrapper>
 
       {state.isLoading ? (
-        <p>Loading...</p>
+        <MapLoading />
       ) : state.center ? (
         <>
           <MapWrapper>
@@ -428,15 +428,7 @@ const KakaoMap07 = ({
       )}
       {data && (
         <>
-          <div>
-            <p>✅ 지도 이동 시: </p>
-            <p>
-              위도 {data.position.lat}
-              <br /> 경도 {data.position.lng}
-            </p>
-            <br />
-            <p>✅ 현재 주소: {address}</p>
-          </div>
+          <div></div>
         </>
       )}
     </>

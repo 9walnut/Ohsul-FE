@@ -4,6 +4,7 @@ import ExplainBox from "../../components/main/ExplainBox";
 import useAuthStore from "../../stores/useAuthStore";
 import SlickSlider from "../../components/common/SlickSlider";
 import MainTitleList from "../../components/common/MainTitleList";
+
 import axios from "axios";
 
 interface ranBarTypes {
@@ -72,7 +73,6 @@ const MainPage: React.FC = () => {
       <MainTitleList title="지금 핫한 술집" icon={iconHot} />
       <SlickSlider />
       <MainTitleList title="내가 저장한 술집" icon={iconPick} />
-
       <SlickSlider />
     </>
   );
