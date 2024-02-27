@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import axios from "axios";
 import useAuthStore from "../../stores/useAuthStore";
-import useFavoriteStore from "../../stores/\buseFavoriteStore";
+import useFavoriteStore from "../../stores/useFavoriteStore";
 import { Link } from "react-router-dom";
 import { CardTag } from "../../types/Common";
 
