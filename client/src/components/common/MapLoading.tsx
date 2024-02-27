@@ -21,6 +21,7 @@ const MapLoadingWrap = styled.div`
   width: 100%;
   display: flex;
   flex-direction: row;
+  margin-top: 100px;
   justify-content: center;
   align-items: center;
   box-sizing: border-box;
