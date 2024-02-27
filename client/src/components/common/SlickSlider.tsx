@@ -7,7 +7,7 @@ import "slick-carousel/slick/slick-theme.css";
 
 import CardRow from "./CardRow";
 
-function SlickSlider() {
+const SlickSlider: React.FC = () => {
   const settings = {
     dots: false,
     infinite: false,
@@ -36,7 +36,7 @@ function SlickSlider() {
       </CustomSlider>
     </div>
   );
-}
+};
 
 export default SlickSlider;
 const CustomSlider = styled(Slider)`
