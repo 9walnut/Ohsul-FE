@@ -53,3 +53,13 @@ export type getBarInfo = {
   moodTags?: string[];
   musicTags?: string[];
 };
+
+export type FavoriteBar = {
+  barName: string;
+  barPhone?: string;
+  tag?: Tag;
+  barImg?: string;
+  score?: number;
+  content?: string;
+  barId?: number;
+};

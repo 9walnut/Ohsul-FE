@@ -40,7 +40,6 @@ const FavoritePage = () => {
   const [modalOpen, setModalOpen] = useState(false);
   const [isFavoritePlace, setIsFavoritePlace] = useState(true);
 
-  //✅ 어떻게 들어오냐
   useEffect(() => {
     const { userId } = useAuthStore.getState();
 
