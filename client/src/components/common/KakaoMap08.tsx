@@ -83,13 +83,35 @@ const KakaoMap08 = ({
     "칵테일바",
   ];
   // 현재 위치가 찾아지면 주변의 술집을 검색합니다.
+  // useEffect(() => {
+  //   console.log("go");
+  //   // handleSearch();
+  //   if (state.center) {
+  //     handleMovedSearch();
+  //   }
+  // }, []);
   useEffect(() => {
-    console.log("go");
-    // handleSearch();
-    if (state.center) {
-      handleMovedSearch();
+    if (state.center && map) {
+      console.log(state.center);
+
+      const latlng = map.getCenter();
+      const bounds = new kakao.maps.LatLngBounds();
+      bounds.extend(latlng);
+      map.setLevel(3);
+      setData({
+        position: {
+          lat: latlng.getLat(),
+          lng: latlng.getLng(),
+        },
+      });
+      convertCoordsToAddress(latlng.getLng(), latlng.getLat());
+
+      {
+        moveKeyword && handleMovedSearch();
+      }
     }
-  }, []);
+    console.log("!??", moveKeyword);
+  }, [state.center, map]);
 
   const handleMyLocation = () => {
     if (state.center && map) {
