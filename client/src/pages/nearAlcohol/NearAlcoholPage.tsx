@@ -11,8 +11,6 @@ import KakaoMap07 from "../../components/common/KakaoMap07";
 
 import CardColReview from "../../components/common/CardColReview";
 
-type CombinedData = (SearchResult | getBarInfo)[];
-
 interface BarDataTypes {
   barName: string;
   roadAddress: string;
@@ -22,8 +20,7 @@ interface BarDataTypes {
 const NearAlcoholPage: React.FC = () => {
   const [viewMap, setViewMap] = useState(true);
   const [searchResults, setSearchResults] = useState<SearchResult[]>([]);
-  const [fetchBarData, setFetchBarData] = useState<SearchResult[]>([]);
-  // const [barData, setBarData] = useState<CombinedData>([]);
+
   const [barInfo, setBarInfo] = useState([]);
 
   //view mode - 지도 보기 , 리스트 보기
@@ -31,10 +28,6 @@ const NearAlcoholPage: React.FC = () => {
     setViewMap(newViewMap);
   };
 
-  //지도 결과 가져오는 콜백함수
-  const handleSearchResults = (results: SearchResult[]) => {
-    setSearchResults(results);
-  };
   // 이 지역 재검색 클릭 시
   useEffect(() => {
     console.log("주소들어옴", searchResults);
@@ -58,34 +51,19 @@ const NearAlcoholPage: React.FC = () => {
         },
       });
       if (res.status === 200) {
+        console.log("알코올 응답", res);
+        console.log("알콜 응답 데이터 ~!!~!", res.data);
         setBarInfo(res.data);
-
-        // // 검색 결과와 응답 데이터를 합친 배열을 생성
-        // // 더미데이터에 없으면 barId 안들어옴 -> 데이터 보내면서 생성되고 barid 가져와야 될 듯
-        // const combinedData = searchResults.map((searchResult) => {
-        //   const matchedData = fetchData.find(
-        //     (data) => data.barName === searchResult.name
-        //   );
-        //   if (matchedData) {
-        //     return {
-        //       ...searchResult,
-        //       barId: matchedData.barId,
-        //       barImg: matchedData.barImg,
-        //       alcoholTags: matchedData.alcoholTags,
-        //       moodTags: matchedData.moodTags,
-        //       musicTags: matchedData.musicTags,
-        //     };
-        //   }
-        //   return searchResult;
-        // });
-        // setBarData(combinedData);
         console.log("barData: ", barData);
       }
     } catch (error) {
       console.log("알콜 응답 에러", error);
     }
   };
-
+  //지도 결과 가져오는 콜백함수
+  const handleSearchResults = (results: SearchResult[]) => {
+    setSearchResults(results);
+  };
   const handleBarPhone = (phone: string) => {
     return phone.replace(/-/g, "");
   };
@@ -99,9 +77,9 @@ const NearAlcoholPage: React.FC = () => {
           <CardColTag
             key={index}
             // @ts-ignore
-            barName={result.name}
+            barName={result.barName}
             // @ts-ignore
-            barPhone={handleBarPhone(result.phone)}
+            barPhone={result.telephone}
             // @ts-ignore
             barId={result.barId}
           />
