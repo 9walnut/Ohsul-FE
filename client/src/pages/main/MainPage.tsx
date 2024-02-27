@@ -7,10 +7,10 @@ import MainTitleList from "../../components/common/MainTitleList";
 
 import axios from "axios";
 
-interface ranBarTypes {
+interface RanBarTypes {
   barId: number;
   barName: string;
-  barIng: string;
+  barImg: string;
   alcoholTags: string[];
   moodTags: string[];
   musicTags: string[];

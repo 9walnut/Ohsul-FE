@@ -12,14 +12,15 @@ interface TagBoxProps {
   disabled?: boolean;
 }
 const TagBox: React.FC<TagBoxProps> = ({ checkedTags, disabled, isReview }) => {
-  console.log(disabled);
   const defaultTag = {
-    alcohol: ["alcohol_default"],
-    music: ["music_default"],
-    mood: ["mood_default"],
-    etc: [],
+    alcoholTags: [],
+    musicTags: [],
+    moodTags: [],
+    toilet: [],
+    parkingArea: [],
     snack: [],
   };
+
   const [tags, setTags] = useState(checkedTags || defaultTag);
 
   const handleTagChange = (values: string[], tag: string) => {
@@ -28,7 +29,6 @@ const TagBox: React.FC<TagBoxProps> = ({ checkedTags, disabled, isReview }) => {
       [tag]: values,
     }));
     console.log({ [tag]: values });
-    console.log(tags, "태그스ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ");
   };
 
   return (
@@ -36,16 +36,12 @@ const TagBox: React.FC<TagBoxProps> = ({ checkedTags, disabled, isReview }) => {
       <StyledGroupLayout>
         <CheckboxGroup
           label="술 선택"
-          values={tags.alcohol}
-          onChange={(values: string[]) => handleTagChange(values, "alcohol")}
+          values={tags.alcoholTags}
+          onChange={(values: string[]) =>
+            handleTagChange(values, "alcoholTags")
+          }
           disabled={disabled}
         >
-          {!isReview && (
-            <Checkbox id="alcohol_default" value="alcohol_default">
-              술이면 다 돼요
-            </Checkbox>
-          )}
-
           <StyledColGroup>
             <Checkbox id="alcohol_1" value="alcohol_1" disabled={disabled}>
               소주 / 맥주
@@ -85,16 +81,10 @@ const TagBox: React.FC<TagBoxProps> = ({ checkedTags, disabled, isReview }) => {
       <StyledGroupLayout>
         <CheckboxGroup
           label="음악 선택"
-          values={tags.music}
-          onChange={(values: string[]) => handleTagChange(values, "music")}
+          values={tags.musicTags}
+          onChange={(values: string[]) => handleTagChange(values, "musicTags")}
           disabled={disabled}
         >
-          {!isReview && (
-            <Checkbox id="music_default" value="music_default">
-              상관없어요
-            </Checkbox>
-          )}
-
           <StyledColGroup>
             <Checkbox id="music_1" value="music_1">
               댄스 / 아이돌
@@ -125,16 +115,10 @@ const TagBox: React.FC<TagBoxProps> = ({ checkedTags, disabled, isReview }) => {
       <StyledGroupLayout>
         <CheckboxGroup
           label="분위기 선택"
-          values={tags.mood}
-          onChange={(values: string[]) => handleTagChange(values, "mood")}
+          values={tags.moodTags}
+          onChange={(values: string[]) => handleTagChange(values, "moodTags")}
           disabled={disabled}
         >
-          {!isReview && (
-            <Checkbox id="mood_default" value="mood_default">
-              상관없어요
-            </Checkbox>
-          )}
-
           <StyledColGroup>
             <Checkbox id="mood_1" value="mood_1">
               혼술 가능한
@@ -161,16 +145,35 @@ const TagBox: React.FC<TagBoxProps> = ({ checkedTags, disabled, isReview }) => {
       </StyledGroupLayout>
       <StyledGroupLayout>
         <CheckboxGroup
-          label="기타 선택"
-          values={tags.etc}
-          onChange={(values: string[]) => handleTagChange(values, "etc")}
+          label="주차장 여부"
+          values={tags.parkingArea}
+          onChange={(values: string[]) =>
+            handleTagChange(values, "parkingArea")
+          }
           disabled={disabled}
         >
           <StyledColGroup>
-            <Checkbox id="etc_1" value="etc_1">
+            <Checkbox id="parkingArea_1" value="parkingArea_1">
               주차장 있어요
             </Checkbox>
-            <Checkbox id="etc_2" value="etc_2">
+            <Checkbox id="parkingArea_2" value="parkingArea_2">
+              주차장 있어요
+            </Checkbox>
+          </StyledColGroup>
+        </CheckboxGroup>
+      </StyledGroupLayout>
+      <StyledGroupLayout>
+        <CheckboxGroup
+          label="화장실 여부"
+          values={tags.toilet}
+          onChange={(values: string[]) => handleTagChange(values, "toilet")}
+          disabled={disabled}
+        >
+          <StyledColGroup>
+            <Checkbox id="toilet_1" value="toilet_1">
+              화장실 안에 있어요
+            </Checkbox>
+            <Checkbox id="toilet_2" value="toilet_2">
               화장실 안에 있어요
             </Checkbox>
           </StyledColGroup>

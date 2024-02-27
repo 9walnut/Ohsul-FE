@@ -11,7 +11,8 @@ import { Tag } from "../../types/Common";
 
 const BarAddReviewPage: React.FC = () => {
   const selectImg = useRef<HTMLInputElement>(null);
-  const { barId } = useParams();
+  // const { barId } = useParams();
+  const barId = 2;
   const [nickName, setNickName] = useState("");
   const [reviewPw, setReviewPw] = useState("");
   const [isLogin, setIsLogin] = useState(true);
@@ -54,6 +55,9 @@ const BarAddReviewPage: React.FC = () => {
       reviewPw: reviewPw,
       score: score,
       content: content,
+      // snack: 1,
+      // parkingArea: 1,
+      // toilet: 1,
       userId: "qwer1234",
       ...tags2,
     });
@@ -64,6 +68,7 @@ const BarAddReviewPage: React.FC = () => {
     );
 
     try {
+      console.log(reviewData, "리뷰데타");
       console.log(formData, "폼데타");
       const response = await axios.post(`/api/ohsul/${barId}/review`, formData);
       console.log("Review submission response:", response);
@@ -89,6 +94,7 @@ const BarAddReviewPage: React.FC = () => {
           <S.InputBox>
             <S.ExplainInput>닉네임</S.ExplainInput>
             <S.StyledInput
+              type="text"
               onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
                 setNickName(e.target.value);
               }}
@@ -98,8 +104,10 @@ const BarAddReviewPage: React.FC = () => {
           <S.InputBox>
             <S.ExplainInput>비밀번호</S.ExplainInput>
             <S.StyledInput
+              type="password"
               onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
                 setReviewPw(e.target.value);
+                console.log(reviewPw);
               }}
               placeholder="리뷰 수정, 삭제 시 비밀번호가 일치해야합니다."
             />
@@ -110,7 +118,7 @@ const BarAddReviewPage: React.FC = () => {
       <S.ExplainBox>
         태그는 각 최소 1개씩 필수입니다 ! (각 최대 3개)
       </S.ExplainBox>
-      <TagBox checkedTags={tags} isReview={true} />
+      {/* <TagBox checkedTags={tags} isReview={true} /> */}
       <S.ExplainBox>별점은 필수 선택입니다 !</S.ExplainBox>
       <StarRating ratingIndex={score} setRatingIndex={setScore} />
 

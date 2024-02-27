@@ -12,8 +12,8 @@ const SlickSlider: React.FC = () => {
     dots: false,
     infinite: false,
     speed: 500,
-    slidesToShow: 2.7,
-    slidesToScroll: 3,
+    slidesToShow: 2.5,
+    slidesToScroll: 2.5,
   };
   return (
     <div className="slider-container">
