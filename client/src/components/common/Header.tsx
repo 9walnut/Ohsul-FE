@@ -10,10 +10,7 @@ const Header: React.FC<HeaderTitle> = ({ title }) => {
         <TitleBox>
           <TitleParagraph>{title}</TitleParagraph>
           <BorderBottom>
-            <img
-              src="/assets/images/header_borderBottom.png"
-              alt="header_borderBottom"
-            />
+            <img src="/assets/images/header_line.png" alt="header" />
           </BorderBottom>
         </TitleBox>
       </HeaderLayout>
