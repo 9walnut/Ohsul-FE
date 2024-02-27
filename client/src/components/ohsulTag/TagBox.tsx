@@ -7,11 +7,10 @@ import Checkbox from "./Checkbox";
 // ✅ <TagBox checkedTags={DUMMYTags} disabled={true} />
 // 상위 컴포넌트 사용 시 disabled={true} 전달하면 클릭 불가!
 interface TagBoxProps {
-  checkedTags?: { [key: string]: string[] };
-  isReview?: boolean;
+  checkedTags?: { [key: string]: number[] };
   disabled?: boolean;
 }
-const TagBox: React.FC<TagBoxProps> = ({ checkedTags, disabled, isReview }) => {
+const TagBox: React.FC<TagBoxProps> = ({ checkedTags, disabled }) => {
   const defaultTag = {
     alcoholTags: [],
     musicTags: [],
@@ -21,14 +20,15 @@ const TagBox: React.FC<TagBoxProps> = ({ checkedTags, disabled, isReview }) => {
     snack: [],
   };
 
-  const [tags, setTags] = useState(checkedTags || defaultTag);
+  const [tags, setTags] = useState({ ...defaultTag, ...checkedTags });
 
-  const handleTagChange = (values: string[], tag: string) => {
+  const handleTagChange = (values: number[], tag: string) => {
     setTags((prevTags) => ({
       ...prevTags,
       [tag]: values,
     }));
     console.log({ [tag]: values });
+    console.log(defaultTag, "defautl");
   };
 
   return (
@@ -37,41 +37,41 @@ const TagBox: React.FC<TagBoxProps> = ({ checkedTags, disabled, isReview }) => {
         <CheckboxGroup
           label="술 선택"
           values={tags.alcoholTags}
-          onChange={(values: string[]) =>
+          onChange={(values: number[]) =>
             handleTagChange(values, "alcoholTags")
           }
           disabled={disabled}
         >
           <StyledColGroup>
-            <Checkbox id="alcohol_1" value="alcohol_1" disabled={disabled}>
+            <Checkbox id="alcohol_1" value={1} disabled={disabled}>
               소주 / 맥주
             </Checkbox>
-            <Checkbox id="alcohol_2" value="alcohol_2">
+            <Checkbox id="alcohol_2" value={2}>
               해외맥주 / 생맥주
             </Checkbox>
-            <Checkbox id="alcohol_3" value="alcohol_3">
+            <Checkbox id="alcohol_3" value={3}>
               칵테일
             </Checkbox>
           </StyledColGroup>
           <StyledColGroup>
-            <Checkbox id="alcohol_4" value="alcohol_4">
+            <Checkbox id="alcohol_4" value={4}>
               막걸리 / 전통주
             </Checkbox>
-            <Checkbox id="alcohol_5" value="alcohol_5">
+            <Checkbox id="alcohol_5" value={5}>
               와인
             </Checkbox>
-            <Checkbox id="alcohol_6" value="alcohol_6">
+            <Checkbox id="alcohol_6" value={6}>
               양주
             </Checkbox>
-            <Checkbox id="alcohol_7" value="alcohol_7">
+            <Checkbox id="alcohol_7" value={7}>
               고량주
             </Checkbox>
           </StyledColGroup>
           <StyledColGroup>
-            <Checkbox id="alcohol_8" value="alcohol_8">
+            <Checkbox id="alcohol_8" value={8}>
               사케 / 하이볼
             </Checkbox>
-            <Checkbox id="alcohol_9" value="alcohol_9">
+            <Checkbox id="alcohol_9" value={9}>
               이색 술
             </Checkbox>
           </StyledColGroup>
@@ -82,31 +82,31 @@ const TagBox: React.FC<TagBoxProps> = ({ checkedTags, disabled, isReview }) => {
         <CheckboxGroup
           label="음악 선택"
           values={tags.musicTags}
-          onChange={(values: string[]) => handleTagChange(values, "musicTags")}
+          onChange={(values: number[]) => handleTagChange(values, "musicTags")}
           disabled={disabled}
         >
           <StyledColGroup>
-            <Checkbox id="music_1" value="music_1">
+            <Checkbox id="music_1" value={1}>
               댄스 / 아이돌
             </Checkbox>
-            <Checkbox id="music_2" value="music_2">
+            <Checkbox id="music_2" value={2}>
               발라드 / R&B
             </Checkbox>
-            <Checkbox id="music_3" value="music_3">
+            <Checkbox id="music_3" value={3}>
               힙합
             </Checkbox>
-            <Checkbox id="music_4" value="music_4">
+            <Checkbox id="music_4" value={4}>
               EDM
             </Checkbox>
           </StyledColGroup>
           <StyledColGroup>
-            <Checkbox id="music_5" value="music_5">
+            <Checkbox id="music_5" value={5}>
               재즈 / /클래식
             </Checkbox>
-            <Checkbox id="music_6" value="music_6">
+            <Checkbox id="music_6" value={6}>
               7080 / 올드팝
             </Checkbox>
-            <Checkbox id="music_7" value="music_7">
+            <Checkbox id="music_7" value={7}>
               그때그때 달라요
             </Checkbox>
           </StyledColGroup>
@@ -116,28 +116,28 @@ const TagBox: React.FC<TagBoxProps> = ({ checkedTags, disabled, isReview }) => {
         <CheckboxGroup
           label="분위기 선택"
           values={tags.moodTags}
-          onChange={(values: string[]) => handleTagChange(values, "moodTags")}
+          onChange={(values: number[]) => handleTagChange(values, "moodTags")}
           disabled={disabled}
         >
           <StyledColGroup>
-            <Checkbox id="mood_1" value="mood_1">
+            <Checkbox id="mood_1" value={1}>
               혼술 가능한
             </Checkbox>
-            <Checkbox id="mood_2" value="mood_2">
+            <Checkbox id="mood_2" value={2}>
               이야기 나누기 적당한
             </Checkbox>
           </StyledColGroup>
           <StyledColGroup>
-            <Checkbox id="mood_3" value="mood_3">
+            <Checkbox id="mood_3" value={3}>
               프라이빗한
             </Checkbox>
-            <Checkbox id="mood_4" value="mood_4">
+            <Checkbox id="mood_4" value={4}>
               다같이 즐기는
             </Checkbox>
-            <Checkbox id="mood_5" value="mood_5">
+            <Checkbox id="mood_5" value={5}>
               감성적인
             </Checkbox>
-            <Checkbox id="mood_6" value="mood_6">
+            <Checkbox id="mood_6" value={6}>
               힙한
             </Checkbox>
           </StyledColGroup>
@@ -147,17 +147,17 @@ const TagBox: React.FC<TagBoxProps> = ({ checkedTags, disabled, isReview }) => {
         <CheckboxGroup
           label="주차장 여부"
           values={tags.parkingArea}
-          onChange={(values: string[]) =>
+          onChange={(values: number[]) =>
             handleTagChange(values, "parkingArea")
           }
           disabled={disabled}
         >
           <StyledColGroup>
-            <Checkbox id="parkingArea_1" value="parkingArea_1">
+            <Checkbox id="parkingArea_1" value={1}>
               주차장 있어요
             </Checkbox>
-            <Checkbox id="parkingArea_2" value="parkingArea_2">
-              주차장 있어요
+            <Checkbox id="parkingArea_2" value={0}>
+              주차장 없어요
             </Checkbox>
           </StyledColGroup>
         </CheckboxGroup>
@@ -166,14 +166,14 @@ const TagBox: React.FC<TagBoxProps> = ({ checkedTags, disabled, isReview }) => {
         <CheckboxGroup
           label="화장실 여부"
           values={tags.toilet}
-          onChange={(values: string[]) => handleTagChange(values, "toilet")}
+          onChange={(values: number[]) => handleTagChange(values, "toilet")}
           disabled={disabled}
         >
           <StyledColGroup>
-            <Checkbox id="toilet_1" value="toilet_1">
+            <Checkbox id="toilet_1" value={1}>
               화장실 안에 있어요
             </Checkbox>
-            <Checkbox id="toilet_2" value="toilet_2">
+            <Checkbox id="toilet_2" value={0}>
               화장실 안에 있어요
             </Checkbox>
           </StyledColGroup>
@@ -183,14 +183,14 @@ const TagBox: React.FC<TagBoxProps> = ({ checkedTags, disabled, isReview }) => {
         <CheckboxGroup
           label="맛"
           values={tags.snack}
-          onChange={(values: string[]) => handleTagChange(values, "snack")}
+          onChange={(values: number[]) => handleTagChange(values, "snack")}
           disabled={disabled}
         >
           <StyledColGroup>
-            <Checkbox id="snack_1" value="snack_1">
+            <Checkbox id="snack_1" value={1}>
               안주 맛집 인정
             </Checkbox>
-            <Checkbox id="snack_2" value="snack_2">
+            <Checkbox id="snack_2" value={0}>
               평범해요
             </Checkbox>
           </StyledColGroup>

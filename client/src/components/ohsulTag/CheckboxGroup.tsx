@@ -11,14 +11,14 @@ const CheckboxGroup: React.FC<CheckboxGroupProps> = ({
   onChange,
   disabled,
 }: CheckboxGroupProps) => {
-  const isChecked = (value: string) => values.includes(value);
+  const isChecked = (value: number) => values.includes(value);
 
   const toggleValue = ({
     checked,
     value,
   }: {
     checked: boolean;
-    value: string;
+    value: number;
   }) => {
     if (checked) {
       onChange([...values, value]);
