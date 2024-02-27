@@ -4,6 +4,7 @@ import ExplainBox from "../../components/main/ExplainBox";
 import useAuthStore from "../../stores/useAuthStore";
 import SlickSlider from "../../components/common/SlickSlider";
 import MainTitleList from "../../components/common/MainTitleList";
+import MapLoading from "../../components/common/MapLoading";
 
 //DUMMY
 const DUMMYBarReviewCard = {
@@ -49,6 +50,7 @@ const MainPage: React.FC = () => {
       <SlickSlider></SlickSlider>
       <MainTitleList title="내가 저장한 술집" icon={iconPick} />
       <SlickSlider></SlickSlider>
+      <MapLoading />
     </>
   );
 };
