@@ -108,7 +108,7 @@ const NearAlcoholPage: React.FC = () => {
         ))}
 
       {viewMap ? <p>지도 보기 컴포넌트</p> : <p>리스트 보기 컴포넌트</p>}
-      {/* <Toggle2 viewMap={viewMap} onViewChange={handleViewChange} /> */}
+      <Toggle2 viewMap={viewMap} onViewChange={handleViewChange} />
     </>
   );
 };
