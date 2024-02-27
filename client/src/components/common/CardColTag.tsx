@@ -78,7 +78,7 @@ const CardColTag: React.FC<FavoriteBar> = ({
   //   }
   // };
 
-  //---favorite add delete 상상코딩
+  //---favorite add delete
   const handleFavorite = async () => {
     console.log("favorite click");
     const favoriteData = {
@@ -161,25 +161,47 @@ const CardColTag: React.FC<FavoriteBar> = ({
             </FavoriteImg>
           </FavoriteBox>
           <TagLayout>
-            {" "}
-            <TagBox>
-              <TagTitle>술</TagTitle>
-              {drink.map((item, index) => (
-                <TagContent key={index}>{item}</TagContent>
-              ))}
-            </TagBox>
-            <TagBox>
-              <TagTitle>분위기</TagTitle>
-              {mood.map((item, index) => (
-                <TagContent key={index}>{item}</TagContent>
-              ))}
-            </TagBox>
-            <TagBox>
-              <TagTitle>음악</TagTitle>
-              {music.map((item, index) => (
-                <TagContent key={index}>{item}</TagContent>
-              ))}
-            </TagBox>
+            {drink.length === 0 ? (
+              <TagBox>
+                <TagTitle>술</TagTitle>
+                <TagContent>아직 태그가 없어요</TagContent>
+              </TagBox>
+            ) : (
+              <TagBox>
+                <TagTitle>술</TagTitle>
+                {drink.map((item, index) => (
+                  <TagContent key={index}>{item}</TagContent>
+                ))}
+              </TagBox>
+            )}
+
+            {mood.length === 0 ? (
+              <TagBox>
+                <TagTitle>분위기</TagTitle>
+                <TagContent>아직 태그가 없어요</TagContent>
+              </TagBox>
+            ) : (
+              <TagBox>
+                <TagTitle>분위기</TagTitle>
+                {mood.map((item, index) => (
+                  <TagContent key={index}>{item}</TagContent>
+                ))}
+              </TagBox>
+            )}
+
+            {music.length === 0 ? (
+              <TagBox>
+                <TagTitle>음악</TagTitle>
+                <TagContent>아직 태그가 없어요</TagContent>
+              </TagBox>
+            ) : (
+              <TagBox>
+                <TagTitle>음악</TagTitle>
+                {music.map((item, index) => (
+                  <TagContent key={index}>{item}</TagContent>
+                ))}
+              </TagBox>
+            )}
           </TagLayout>
         </RightContent>
       </CardLayout>
