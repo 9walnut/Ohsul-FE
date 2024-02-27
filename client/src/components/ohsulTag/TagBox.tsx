@@ -174,7 +174,7 @@ const TagBox: React.FC<TagBoxProps> = ({ checkedTags, disabled }) => {
               화장실 안에 있어요
             </Checkbox>
             <Checkbox id="toilet_2" value={0}>
-              화장실 안에 있어요
+              화장실 안에 없어요
             </Checkbox>
           </StyledColGroup>
         </CheckboxGroup>

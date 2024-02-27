@@ -7,30 +7,15 @@ import { Link } from "react-router-dom";
 import BackButton from "../../components/common/BackButton";
 import { useNavigate } from "react-router";
 
-type BarInfo = {
-  barId: string;
-  barName: string;
-  barImg: string;
-  description: string;
-  telephone: string;
-  alcoholTags: string;
-  moodTags: string;
-  parkingArea: string;
-  snack: string;
-  toilet: string;
-};
-
 const BarInfoPage = () => {
   const navigate = useNavigate();
 
-  const { barId } = useParams() as {
-    barId: string;
-  };
+  const { barId } = useParams();
 
-  console.log("폰넘버??", barId);
+  console.log("barId??", barId);
 
-  const [barInfo, setBarInfo] = useState<BarInfo>({
-    barId: "",
+  const [barInfo, setBarInfo] = useState({
+    barId: barId,
     barName: "",
     barImg: "",
     description: "",
@@ -77,6 +62,7 @@ const BarInfoPage = () => {
           </BarImgBox>
           <BarNameBox>{barInfo.barName}</BarNameBox>
           <BarExplainBox>{barInfo.description}</BarExplainBox>
+          <BarNumberBox>{barInfo.telephone}</BarNumberBox>
           <BarShareBox>
             <div>
               <img src="/assets/images/bar_share.png" alt="bar_share" />
@@ -84,12 +70,17 @@ const BarInfoPage = () => {
             <div>공유하기</div>
           </BarShareBox>
         </BarInfoWrapper>
-        <img src="/assets/images/border_dot.png" alt="border_dot" />
-        <img src="/assets/images/border_dot.png" alt="border_dot" />
+        <DotImgBox>
+          <img src="/assets/images/border_dot.png" alt="border_dot" />
+        </DotImgBox>
+        {/* 태그 넣어오기 */}
+        <DotImgBox>
+          <img src="/assets/images/border_dot.png" alt="border_dot" />
+        </DotImgBox>
 
         <ReviewButton onClick={handleBarReview}>리뷰 보러 가기</ReviewButton>
       </BarPageLayout>
-      {/* 정적 이미지 지도 만들기..? */}
+      {/* 정적 이미지 지도 만들기..?  실패 !*/}
     </>
   );
 };
@@ -108,13 +99,21 @@ const BarImgBox = styled.div`
 const BarNameBox = styled.div`
   font-family: ${({ theme }) => theme.fonts.ydFont};
   font-size: 22px;
+  margin: 14px 0px;
 `;
 
 const BarExplainBox = styled.div`
   font-size: 14px;
+  margin-bottom: 10px;
+`;
+
+const BarNumberBox = styled.div`
+  font-size: 12px;
+  margin-bottom: 20px;
 `;
 
 const BarShareBox = styled.div`
+  margin-bottom: 10px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -123,7 +122,12 @@ const BarShareBox = styled.div`
   }
 `;
 
+const DotImgBox = styled.div`
+  margin: 20px 0px;
+`;
+
 const ReviewButton = styled.button`
+  font-size: 18px;
   width: 100%;
   padding: 12px;
   background-color: ${({ theme }) => theme.colors.btnBlue};

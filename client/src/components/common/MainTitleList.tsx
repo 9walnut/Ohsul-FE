@@ -27,7 +27,6 @@ const MainTitleLayout = styled.div`
   padding: 4px 0px;
   gap: 10px;
   width: 100%;
-  margin-bottom: -20px;
 `;
 
 const TitleBox = styled.div`

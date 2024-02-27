@@ -6,8 +6,22 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
 import CardRow from "./CardRow";
+interface Bar {
+  barId: number;
+  barName: string;
+  barImg: string;
+  alcoholTags: Array<number>;
+  musicTags: Array<number>;
+  moodTags: Array<number>;
+  barAvgScore: number;
+}
 
-const SlickSlider: React.FC = () => {
+interface BarData {
+  bars: Bar[];
+  bar: Bar;
+}
+
+const SlickSlider: React.FC<BarData> = ({ bars }) => {
   const settings = {
     dots: false,
     infinite: false,
@@ -15,24 +29,20 @@ const SlickSlider: React.FC = () => {
     slidesToShow: 2.5,
     slidesToScroll: 2.5,
   };
+  console.log(bars);
+
   return (
     <div className="slider-container">
       <CustomSlider {...settings}>
-        <Box>
-          <CardRow barName="1번" />
-        </Box>
-        <Box>
-          <CardRow barName="2번" />
-        </Box>
-        <Box>
-          <CardRow barName="3번" />
-        </Box>
-        <Box>
-          <CardRow barName="4번" />
-        </Box>
-        <Box>
-          <CardRow barName="5번" />
-        </Box>
+        {bars && bars.length > 0 ? (
+          bars.slice(0, 5).map((bar, index) => (
+            <Box key={index}>
+              <CardRow bar={bar} />
+            </Box>
+          ))
+        ) : (
+          <div>술집 정보가 없습니다🥹</div>
+        )}
       </CustomSlider>
     </div>
   );
@@ -46,8 +56,8 @@ const CustomSlider = styled(Slider)`
   height: 200px;
   align-items: center;
   justify-content: center;
-  margin: 5px 100px;
-  padding: 20px;
+  margin: 5px;
+  padding: 5px 20px;
 `;
 const SliderLayout = styled.div`
   width: 100px;

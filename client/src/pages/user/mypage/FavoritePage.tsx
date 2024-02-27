@@ -45,9 +45,7 @@ const FavoritePage = () => {
 
     const FetchData = async () => {
       try {
-        const res = await axios.get("/api/mypage/favorite", {
-          params: { userId },
-        });
+        const res = await axios.get("/api/mypage/favorite");
         if (res.status == 200) {
           console.log("FavoritePage res: ", res);
           console.log("FavoritePage res.data", res.data);

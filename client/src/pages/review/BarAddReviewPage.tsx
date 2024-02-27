@@ -55,9 +55,6 @@ const BarAddReviewPage: React.FC = () => {
       reviewPw: reviewPw,
       score: score,
       content: content,
-      // snack: 1,
-      // parkingArea: 1,
-      // toilet: 1,
       userId: "qwer1234",
       ...tags2,
     });
