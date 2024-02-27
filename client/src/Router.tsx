@@ -15,6 +15,7 @@ import BarReviewPage from "./pages/review/BarReviewPage";
 import EditMyInfoPage from "./pages/user/mypage/EditMyInfoPage";
 import PwCheckPage from "./pages/user/mypage/PwCheckPage";
 import PwChangePage from "./pages/user/mypage/PwChangePage";
+import Page404 from "./components/common/Page404";
 
 const router = createBrowserRouter([
   {
@@ -137,6 +138,17 @@ const router = createBrowserRouter([
         // 가게 리뷰 수정
         path: "editReview",
         element: <BarEditReviewPage />,
+      },
+    ],
+  },
+  {
+    //404
+    path: "*",
+    element: <App />,
+    children: [
+      {
+        path: "*",
+        element: <Page404 />,
       },
     ],
   },
