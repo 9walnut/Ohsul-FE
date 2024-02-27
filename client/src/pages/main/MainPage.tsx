@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Header from "../../components/common/Header";
 import ExplainBox from "../../components/main/ExplainBox";
 import useAuthStore from "../../stores/useAuthStore";
@@ -6,6 +6,16 @@ import SlickSlider from "../../components/common/SlickSlider";
 import MainTitleList from "../../components/common/MainTitleList";
 import MapLoading from "../../components/common/MapLoading";
 
+import axios from "axios";
+
+interface ranBarTypes {
+  barId: number;
+  barName: string;
+  barIng: string;
+  alcoholTags: string[];
+  moodTags: string[];
+  musicTags: string[];
+}
 //DUMMY
 const DUMMYBarReviewCard = {
   userNickname: "졸린공룡",
@@ -30,7 +40,22 @@ const DUMMYTags = {
 };
 
 const MainPage: React.FC = () => {
+  useEffect(() => {
+    getMainBar();
+  }, []);
+
+  const getMainBar = async () => {
+    try {
+      const ranBar = await axios.get("/api/main/용산구");
+      const hotBar = await axios.get("/api/main/hotBar");
+      console.log("res bar", ranBar);
+      console.log("res hotBar", hotBar);
+    } catch (error) {
+      console.log("getMain err", error);
+    }
+  };
   const isLoggedIn = useAuthStore.getState().isLoggedIn;
+
   console.log(
     "zustand MainPage isLoggedIn:",
     useAuthStore.getState().isLoggedIn
@@ -45,12 +70,14 @@ const MainPage: React.FC = () => {
       <Header title="오늘의 술" />
       <ExplainBox />
       <MainTitleList title="내 근처 힙한 술집" icon={iconLocation} />
-      <SlickSlider></SlickSlider>
+      <SlickSlider />
       <MainTitleList title="지금 핫한 술집" icon={iconHot} />
-      <SlickSlider></SlickSlider>
+      <SlickSlider />
       <MainTitleList title="내가 저장한 술집" icon={iconPick} />
       <SlickSlider></SlickSlider>
       <MapLoading />
+
+      <SlickSlider />
     </>
   );
 };

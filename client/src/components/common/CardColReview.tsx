@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import { CardReview } from "../../types/Common";
 
 const CardColReview: React.FC<CardReview> = ({
+  barId,
   barPhone,
   barName,
   barImg,
@@ -16,22 +17,25 @@ const CardColReview: React.FC<CardReview> = ({
   return (
     <>
       <CardLayout>
-        <Link to={`/ohsul/bar/${barPhone}`} style={{ textDecoration: "none" }}>
-          <TopBox>
-            <TitleBox>{barName}</TitleBox>
-            <FavoriteBox>
-              <FavoriteImg>
-                <img
-                  src={
-                    process.env.PUBLIC_URL + "assets/images/common_favorite.png"
-                  }
-                  alt="Score"
-                />
-              </FavoriteImg>
-            </FavoriteBox>
-          </TopBox>
+        <TopBox>
+          <TitleBox>{barName}</TitleBox>
+          <FavoriteBox>
+            <FavoriteImg>
+              <img
+                src={
+                  process.env.PUBLIC_URL + "assets/images/common_favorite.png"
+                }
+                alt="Score"
+              />
+            </FavoriteImg>
+          </FavoriteBox>
+        </TopBox>
 
-          <ContentLayout>
+        <ContentLayout>
+          <Link
+            to={`/ohsul/bar/${barId}`}
+            style={{ textDecoration: "none", color: "black" }}
+          >
             <LeftContent>
               <ImgBox>
                 <img
@@ -56,18 +60,18 @@ const CardColReview: React.FC<CardReview> = ({
                 <ScoreText>99{score}</ScoreText>
               </ScoreBox>
             </LeftContent>
+          </Link>
 
-            <RightContent>
-              <ContentWrapper>
-                <ReviewBox>
-                  이러코저러코 리뷰리뷰리뷰리뷰리뷰 리뷰리뷰리뷰리뷰
-                  리뷰리뷰리리뷰가 들어와여 리뷰리뷰리뷰리뷰 리리뷰리뷰 리뷰리뷰
-                </ReviewBox>
-                <Button> GO </Button>
-              </ContentWrapper>
-            </RightContent>
-          </ContentLayout>
-        </Link>
+          <RightContent>
+            <ContentWrapper>
+              <ReviewBox>
+                이러코저러코 리뷰리뷰리뷰리뷰리뷰 리뷰리뷰리뷰리뷰
+                리뷰리뷰리리뷰가 들어와여 리뷰리뷰리뷰리뷰 리리뷰리뷰 리뷰리뷰
+              </ReviewBox>
+              <Button> GO </Button>
+            </ContentWrapper>
+          </RightContent>
+        </ContentLayout>
       </CardLayout>
     </>
   );
