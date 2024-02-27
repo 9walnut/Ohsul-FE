@@ -16,7 +16,7 @@ const SelectOptions: SelectOptionsTypes[] = [
   { value: "store", label: "매장명" },
 ];
 
-const KakaoMap07 = ({
+const KakaoMap08 = ({
   onSearchResults,
 }: {
   onSearchResults: (results: SearchResult[]) => void;
@@ -35,6 +35,11 @@ const KakaoMap07 = ({
   const [selectedValue, setSelectedValue] = useState<string>(
     SelectOptions[0].value
   );
+
+  // useEffect(() => {
+  //   setIsReSearch(true);
+  //   handleMovedSearch();
+  // }, []);
 
   const handleChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     setSelectedValue(event.target.value);
@@ -77,6 +82,14 @@ const KakaoMap07 = ({
     "일본식주점",
     "칵테일바",
   ];
+  // 현재 위치가 찾아지면 주변의 술집을 검색합니다.
+  useEffect(() => {
+    console.log("go");
+    // handleSearch();
+    if (state.center) {
+      handleMovedSearch();
+    }
+  }, []);
 
   const handleMyLocation = () => {
     if (state.center && map) {
@@ -302,7 +315,7 @@ const KakaoMap07 = ({
 
   return (
     <>
-      <SearchWrapper>
+      {/* <SearchWrapper>
         <input
           type="text"
           value={searchWord}
@@ -330,7 +343,7 @@ const KakaoMap07 = ({
             </DropdownContent>
           )}
         </Dropdown>
-      </SearchWrapper>
+      </SearchWrapper> */}
 
       {state.isLoading ? (
         <MapLoading />
@@ -577,4 +590,4 @@ const DropdownItem = styled.li`
     background-color: #f0f0f0;
   }
 `;
-export default KakaoMap07;
+export default KakaoMap08;

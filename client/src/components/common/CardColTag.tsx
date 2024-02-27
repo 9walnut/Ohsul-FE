@@ -4,9 +4,9 @@ import axios from "axios";
 import useAuthStore from "../../stores/useAuthStore";
 import useFavoriteStore from "../../stores/useFavoriteStore";
 import { Link } from "react-router-dom";
-import { CardTag } from "../../types/Common";
+import { FavoriteBar } from "../../types/Common";
 
-const CardColTag: React.FC<CardTag> = ({
+const CardColTag: React.FC<FavoriteBar> = ({
   barName,
   barImg,
   score,
@@ -22,29 +22,28 @@ const CardColTag: React.FC<CardTag> = ({
   const { userNumber } = useAuthStore.getState();
 
   //즐겨찾기 상태 useState *
-  //   const [isFavorite, setIsFavorite] = useState(false)
-  //   const [favoriteBarId, setFavoriteBarId] = useState<string[]>([]);
+  const [isFavorite, setIsFavorite] = useState(false);
+  const [favoriteBarId, setFavoriteBarId] = useState<number[]>([]);
 
-  //   useEffect(()=>{
-  // fetchFavorite();
-  //   },[])
+  useEffect(() => {
+    fetchFavorite();
+  }, []);
 
   //barId 필수로 다시 해야함
   // 즐겨찾기된 barId들을 기반으로 isFavorite 상태 업데이트
-  // useEffect(() => {
-  //   if (barId) {
-  //     setIsFavorite(favoriteBarId.includes(barId));
-  //   }
-  // }, [favoriteBarId, barId]);
+  useEffect(() => {
+    if (barId) {
+      setIsFavorite(favoriteBarId.includes(barId));
+    }
+  }, [favoriteBarId, barId]);
 
   const fetchFavorite = async () => {
     try {
-      const res = await axios.get("/api/");
-
+      const res = await axios.get("/api/favorite/favoriteList");
       if (res.status == 200) {
-        //setFavoriteBarId(res.data);
-        console.log("fetchFavorite res : ", res);
-        console.log("fetchFavorite res.data : ", res.data);
+        setFavoriteBarId(res.data);
+        //console.log("favoriteList res : ", res);
+        console.log("favoriteList res.data : ", res.data);
       }
     } catch (error) {
       console.log("fetch Favorite err: ", error);
@@ -60,57 +59,60 @@ const CardColTag: React.FC<CardTag> = ({
 
   //------------------------------
 
-  const handleFavorite = async () => {
-    console.log("favorite click");
-    const favoriteData = {
-      userNumber: userNumber,
-      barId: barId,
-    };
-    console.log(favoriteData);
-    try {
-      const res = await axios.post("/api/favorite/add", favoriteData, {
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
-      if (res.status == 200) {
-        console.log(res);
-        console.log(res.data);
-      }
-    } catch (error) {
-      console.log("favorite add err: ", error);
-    }
-  };
-
-  //---favorite add delete 상상코딩
   // const handleFavorite = async () => {
   //   console.log("favorite click");
   //   const favoriteData = {
-  //     userNumber: userNumber,
   //     barId: barId,
   //   };
   //   console.log(favoriteData);
   //   try {
-  //     if (isFavorite) {
-  //       const res = await axios.delete("/api/favorite/delete", {
-  //         data: {
-  //           userNumber: userNumber,
-  //     barId: barId,
-  //         },
-  //       });
-  //     } else {
-  //       await axios.post("/api/favorite/add", favoriteData, {
-  //         headers: {
-  //           "Content-Type": "application/json",
-  //         },
-  //       });
+  //     const res = await axios.post("/api/favorite/add", favoriteData, {
+  //       headers: {
+  //         "Content-Type": "application/json",
+  //       },
+  //     });
+  //     if (res.status == 200) {
+  //       console.log(res);
+  //       console.log(res.data);
   //     }
-  //     // 즐겨찾기 업데이트
-  //     fetchFavorite();
   //   } catch (error) {
-  //     console.log("favorite err : ", error);
+  //     console.log("favorite add err: ", error);
   //   }
   // };
+
+  //---favorite add delete 상상코딩
+  const handleFavorite = async () => {
+    console.log("favorite click");
+    const favoriteData = {
+      barId: barId,
+    };
+    console.log(favoriteData);
+    try {
+      if (isFavorite) {
+        const res = await axios.delete("/api/favorite/delete", {
+          data: {
+            barId: barId,
+          },
+        });
+        if (res.status == 200) {
+          console.log("delete res: ", res);
+        }
+      } else {
+        const res = await axios.post("/api/favorite/add", favoriteData, {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        });
+        if (res.status === 200) {
+          console.log("add res: ", res);
+        }
+      }
+      // 즐겨찾기 업데이트
+      fetchFavorite();
+    } catch (error) {
+      console.log("favorite err : ", error);
+    }
+  };
 
   return (
     <>
@@ -149,7 +151,9 @@ const CardColTag: React.FC<CardTag> = ({
             <FavoriteImg onClick={handleFavorite}>
               <img
                 src={
-                  process.env.PUBLIC_URL + "assets/images/common_favorite.png"
+                  isFavorite
+                    ? "assets/images/mypage_favorite_nonactive.png"
+                    : "assets/images/mypage_favorite_active.png"
                 }
                 alt="Score"
               />
