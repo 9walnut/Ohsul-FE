@@ -115,32 +115,34 @@ const CardColTag: React.FC<CardTag> = ({
   return (
     <>
       <CardLayout>
-        <Link
-          to={`/ohsul/bar/${barPhone}`}
-          style={{ textDecoration: "none" }}
-        ></Link>
         <LeftContent>
-          <TitleBox>{barName}</TitleBox>
-          <ImgBox>
-            <img
-              src={
-                barImg
-                  ? process.env.PUBLIC_URL + barImg
-                  : process.env.PUBLIC_URL +
-                    "assets/images/common_alternateImage.png"
-              }
-              alt={barName}
-            />
-          </ImgBox>
-          <ScoreBox>
-            <ScoreImg>
+          <Link
+            to={`/ohsul/bar/${barId}`}
+            style={{ textDecoration: "none", color: "black" }}
+          >
+            <TitleBox>{barName}</TitleBox>
+
+            <ImgBox>
               <img
-                src={process.env.PUBLIC_URL + "assets/images/common_star.png"}
-                alt="Score"
+                src={
+                  barImg
+                    ? process.env.PUBLIC_URL + barImg
+                    : process.env.PUBLIC_URL +
+                      "assets/images/common_alternateImage.png"
+                }
+                alt={barName}
               />
-            </ScoreImg>
-            <ScoreText>99{score}</ScoreText>
-          </ScoreBox>
+            </ImgBox>
+            <ScoreBox>
+              <ScoreImg>
+                <img
+                  src={process.env.PUBLIC_URL + "assets/images/common_star.png"}
+                  alt="Score"
+                />
+              </ScoreImg>
+              <ScoreText>99{score}</ScoreText>
+            </ScoreBox>
+          </Link>
         </LeftContent>
         <RightContent>
           <FavoriteBox>

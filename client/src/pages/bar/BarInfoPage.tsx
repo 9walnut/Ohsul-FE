@@ -23,11 +23,11 @@ type BarInfo = {
 const BarInfoPage = () => {
   const navigate = useNavigate();
 
-  const { barPhone } = useParams() as {
-    barPhone: string;
+  const { barId } = useParams() as {
+    barId: string;
   };
 
-  console.log("폰넘버??", barPhone);
+  console.log("폰넘버??", barId);
 
   const [barInfo, setBarInfo] = useState<BarInfo>({
     barId: "",
@@ -44,11 +44,12 @@ const BarInfoPage = () => {
 
   useEffect(() => {
     getBarInfo();
-  }, [barPhone]);
+  }, [barId]);
 
+  // 바 정보 불러오기 barId로 수정
   const getBarInfo = async () => {
     try {
-      const res = await axios.get(`/api/ohsul/bar/${barPhone}`);
+      const res = await axios.get(`/api/ohsul/bar/${barId}`);
       console.log(res.data, "응답와라젭아");
       setBarInfo(res.data);
       console.log("barInfo", barInfo);
@@ -58,7 +59,7 @@ const BarInfoPage = () => {
   };
 
   const handleBarReview = () => {
-    navigate(`/ohsul/${barInfo.barId}/review`, { state: { barInfo } });
+    navigate(`/ohsul/${barId}/review`, { state: { barInfo } });
   };
 
   return (
@@ -99,6 +100,8 @@ const BarInfoWrapper = styled.div``;
 
 const BarImgBox = styled.div`
   img {
+    width: 160px;
+    height: 160px;
   }
 `;
 
