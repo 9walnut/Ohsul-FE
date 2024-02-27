@@ -436,6 +436,7 @@ const KakaoMap07 = ({
 };
 
 const ReSearchModal = styled.div`
+  cursor: pointer;
   align-items: center;
   position: absolute;
   top: 10px;
@@ -502,6 +503,7 @@ const SearchBtn = styled.button`
   cursor: pointer;
   img {
     width: 14px;
+    margin-top: 4px;
   }
 `;
 
