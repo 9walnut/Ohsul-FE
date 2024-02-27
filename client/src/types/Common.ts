@@ -1,6 +1,10 @@
 export type HeaderTitle = {
   title: string;
 };
+export type MainTitle = {
+  title: string;
+  icon: string;
+};
 
 export type Tag = {
   [key: string]: string[];

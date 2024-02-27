@@ -1,8 +1,8 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import axios from "axios";
 import useAuthStore from "../../stores/useAuthStore";
-import useFavoriteStore from "../../stores/\buseFavoriteStore";
+import useFavoriteStore from "../../stores/useFavoriteStore";
 import { Link } from "react-router-dom";
 import { CardTag } from "../../types/Common";
 
@@ -20,6 +20,37 @@ const CardColTag: React.FC<CardTag> = ({
   const music: string[] = tagData.music;
 
   const { userNumber } = useAuthStore.getState();
+
+  //즐겨찾기 상태 useState *
+  //   const [isFavorite, setIsFavorite] = useState(false)
+  //   const [favoriteBarId, setFavoriteBarId] = useState<string[]>([]);
+
+  //   useEffect(()=>{
+  // fetchFavorite();
+  //   },[])
+
+  //barId 필수로 다시 해야함
+  // 즐겨찾기된 barId들을 기반으로 isFavorite 상태 업데이트
+  // useEffect(() => {
+  //   if (barId) {
+  //     setIsFavorite(favoriteBarId.includes(barId));
+  //   }
+  // }, [favoriteBarId, barId]);
+
+  const fetchFavorite = async () => {
+    try {
+      const res = await axios.get("/api/");
+
+      if (res.status == 200) {
+        //setFavoriteBarId(res.data);
+        console.log("fetchFavorite res : ", res);
+        console.log("fetchFavorite res.data : ", res.data);
+      }
+    } catch (error) {
+      console.log("fetch Favorite err: ", error);
+    }
+  };
+
   //------------------------------즐겨찾기 zustand
   // const favoriteStore = useFavoriteStore();
 
@@ -50,6 +81,36 @@ const CardColTag: React.FC<CardTag> = ({
       console.log("favorite add err: ", error);
     }
   };
+
+  //---favorite add delete 상상코딩
+  // const handleFavorite = async () => {
+  //   console.log("favorite click");
+  //   const favoriteData = {
+  //     userNumber: userNumber,
+  //     barId: barId,
+  //   };
+  //   console.log(favoriteData);
+  //   try {
+  //     if (isFavorite) {
+  //       const res = await axios.delete("/api/favorite/delete", {
+  //         data: {
+  //           userNumber: userNumber,
+  //     barId: barId,
+  //         },
+  //       });
+  //     } else {
+  //       await axios.post("/api/favorite/add", favoriteData, {
+  //         headers: {
+  //           "Content-Type": "application/json",
+  //         },
+  //       });
+  //     }
+  //     // 즐겨찾기 업데이트
+  //     fetchFavorite();
+  //   } catch (error) {
+  //     console.log("favorite err : ", error);
+  //   }
+  // };
 
   return (
     <>

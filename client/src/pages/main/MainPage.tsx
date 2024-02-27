@@ -1,13 +1,11 @@
-import React, { useEffect } from "react";
-import { useState } from "react";
-import { NavLink, useNavigate } from "react-router-dom";
+import React from "react";
 import Header from "../../components/common/Header";
 import ExplainBox from "../../components/main/ExplainBox";
-import CommonModal from "../../components/common/CommonModal";
-import ConfirmModal from "../../components/common/ConfirmModal";
 import useAuthStore from "../../stores/useAuthStore";
-import SwiperSlider from "../../components/common/SwiperSlider";
+import SlickSlider from "../../components/common/SlickSlider";
+import MainTitleList from "../../components/common/MainTitleList";
 
+//DUMMY
 const DUMMYBarReviewCard = {
   userNickname: "졸린공룡",
   score: 4,
@@ -22,6 +20,13 @@ const DUMMYBarReviewCard = {
     "이러코저러코 리뷰리뷰리뷰리뷰리뷰 리뷰가 들어와여 리뷰리뷰리뷰리뷰 뷰가 들어와여 리뷰리뷰리뷰리뷰 리뷰가 들어와여 리뷰없으면 공백! 85자 이내 작성!",
   date: "2024-02-22",
 };
+const DUMMYTags = {
+  alcohol: ["alcohol_1", "alcohol_2", "alcohol_5"],
+  music: ["music_3", "music_5"],
+  mood: ["mood_1", "mood_3"],
+  etc: ["etc_1"],
+  snack: ["snack_2"],
+};
 
 const MainPage: React.FC = () => {
   const isLoggedIn = useAuthStore.getState().isLoggedIn;
@@ -30,32 +35,20 @@ const MainPage: React.FC = () => {
     useAuthStore.getState().isLoggedIn
   );
 
-  //오술태그 선택된 값 넣기
-  const DUMMYTags = {
-    alcohol: ["alcohol_1", "alcohol_2", "alcohol_5"],
-    music: ["music_3", "music_5"],
-    mood: ["mood_1", "mood_3"],
-    etc: ["etc_1"],
-    snack: ["snack_2"],
-  };
+  const iconLocation = "/assets/images/main_location.png";
+  const iconHot = "/assets/images/main_hot.png";
+  const iconPick = "/assets/images/main_pick.png";
 
   return (
     <>
       <Header title="오늘의 술" />
       <ExplainBox />
-      {/* <CommonModal
-        message="메시지이이ㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣ"
-        isClose={true}
-      /> */}
-      {/* <ConfirmModal
-        message="메시지이이ㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣ"
-        isClose={true}
-      /> */}
-      <br />
-      <div>
-        <br />
-        {isLoggedIn ? <p>로그인 상태!</p> : <p>로그아웃 상태!</p>}
-      </div>
+      <MainTitleList title="내 근처 힙한 술집" icon={iconLocation} />
+      <SlickSlider></SlickSlider>
+      <MainTitleList title="지금 핫한 술집" icon={iconHot} />
+      <SlickSlider></SlickSlider>
+      <MainTitleList title="내가 저장한 술집" icon={iconPick} />
+      <SlickSlider></SlickSlider>
     </>
   );
 };
