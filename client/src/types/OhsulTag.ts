@@ -1,8 +1,8 @@
 export interface CheckboxGroupProps {
   label: string;
   children: React.ReactNode;
-  values: string[];
-  onChange: (values: string[]) => void;
+  values: number[];
+  onChange: (values: number[]) => void;
   disabled?: boolean;
 }
 
@@ -10,7 +10,7 @@ export interface CheckboxProps {
   onChange?: () => void;
   children: React.ReactNode;
   id: string;
-  value: string;
+  value: number;
   checked?: any;
   disabled?: boolean;
 }
