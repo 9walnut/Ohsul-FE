@@ -72,4 +72,5 @@ export type FavoriteBar = {
   alcoholTags?: number[];
   moodTags?: number[];
   musicTags?: number[];
+  barAvgScore?: number;
 };
