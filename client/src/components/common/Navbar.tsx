@@ -57,7 +57,6 @@ const NavbarLayout = styled.nav`
   font-family: ${({ theme }) => theme.fonts.ydFont};
   width: 100vw;
   max-width: 450px;
-  margin-top: 78px;
   height: 78px;
   display: flex;
   justify-content: space-around;

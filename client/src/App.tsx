@@ -27,12 +27,15 @@ const MainLayout = styled.div`
   width: 100vw;
   padding: 18px;
   max-width: 450px;
+  height: 100%;
+
+  @media screen and (min-height: 950px) {
+    height: 100vh;
+  }
+
   background-color: ${({ theme }) => theme.colors.bgColor};
   text-align: center;
   position: relative;
-  /* padding-bottom: 140px; */
-
-  /* 아래 추가했는데 혹시 하다가 이상해진다거나 하면 빼고 각 페이지에서 정렬..? */
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -43,7 +46,6 @@ const CenterLayout = styled.div`
   justify-content: center;
   align-items: flex-start;
   text-align: center;
-  /* height: 100%; */
 `;
 
 export default App;
