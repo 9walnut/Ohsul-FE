@@ -29,9 +29,6 @@ const MyReviewPage = () => {
           } else {
             setIsReview(false);
           }
-
-          // console.log("User nickname:", userNickname);
-          // console.log("MyReviewPage res: ", res);
           // console.log("MyReviewPage res.data: ", res.data);
           console.log("Review data:", reviewData);
         }
@@ -45,7 +42,6 @@ const MyReviewPage = () => {
     <>
       <S.MyReviewPageLayout>
         <S.ReviewCount>총 {reviewData.length}개의 리뷰</S.ReviewCount>
-        <p> content, reviewId 만 들어옴</p>
         {isReview ? (
           <>
             {reviewData.map((review, index) => (
