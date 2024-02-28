@@ -12,6 +12,7 @@ interface BarDataTypes {
   barName: string;
   roadAddress: string;
   telephone: string;
+  content?: string;
 }
 
 const DUMMYPlace = [
@@ -50,9 +51,15 @@ const DUMMYPlace = [
   },
 ];
 
+interface BarInfoType extends BarDataTypes {
+  alcoholTags: number[];
+  moodTags: number[];
+  musicTags: number[];
+  barId: number;
+}
+
 const SearchAlcoholPage: React.FC = () => {
   const [searchResults, setSearchResults] = useState<SearchResult[]>([]);
-  const [barInfo, setBarInfo] = useState([]);
 
   // 태그박스 사용 시 필요 state
   const [tags, setTags]: [TagsState, SetTagsFunction] = useState<TagsState>({
@@ -60,6 +67,34 @@ const SearchAlcoholPage: React.FC = () => {
     musicTags: [1],
     moodTags: [1],
   });
+
+  console.log("checked tag: ", tags);
+
+  // 필터링된 바 목록을 저장할 상태 추가
+  const [barInfo, setBarInfo] = useState<BarInfoType[]>([]);
+
+  const filterBarsByTags = () => {
+    return barInfo.filter((place: any): place is BarInfoType => {
+      // place가 BarInfoType 인터페이스를 만족하는지 여부에 따라 필터링 로직을 적용
+      return (
+        "alcoholTags" in place &&
+        "moodTags" in place &&
+        "musicTags" in place &&
+        (tags.alcoholTags.length === 0 ||
+          tags.alcoholTags.every((tag) => place.alcoholTags.includes(tag))) &&
+        (tags.musicTags.length === 0 ||
+          tags.musicTags.every((tag) => place.musicTags.includes(tag))) &&
+        (tags.moodTags.length === 0 ||
+          tags.moodTags.every((tag) => place.moodTags.includes(tag)))
+      );
+    });
+  };
+
+  const [filteredBars, setFilteredBars] = useState(barInfo);
+  useEffect(() => {
+    const filtered = filterBarsByTags();
+    setFilteredBars(filtered);
+  }, [tags]);
 
   // 이 지역 재검색 클릭 시
   useEffect(() => {
@@ -71,7 +106,7 @@ const SearchAlcoholPage: React.FC = () => {
       telephone: result.phone ? result.phone.replace(/-/g, "") : "",
     }));
 
-    postStoreInfo(barData); // API 호출 시, 객체를 배열로 감싸서 보내기
+    postStoreInfo(barData);
   }, [searchResults]);
 
   const postStoreInfo = async (barData: BarDataTypes[]) => {
@@ -108,8 +143,6 @@ const SearchAlcoholPage: React.FC = () => {
     return phone.replace(/-/g, "");
   };
 
-  //오술태그 선택된 값 넣기
-
   return (
     <>
       <Header title="오늘의 술 찾기" />
@@ -128,7 +161,7 @@ const SearchAlcoholPage: React.FC = () => {
           barPhone={result.telephone}
         />
       ))} */}
-      {DUMMYPlace.map((result, index) => (
+      {/* {DUMMYPlace.map((result, index) => (
         <CardColReview
           // @ts-ignore
           barId={result.barId}
@@ -139,7 +172,43 @@ const SearchAlcoholPage: React.FC = () => {
           // @ts-ignore
           //barPhone={result.telephone}
         />
-      ))}
+      ))} */}
+
+      {filteredBars.length > 0 ? (
+        <>
+          {filteredBars.map((result, index) => (
+            <CardColReview
+              barId={result.barId}
+              barName={result.barName}
+              key={index}
+              content={result.content}
+            />
+          ))}
+        </>
+      ) : (
+        <>
+          {/* {DUMMYPlace.map((result, index) => (
+            <CardColReview
+              barId={result.barId}
+              barName={result.barName}
+              key={index}
+              content={result.content}
+            />
+          ))} */}
+
+          {barInfo.map((result, index) => (
+            <CardColReview
+              // @ts-ignore
+              barId={result.barId}
+              // @ts-ignore
+              barName={result.barName}
+              key={index}
+              // @ts-ignore
+              barPhone={result.telephone}
+            />
+          ))}
+        </>
+      )}
     </>
   );
 };
