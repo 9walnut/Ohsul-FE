@@ -21,6 +21,7 @@ const CardColTag: React.FC<FavoriteBar> = ({
   musicTags,
   barId,
   barPhone,
+  onFavoriteChange,
 }) => {
   const getAlcoholTagName = useAlcoholTags();
   const getMusicTagName = useMusicTags();
@@ -30,6 +31,8 @@ const CardColTag: React.FC<FavoriteBar> = ({
   const [isFavorite, setIsFavorite] = useState(false);
   const [favoriteBarId, setFavoriteBarId] = useState<number[]>([]);
   const [imageError, setImageError] = useState(false);
+
+  const isLoggedIn = useAuthStore.getState().isLoggedIn;
 
   useEffect(() => {
     fetchFavorite();
@@ -100,6 +103,10 @@ const CardColTag: React.FC<FavoriteBar> = ({
         });
         if (res.status == 200) {
           console.log("delete res: ", res);
+          if (onFavoriteChange) {
+            console.log("onFavoriteChange?");
+            onFavoriteChange();
+          }
         }
       } else {
         const res = await axios.post("/api/favorite/add", favoriteData, {
@@ -108,6 +115,10 @@ const CardColTag: React.FC<FavoriteBar> = ({
           },
         });
         if (res.status === 200) {
+          if (onFavoriteChange) {
+            console.log("onFavoriteChange?");
+            onFavoriteChange();
+          }
           console.log("add res: ", res);
         }
       }
@@ -152,18 +163,23 @@ const CardColTag: React.FC<FavoriteBar> = ({
           </Link>
         </LeftContent>
         <RightContent>
-          <FavoriteBox>
-            <FavoriteImg onClick={handleFavorite}>
-              <img
-                src={
-                  isFavorite
-                    ? "assets/images/mypage_favorite_active.png"
-                    : "assets/images/mypage_favorite_nonactive.png"
-                }
-                alt="Score"
-              />
-            </FavoriteImg>
-          </FavoriteBox>
+          {isLoggedIn ? (
+            <FavoriteBox>
+              <FavoriteImg onClick={handleFavorite}>
+                <img
+                  src={
+                    isFavorite
+                      ? "assets/images/mypage_favorite_active.png"
+                      : "assets/images/mypage_favorite_nonactive.png"
+                  }
+                  alt="Score"
+                />
+              </FavoriteImg>
+            </FavoriteBox>
+          ) : (
+            <FavoriteBox></FavoriteBox>
+          )}
+
           <TagLayout>
             {alcoholTags?.length === 0 ? (
               <TagBox>
