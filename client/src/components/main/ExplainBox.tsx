@@ -28,7 +28,7 @@ const ExplainWrap = styled.div`
   font-family: "YeongdeokSea";
 
   img {
-    width: 100%;
+    width: 90%;
     height: auto;
   }
 `;

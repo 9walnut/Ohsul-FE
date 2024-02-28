@@ -1,5 +1,11 @@
 import styled from "styled-components";
 
+export const ReviewPageLayout = styled.div`
+  height: 100vh;
+  overflow: hidden;
+  margin-bottom: 78px;
+`;
+
 export const ImgUploadWrapper = styled.div`
   margin: 24px 0px;
 `;

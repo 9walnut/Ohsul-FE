@@ -44,7 +44,6 @@ const CardRowTag: React.FC<BarData> = ({ bar }) => {
     return <SkeletonCard />;
   }
 
-  console.log(bar, "바스바스");
   return (
     <>
       <CardLayout>

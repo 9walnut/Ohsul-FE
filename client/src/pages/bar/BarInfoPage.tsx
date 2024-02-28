@@ -141,9 +141,9 @@ const BarInfoPage = () => {
   };
   return (
     <>
-      <Header title="가게 상세 정보" />
-      <BackButton />
       <BarPageLayout>
+        <Header title="가게 상세 정보" />
+        <BackButton />
         <BarInfoWrapper>
           <BarImgBox>
             {barInfo.barImg ? (
@@ -193,7 +193,11 @@ const BarInfoPage = () => {
   );
 };
 
-const BarPageLayout = styled.div``;
+const BarPageLayout = styled.div`
+  height: 100vh;
+  overflow-x: hidden;
+  margin-bottom: 78px;
+`;
 
 const BarInfoWrapper = styled.div``;
 

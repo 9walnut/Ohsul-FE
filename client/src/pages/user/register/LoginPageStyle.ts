@@ -4,7 +4,9 @@ import { Link } from "react-router-dom";
 export const LoginPageLayout = styled.div`
   position: relative;
   width: 100%;
-  height: auto;
+  height: 100vh;
+  overflow: hidden;
+  margin-bottom: 78px;
 `;
 export const LoginBox = styled.div`
   display: flex;
@@ -13,7 +15,7 @@ export const LoginBox = styled.div`
   padding: 0px 20px;
   gap: 10px;
 
-  height: 80vh;
+  height: 100vh;
   position: relative;
   justify-content: center;
   justify-items: center;

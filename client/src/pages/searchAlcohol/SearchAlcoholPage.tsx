@@ -146,12 +146,13 @@ const SearchAlcoholPage: React.FC = () => {
 
   return (
     <>
-      <Header title="오늘의 술 찾기" />
-      <KakaoMap07 onSearchResults={handleSearchResults} />
-      <TagBox tags={tags} setTags={setTags} />
-      {/* dot Img */}
-      <img src="/assets/images/border_dot.png" alt="border_dot" />
-      {/* {barInfo.map((result, index) => (
+      <SearchAlcoholPageLayout>
+        <Header title="오늘의 술 찾기" />
+        <KakaoMap07 onSearchResults={handleSearchResults} />
+        <TagBox tags={tags} setTags={setTags} />
+        {/* dot Img */}
+        <img src="/assets/images/border_dot.png" alt="border_dot" />
+        {/* {barInfo.map((result, index) => (
         <CardColReview
           // @ts-ignore
           barId={result.barId}
@@ -162,7 +163,7 @@ const SearchAlcoholPage: React.FC = () => {
           barPhone={result.telephone}
         />
       ))} */}
-      {/* {DUMMYPlace.map((result, index) => (
+        {/* {DUMMYPlace.map((result, index) => (
         <CardColReview
           // @ts-ignore
           barId={result.barId}
@@ -175,22 +176,22 @@ const SearchAlcoholPage: React.FC = () => {
         />
       ))} */}
 
-      {filteredBars.length > 0 ? (
-        <>
-          {filteredBars.map((result, index) => (
-            <CardColReview
-              barId={result.barId}
-              barName={result.barName}
-              score={result.barAvgScore}
-              key={index}
-              // @ts-ignore
-              // content={result.barRecentReviews.content}
-            />
-          ))}
-        </>
-      ) : (
-        <>
-          {/* {DUMMYPlace.map((result, index) => (
+        {filteredBars.length > 0 ? (
+          <>
+            {filteredBars.map((result, index) => (
+              <CardColReview
+                barId={result.barId}
+                barName={result.barName}
+                score={result.barAvgScore}
+                key={index}
+                // @ts-ignore
+                // content={result.barRecentReviews.content}
+              />
+            ))}
+          </>
+        ) : (
+          <>
+            {/* {DUMMYPlace.map((result, index) => (
             <CardColReview
               barId={result.barId}
               barName={result.barName}
@@ -199,20 +200,26 @@ const SearchAlcoholPage: React.FC = () => {
             />
           ))} */}
 
-          {barInfo.map((result, index) => (
-            <CardColReview
-              barId={result.barId}
-              barName={result.barName}
-              score={result.barAvgScore}
-              key={index}
-              // @ts-ignore
-              // content={result.barRecentReviews[0].content}
-            />
-          ))}
-        </>
-      )}
+            {barInfo.map((result, index) => (
+              <CardColReview
+                barId={result.barId}
+                barName={result.barName}
+                score={result.barAvgScore}
+                key={index}
+                // @ts-ignore
+                // content={result.barRecentReviews[0].content}
+              />
+            ))}
+          </>
+        )}
+      </SearchAlcoholPageLayout>
     </>
   );
 };
 
+const SearchAlcoholPageLayout = styled.div`
+  height: 100vh;
+  overflow: hidden;
+  margin-bottom: 78px;
+`;
 export default SearchAlcoholPage;
