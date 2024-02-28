@@ -71,39 +71,40 @@ const NearAlcoholPage: React.FC = () => {
 
   return (
     <>
-      <Header title="내 주변의 술" />
+      <NearAlcoholPageLayout>
+        <Header title="내 주변의 술" />
 
-      {viewMap ? (
-        <>
-          <KakaoMap08 onSearchResults={handleSearchResults} />
-        </>
-      ) : (
-        <>
-          {barInfo &&
-            barInfo.map((result, index) => (
-              <CardColTag
-                key={index}
-                barImg={result.barImg}
-                alcoholTags={result.alcoholTags}
-                moodTags={result.alcoholTags}
-                musicTags={result.musicTags}
-                barName={result.barName}
-                barId={result.barId}
-                score={result.barAvgScore}
-              />
-            ))}
-        </>
-      )}
-      <Toggle2 viewMap={viewMap} onViewChange={handleViewChange} />
+        {viewMap ? (
+          <>
+            <KakaoMap08 onSearchResults={handleSearchResults} />
+          </>
+        ) : (
+          <>
+            {barInfo &&
+              barInfo.map((result, index) => (
+                <CardColTag
+                  key={index}
+                  barImg={result.barImg}
+                  alcoholTags={result.alcoholTags}
+                  moodTags={result.alcoholTags}
+                  musicTags={result.musicTags}
+                  barName={result.barName}
+                  barId={result.barId}
+                  score={result.barAvgScore}
+                />
+              ))}
+          </>
+        )}
+        <Toggle2 viewMap={viewMap} onViewChange={handleViewChange} />
+      </NearAlcoholPageLayout>
     </>
   );
 };
 
 export default NearAlcoholPage;
 
-const PageLayout = styled.div`
-  /* display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center; */
+const NearAlcoholPageLayout = styled.div`
+  height: 100vh;
+  overflow-x: hidden;
+  margin-bottom: 78px;
 `;

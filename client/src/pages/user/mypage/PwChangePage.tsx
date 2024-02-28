@@ -77,83 +77,87 @@ const PwChangePage = () => {
     <>
       {isLoggedIn ? (
         <>
-          <Header title="비밀번호 변경" />
-          <BackButton />
-          {modalOpen && (
-            <CommonModal
-              message="비밀번호가 변경되었습니다."
-              isClose={true}
-              onConfirm={handleConfirm}
-            />
-          )}
-          <S.PwChangeBox>
-            <form onSubmit={handleSubmit(onSubmit)} method="POST">
-              <S.InputLayout>
-                <S.StyledLabel htmlFor="pw">비밀번호</S.StyledLabel>
-                <S.InputFieldBox>
-                  <S.StyledInput
-                    type="password"
-                    id="userPw"
-                    placeholder="8~20자 영문 대소문자, 숫자 조합."
-                    {...register("userPw", {
-                      required: true,
-                      minLength: 8,
-                      maxLength: 20,
-                      pattern: /^(?=.*[a-zA-Z])(?=.*\d).{8,20}$/,
-                    })}
-                  />
-                </S.InputFieldBox>
-                {errors.userPw?.type === "required" && (
-                  <S.ErrorMessage>비밀번호를 입력해주세요.</S.ErrorMessage>
-                )}
-                {errors.userPw?.type === "minLength" && (
-                  <S.ErrorMessage>
-                    비밀번호는 최소 8자 이상 영문과 숫자의 조합이여야 합니다.
-                  </S.ErrorMessage>
-                )}
-                {errors.userPw?.type === "maxLength" && (
-                  <S.ErrorMessage>
-                    비밀번호는 20자 이하 영문과 숫자의 조합이여야 합니다.
-                  </S.ErrorMessage>
-                )}
-                {errors.userPw?.type === "pattern" && (
-                  <S.ErrorMessage>
-                    비밀번호는 영문과 숫자의 조합이어야 합니다.
-                  </S.ErrorMessage>
-                )}
-              </S.InputLayout>
+          <S.MyPageLayout>
+            <Header title="비밀번호 변경" />
+            <BackButton />
+            {modalOpen && (
+              <CommonModal
+                message="비밀번호가 변경되었습니다."
+                isClose={true}
+                onConfirm={handleConfirm}
+              />
+            )}
+            <S.PwChangeBox>
+              <form onSubmit={handleSubmit(onSubmit)} method="POST">
+                <S.InputLayout>
+                  <S.StyledLabel htmlFor="pw">비밀번호</S.StyledLabel>
+                  <S.InputFieldBox>
+                    <S.StyledInput
+                      type="password"
+                      id="userPw"
+                      placeholder="8~20자 영문 대소문자, 숫자 조합."
+                      {...register("userPw", {
+                        required: true,
+                        minLength: 8,
+                        maxLength: 20,
+                        pattern: /^(?=.*[a-zA-Z])(?=.*\d).{8,20}$/,
+                      })}
+                    />
+                  </S.InputFieldBox>
+                  {errors.userPw?.type === "required" && (
+                    <S.ErrorMessage>비밀번호를 입력해주세요.</S.ErrorMessage>
+                  )}
+                  {errors.userPw?.type === "minLength" && (
+                    <S.ErrorMessage>
+                      비밀번호는 최소 8자 이상 영문과 숫자의 조합이여야 합니다.
+                    </S.ErrorMessage>
+                  )}
+                  {errors.userPw?.type === "maxLength" && (
+                    <S.ErrorMessage>
+                      비밀번호는 20자 이하 영문과 숫자의 조합이여야 합니다.
+                    </S.ErrorMessage>
+                  )}
+                  {errors.userPw?.type === "pattern" && (
+                    <S.ErrorMessage>
+                      비밀번호는 영문과 숫자의 조합이어야 합니다.
+                    </S.ErrorMessage>
+                  )}
+                </S.InputLayout>
 
-              <S.InputLayout>
-                <S.StyledLabel htmlFor="pwCheck">비밀번호 확인</S.StyledLabel>
-                <S.InputFieldBox>
-                  <S.StyledInput
-                    type="password"
-                    id="pwCheck"
-                    placeholder="비밀번호를 확인해주세요."
-                    {...register("pwCheck", {
-                      required: true,
-                      validate: (value) =>
-                        value === getValues("userPw") ||
-                        "비밀번호가 일치하지 않습니다.",
-                    })}
-                  />
-                </S.InputFieldBox>
-                {errors.pwCheck?.type === "required" && (
-                  <S.ErrorMessage>비밀번호를 확인해주세요.</S.ErrorMessage>
-                )}
-                {errors.pwCheck?.type === "validate" && (
-                  <S.ErrorMessage>비밀번호가 일치하지 않습니다.</S.ErrorMessage>
-                )}
-              </S.InputLayout>
+                <S.InputLayout>
+                  <S.StyledLabel htmlFor="pwCheck">비밀번호 확인</S.StyledLabel>
+                  <S.InputFieldBox>
+                    <S.StyledInput
+                      type="password"
+                      id="pwCheck"
+                      placeholder="비밀번호를 확인해주세요."
+                      {...register("pwCheck", {
+                        required: true,
+                        validate: (value) =>
+                          value === getValues("userPw") ||
+                          "비밀번호가 일치하지 않습니다.",
+                      })}
+                    />
+                  </S.InputFieldBox>
+                  {errors.pwCheck?.type === "required" && (
+                    <S.ErrorMessage>비밀번호를 확인해주세요.</S.ErrorMessage>
+                  )}
+                  {errors.pwCheck?.type === "validate" && (
+                    <S.ErrorMessage>
+                      비밀번호가 일치하지 않습니다.
+                    </S.ErrorMessage>
+                  )}
+                </S.InputLayout>
 
-              <S.ButtonBox>
-                <RoundButton type="submit">변경하기</RoundButton>
-                <RoundButton02 onClick={() => navigate("/mypage")}>
-                  취소
-                </RoundButton02>
-              </S.ButtonBox>
-            </form>
-          </S.PwChangeBox>
+                <S.ButtonBox>
+                  <RoundButton type="submit">변경하기</RoundButton>
+                  <RoundButton02 onClick={() => navigate("/mypage")}>
+                    취소
+                  </RoundButton02>
+                </S.ButtonBox>
+              </form>
+            </S.PwChangeBox>
+          </S.MyPageLayout>
         </>
       ) : (
         <>

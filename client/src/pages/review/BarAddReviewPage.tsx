@@ -76,72 +76,74 @@ const BarAddReviewPage: React.FC = () => {
 
   return (
     <>
-      <Header title="리뷰 등록" />
-      <BackButton />
-      {isLogin && (
-        <S.InputBoxWrapper>
-          <S.InputBox>
-            <S.ExplainInput>닉네임</S.ExplainInput>
-            <S.StyledInput
-              type="text"
-              // @ts-ignore
-              value={userNickname}
-              placeholder="리뷰 작성 시 사용할 닉네임을 입력해주세요."
-              readOnly={true}
-              style={{ outline: "none", backgroundColor: "#ddd" }}
-            />
-          </S.InputBox>
-          <S.InputBox>
-            <S.ExplainInput>비밀번호</S.ExplainInput>
-            <S.StyledInput
-              type="password"
-              onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-                setReviewPw(e.target.value);
-              }}
-              placeholder="리뷰 수정, 삭제 시 비밀번호가 일치해야합니다."
-            />
-          </S.InputBox>
-        </S.InputBoxWrapper>
-      )}
+      <S.ReviewPageLayout>
+        <Header title="리뷰 등록" />
+        <BackButton />
+        {isLogin && (
+          <S.InputBoxWrapper>
+            <S.InputBox>
+              <S.ExplainInput>닉네임</S.ExplainInput>
+              <S.StyledInput
+                type="text"
+                // @ts-ignore
+                value={userNickname}
+                placeholder="리뷰 작성 시 사용할 닉네임을 입력해주세요."
+                readOnly={true}
+                style={{ outline: "none", backgroundColor: "#ddd" }}
+              />
+            </S.InputBox>
+            <S.InputBox>
+              <S.ExplainInput>비밀번호</S.ExplainInput>
+              <S.StyledInput
+                type="password"
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+                  setReviewPw(e.target.value);
+                }}
+                placeholder="리뷰 수정, 삭제 시 비밀번호가 일치해야합니다."
+              />
+            </S.InputBox>
+          </S.InputBoxWrapper>
+        )}
 
-      <S.ExplainBox>
-        태그는 각 최소 1개씩 필수입니다 ! (각 최대 3개)
-      </S.ExplainBox>
-      <TagBox tags={tags} setTags={setTags} />
-      <S.ExplainBox>별점은 필수 선택입니다 !</S.ExplainBox>
-      <StarRating ratingIndex={score} setRatingIndex={setScore} />
+        <S.ExplainBox>
+          태그는 각 최소 1개씩 필수입니다 ! (각 최대 3개)
+        </S.ExplainBox>
+        <TagBox tags={tags} setTags={setTags} />
+        <S.ExplainBox>별점은 필수 선택입니다 !</S.ExplainBox>
+        <StarRating ratingIndex={score} setRatingIndex={setScore} />
 
-      <S.ImgUploadWrapper>
-        <S.ImgBox>
-          {reviewImg ? (
-            <img src={reviewImg} />
-          ) : (
-            <img src="/assets/images/common_AlternateImage.png" />
-          )}
-        </S.ImgBox>
+        <S.ImgUploadWrapper>
+          <S.ImgBox>
+            {reviewImg ? (
+              <img src={reviewImg} />
+            ) : (
+              <img src="/assets/images/common_AlternateImage.png" />
+            )}
+          </S.ImgBox>
 
-        <input
-          type="file"
-          onChange={onChangeImg}
-          accept=".png, .jpeg, .jpg"
-          ref={selectImg}
-          style={{ display: "none" }}
-        />
+          <input
+            type="file"
+            onChange={onChangeImg}
+            accept=".png, .jpeg, .jpg"
+            ref={selectImg}
+            style={{ display: "none" }}
+          />
 
-        <S.ImgUploadBtn onClick={() => selectImg.current?.click()}>
-          업로드
-        </S.ImgUploadBtn>
-      </S.ImgUploadWrapper>
-      <S.ContentWrapper>
-        <S.ContentBox
-          type="textarea"
-          onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-            setContent(e.target.value)
-          }
-          placeholder="85자 이내 작성"
-        />
-      </S.ContentWrapper>
-      <S.Button onClick={postReview}>리뷰 작성하기</S.Button>
+          <S.ImgUploadBtn onClick={() => selectImg.current?.click()}>
+            업로드
+          </S.ImgUploadBtn>
+        </S.ImgUploadWrapper>
+        <S.ContentWrapper>
+          <S.ContentBox
+            type="textarea"
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+              setContent(e.target.value)
+            }
+            placeholder="85자 이내 작성"
+          />
+        </S.ContentWrapper>
+        <S.Button onClick={postReview}>리뷰 작성하기</S.Button>
+      </S.ReviewPageLayout>
     </>
   );
 };

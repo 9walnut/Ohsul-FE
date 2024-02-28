@@ -33,8 +33,6 @@ const CardRow: React.FC<BarData> = ({ bar }) => {
   if (isLoading) {
     return <SkeletonCard />;
   }
-
-  console.log(bar, "바스바스");
   return (
     <>
       <CardLayout>
@@ -51,11 +49,14 @@ const CardRow: React.FC<BarData> = ({ bar }) => {
           </BarImgBox>
           <BarWrapper>
             <BarTitleBox>{bar.barName}</BarTitleBox>
-            {isTag ? (
-              <TagBox>태그 ㅋ</TagBox>
-            ) : isContent ? (
+            {/* @ts-ignore */}
+            {bar.barRecentReviews ? (
               <BarReviewBox>
-                리뷰ㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠ
+                <div id="recentReview">
+                  최신 리뷰 <img src="/assets/images/arrow-down.png" />
+                </div>
+                {/* @ts-ignore */}
+                <div id="reviewContent">{bar.barRecentReviews[0].content}</div>
               </BarReviewBox>
             ) : (
               <BarReviewBox>
@@ -66,10 +67,7 @@ const CardRow: React.FC<BarData> = ({ bar }) => {
             )}
 
             <ScoreBox>
-              <img
-                src={process.env.PUBLIC_URL + "assets/images/star.png"}
-                alt="Score"
-              />
+              <img src={"/assets/images/star.png"} alt="Score" />
               {bar.barAvgScore ? (
                 <div>{bar.barAvgScore}</div>
               ) : (
@@ -110,7 +108,20 @@ const BarTitleBox = styled.div`
 
 const BarReviewBox = styled.div`
   font-size: 12px;
-  opacity: 50%;
+  color: #808080;
+  #recentReview {
+    font-weight: 600;
+    color: ${({ theme }) => theme.colors.darkFont};
+    margin-bottom: 4px;
+    display: flex;
+    img {
+      margin-left: 4px;
+      height: 10px;
+    }
+  }
+  #reviewContent {
+    margin-bottom: 4px;
+  }
 `;
 
 const ScoreBox = styled.div`

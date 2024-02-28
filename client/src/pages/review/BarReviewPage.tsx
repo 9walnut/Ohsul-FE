@@ -43,36 +43,38 @@ const BarReviewPage = () => {
 
   return (
     <>
-      <Header title="리뷰" />
-      <BarTitleWrapper>
-        <BarTitle>{barInfo.barName}</BarTitle>
-        <BarRating>3.5</BarRating>
-      </BarTitleWrapper>
+      <S.ReviewPageLayout>
+        <Header title="리뷰" />
+        <BarTitleWrapper>
+          <BarTitle>{barInfo.barName}</BarTitle>
+          <BarRating>3.5</BarRating>
+        </BarTitleWrapper>
 
-      {reviewData ? (
-        <>
-          {reviewData.map((review, index) => (
-            <BarReviewCard
-              key={index}
-              barId={review.barId}
-              reviewId={review.reviewId}
-              alcoholTags={review.alcoholTags}
-              moodTags={review.moodTags}
-              musicTags={review.musicTags}
-              nickname={review.nickname}
-              score={review.score}
-              reviewImg={review.reviewImg}
-              tag={review.tag}
-              content={review.content}
-              date={review.date}
-            />
-          ))}
-        </>
-      ) : (
-        <S.NoReviewBox>아직 등록된 리뷰가 없어요 🥹</S.NoReviewBox>
-      )}
+        {reviewData ? (
+          <>
+            {reviewData.map((review, index) => (
+              <BarReviewCard
+                key={index}
+                barId={review.barId}
+                reviewId={review.reviewId}
+                alcoholTags={review.alcoholTags}
+                moodTags={review.moodTags}
+                musicTags={review.musicTags}
+                nickname={review.nickname}
+                score={review.score}
+                reviewImg={review.reviewImg}
+                tag={review.tag}
+                content={review.content}
+                date={review.date}
+              />
+            ))}
+          </>
+        ) : (
+          <S.NoReviewBox>아직 등록된 리뷰가 없어요 🥹</S.NoReviewBox>
+        )}
 
-      <Button onClick={handleAddReview}>리뷰 작성 하기</Button>
+        <Button onClick={handleAddReview}>리뷰 작성 하기</Button>
+      </S.ReviewPageLayout>
     </>
   );
 };
