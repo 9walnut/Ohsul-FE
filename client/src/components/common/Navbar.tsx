@@ -21,7 +21,7 @@ const Navbar = () => {
             </NavbarItem>
           </NavbarList>
         </StyledNavLink>
-        <StyledNavLink to={"/nearAlcohol"}>
+        <StyledNavLink to={"/near"}>
           <NavbarList>
             <NavbarItem>
               <img src="/assets/images/navbar_today.png" alt="today" />

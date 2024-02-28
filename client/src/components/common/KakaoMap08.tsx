@@ -7,6 +7,7 @@ import CardColTag from "./CardColTag";
 import MapLoading from "./MapLoading";
 import axios from "axios";
 import { FavoriteBar } from "../../types/Common";
+import { FadeLoader } from "react-spinners";
 
 interface SelectOptionsTypes {
   value: string;

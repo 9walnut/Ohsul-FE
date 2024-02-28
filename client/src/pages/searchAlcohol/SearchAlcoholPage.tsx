@@ -14,6 +14,42 @@ interface BarDataTypes {
   telephone: string;
 }
 
+const DUMMYPlace = [
+  {
+    barId: 2,
+    barName: "언더그라운드",
+    content: "alcoholTags [1,2,3] moodTags[1] musicTags[3] ",
+    score: 4,
+    barImg:
+      "https://search.pstatic.net/common/?src=https%3A%2F%2Fpup-review-phinf.pstatic.net%2FMjAyMzAyMDNfNjkg%2FMDAxNjc1MzU3OTAwMDc1.nDuEbsyEjQNKrN5JJn4PN7QN2himoQXkjdsOidYPEQ4g.hc5nBIjfzB85bNZRKiYcGhwY3ETdxAtLQUQhAi_hZ3cg.JPEG%2Fimage.jpg",
+    alcoholTags: [1, 2, 3],
+    moodTags: [1],
+    musicTags: [3],
+  },
+  {
+    barId: 3,
+    barName: "와인집",
+    content: "alcoholTags [3,6] moodTags[3] musicTags[1]",
+    score: 3,
+    barImg:
+      "https://search.pstatic.net/common/?src=https%3A%2F%2Fpup-review-phinf.pstatic.net%2FMjAyMzAyMDNfNjkg%2FMDAxNjc1MzU3OTAwMDc1.nDuEbsyEjQNKrN5JJn4PN7QN2himoQXkjdsOidYPEQ4g.hc5nBIjfzB85bNZRKiYcGhwY3ETdxAtLQUQhAi_hZ3cg.JPEG%2Fimage.jpg",
+    alcoholTags: [3, 6],
+    moodTags: [3],
+    musicTags: [1],
+  },
+  {
+    barId: 5,
+    barName: "룸술집",
+    content: "alcoholTags [4] moodTags[4] musicTags[2]",
+    score: 1,
+    barImg:
+      "https://search.pstatic.net/common/?src=https%3A%2F%2Fpup-review-phinf.pstatic.net%2FMjAyMzAyMDNfNjkg%2FMDAxNjc1MzU3OTAwMDc1.nDuEbsyEjQNKrN5JJn4PN7QN2himoQXkjdsOidYPEQ4g.hc5nBIjfzB85bNZRKiYcGhwY3ETdxAtLQUQhAi_hZ3cg.JPEG%2Fimage.jpg",
+    alcoholTags: [4],
+    moodTags: [4],
+    musicTags: [2],
+  },
+];
+
 const SearchAlcoholPage: React.FC = () => {
   const [searchResults, setSearchResults] = useState<SearchResult[]>([]);
   const [barInfo, setBarInfo] = useState([]);
@@ -81,7 +117,7 @@ const SearchAlcoholPage: React.FC = () => {
       <TagBox tags={tags} setTags={setTags} />
       {/* dot Img */}
       <img src="/assets/images/border_dot.png" alt="border_dot" />
-      {barInfo.map((result, index) => (
+      {/* {barInfo.map((result, index) => (
         <CardColReview
           // @ts-ignore
           barId={result.barId}
@@ -90,6 +126,18 @@ const SearchAlcoholPage: React.FC = () => {
           key={index}
           // @ts-ignore
           barPhone={result.telephone}
+        />
+      ))} */}
+      {DUMMYPlace.map((result, index) => (
+        <CardColReview
+          // @ts-ignore
+          barId={result.barId}
+          // @ts-ignore
+          barName={result.barName}
+          key={index}
+          content={result.content}
+          // @ts-ignore
+          //barPhone={result.telephone}
         />
       ))}
     </>
