@@ -5,20 +5,30 @@ import useAuthStore from "../../stores/useAuthStore";
 import useFavoriteStore from "../../stores/useFavoriteStore";
 import { Link } from "react-router-dom";
 import { FavoriteBar } from "../../types/Common";
+import {
+  useAlcoholTags,
+  useMoodTags,
+  useMusicTags,
+} from "../../hooks/tagsChange";
 
 const CardColTag: React.FC<FavoriteBar> = ({
   barName,
   barImg,
   score,
-  tag,
+  alcoholTags,
+  moodTags,
+  musicTags,
   barId,
   barPhone,
 }) => {
-  const tagData = tag || { drink: [], mood: [], music: [] };
-  const drink: number[] = tagData.drink;
-  const mood: number[] = tagData.mood;
-  const music: number[] = tagData.music;
-
+  // const tagData = { alcoholTags, moodTags, musicTags };
+  // console.log(tagData, "태그데타");
+  // const drink: number[] = tagData.alcoholTags;
+  // const mood: number[] = tagData.moodTags;
+  // const music: number[] = tagData.musicTags;
+  const getAlcoholTagName = useAlcoholTags();
+  const getMusicTagName = useMusicTags();
+  const getMoodTagName = useMoodTags();
   const { userNumber } = useAuthStore.getState();
 
   const [isFavorite, setIsFavorite] = useState(false);
@@ -143,7 +153,7 @@ const CardColTag: React.FC<FavoriteBar> = ({
                   alt="Score"
                 />
               </ScoreImg>
-              <ScoreText>99{score}</ScoreText>
+              <ScoreText>{score}</ScoreText>
             </ScoreBox>
           </Link>
         </LeftContent>
@@ -161,7 +171,7 @@ const CardColTag: React.FC<FavoriteBar> = ({
             </FavoriteImg>
           </FavoriteBox>
           <TagLayout>
-            {drink.length === 0 ? (
+            {alcoholTags?.length === 0 ? (
               <TagBox>
                 <TagTitle>술</TagTitle>
                 <TagContent>아직 태그가 없어요</TagContent>
@@ -169,13 +179,13 @@ const CardColTag: React.FC<FavoriteBar> = ({
             ) : (
               <TagBox>
                 <TagTitle>술</TagTitle>
-                {drink.map((item, index) => (
-                  <TagContent key={index}>{item}</TagContent>
+                {alcoholTags?.slice(0, 2).map((item, index) => (
+                  <TagContent key={index}>{getAlcoholTagName(item)}</TagContent>
                 ))}
               </TagBox>
             )}
 
-            {mood.length === 0 ? (
+            {moodTags?.length === 0 ? (
               <TagBox>
                 <TagTitle>분위기</TagTitle>
                 <TagContent>아직 태그가 없어요</TagContent>
@@ -183,13 +193,13 @@ const CardColTag: React.FC<FavoriteBar> = ({
             ) : (
               <TagBox>
                 <TagTitle>분위기</TagTitle>
-                {mood.map((item, index) => (
-                  <TagContent key={index}>{item}</TagContent>
+                {moodTags?.slice(0, 2).map((item, index) => (
+                  <TagContent key={index}>{getMoodTagName(item)}</TagContent>
                 ))}
               </TagBox>
             )}
 
-            {music.length === 0 ? (
+            {musicTags?.length === 0 ? (
               <TagBox>
                 <TagTitle>음악</TagTitle>
                 <TagContent>아직 태그가 없어요</TagContent>
@@ -197,8 +207,8 @@ const CardColTag: React.FC<FavoriteBar> = ({
             ) : (
               <TagBox>
                 <TagTitle>음악</TagTitle>
-                {music.map((item, index) => (
-                  <TagContent key={index}>{item}</TagContent>
+                {musicTags?.slice(0, 2).map((item, index) => (
+                  <TagContent key={index}>{getMusicTagName(item)}</TagContent>
                 ))}
               </TagBox>
             )}

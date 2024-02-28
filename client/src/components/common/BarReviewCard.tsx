@@ -3,6 +3,11 @@ import styled from "styled-components";
 import axios from "axios";
 import { CardBarReview } from "../../types/Common";
 import { useNavigate } from "react-router-dom";
+import {
+  useAlcoholTags,
+  useMoodTags,
+  useMusicTags,
+} from "../../hooks/tagsChange";
 
 const BarReviewCard: React.FC<CardBarReview> = ({
   userNickname,
@@ -13,15 +18,14 @@ const BarReviewCard: React.FC<CardBarReview> = ({
   date,
   barId,
   reviewId,
+  alcoholTags,
+  moodTags,
+  musicTags,
 }) => {
-  const tagData = tag || { drink: [], mood: [], music: [] };
-  const drink: number[] = tagData.drink;
-  const mood: number[] = tagData.mood;
-  const music: number[] = tagData.music;
   const navigate = useNavigate();
-
-  console.log(drink);
-
+  const getAlcoholTagName = useAlcoholTags();
+  const getMusicTagName = useMusicTags();
+  const getMoodTagName = useMoodTags();
   const etxText = (text: string, maxLength: number) => {
     if (text.length > maxLength) {
       return text.substring(0, maxLength) + "...";
@@ -103,24 +107,47 @@ const BarReviewCard: React.FC<CardBarReview> = ({
             />
           </ImgBox>
           <TagLayout>
-            <TagBox>
-              <TagTitle>술</TagTitle>
-              {drink.map((item, index) => (
-                <TagContent key={index}>{item}</TagContent>
-              ))}
-            </TagBox>
-            <TagBox>
-              <TagTitle>분위기</TagTitle>
-              {mood.map((item, index) => (
-                <TagContent key={index}>{item}</TagContent>
-              ))}
-            </TagBox>
-            <TagBox>
-              <TagTitle>음악</TagTitle>
-              {music.map((item, index) => (
-                <TagContent key={index}>{item}</TagContent>
-              ))}
-            </TagBox>
+            {alcoholTags?.length === 0 ? (
+              <TagBox>
+                <TagTitle>술</TagTitle>
+                <TagContent>아직 태그가 없어요</TagContent>
+              </TagBox>
+            ) : (
+              <TagBox>
+                <TagTitle>술</TagTitle>
+                {alcoholTags?.slice(0, 2).map((item, index) => (
+                  <TagContent key={index}>{getAlcoholTagName(item)}</TagContent>
+                ))}
+              </TagBox>
+            )}
+
+            {moodTags?.length === 0 ? (
+              <TagBox>
+                <TagTitle>분위기</TagTitle>
+                <TagContent>아직 태그가 없어요</TagContent>
+              </TagBox>
+            ) : (
+              <TagBox>
+                <TagTitle>분위기</TagTitle>
+                {moodTags?.slice(0, 2).map((item, index) => (
+                  <TagContent key={index}>{getMoodTagName(item)}</TagContent>
+                ))}
+              </TagBox>
+            )}
+
+            {musicTags?.length === 0 ? (
+              <TagBox>
+                <TagTitle>음악</TagTitle>
+                <TagContent>아직 태그가 없어요</TagContent>
+              </TagBox>
+            ) : (
+              <TagBox>
+                <TagTitle>음악</TagTitle>
+                {musicTags?.slice(0, 2).map((item, index) => (
+                  <TagContent key={index}>{getMusicTagName(item)}</TagContent>
+                ))}
+              </TagBox>
+            )}
           </TagLayout>
         </ContentBox2>
 

@@ -26,31 +26,6 @@ interface RanBarTypes {
   moodTags: string[];
   musicTags: string[];
 }
-//DUMMY
-const DUMMYBarReviewCard = {
-  userNickname: "졸린공룡",
-  score: 4,
-  barImg:
-    "https://search.pstatic.net/common/?src=https%3A%2F%2Fpup-review-phinf.pstatic.net%2FMjAyMzAyMDNfNjkg%2FMDAxNjc1MzU3OTAwMDc1.nDuEbsyEjQNKrN5JJn4PN7QN2himoQXkjdsOidYPEQ4g.hc5nBIjfzB85bNZRKiYcGhwY3ETdxAtLQUQhAi_hZ3cg.JPEG%2Fimage.jpg",
-
-  tag: {
-    술: ["칵테일"],
-    분위기: ["다같이 즐기는"],
-    음악: ["힙합"],
-  },
-
-  content:
-    "이러코저러코 리뷰리뷰리뷰리뷰리뷰 리뷰가 들어와여 리뷰리뷰리뷰리뷰 뷰가 들어와여 리뷰리뷰리뷰리뷰 리뷰가 들어와여 리뷰없으면 공백! 85자 이내 작성!",
-  date: "2024-02-22",
-};
-
-const DUMMYTags = {
-  alcohol: ["alcohol_1", "alcohol_2", "alcohol_5"],
-  music: ["music_3", "music_5"],
-  mood: ["mood_1", "mood_3"],
-  etc: ["etc_1"],
-  snack: ["snack_2"],
-};
 
 const MainPage: React.FC = () => {
   useEffect(() => {

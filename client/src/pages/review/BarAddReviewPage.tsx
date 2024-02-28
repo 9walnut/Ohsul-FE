@@ -13,8 +13,7 @@ import useAuthStore from "../../stores/useAuthStore";
 
 const BarAddReviewPage: React.FC = () => {
   const selectImg = useRef<HTMLInputElement>(null);
-  // const { barId } = useParams();
-  const barId = 2;
+  const { barId } = useParams();
   const { userNickname } = useAuthStore.getState();
   const [nickName, setNickName] = useState(userNickname);
   const [reviewPw, setReviewPw] = useState("");
@@ -108,7 +107,7 @@ const BarAddReviewPage: React.FC = () => {
       <S.ExplainBox>
         태그는 각 최소 1개씩 필수입니다 ! (각 최대 3개)
       </S.ExplainBox>
-      {/* <TagBox checkedTags={tags} /> */}
+      <TagBox tags={tags} setTags={setTags} />
       <S.ExplainBox>별점은 필수 선택입니다 !</S.ExplainBox>
       <StarRating ratingIndex={score} setRatingIndex={setScore} />
 

@@ -20,7 +20,8 @@ const MyReviewPage = () => {
           params: { userId },
         });
         if (res.status == 200) {
-          const { userNickname } = res.data;
+          setNickName(res.data.userNickname);
+          console.log(res.data, "마이페이지 리뷰 목록 ");
           const reviewList = res.data.reviews;
           if (reviewList.length !== 0) {
             setIsReview(true);
@@ -53,9 +54,11 @@ const MyReviewPage = () => {
                 barId={review.barId}
                 reviewId={review.reviewId}
                 userNickname={nickName}
-                score={review.score}
+                score={review.avgScore}
                 reviewImg={review.reviewImg}
-                tag={review.tag}
+                alcoholTags={review.alcoholTags}
+                moodTags={review.moodTags}
+                musicTags={review.musicTags}
                 content={review.content}
                 date={review.date}
               />

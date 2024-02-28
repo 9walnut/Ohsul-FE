@@ -8,34 +8,6 @@ import { useNavigate } from "react-router";
 import CardColTag from "../../../components/common/CardColTag";
 import { FavoriteBar } from "../../../types/Common";
 
-//DUMMY
-const DUMMYCardColTag = [
-  {
-    barId: 2,
-    barName: "언더그라운드",
-    score: 4,
-    barImg:
-      "https://search.pstatic.net/common/?src=https%3A%2F%2Fpup-review-phinf.pstatic.net%2FMjAyMzAyMDNfNjkg%2FMDAxNjc1MzU3OTAwMDc1.nDuEbsyEjQNKrN5JJn4PN7QN2himoQXkjdsOidYPEQ4g.hc5nBIjfzB85bNZRKiYcGhwY3ETdxAtLQUQhAi_hZ3cg.JPEG%2Fimage.jpg",
-    tag: {
-      drink: [1],
-      mood: [1],
-      music: [1],
-    },
-  },
-  {
-    barId: 3,
-    barName: "언더그라운드",
-    score: 3,
-    barImg:
-      "https://search.pstatic.net/common/?src=https%3A%2F%2Fpup-review-phinf.pstatic.net%2FMjAyMzAyMDNfNjkg%2FMDAxNjc1MzU3OTAwMDc1.nDuEbsyEjQNKrN5JJn4PN7QN2himoQXkjdsOidYPEQ4g.hc5nBIjfzB85bNZRKiYcGhwY3ETdxAtLQUQhAi_hZ3cg.JPEG%2Fimage.jpg",
-    tag: {
-      drink: [1],
-      mood: [1],
-      music: [1],
-    },
-  },
-];
-
 const FavoritePage = () => {
   const navigate = useNavigate();
   const [modalOpen, setModalOpen] = useState(false);
@@ -71,6 +43,7 @@ const FavoritePage = () => {
   const handleNavigate = () => {
     navigate("/nearAlcohol");
   };
+
   return (
     <>
       <S.FavoritePageLayout>
@@ -81,9 +54,11 @@ const FavoritePage = () => {
                 key={index}
                 barId={content.barId}
                 barName={content.barName}
-                score={content.score}
+                score={content.avgScore}
                 barImg={content.barImg}
-                tag={content.tag}
+                alcoholTags={content.alcoholTags}
+                moodTags={content.moodTags}
+                musicTags={content.musicTags}
               />
             ))}
           </>
