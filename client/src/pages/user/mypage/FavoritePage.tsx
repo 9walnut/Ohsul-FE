@@ -40,8 +40,33 @@ const FavoritePage = () => {
     FetchData();
   }, []);
 
+  useEffect(() => {
+    console.log("데이터바낌");
+  }, [favoriteData]);
+
   const handleNavigate = () => {
     navigate("/nearAlcohol");
+  };
+
+  const reloadFavorites = async () => {
+    try {
+      const res = await axios.get("/api/mypage/favorite");
+      if (res.status == 200) {
+        const favoriteList = res.data.favorites;
+        if (favoriteList.length !== 0) {
+          setIsFavoritePlace(true);
+          setFavoriteData(favoriteList);
+        } else {
+          setIsFavoritePlace(false);
+        }
+      }
+    } catch (error) {
+      console.error("Error reloading favorites: ", error);
+    }
+  };
+
+  const emptyFun = () => {
+    console.log("ㅎ");
   };
 
   return (
@@ -59,6 +84,7 @@ const FavoritePage = () => {
                 alcoholTags={content.alcoholTags}
                 moodTags={content.moodTags}
                 musicTags={content.musicTags}
+                onFavoriteChange={reloadFavorites}
               />
             ))}
           </>

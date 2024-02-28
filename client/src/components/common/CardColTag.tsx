@@ -21,6 +21,7 @@ const CardColTag: React.FC<FavoriteBar> = ({
   musicTags,
   barId,
   barPhone,
+  onFavoriteChange,
 }) => {
   const getAlcoholTagName = useAlcoholTags();
   const getMusicTagName = useMusicTags();
@@ -102,6 +103,10 @@ const CardColTag: React.FC<FavoriteBar> = ({
         });
         if (res.status == 200) {
           console.log("delete res: ", res);
+          if (onFavoriteChange) {
+            console.log("onFavoriteChange?");
+            onFavoriteChange();
+          }
         }
       } else {
         const res = await axios.post("/api/favorite/add", favoriteData, {
@@ -110,6 +115,10 @@ const CardColTag: React.FC<FavoriteBar> = ({
           },
         });
         if (res.status === 200) {
+          if (onFavoriteChange) {
+            console.log("onFavoriteChange?");
+            onFavoriteChange();
+          }
           console.log("add res: ", res);
         }
       }
