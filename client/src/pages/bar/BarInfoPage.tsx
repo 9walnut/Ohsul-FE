@@ -8,6 +8,7 @@ import BackButton from "../../components/common/BackButton";
 import { useNavigate } from "react-router";
 import useAuthStore from "../../stores/useAuthStore";
 import { FavoriteBar } from "../../types/Common";
+import CommonModal from "../../components/common/CommonModal";
 
 type UserParams = {
   barId: any;
@@ -16,6 +17,7 @@ type UserParams = {
 const BarInfoPage = () => {
   const navigate = useNavigate();
 
+  const [isModal, setIsModal] = useState(false);
   const { barId } = useParams<UserParams>();
   const isLoggedIn = useAuthStore.getState().isLoggedIn;
 
@@ -56,31 +58,12 @@ const BarInfoPage = () => {
 
   const [isFavorite, setIsFavorite] = useState(false);
   const [favoriteBarId, setFavoriteBarId] = useState<number[]>([]);
-  const [isFavoritePlace, setIsFavoritePlace] = useState<boolean>(false);
-  const [favoriteData, setFavoriteData] = useState<FavoriteBar[]>([]);
-
-  useEffect(() => {
-    fetchFavorite();
-  }, []);
 
   useEffect(() => {
     if (barId) {
       setIsFavorite(favoriteBarId.includes(barId));
     }
   }, [favoriteBarId, barId]);
-
-  const fetchFavorite = async () => {
-    try {
-      const res = await axios.get("/api/favorite/favoriteList");
-      if (res.status == 200) {
-        setFavoriteBarId(res.data);
-        //console.log("favoriteList res : ", res);
-        console.log("favoriteList res.data : ", res.data);
-      }
-    } catch (error) {
-      console.log("fetch Favorite err: ", error);
-    }
-  };
 
   //---favorite add delete
   const handleFavorite = async () => {
@@ -90,57 +73,35 @@ const BarInfoPage = () => {
     };
     console.log(favoriteData);
     try {
-      if (isFavorite) {
-        const res = await axios.delete("/api/favorite/delete", {
-          data: {
-            barId: barId,
-          },
-        });
-        if (res.status == 200) {
-          console.log("delete res: ", res);
+      const res = await axios.post("/api/favorite/add", favoriteData, {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      if (res.status === 200) {
+        console.log("즐겨찾기 성공");
+        setIsModal(true);
 
-          console.log("onFavoriteChange?");
-          setIsFavorite(false);
-          reloadFavorites();
-        }
-      } else {
-        const res = await axios.post("/api/favorite/add", favoriteData, {
-          headers: {
-            "Content-Type": "application/json",
-          },
-        });
-        if (res.status === 200) {
-          console.log("onFavoriteChange?");
-          setIsFavorite(true);
-          reloadFavorites();
-
-          console.log("add res: ", res);
-        }
+        console.log("add res: ", res);
       }
-      // 즐겨찾기 업데이트
-      fetchFavorite();
     } catch (error) {
       console.log("favorite err : ", error);
     }
   };
-  const reloadFavorites = async () => {
-    try {
-      const res = await axios.get("/api/mypage/favorite");
-      if (res.status == 200) {
-        const favoriteList = res.data.favorites;
-        if (favoriteList.length !== 0) {
-          setIsFavoritePlace(true);
-          setFavoriteData(favoriteList);
-        } else {
-          setIsFavoritePlace(false);
-        }
-      }
-    } catch (error) {
-      console.error("Error reloading favorites: ", error);
-    }
-  };
+
   return (
     <>
+      {isModal && (
+        <CommonModal
+          message={
+            <>
+              즐겨찾기 장소가 저장되었습니다. <br /> 마이페이지에서 즐겨찾기
+              목록을 확인해보세요!🍻
+            </>
+          }
+          isClose={false}
+        />
+      )}
       <BarPageLayout>
         <Header title="가게 상세 정보" />
         <BackButton />
@@ -154,20 +115,13 @@ const BarInfoPage = () => {
           </BarImgBox>
           <BarNameBox>{barInfo.barName}</BarNameBox>
           {isLoggedIn ? (
-            <FavoriteBox>
-              <FavoriteImg onClick={handleFavorite}>
-                <img
-                  src={
-                    isFavorite
-                      ? "/assets/images/mypage_favorite_active.png"
-                      : "/assets/images/mypage_favorite_nonactive.png"
-                  }
-                  alt="Favorite"
-                />
-              </FavoriteImg>
-            </FavoriteBox>
+            <AddFavoriteBtnWrapper>
+              <AddFavoriteBtn onClick={handleFavorite}>
+                장소 저장하기
+              </AddFavoriteBtn>
+            </AddFavoriteBtnWrapper>
           ) : (
-            <FavoriteBox></FavoriteBox>
+            <AddFavoriteBtnWrapper></AddFavoriteBtnWrapper>
           )}
           <BarExplainBox>{barInfo.description}</BarExplainBox>
           <BarNumberBox>{barInfo.telephone}</BarNumberBox>
@@ -188,7 +142,6 @@ const BarInfoPage = () => {
 
         <ReviewButton onClick={handleBarReview}>리뷰 보러 가기</ReviewButton>
       </BarPageLayout>
-      {/* 정적 이미지 지도 만들기..?  실패 !*/}
     </>
   );
 };
@@ -250,27 +203,27 @@ const ReviewButton = styled.button`
   border-radius: 12px;
   cursor: pointer;
 `;
-const BasicStyle = `
-display: flex;
-flex-direction: row;
-justify-content: center;
-align-items: center;
-`;
-const FavoriteBox = styled.div`
-  ${BasicStyle}
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  padding: 0px 10px;
-  gap: 3px;
 
-  margin: 0 17px;
-  width: 26px;
-  height: 24px;
+const AddFavoriteBtnWrapper = styled.div`
+  width: 100%;
 `;
-const FavoriteImg = styled.div`
+const AddFavoriteBtn = styled.button`
   cursor: pointer;
+  width: 100px;
+  height: 27px;
+  background-color: ${({ theme }) => theme.colors.bgColor};
+  border: 1px solid ${({ theme }) => theme.colors.iconBlue};
+  border-radius: 10px;
+
+  font-family: ${({ theme }) => theme.fonts.ydFont};
+  font-style: normal;
+  font-weight: 400;
+  font-size: 15px;
+  line-height: 22px;
+  text-align: center;
+
+  color: ${({ theme }) => theme.colors.blueFont};
+
   img {
     width: 16px;
     height: 22px;
