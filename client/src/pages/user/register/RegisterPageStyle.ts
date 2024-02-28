@@ -2,6 +2,7 @@ import styled from "styled-components";
 import { Link } from "react-router-dom";
 
 export const MyPageLayout = styled.div`
+  width: 100%;
   height: 100vh;
   overflow: hidden;
   margin-bottom: 78px;
@@ -36,7 +37,8 @@ export const InputLayout = styled.div`
   align-items: center;
   padding: 0px;
   gap: 10px;
-  width: 343px;
+  /* width: 343px; */
+  width: 100%;
   height: 57px;
   margin-bottom: 40px;
 `;

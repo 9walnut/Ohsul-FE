@@ -354,8 +354,6 @@ const ContentBox4 = styled.div`
   align-items: center;
   padding: 10px 5px;
   gap: 10px;
-
-  /* width: 346px; */
   width: 100%;
   height: 20px;
 `;
@@ -363,8 +361,6 @@ const ContentBox4 = styled.div`
 const DateBox = styled.div`
   width: 70px;
   height: 15px;
-  /* position: absolute; */
-
   font-family: "Yeongdeok Sea";
   font-style: normal;
   font-weight: 400;
@@ -380,7 +376,6 @@ const BtnBox = styled.div`
 `;
 
 const EditBtn = styled.div`
-  /* position: absolute; */
   width: 16px;
   height: 16px;
   cursor: pointer;
@@ -392,7 +387,6 @@ const EditBtn = styled.div`
   }
 `;
 const DelBtn = styled.div`
-  /* position: absolute; */
   width: 16px;
   height: 16px;
   cursor: pointer;

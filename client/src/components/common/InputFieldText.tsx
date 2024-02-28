@@ -51,7 +51,8 @@ const InputLayout = styled.div`
   padding: 0px;
   gap: 4px;
 
-  width: 343px;
+  /* width: 343px; */
+  width: 100%;
   height: 57px;
 `;
 

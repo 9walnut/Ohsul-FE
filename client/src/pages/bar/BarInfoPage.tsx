@@ -194,6 +194,7 @@ const BarInfoPage = () => {
 };
 
 const BarPageLayout = styled.div`
+  width: 100%;
   height: 100vh;
   overflow-x: hidden;
   margin-bottom: 78px;
