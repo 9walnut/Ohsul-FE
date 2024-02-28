@@ -32,7 +32,8 @@ const CardLayout = styled.div`
   align-items: center;
   padding: 10px 15px;
   gap: 20px;
-  width: 382px;
+  /* width: 382px; */
+  width: 100%;
   height: 163px;
   background: ${({ theme }) => theme.colors.bgLightColor};
   border: 1px solid ${({ theme }) => theme.colors.blueFont};

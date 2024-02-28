@@ -1,5 +1,10 @@
 import styled from "styled-components";
 
+export const MyPageLayout = styled.div`
+  height: 100vh;
+  overflow: hidden;
+  margin-bottom: 78px;
+`;
 export const FavoritePageLayout = styled.div`
   display: flex;
   flex-direction: column;
@@ -7,15 +12,11 @@ export const FavoritePageLayout = styled.div`
   padding: 10px 15px;
   gap: 4px;
   width: 100%;
-  height: 100vh;
-  overflow: hidden;
-  margin-bottom: 78px;
 `;
 
 export const FavoriteCount = styled.div`
   width: 100%;
   height: 18px;
-  left: 0px;
   text-align: left;
   margin: 5px;
   font-size: 14px;

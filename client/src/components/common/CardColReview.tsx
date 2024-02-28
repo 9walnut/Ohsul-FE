@@ -195,8 +195,6 @@ const TopBox = styled.div`
   align-items: center;
   padding: 0px;
   gap: 5px;
-
-  /* width: 329px; */
   width: 100%;
   height: 24px;
 `;
@@ -207,7 +205,6 @@ const TitleBox = styled.div`
   align-items: center;
   padding: 0px 5px;
   gap: 3px;
-
   margin: 0 15px;
   width: 161px;
   height: 24px;
@@ -247,7 +244,8 @@ const ContentLayout = styled.div`
   padding: 0px;
   gap: 10px;
 
-  width: 355px;
+  /* width: 355px; */
+  width: 100%;
   height: 120px;
 `;
 
