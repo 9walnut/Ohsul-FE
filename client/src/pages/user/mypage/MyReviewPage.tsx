@@ -5,8 +5,10 @@ import axios from "axios";
 import useAuthStore from "../../../stores/useAuthStore";
 import BarReviewCard from "../../../components/common/BarReviewCard";
 import { CardBarReview } from "../../../types/Common";
+import OnlyMember from "../../../components/common/OnlyMember";
 
 const MyReviewPage = () => {
+  const isLoggedIn = useAuthStore.getState().isLoggedIn;
   const [isReview, setIsReview] = useState(true);
   const [nickName, setNickName] = useState("");
   const [isReviews, setIsReviews] = useState<boolean>(false);
@@ -40,32 +42,40 @@ const MyReviewPage = () => {
   }, []);
   return (
     <>
-      <S.MyReviewPageLayout>
-        <S.ReviewCount>총 {reviewData.length}개의 리뷰</S.ReviewCount>
-        {isReview ? (
-          <>
-            {reviewData.map((review, index) => (
-              <BarReviewCard
-                key={index}
-                barId={review.barId}
-                reviewId={review.reviewId}
-                userNickname={nickName}
-                score={review.avgScore}
-                reviewImg={review.reviewImg}
-                alcoholTags={review.alcoholTags}
-                moodTags={review.moodTags}
-                musicTags={review.musicTags}
-                content={review.content}
-                date={review.date}
-              />
-            ))}
-          </>
-        ) : (
-          <>
-            <S.NoReviewBox>아직 등록된 리뷰가 없어요.</S.NoReviewBox>
-          </>
-        )}
-      </S.MyReviewPageLayout>
+      {isLoggedIn ? (
+        <>
+          <S.MyReviewPageLayout>
+            <S.ReviewCount>총 {reviewData.length}개의 리뷰</S.ReviewCount>
+            {isReview ? (
+              <>
+                {reviewData.map((review, index) => (
+                  <BarReviewCard
+                    key={index}
+                    barId={review.barId}
+                    reviewId={review.reviewId}
+                    userNickname={nickName}
+                    score={review.avgScore}
+                    reviewImg={review.reviewImg}
+                    alcoholTags={review.alcoholTags}
+                    moodTags={review.moodTags}
+                    musicTags={review.musicTags}
+                    content={review.content}
+                    date={review.date}
+                  />
+                ))}
+              </>
+            ) : (
+              <>
+                <S.NoReviewBox>아직 등록된 리뷰가 없어요.</S.NoReviewBox>
+              </>
+            )}
+          </S.MyReviewPageLayout>
+        </>
+      ) : (
+        <>
+          <OnlyMember></OnlyMember>
+        </>
+      )}
     </>
   );
 };
