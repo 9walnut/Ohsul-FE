@@ -70,7 +70,11 @@ const CardRow: React.FC<BarData> = ({ bar }) => {
                 src={process.env.PUBLIC_URL + "assets/images/star.png"}
                 alt="Score"
               />
-              {bar.barAvgScore ? <div>{bar.barAvgScore}</div> : <div>?</div>}
+              {bar.barAvgScore ? (
+                <div>{bar.barAvgScore}</div>
+              ) : (
+                <div>리뷰를 작성해주세요</div>
+              )}
             </ScoreBox>
           </BarWrapper>
         </Link>
@@ -112,9 +116,8 @@ const BarReviewBox = styled.div`
 const ScoreBox = styled.div`
   display: flex;
   align-items: center;
-
   font-family: ${({ theme }) => theme.fonts.ydFont};
-  font-size: 14px;
+  font-size: 12px;
 `;
 
 const TagBox = styled.div``;

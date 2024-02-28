@@ -253,7 +253,6 @@ const CardLayout = styled.div`
   align-items: center;
   padding: 10px 10px;
   gap: 12px;
-
   width: 100%;
   height: 163px;
 
@@ -294,24 +293,22 @@ const TitleBox = styled.div`
 `;
 
 const ImgBox = styled.div`
-  width: 93px;
-  height: 96px;
+  width: 90px;
+  height: 90px;
   overflow: hidden;
   border-radius: 12px;
   margin-bottom: 5px;
   img {
     width: 100%;
     height: 100%;
-    object-fit: cover;
+    /* object-fit: cover; */
   }
 `;
 
 const ScoreBox = styled.div`
   display: flex;
-  flex-direction: row;
   justify-content: flex-end;
   align-items: center;
-  padding: 0px;
   gap: 2px;
   width: 35px;
   height: 15px;
@@ -326,13 +323,11 @@ const ScoreImg = styled.div`
 `;
 
 const ScoreText = styled.div`
-  width: 17px;
-  height: 15px;
+  width: 12px;
   font-family: ${({ theme }) => theme.fonts.ydFont};
   font-style: normal;
   font-weight: 400;
   font-size: 12px;
-  line-height: 14px;
 `;
 
 const RightContent = styled.div`
@@ -366,6 +361,7 @@ const FavoriteImg = styled.div`
 `;
 
 const TagLayout = styled.div`
+  margin-top: 4px;
   width: auto;
   height: 71px;
 `;
@@ -382,7 +378,7 @@ const TagTitle = styled.div`
   color: ${({ theme }) => theme.colors.mainBlue};
   background: ${({ theme }) => theme.colors.bgLightColor};
   border: 1px dashed ${({ theme }) => theme.colors.mainBlue};
-  width: 46px;
+  width: 40px;
   ${TagBasic}
 `;
 

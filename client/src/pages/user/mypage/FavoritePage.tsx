@@ -68,15 +68,14 @@ const FavoritePage = () => {
     }
   };
 
-  const emptyFun = () => {
-    console.log("ㅎ");
-  };
-
   return (
     <>
       {isLoggedIn ? (
         <>
           <S.FavoritePageLayout>
+            <S.FavoriteCount>
+              총 {favoriteData.length}개의 찜 목록
+            </S.FavoriteCount>
             {isFavoritePlace ? (
               <>
                 {favoriteData.map((content, index) => (

@@ -8,13 +8,8 @@ export const MyInfoBox = styled.div`
   align-items: center;
   padding: 10px 15px;
   gap: 4px;
-
-  position: absolute;
-
-  width: 382px;
+  width: 100%;
   height: 125px;
-
-  top: 100px;
 `;
 
 export const MsgBox = styled.div`
@@ -22,26 +17,26 @@ export const MsgBox = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-
-  width: 351px;
+  width: 100%;
   height: 60px;
 `;
+
 export const Msg1 = styled.div`
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
   align-items: center;
-
-  width: 351px;
+  width: 100%;
   height: 25px;
 
-  font-family: "Yeongdeok Sea";
+  font-family: ${({ theme }) => theme.fonts.ydFont};
   font-style: normal;
   font-weight: 400;
   font-size: 14px;
   line-height: 24px;
   text-align: center;
 `;
+
 export const Msg2 = styled(Msg1)`
   font-size: 17px;
   color: #4d607b;
@@ -55,7 +50,7 @@ export const UserBox = styled.div`
   padding: 0px;
   gap: 18px;
 
-  width: 149px;
+  width: 50%;
   height: 24px;
 `;
 

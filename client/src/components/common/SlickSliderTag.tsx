@@ -29,7 +29,6 @@ const SlickSliderTag: React.FC<BarData> = ({ bars }) => {
     slidesToShow: 2.5,
     slidesToScroll: 2.5,
   };
-  console.log(bars);
 
   return (
     <div className="slider-container">

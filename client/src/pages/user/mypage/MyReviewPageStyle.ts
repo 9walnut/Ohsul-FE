@@ -7,11 +7,9 @@ export const MyReviewPageLayout = styled.div`
   padding: 10px 15px;
   gap: 4px;
 
-  position: absolute;
+  /* position: absolute; */
 
   width: 100%;
-  height: 300px;
-
   top: 35%;
 
   //background-color: bisque;
