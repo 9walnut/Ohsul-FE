@@ -7,9 +7,11 @@ import CommonModal from "../../../components/common/CommonModal";
 import { useNavigate } from "react-router";
 import CardColTag from "../../../components/common/CardColTag";
 import { FavoriteBar } from "../../../types/Common";
+import OnlyMember from "../../../components/common/OnlyMember";
 
 const FavoritePage = () => {
   const navigate = useNavigate();
+  const isLoggedIn = useAuthStore.getState().isLoggedIn;
   const [modalOpen, setModalOpen] = useState(false);
   const [isFavoritePlace, setIsFavoritePlace] = useState<boolean>(false);
   const [favoriteData, setFavoriteData] = useState<FavoriteBar[]>([]);
@@ -40,45 +42,80 @@ const FavoritePage = () => {
     FetchData();
   }, []);
 
+  useEffect(() => {
+    console.log("데이터바낌");
+  }, [favoriteData]);
+
   const handleNavigate = () => {
     navigate("/nearAlcohol");
   };
 
+  const reloadFavorites = async () => {
+    try {
+      const res = await axios.get("/api/mypage/favorite");
+      if (res.status == 200) {
+        const favoriteList = res.data.favorites;
+        if (favoriteList.length !== 0) {
+          setIsFavoritePlace(true);
+          setFavoriteData(favoriteList);
+        } else {
+          setModalOpen(true);
+          setIsFavoritePlace(false);
+        }
+      }
+    } catch (error) {
+      console.error("Error reloading favorites: ", error);
+    }
+  };
+
+  const emptyFun = () => {
+    console.log("ㅎ");
+  };
+
   return (
     <>
-      <S.FavoritePageLayout>
-        {isFavoritePlace ? (
-          <>
-            {favoriteData.map((content, index) => (
-              <CardColTag
-                key={index}
-                barId={content.barId}
-                barName={content.barName}
-                score={content.avgScore}
-                barImg={content.barImg}
-                alcoholTags={content.alcoholTags}
-                moodTags={content.moodTags}
-                musicTags={content.musicTags}
-              />
-            ))}
-          </>
-        ) : (
-          <>
-            {modalOpen && (
-              <CommonModal
-                message={
-                  <>
-                    아직 즐겨찾기 한 장소가 없어요. <br /> 내 근처 술집 둘러보러
-                    가기 😀
-                  </>
-                }
-                isClose={false}
-                onConfirm={handleNavigate}
-              />
+      {isLoggedIn ? (
+        <>
+          <S.FavoritePageLayout>
+            {isFavoritePlace ? (
+              <>
+                {favoriteData.map((content, index) => (
+                  <CardColTag
+                    key={index}
+                    barId={content.barId}
+                    barName={content.barName}
+                    score={content.avgScore}
+                    barImg={content.barImg}
+                    alcoholTags={content.alcoholTags}
+                    moodTags={content.moodTags}
+                    musicTags={content.musicTags}
+                    onFavoriteChange={reloadFavorites}
+                  />
+                ))}
+              </>
+            ) : (
+              <>
+                {modalOpen && (
+                  <CommonModal
+                    message={
+                      <>
+                        아직 즐겨찾기 한 장소가 없어요. <br /> 내 근처 술집
+                        둘러보러 가기 😀
+                      </>
+                    }
+                    isClose={false}
+                    onConfirm={handleNavigate}
+                  />
+                )}
+              </>
             )}
-          </>
-        )}
-      </S.FavoritePageLayout>
+          </S.FavoritePageLayout>
+        </>
+      ) : (
+        <>
+          <OnlyMember></OnlyMember>
+        </>
+      )}
     </>
   );
 };

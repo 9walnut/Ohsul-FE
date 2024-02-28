@@ -75,4 +75,5 @@ export type FavoriteBar = {
   moodTags?: number[];
   musicTags?: number[];
   barAvgScore?: number;
+  onFavoriteChange?: () => void;
 };
