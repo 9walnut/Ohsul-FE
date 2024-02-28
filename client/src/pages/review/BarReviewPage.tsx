@@ -29,6 +29,7 @@ const BarReviewPage = () => {
       const res = await axios.get(`/api/ohsul/${barId}/review`);
       console.log("getReview res", res);
       console.log("barInfo", barInfo);
+      console.log("res.datadatadatadata", res.data);
       setReviewData(res.data);
       console.log(reviewData, "리뷰데타");
     } catch (error) {
@@ -55,7 +56,10 @@ const BarReviewPage = () => {
               key={index}
               barId={review.barId}
               reviewId={review.reviewId}
-              userNickname={review.userNickname}
+              alcoholTags={review.alcoholTags}
+              moodTags={review.moodTags}
+              musicTags={review.musicTags}
+              nickname={review.nickname}
               score={review.score}
               reviewImg={review.reviewImg}
               tag={review.tag}
@@ -65,7 +69,7 @@ const BarReviewPage = () => {
           ))}
         </>
       ) : (
-        <S.NoReviewBox>아직 등록된 리뷰가 없어요.</S.NoReviewBox>
+        <S.NoReviewBox>아직 등록된 리뷰가 없어요 🥹</S.NoReviewBox>
       )}
 
       <Button onClick={handleAddReview}>리뷰 작성 하기</Button>

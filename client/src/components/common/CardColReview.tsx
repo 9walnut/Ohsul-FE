@@ -1,7 +1,6 @@
 import React from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
-
 import { CardReview } from "../../types/Common";
 
 const CardColReview: React.FC<CardReview> = ({
@@ -61,14 +60,13 @@ const CardColReview: React.FC<CardReview> = ({
               </ScoreBox>
             </LeftContent>
           </Link>
-
           <RightContent>
             <ContentWrapper>
               <ReviewBox>{content}</ReviewBox>
               <Button>
                 <Link
                   to={`/ohsul/bar/${barId}`}
-                  style={{ textDecoration: "none", color: "black" }}
+                  style={{ textDecoration: "none", color: "white" }}
                 >
                   GO
                 </Link>
@@ -99,7 +97,6 @@ const CardLayout = styled.div`
   padding: 10px 15px;
   gap: 5px;
 
-  /* width: 382px; */
   width: 100%;
   height: 163px;
 
@@ -256,7 +253,7 @@ const ReviewBox = styled.div`
   top: 22.5px;
 
   text-align: left;
-  font-size: 10px;
+  font-size: 12px;
   line-height: 12px;
   letter-spacing: 0.0125em;
   color: ${({ theme }) => theme.colors.mainBlue};

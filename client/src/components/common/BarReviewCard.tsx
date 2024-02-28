@@ -10,7 +10,7 @@ import {
 } from "../../hooks/tagsChange";
 
 const BarReviewCard: React.FC<CardBarReview> = ({
-  userNickname,
+  nickname,
   score,
   reviewImg,
   tag,
@@ -74,21 +74,13 @@ const BarReviewCard: React.FC<CardBarReview> = ({
         <ContentBox1>
           <UserBox>
             <UserImg>
-              <img
-                src={
-                  process.env.PUBLIC_URL + "assets/images/common_userIcon.png"
-                }
-                alt="UserImg"
-              />
+              <img src="/assets/images/common_userIcon.png" alt="UserImg" />
             </UserImg>
-            <UserNickname>{userNickname}</UserNickname>
+            <UserNickname>{nickname}</UserNickname>
           </UserBox>
           <ScoreBox>
             <ScoreImg>
-              <img
-                src={process.env.PUBLIC_URL + "assets/images/common_star.png"}
-                alt="Score"
-              />
+              <img src="/assets/images/common_star.png" alt="Score" />
             </ScoreImg>
             <ScoreText>{score}</ScoreText>
           </ScoreBox>
@@ -101,7 +93,7 @@ const BarReviewCard: React.FC<CardBarReview> = ({
                 reviewImg
                   ? process.env.PUBLIC_URL + reviewImg
                   : process.env.PUBLIC_URL +
-                    "assets/images/common_alternateImage.png"
+                    "/assets/images/common_alternateImage.png"
               }
               alt="리뷰이미지"
             />
@@ -164,10 +156,7 @@ const BarReviewCard: React.FC<CardBarReview> = ({
                 reviewPatch();
               }}
             >
-              <img
-                src={process.env.PUBLIC_URL + "assets/images/common_edit.png"}
-                alt="리뷰 수정하기"
-              />
+              <img src="/assets/images/common_edit.png" alt="리뷰 수정하기" />
             </EditBtn>
             <DelBtn
               onClick={() => {
@@ -175,10 +164,7 @@ const BarReviewCard: React.FC<CardBarReview> = ({
                 reviewDelete();
               }}
             >
-              <img
-                src={process.env.PUBLIC_URL + "assets/images/common_del.png"}
-                alt="리뷰 삭제하기"
-              />
+              <img src="/assets/images/common_del.png" alt="리뷰 삭제하기" />
             </DelBtn>
           </BtnBox>
         </ContentBox4>
@@ -197,16 +183,13 @@ const CardLayout = styled.div`
   padding: 10px 15px;
   gap: 3px;
 
-  /* width: 382px; */
   width: 100%;
   height: 201px;
-  /* height: auto; */
 
   background: ${({ theme }) => theme.colors.bgLightColor};
   border: 1px solid #4d607b;
   box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.02);
   border-radius: 14px;
-
   margin: 5px 0 5px 0;
 `;
 
@@ -245,16 +228,15 @@ const UserImg = styled.div`
 const UserNickname = styled.div`
   font-family: ${({ theme }) => theme.fonts.ydFont};
   font-style: normal;
-  font-size: 13px;
+  font-size: 14px;
 `;
+
 const ScoreBox = styled.div`
   display: flex;
-  flex-direction: row;
-  justify-content: flex-end;
+  justify-content: center;
   align-items: center;
   padding: 0px;
   gap: 2px;
-
   width: 35px;
   height: 15px;
 `;
@@ -270,12 +252,10 @@ const ScoreImg = styled.div`
 const ScoreText = styled.div`
   width: 17px;
   height: 15px;
-
   font-family: ${({ theme }) => theme.fonts.ydFont};
   font-style: normal;
   font-weight: 400;
-  font-size: 11px;
-  line-height: 14px;
+  font-size: 12px;
 `;
 
 const ContentBox2 = styled.div`
@@ -307,15 +287,17 @@ const TagLayout = styled.div`
   width: auto;
   height: 71px;
 `;
+
 const TagBasic = `
 height: 20px;
-font-size: 12px;
+font-size: 11px;
 border-radius: 5px;
 display: flex;
 justify-content: center;
 align-items: center;
 margin: 2px 1px;
 `;
+
 const TagTitle = styled.div`
   color: ${({ theme }) => theme.colors.mainBlue};
   background: ${({ theme }) => theme.colors.bgLightColor};
@@ -346,23 +328,20 @@ const ContentBox3 = styled.div`
   align-items: flex-start;
   padding: 5px 7px;
   gap: 10px;
-
   /* width: 348px; */
   width: 100%;
   height: 35px;
 `;
 
 const ReviewBox = styled.div`
-  width: 341px;
+  width: 100%;
   height: 24px;
   /* left: 6px;
   top: 22.5px; */
-  position: absolute;
-  font-size: 10px;
+  /* position: absolute; */
   line-height: 12px;
-
   text-align: left;
-  font-size: 10px;
+  font-size: 12px;
   line-height: 14px;
   letter-spacing: 0.0125em;
   color: ${({ theme }) => theme.colors.mainBlue};

@@ -11,7 +11,6 @@ const MyReviewPage = () => {
   const isLoggedIn = useAuthStore.getState().isLoggedIn;
   const [isReview, setIsReview] = useState(true);
   const [nickName, setNickName] = useState("");
-  const [isReviews, setIsReviews] = useState<boolean>(false);
   const [reviewData, setReviewData] = useState<CardBarReview[]>([]);
 
   useEffect(() => {
