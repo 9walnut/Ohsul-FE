@@ -57,6 +57,7 @@ const FavoritePage = () => {
           setIsFavoritePlace(true);
           setFavoriteData(favoriteList);
         } else {
+          setModalOpen(true);
           setIsFavoritePlace(false);
         }
       }
