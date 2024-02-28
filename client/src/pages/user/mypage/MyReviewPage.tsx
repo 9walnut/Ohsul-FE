@@ -14,6 +14,7 @@ const MyReviewPage = () => {
   const [reviewData, setReviewData] = useState<CardBarReview[]>([]);
 
   useEffect(() => {
+    const { userNickname } = useAuthStore.getState();
     const { userId } = useAuthStore.getState();
     const FetchData = async () => {
       try {

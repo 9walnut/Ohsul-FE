@@ -8,6 +8,7 @@ import {
   useMoodTags,
   useMusicTags,
 } from "../../hooks/tagsChange";
+import useAuthStore from "../../stores/useAuthStore";
 
 const BarReviewCard: React.FC<CardBarReview> = ({
   nickname,
@@ -22,6 +23,9 @@ const BarReviewCard: React.FC<CardBarReview> = ({
   moodTags,
   musicTags,
 }) => {
+  const { userNickname } = useAuthStore.getState();
+  const { userId } = useAuthStore.getState();
+  console.log(userNickname);
   const navigate = useNavigate();
   const getAlcoholTagName = useAlcoholTags();
   const getMusicTagName = useMusicTags();
@@ -52,19 +56,22 @@ const BarReviewCard: React.FC<CardBarReview> = ({
   };
 
   const reviewDelete = async () => {
+    console.log(barId);
+    console.log(reviewId);
     try {
-      // 삭제 요청
-      const res = await axios.delete(`/api/ohsul/${barId}/review/${reviewId}`);
+      const res = await axios.delete(`/api/ohsul/${barId}/review/${reviewId}`, {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
       console.log("review delete res", res);
-      if (res.status == 200) {
-        // 응답 성공 시
+      if (res.status === 200) {
         console.log("삭제 성공");
       } else {
-        // 비밀번호 들어오나 ?
-        console.log("비밀번호 에러");
+        console.log("삭제 실패:", res.data);
       }
     } catch (error) {
-      console.log("review delete err", error);
+      console.error("리뷰 삭제 중 에러:", error);
     }
   };
 
@@ -151,24 +158,26 @@ const BarReviewCard: React.FC<CardBarReview> = ({
 
         <ContentBox4>
           <DateBox>{date}</DateBox>
-          <BtnBox>
-            <EditBtn
-              onClick={() => {
-                console.log("리뷰 수정 클릭");
-                reviewPatch();
-              }}
-            >
-              <img src="/assets/images/common_edit.png" alt="리뷰 수정하기" />
-            </EditBtn>
-            <DelBtn
-              onClick={() => {
-                console.log("리뷰 삭제 클릭");
-                reviewDelete();
-              }}
-            >
-              <img src="/assets/images/common_del.png" alt="리뷰 삭제하기" />
-            </DelBtn>
-          </BtnBox>
+          {userNickname === nickname && (
+            <BtnBox>
+              <EditBtn
+                onClick={() => {
+                  console.log("리뷰 수정 클릭");
+                  reviewPatch();
+                }}
+              >
+                <img src="/assets/images/common_edit.png" alt="리뷰 수정하기" />
+              </EditBtn>
+              <DelBtn
+                onClick={() => {
+                  console.log("리뷰 삭제 클릭");
+                  reviewDelete();
+                }}
+              >
+                <img src="/assets/images/common_del.png" alt="리뷰 삭제하기" />
+              </DelBtn>
+            </BtnBox>
+          )}
         </ContentBox4>
       </CardLayout>
     </>
