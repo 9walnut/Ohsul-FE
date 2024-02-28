@@ -57,7 +57,7 @@ const CardColReview: React.FC<CardReview> = ({
                     alt="Score"
                   />
                 </ScoreImg>
-                <ScoreText>99{score}</ScoreText>
+                <ScoreText>{score}</ScoreText>
               </ScoreBox>
             </LeftContent>
           </Link>

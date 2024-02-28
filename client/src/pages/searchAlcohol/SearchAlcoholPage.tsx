@@ -15,13 +15,6 @@ interface BarDataTypes {
   content?: string;
 }
 
-interface BarInfoType extends BarDataTypes {
-  alcoholTags: number[];
-  moodTags: number[];
-  musicTags: number[];
-  barId: number;
-}
-
 const DUMMYPlace = [
   {
     barId: 2,
@@ -57,6 +50,14 @@ const DUMMYPlace = [
     musicTags: [2],
   },
 ];
+
+interface BarInfoType extends BarDataTypes {
+  alcoholTags: number[];
+  moodTags: number[];
+  musicTags: number[];
+  barId: number;
+}
+
 const SearchAlcoholPage: React.FC = () => {
   const [searchResults, setSearchResults] = useState<SearchResult[]>([]);
 

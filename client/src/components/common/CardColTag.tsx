@@ -10,6 +10,7 @@ import {
   useMoodTags,
   useMusicTags,
 } from "../../hooks/tagsChange";
+import { FadeLoader } from "react-spinners";
 
 const CardColTag: React.FC<FavoriteBar> = ({
   barName,
@@ -21,11 +22,6 @@ const CardColTag: React.FC<FavoriteBar> = ({
   barId,
   barPhone,
 }) => {
-  // const tagData = { alcoholTags, moodTags, musicTags };
-  // console.log(tagData, "태그데타");
-  // const drink: number[] = tagData.alcoholTags;
-  // const mood: number[] = tagData.moodTags;
-  // const music: number[] = tagData.musicTags;
   const getAlcoholTagName = useAlcoholTags();
   const getMusicTagName = useMusicTags();
   const getMoodTagName = useMoodTags();
@@ -131,15 +127,13 @@ const CardColTag: React.FC<FavoriteBar> = ({
             style={{ textDecoration: "none", color: "black" }}
           >
             <TitleBox>{barName}</TitleBox>
-
             <ImgBox>
               <img
                 src={
                   imageError
-                    ? process.env.PUBLIC_URL +
-                      "assets/images/common_alternateImage.png"
+                    ? "/assets/images/common_alternateImage.png"
                     : barImg
-                    ? process.env.PUBLIC_URL + barImg
+                    ? barImg
                     : ""
                 }
                 alt={barName}

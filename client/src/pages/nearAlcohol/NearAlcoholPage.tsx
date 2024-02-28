@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import axios from "axios";
 import { SearchResult } from "../../types/Map";
-import { Card, getBarInfo } from "../../types/Common";
+import { Card, FavoriteBar, getBarInfo } from "../../types/Common";
 
 import Header from "../../components/common/Header";
 import CardColTag from "../../components/common/CardColTag";
@@ -22,7 +22,7 @@ const NearAlcoholPage: React.FC = () => {
   const [viewMap, setViewMap] = useState(true);
   const [searchResults, setSearchResults] = useState<SearchResult[]>([]);
 
-  const [barInfo, setBarInfo] = useState([]);
+  const [barInfo, setBarInfo] = useState<FavoriteBar[]>([]);
 
   //view mode - 지도 보기 , 리스트 보기
   const handleViewChange = (newViewMap: boolean) => {
@@ -55,7 +55,7 @@ const NearAlcoholPage: React.FC = () => {
         console.log("알코올 응답", res);
         console.log("알콜 응답 데이터 ~!!~!", res.data);
         setBarInfo(res.data);
-        console.log("barData: ", barData);
+        console.log(barInfo, "barInfo");
       }
     } catch (error) {
       console.log("알콜 응답 에러", error);
@@ -83,12 +83,13 @@ const NearAlcoholPage: React.FC = () => {
             barInfo.map((result, index) => (
               <CardColTag
                 key={index}
-                // @ts-ignore
+                barImg={result.barImg}
+                alcoholTags={result.alcoholTags}
+                moodTags={result.alcoholTags}
+                musicTags={result.musicTags}
                 barName={result.barName}
-                // @ts-ignore
-                barPhone={result.telephone}
-                // @ts-ignore
                 barId={result.barId}
+                score={result.barAvgScore}
               />
             ))}
         </>

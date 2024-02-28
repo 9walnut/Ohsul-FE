@@ -42,7 +42,7 @@ const router = createBrowserRouter([
   },
   {
     // 내 주변의 술
-    path: "/nearAlcohol",
+    path: "/near",
     element: <App />,
     children: [
       {
