@@ -3,6 +3,7 @@ import styled from "styled-components";
 import axios from "axios";
 import { SearchResult } from "../../types/Map";
 import { Card, FavoriteBar, getBarInfo } from "../../types/Common";
+import * as S from "./NearAlcoholPageStyle";
 
 import Header from "../../components/common/Header";
 import CardColTag from "../../components/common/CardColTag";
@@ -80,19 +81,29 @@ const NearAlcoholPage: React.FC = () => {
           </>
         ) : (
           <>
-            {barInfo &&
-              barInfo.map((result, index) => (
-                <CardColTag
-                  key={index}
-                  barImg={result.barImg}
-                  alcoholTags={result.alcoholTags}
-                  moodTags={result.alcoholTags}
-                  musicTags={result.musicTags}
-                  barName={result.barName}
-                  barId={result.barId}
-                  score={result.barAvgScore}
-                />
-              ))}
+            {barInfo.length === 0 ? (
+              <S.NoFavoritePlaceBox>
+                <S.MessageBox>
+                  {" "}
+                  주변에 술집 정보가 없어요 🥲 <br /> 위치를 다시 조정해주세요.
+                </S.MessageBox>
+              </S.NoFavoritePlaceBox>
+            ) : (
+              <>
+                {barInfo.map((result, index) => (
+                  <CardColTag
+                    key={index}
+                    barImg={result.barImg}
+                    alcoholTags={result.alcoholTags}
+                    moodTags={result.alcoholTags}
+                    musicTags={result.musicTags}
+                    barName={result.barName}
+                    barId={result.barId}
+                    score={result.barAvgScore}
+                  />
+                ))}
+              </>
+            )}
           </>
         )}
         <Toggle2 viewMap={viewMap} onViewChange={handleViewChange} />
