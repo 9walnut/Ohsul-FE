@@ -5,6 +5,7 @@ import KakaoMap07 from "../../components/common/KakaoMap07";
 import TagBox from "../../components/ohsulTag/TagBox";
 import { SearchResult } from "../../types/Map";
 import CardColReview from "../../components/common/CardColReview";
+import { TagsState, SetTagsFunction } from "../../types/OhsulTag";
 import axios from "axios";
 
 interface BarDataTypes {
@@ -16,6 +17,13 @@ interface BarDataTypes {
 const SearchAlcoholPage: React.FC = () => {
   const [searchResults, setSearchResults] = useState<SearchResult[]>([]);
   const [barInfo, setBarInfo] = useState([]);
+
+  // 태그박스 사용 시 필요 state
+  const [tags, setTags]: [TagsState, SetTagsFunction] = useState<TagsState>({
+    alcoholTags: [1],
+    musicTags: [1],
+    moodTags: [1],
+  });
 
   // 이 지역 재검색 클릭 시
   useEffect(() => {
@@ -65,20 +73,12 @@ const SearchAlcoholPage: React.FC = () => {
   };
 
   //오술태그 선택된 값 넣기
-  const DUMMYTags = {
-    alcoholTags: [],
-    musicTags: [],
-    moodTags: [],
-    toilet: [],
-    parkingArea: [],
-    snack: [],
-  };
 
   return (
     <>
       <Header title="오늘의 술 찾기" />
       <KakaoMap07 onSearchResults={handleSearchResults} />
-      <TagBox checkedTags={DUMMYTags} />
+      <TagBox tags={tags} setTags={setTags} />
       {/* dot Img */}
       <img src="/assets/images/border_dot.png" alt="border_dot" />
       {barInfo.map((result, index) => (

@@ -135,8 +135,8 @@ const router = createBrowserRouter([
         element: <BarAddReviewPage />,
       },
       {
-        // 가게 리뷰 수정
-        path: "editReview",
+        // 가게 리뷰 수정 페이지
+        path: "editReview/:reviewId",
         element: <BarEditReviewPage />,
       },
     ],

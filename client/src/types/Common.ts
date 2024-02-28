@@ -7,7 +7,7 @@ export type MainTitle = {
 };
 
 export type Tag = {
-  [key: string]: string[];
+  [key: string]: number[];
 };
 
 //공통 카드 컴포넌트
@@ -30,10 +30,12 @@ export type CardReview = Omit<Card, "tag">;
 export type CardBarReview = {
   userNickname: string;
   score: number;
-  barImg?: string;
+  reviewImg?: string;
   tag?: Tag;
   content?: string;
   date: string;
+  barId: number;
+  reviewId: number;
 };
 
 export type Modal = {

@@ -8,27 +8,22 @@ import TagBox from "../../components/ohsulTag/TagBox";
 import axios from "axios";
 import { useParams } from "react-router";
 import { Tag } from "../../types/Common";
+import { TagsState, SetTagsFunction } from "../../types/OhsulTag";
+import useAuthStore from "../../stores/useAuthStore";
 
 const BarAddReviewPage: React.FC = () => {
   const selectImg = useRef<HTMLInputElement>(null);
   // const { barId } = useParams();
   const barId = 2;
-  const [nickName, setNickName] = useState("");
+  const { userNickname } = useAuthStore.getState();
+  const [nickName, setNickName] = useState(userNickname);
   const [reviewPw, setReviewPw] = useState("");
   const [isLogin, setIsLogin] = useState(true);
   const [score, setScore] = useState(1);
   const [content, setContent] = useState("");
   const [reviewImg, setReviewImg] = useState(null);
 
-  const [tags, setTags] = useState<Tag>({
-    alcohol: [],
-    music: [],
-    mood: [],
-    etc: [],
-    snack: [],
-  });
-
-  const [tags2, setTags2] = useState({
+  const [tags, setTags]: [TagsState, SetTagsFunction] = useState<TagsState>({
     alcoholTags: [1],
     musicTags: [1],
     moodTags: [1],
@@ -44,7 +39,6 @@ const BarAddReviewPage: React.FC = () => {
 
   const postReview = async () => {
     const formData = new FormData();
-
     // 이미지 파일이 선택되었을 경우, formData에 추가
     if (reviewImg) {
       formData.append("reviewImg", reviewImg);
@@ -55,8 +49,7 @@ const BarAddReviewPage: React.FC = () => {
       reviewPw: reviewPw,
       score: score,
       content: content,
-      userId: "qwer1234",
-      ...tags2,
+      ...tags,
     });
 
     formData.append(
@@ -92,10 +85,11 @@ const BarAddReviewPage: React.FC = () => {
             <S.ExplainInput>닉네임</S.ExplainInput>
             <S.StyledInput
               type="text"
-              onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-                setNickName(e.target.value);
-              }}
+              // @ts-ignore
+              value={userNickname}
               placeholder="리뷰 작성 시 사용할 닉네임을 입력해주세요."
+              readOnly={true}
+              style={{ outline: "none", backgroundColor: "#ddd" }}
             />
           </S.InputBox>
           <S.InputBox>
@@ -104,7 +98,6 @@ const BarAddReviewPage: React.FC = () => {
               type="password"
               onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
                 setReviewPw(e.target.value);
-                console.log(reviewPw);
               }}
               placeholder="리뷰 수정, 삭제 시 비밀번호가 일치해야합니다."
             />
@@ -115,7 +108,7 @@ const BarAddReviewPage: React.FC = () => {
       <S.ExplainBox>
         태그는 각 최소 1개씩 필수입니다 ! (각 최대 3개)
       </S.ExplainBox>
-      {/* <TagBox checkedTags={tags} isReview={true} /> */}
+      {/* <TagBox checkedTags={tags} /> */}
       <S.ExplainBox>별점은 필수 선택입니다 !</S.ExplainBox>
       <StarRating ratingIndex={score} setRatingIndex={setScore} />
 
@@ -142,9 +135,11 @@ const BarAddReviewPage: React.FC = () => {
       </S.ImgUploadWrapper>
       <S.ContentWrapper>
         <S.ContentBox
+          type="textarea"
           onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
             setContent(e.target.value)
           }
+          placeholder="85자 이내 작성"
         />
       </S.ContentWrapper>
       <S.Button onClick={postReview}>리뷰 작성하기</S.Button>

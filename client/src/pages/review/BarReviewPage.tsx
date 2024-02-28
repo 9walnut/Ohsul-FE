@@ -6,12 +6,16 @@ import { useParams } from "react-router";
 import { useLocation, useNavigate } from "react-router-dom";
 import CardColTag from "../../components/common/CardColTag";
 import { Button } from "./BarPageStyle";
+import BarReviewCard from "../../components/common/BarReviewCard";
+import { CardBarReview } from "../../types/Common";
+import * as S from "./BarPageStyle";
 
 const BarReviewPage = () => {
   const { barId } = useParams();
   const location = useLocation();
   const navigate = useNavigate();
   const { barInfo } = location.state;
+  const [reviewData, setReviewData] = useState<CardBarReview[]>([]);
 
   // const {review, setReview} = useState({});
 
@@ -25,6 +29,8 @@ const BarReviewPage = () => {
       const res = await axios.get(`/api/ohsul/${barId}/review`);
       console.log("getReview res", res);
       console.log("barInfo", barInfo);
+      setReviewData(res.data);
+      console.log(reviewData, "리뷰데타");
     } catch (error) {
       console.log("getReview err", error);
     }
@@ -42,7 +48,25 @@ const BarReviewPage = () => {
         <BarRating>3.5</BarRating>
       </BarTitleWrapper>
 
-      {/* <CardColTag /> */}
+      {reviewData ? (
+        <>
+          {reviewData.map((review, index) => (
+            <BarReviewCard
+              key={index}
+              barId={review.barId}
+              reviewId={review.reviewId}
+              userNickname={review.userNickname}
+              score={review.score}
+              reviewImg={review.reviewImg}
+              tag={review.tag}
+              content={review.content}
+              date={review.date}
+            />
+          ))}
+        </>
+      ) : (
+        <S.NoReviewBox>아직 등록된 리뷰가 없어요.</S.NoReviewBox>
+      )}
 
       <Button onClick={handleAddReview}>리뷰 작성 하기</Button>
     </>

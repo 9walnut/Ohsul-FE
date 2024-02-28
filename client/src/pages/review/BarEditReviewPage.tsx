@@ -6,6 +6,8 @@ import StarRating from "../../components/common/StarRating";
 import BackButton from "../../components/common/BackButton";
 import TagBox from "../../components/ohsulTag/TagBox";
 import axios from "axios";
+import { useParams } from "react-router-dom";
+import useAuthStore from "../../stores/useAuthStore";
 
 const DUMMYTags = {
   alcohol: ["alcohol_1", "alcohol_2", "alcohol_5"],
@@ -15,27 +17,36 @@ const DUMMYTags = {
   snack: ["snack_2"],
 };
 
+interface ReviewDataTypes {
+  reviewImg?: string | undefined;
+  content?: string;
+}
+
 const BarEditReviewPage = () => {
   const selectImg = useRef<HTMLInputElement>(null);
-  const [nickName, setNickName] = useState("");
+  const { userNickname } = useAuthStore.getState();
   const [reviewPw, setReviewPw] = useState("");
   const [isLogin, setIsLogin] = useState(true);
   const [score, setScore] = useState(1);
   const [content, setContent] = useState("");
   const [reviewImg, setReviewImg] = useState(null);
+  const [reviewData, setReviewData] = useState<ReviewDataTypes>({});
+
+  const [tags2, setTags2] = useState({
+    alcoholTags: [1],
+    musicTags: [1],
+    moodTags: [1],
+  });
+
+  const { barId, reviewId } = useParams();
 
   const onChangeImg = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files.length > 0) {
       const img = e.target.files[0];
       //@ts-ignore
       setReviewImg(img);
-      const formData = new FormData();
-      formData.append("file", img);
-      console.log("사진들어왓기약아악", formData);
     }
   };
-  const barId = 4;
-  const reviewId = 4;
 
   useEffect(() => {
     getReview();
@@ -44,7 +55,8 @@ const BarEditReviewPage = () => {
   const getReview = async () => {
     try {
       const res = await axios.get(`/api/ohsul/${barId}/review/${reviewId}`);
-      console.log("getReview res", res);
+      console.log("getReview res", res.data);
+      setReviewData(res.data);
     } catch (error) {
       console.log("getReview err", error);
     }
@@ -55,19 +67,25 @@ const BarEditReviewPage = () => {
     if (reviewImg) {
       formData.append("reviewImg", reviewImg);
     }
-    formData.append("content", content);
-    formData.append("score", score.toString());
-    formData.append("reviewPw", reviewPw);
-    formData.append("nickname", nickName);
-    formData.append("alcoholTags", JSON.stringify(DUMMYTags.alcohol));
-    formData.append("musicTags", JSON.stringify(DUMMYTags.music));
-    formData.append("moodTags", JSON.stringify(DUMMYTags.mood));
+
+    const reviewData = JSON.stringify({
+      nickname: userNickname,
+      reviewPw: reviewPw,
+      score: score,
+      content: content,
+      userId: "qwer1234",
+      ...tags2,
+    });
+
+    formData.append(
+      "barReviewDTO",
+      new Blob([reviewData], { type: "application/json" })
+    );
     try {
-      const res = await axios.patch(`/api/ohsul/${barId}/review`, formData, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
-      });
+      const res = await axios.patch(
+        `/api/ohsul/${barId}/review/${reviewId}`,
+        formData
+      );
       if (res.status == 200) {
         console.log("수정 완료 ~");
       }
@@ -80,20 +98,22 @@ const BarEditReviewPage = () => {
     <>
       <Header title="리뷰 수정" />
       <BackButton />
-      {!isLogin && (
+      {isLogin && (
         <S.InputBoxWrapper>
           <S.InputBox>
             <S.ExplainInput>닉네임</S.ExplainInput>
             <S.StyledInput
-              onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-                setNickName(e.target.value);
-              }}
+              // @ts-ignore
+              value={userNickname}
               placeholder="리뷰 작성 시 사용할 닉네임을 입력해주세요."
+              readOnly={true}
+              style={{ outline: "none", backgroundColor: "#ddd" }}
             />
           </S.InputBox>
           <S.InputBox>
             <S.ExplainInput>비밀번호</S.ExplainInput>
             <S.StyledInput
+              type="password"
               onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
                 setReviewPw(e.target.value);
               }}
@@ -108,12 +128,13 @@ const BarEditReviewPage = () => {
       </S.ExplainBox>
       {/* <TagBox checkedTags={DUMMYTags} disabled={true} /> */}
       <S.ExplainBox>별점은 필수 선택입니다 !</S.ExplainBox>
-      <StarRating ratingIndex={score} setRatingIndex={setScore} />
+      {/* @ts-ignore */}
+      <StarRating ratingIndex={reviewData.score} setRatingIndex={setScore} />
 
       <S.ImgUploadWrapper>
         <S.ImgBox>
-          {reviewImg ? (
-            <img src={reviewImg} />
+          {reviewData.reviewImg ? (
+            <img src={reviewData.reviewImg} />
           ) : (
             <img src="/assets/images/common_AlternateImage.png" />
           )}
@@ -122,6 +143,7 @@ const BarEditReviewPage = () => {
         <input
           type="file"
           onChange={onChangeImg}
+          accept=".png, .jpeg, .jpg"
           ref={selectImg}
           style={{ display: "none" }}
         />
@@ -132,6 +154,7 @@ const BarEditReviewPage = () => {
       </S.ImgUploadWrapper>
       <S.ContentWrapper>
         <S.ContentBox
+          value={reviewData.content}
           onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
             setContent(e.target.value)
           }

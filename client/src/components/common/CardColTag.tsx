@@ -15,9 +15,9 @@ const CardColTag: React.FC<FavoriteBar> = ({
   barPhone,
 }) => {
   const tagData = tag || { drink: [], mood: [], music: [] };
-  const drink: string[] = tagData.drink;
-  const mood: string[] = tagData.mood;
-  const music: string[] = tagData.music;
+  const drink: number[] = tagData.drink;
+  const mood: number[] = tagData.mood;
+  const music: number[] = tagData.music;
 
   const { userNumber } = useAuthStore.getState();
 

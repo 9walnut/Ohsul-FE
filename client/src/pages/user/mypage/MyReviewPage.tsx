@@ -8,6 +8,7 @@ import { CardBarReview } from "../../../types/Common";
 
 const MyReviewPage = () => {
   const [isReview, setIsReview] = useState(true);
+  const [nickName, setNickName] = useState("");
   const [isReviews, setIsReviews] = useState<boolean>(false);
   const [reviewData, setReviewData] = useState<CardBarReview[]>([]);
 
@@ -49,9 +50,11 @@ const MyReviewPage = () => {
             {reviewData.map((review, index) => (
               <BarReviewCard
                 key={index}
-                userNickname={review.userNickname}
+                barId={review.barId}
+                reviewId={review.reviewId}
+                userNickname={nickName}
                 score={review.score}
-                barImg={review.barImg}
+                reviewImg={review.reviewImg}
                 tag={review.tag}
                 content={review.content}
                 date={review.date}
