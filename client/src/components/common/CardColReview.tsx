@@ -64,10 +64,7 @@ const CardColReview: React.FC<CardReview> = ({
 
           <RightContent>
             <ContentWrapper>
-              <ReviewBox>
-                이러코저러코 리뷰리뷰리뷰리뷰리뷰 리뷰리뷰리뷰리뷰
-                리뷰리뷰리리뷰가 들어와여 리뷰리뷰리뷰리뷰 리리뷰리뷰 리뷰리뷰
-              </ReviewBox>
+              <ReviewBox>{content}</ReviewBox>
               <Button>
                 <Link
                   to={`/ohsul/bar/${barId}`}
