@@ -72,21 +72,27 @@ const NearAlcoholPage: React.FC = () => {
   return (
     <>
       <Header title="내 주변의 술" />
-      <KakaoMap08 onSearchResults={handleSearchResults} />
-      {barInfo &&
-        barInfo.map((result, index) => (
-          <CardColTag
-            key={index}
-            // @ts-ignore
-            barName={result.barName}
-            // @ts-ignore
-            barPhone={result.telephone}
-            // @ts-ignore
-            barId={result.barId}
-          />
-        ))}
 
-      {viewMap ? <p>지도 보기 컴포넌트</p> : <p>리스트 보기 컴포넌트</p>}
+      {viewMap ? (
+        <>
+          <KakaoMap08 onSearchResults={handleSearchResults} />
+        </>
+      ) : (
+        <>
+          {barInfo &&
+            barInfo.map((result, index) => (
+              <CardColTag
+                key={index}
+                // @ts-ignore
+                barName={result.barName}
+                // @ts-ignore
+                barPhone={result.telephone}
+                // @ts-ignore
+                barId={result.barId}
+              />
+            ))}
+        </>
+      )}
       <Toggle2 viewMap={viewMap} onViewChange={handleViewChange} />
     </>
   );
