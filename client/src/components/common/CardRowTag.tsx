@@ -107,11 +107,17 @@ const CardRowTag: React.FC<BarData> = ({ bar }) => {
               )}
             </TagLayout>
             <ScoreBox>
-              <img
-                src={process.env.PUBLIC_URL + "assets/images/star.png"}
-                alt="Score"
-              />
-              {bar.barAvgScore ? <div>{bar.barAvgScore}</div> : <div>?</div>}
+              <div>
+                <img
+                  src={process.env.PUBLIC_URL + "assets/images/star.png"}
+                  alt="Score"
+                />
+              </div>
+              {bar.barAvgScore ? (
+                <div>{bar.barAvgScore}</div>
+              ) : (
+                <div>리뷰를 작성해주세요</div>
+              )}
             </ScoreBox>
           </BarWrapper>
         </Link>
@@ -155,7 +161,7 @@ const ScoreBox = styled.div`
   align-items: center;
 
   font-family: ${({ theme }) => theme.fonts.ydFont};
-  font-size: 14px;
+  font-size: 12px;
 `;
 
 const BarWrapper = styled.div``;

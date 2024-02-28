@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import axios from "axios";
 import { CardBarReview } from "../../types/Common";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import {
   useAlcoholTags,
   useMoodTags,
@@ -87,17 +87,19 @@ const BarReviewCard: React.FC<CardBarReview> = ({
         </ContentBox1>
 
         <ContentBox2>
-          <ImgBox>
-            <img
-              src={
-                reviewImg
-                  ? process.env.PUBLIC_URL + reviewImg
-                  : process.env.PUBLIC_URL +
-                    "/assets/images/common_alternateImage.png"
-              }
-              alt="리뷰이미지"
-            />
-          </ImgBox>
+          <Link to={`/ohsul/bar/${barId}`}>
+            <ImgBox>
+              <img
+                src={
+                  reviewImg
+                    ? process.env.PUBLIC_URL + reviewImg
+                    : process.env.PUBLIC_URL +
+                      "/assets/images/common_alternateImage.png"
+                }
+                alt="리뷰이미지"
+              />
+            </ImgBox>
+          </Link>
           <TagLayout>
             {alcoholTags?.length === 0 ? (
               <TagBox>
@@ -235,7 +237,6 @@ const ScoreBox = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 0px;
   gap: 2px;
   width: 35px;
   height: 15px;
@@ -250,8 +251,7 @@ const ScoreImg = styled.div`
 `;
 
 const ScoreText = styled.div`
-  width: 17px;
-  height: 15px;
+  width: 12px;
   font-family: ${({ theme }) => theme.fonts.ydFont};
   font-style: normal;
   font-weight: 400;
@@ -272,8 +272,8 @@ const ContentBox2 = styled.div`
 `;
 
 const ImgBox = styled.div`
-  width: 70px;
-  height: 72px;
+  width: 80px;
+  height: 80px;
   overflow: hidden;
   border-radius: 12px;
   img {
@@ -302,7 +302,7 @@ const TagTitle = styled.div`
   color: ${({ theme }) => theme.colors.mainBlue};
   background: ${({ theme }) => theme.colors.bgLightColor};
   border: 1px dashed ${({ theme }) => theme.colors.mainBlue};
-  width: 46px;
+  width: 40px;
   ${TagBasic}
 `;
 
@@ -330,7 +330,7 @@ const ContentBox3 = styled.div`
   gap: 10px;
   /* width: 348px; */
   width: 100%;
-  height: 35px;
+  height: 24px;
 `;
 
 const ReviewBox = styled.div`

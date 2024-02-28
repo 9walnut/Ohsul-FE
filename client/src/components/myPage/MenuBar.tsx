@@ -65,32 +65,31 @@ const MenuBarLayout = styled.div`
   align-items: center;
   padding: 5px 0px;
   gap: 10px;
-
-  position: absolute;
-  width: 390px;
+  width: 100%;
   height: 45px;
-  top: 271px;
 `;
+
 const MenuBarBox = styled.div`
   display: flex;
   flex-direction: row;
   align-items: flex-start;
   padding: 0px;
   gap: 14px;
-
-  width: 326px;
+  width: 90%;
   height: 35px;
 `;
+
 const FavoriteLayout = styled.nav<{ active: boolean }>`
   display: flex;
   flex-direction: column;
   align-items: center;
   padding: 0px;
   gap: 3px;
-  width: 326px;
+  width: 100%;
   height: 33px;
   cursor: pointer;
 `;
+
 const FavoriteBar = styled.div<BarProps>`
   width: 156px;
   height: 3px;
@@ -111,6 +110,7 @@ const FavoriteImg = styled.div`
     object-fit: contain;
   }
 `;
+
 const MyReviewLayout = styled.nav<{ active: boolean }>`
   display: flex;
   flex-direction: column;
@@ -121,6 +121,7 @@ const MyReviewLayout = styled.nav<{ active: boolean }>`
   height: 33px;
   cursor: pointer;
 `;
+
 const MyReviewBar = styled.div<BarProps>`
   width: 156px;
   height: 3px;

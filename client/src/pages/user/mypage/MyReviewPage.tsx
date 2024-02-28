@@ -30,7 +30,6 @@ const MyReviewPage = () => {
           } else {
             setIsReview(false);
           }
-          // console.log("MyReviewPage res.data: ", res.data);
           console.log("Review data:", reviewData);
         }
       } catch (error) {
@@ -52,8 +51,8 @@ const MyReviewPage = () => {
                     key={index}
                     barId={review.barId}
                     reviewId={review.reviewId}
-                    userNickname={nickName}
-                    score={review.avgScore}
+                    nickname={review.barName}
+                    score={review.score}
                     reviewImg={review.reviewImg}
                     alcoholTags={review.alcoholTags}
                     moodTags={review.moodTags}
