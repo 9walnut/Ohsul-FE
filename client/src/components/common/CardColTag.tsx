@@ -31,6 +31,8 @@ const CardColTag: React.FC<FavoriteBar> = ({
   const [favoriteBarId, setFavoriteBarId] = useState<number[]>([]);
   const [imageError, setImageError] = useState(false);
 
+  const isLoggedIn = useAuthStore.getState().isLoggedIn;
+
   useEffect(() => {
     fetchFavorite();
   }, []);
@@ -152,18 +154,23 @@ const CardColTag: React.FC<FavoriteBar> = ({
           </Link>
         </LeftContent>
         <RightContent>
-          <FavoriteBox>
-            <FavoriteImg onClick={handleFavorite}>
-              <img
-                src={
-                  isFavorite
-                    ? "assets/images/mypage_favorite_active.png"
-                    : "assets/images/mypage_favorite_nonactive.png"
-                }
-                alt="Score"
-              />
-            </FavoriteImg>
-          </FavoriteBox>
+          {isLoggedIn ? (
+            <FavoriteBox>
+              <FavoriteImg onClick={handleFavorite}>
+                <img
+                  src={
+                    isFavorite
+                      ? "assets/images/mypage_favorite_active.png"
+                      : "assets/images/mypage_favorite_nonactive.png"
+                  }
+                  alt="Score"
+                />
+              </FavoriteImg>
+            </FavoriteBox>
+          ) : (
+            <FavoriteBox></FavoriteBox>
+          )}
+
           <TagLayout>
             {alcoholTags?.length === 0 ? (
               <TagBox>
