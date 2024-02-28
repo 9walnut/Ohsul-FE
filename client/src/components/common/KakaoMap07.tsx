@@ -479,7 +479,7 @@ const MapWrapper = styled.div`
     border: 1px solid #ccc;
     border-radius: 8px;
     position: relative;
-    bottom: 30px;
+    bottom: 34px;
   }
   position: relative;
   width: 100%;
