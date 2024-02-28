@@ -37,7 +37,7 @@ const MyPage: React.FC = () => {
   };
 
   const handleLogout = async () => {
-    const logout = useAuthStore.getState().logout;
+    //const logout = useAuthStore.getState().logout;
 
     try {
       const res = await axios.post("api/logout");
@@ -48,7 +48,7 @@ const MyPage: React.FC = () => {
         //console.log("isLoggedIn?: ", cookies.get("isLoggedIn"));
 
         //--- zustand Logout
-        logout();
+        //logout();
         console.log(
           "zustand isLoggedIn Logout?:",
           useAuthStore.getState().isLoggedIn
@@ -67,6 +67,8 @@ const MyPage: React.FC = () => {
 
   const handleConfirm = () => {
     navigate("/");
+    const logout = useAuthStore.getState().logout;
+    logout();
   };
 
   return (
