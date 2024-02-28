@@ -55,7 +55,7 @@ const BarReviewPage = () => {
             {reviewData.map((review, index) => (
               <BarReviewCard
                 key={index}
-                barId={review.barId}
+                barId={barInfo.barId}
                 reviewId={review.reviewId}
                 alcoholTags={review.alcoholTags}
                 moodTags={review.moodTags}
