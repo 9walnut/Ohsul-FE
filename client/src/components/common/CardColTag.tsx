@@ -21,16 +21,14 @@ const CardColTag: React.FC<FavoriteBar> = ({
 
   const { userNumber } = useAuthStore.getState();
 
-  //즐겨찾기 상태 useState *
   const [isFavorite, setIsFavorite] = useState(false);
   const [favoriteBarId, setFavoriteBarId] = useState<number[]>([]);
+  const [imageError, setImageError] = useState(false);
 
   useEffect(() => {
     fetchFavorite();
   }, []);
 
-  //barId 필수로 다시 해야함
-  // 즐겨찾기된 barId들을 기반으로 isFavorite 상태 업데이트
   useEffect(() => {
     if (barId) {
       setIsFavorite(favoriteBarId.includes(barId));
@@ -80,7 +78,7 @@ const CardColTag: React.FC<FavoriteBar> = ({
   //   }
   // };
 
-  //---favorite add delete 상상코딩
+  //---favorite add delete
   const handleFavorite = async () => {
     console.log("favorite click");
     const favoriteData = {
@@ -127,12 +125,15 @@ const CardColTag: React.FC<FavoriteBar> = ({
             <ImgBox>
               <img
                 src={
-                  barImg
-                    ? process.env.PUBLIC_URL + barImg
-                    : process.env.PUBLIC_URL +
+                  imageError
+                    ? process.env.PUBLIC_URL +
                       "assets/images/common_alternateImage.png"
+                    : barImg
+                    ? process.env.PUBLIC_URL + barImg
+                    : ""
                 }
                 alt={barName}
+                onError={() => setImageError(true)}
               />
             </ImgBox>
             <ScoreBox>
@@ -152,33 +153,55 @@ const CardColTag: React.FC<FavoriteBar> = ({
               <img
                 src={
                   isFavorite
-                    ? "assets/images/mypage_favorite_nonactive.png"
-                    : "assets/images/mypage_favorite_active.png"
+                    ? "assets/images/mypage_favorite_active.png"
+                    : "assets/images/mypage_favorite_nonactive.png"
                 }
                 alt="Score"
               />
             </FavoriteImg>
           </FavoriteBox>
           <TagLayout>
-            {" "}
-            <TagBox>
-              <TagTitle>술</TagTitle>
-              {drink.map((item, index) => (
-                <TagContent key={index}>{item}</TagContent>
-              ))}
-            </TagBox>
-            <TagBox>
-              <TagTitle>분위기</TagTitle>
-              {mood.map((item, index) => (
-                <TagContent key={index}>{item}</TagContent>
-              ))}
-            </TagBox>
-            <TagBox>
-              <TagTitle>음악</TagTitle>
-              {music.map((item, index) => (
-                <TagContent key={index}>{item}</TagContent>
-              ))}
-            </TagBox>
+            {drink.length === 0 ? (
+              <TagBox>
+                <TagTitle>술</TagTitle>
+                <TagContent>아직 태그가 없어요</TagContent>
+              </TagBox>
+            ) : (
+              <TagBox>
+                <TagTitle>술</TagTitle>
+                {drink.map((item, index) => (
+                  <TagContent key={index}>{item}</TagContent>
+                ))}
+              </TagBox>
+            )}
+
+            {mood.length === 0 ? (
+              <TagBox>
+                <TagTitle>분위기</TagTitle>
+                <TagContent>아직 태그가 없어요</TagContent>
+              </TagBox>
+            ) : (
+              <TagBox>
+                <TagTitle>분위기</TagTitle>
+                {mood.map((item, index) => (
+                  <TagContent key={index}>{item}</TagContent>
+                ))}
+              </TagBox>
+            )}
+
+            {music.length === 0 ? (
+              <TagBox>
+                <TagTitle>음악</TagTitle>
+                <TagContent>아직 태그가 없어요</TagContent>
+              </TagBox>
+            ) : (
+              <TagBox>
+                <TagTitle>음악</TagTitle>
+                {music.map((item, index) => (
+                  <TagContent key={index}>{item}</TagContent>
+                ))}
+              </TagBox>
+            )}
           </TagLayout>
         </RightContent>
       </CardLayout>
@@ -240,7 +263,7 @@ const TitleBox = styled.div`
   align-items: flex-start;
   padding: 0px;
   gap: 3px;
-
+  margin-bottom: 5px;
   width: 152px;
   height: 24px;
 
@@ -257,6 +280,7 @@ const ImgBox = styled.div`
   height: 96px;
   overflow: hidden;
   border-radius: 12px;
+  margin-bottom: 5px;
   img {
     width: 100%;
     height: 100%;
