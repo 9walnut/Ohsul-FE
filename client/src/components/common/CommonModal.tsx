@@ -39,7 +39,7 @@ const CommonModal: React.FC<Modal> = ({ message, isClose, onConfirm }) => {
 const ModalLayout = styled.div`
   width: 80%;
   position: absolute;
-  top: 20%;
+  top: 35%;
   background-color: #fcfaf9;
   border: 1px solid #4d607b;
   padding: 4px 10px 15px 10px;
