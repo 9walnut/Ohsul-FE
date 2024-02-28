@@ -6,11 +6,18 @@ import axios from "axios";
 import { Link } from "react-router-dom";
 import BackButton from "../../components/common/BackButton";
 import { useNavigate } from "react-router";
+import useAuthStore from "../../stores/useAuthStore";
+import { FavoriteBar } from "../../types/Common";
+
+type UserParams = {
+  barId: any;
+};
 
 const BarInfoPage = () => {
   const navigate = useNavigate();
 
-  const { barId } = useParams();
+  const { barId } = useParams<UserParams>();
+  const isLoggedIn = useAuthStore.getState().isLoggedIn;
 
   console.log("barId??", barId);
 
@@ -47,6 +54,91 @@ const BarInfoPage = () => {
     navigate(`/ohsul/${barId}/review`, { state: { barInfo } });
   };
 
+  const [isFavorite, setIsFavorite] = useState(false);
+  const [favoriteBarId, setFavoriteBarId] = useState<number[]>([]);
+  const [isFavoritePlace, setIsFavoritePlace] = useState<boolean>(false);
+  const [favoriteData, setFavoriteData] = useState<FavoriteBar[]>([]);
+
+  useEffect(() => {
+    fetchFavorite();
+  }, []);
+
+  useEffect(() => {
+    if (barId) {
+      setIsFavorite(favoriteBarId.includes(barId));
+    }
+  }, [favoriteBarId, barId]);
+
+  const fetchFavorite = async () => {
+    try {
+      const res = await axios.get("/api/favorite/favoriteList");
+      if (res.status == 200) {
+        setFavoriteBarId(res.data);
+        //console.log("favoriteList res : ", res);
+        console.log("favoriteList res.data : ", res.data);
+      }
+    } catch (error) {
+      console.log("fetch Favorite err: ", error);
+    }
+  };
+
+  //---favorite add delete
+  const handleFavorite = async () => {
+    console.log("favorite click");
+    const favoriteData = {
+      barId: barId,
+    };
+    console.log(favoriteData);
+    try {
+      if (isFavorite) {
+        const res = await axios.delete("/api/favorite/delete", {
+          data: {
+            barId: barId,
+          },
+        });
+        if (res.status == 200) {
+          console.log("delete res: ", res);
+
+          console.log("onFavoriteChange?");
+          setIsFavorite(false);
+          reloadFavorites();
+        }
+      } else {
+        const res = await axios.post("/api/favorite/add", favoriteData, {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        });
+        if (res.status === 200) {
+          console.log("onFavoriteChange?");
+          setIsFavorite(true);
+          reloadFavorites();
+
+          console.log("add res: ", res);
+        }
+      }
+      // 즐겨찾기 업데이트
+      fetchFavorite();
+    } catch (error) {
+      console.log("favorite err : ", error);
+    }
+  };
+  const reloadFavorites = async () => {
+    try {
+      const res = await axios.get("/api/mypage/favorite");
+      if (res.status == 200) {
+        const favoriteList = res.data.favorites;
+        if (favoriteList.length !== 0) {
+          setIsFavoritePlace(true);
+          setFavoriteData(favoriteList);
+        } else {
+          setIsFavoritePlace(false);
+        }
+      }
+    } catch (error) {
+      console.error("Error reloading favorites: ", error);
+    }
+  };
   return (
     <>
       <Header title="가게 상세 정보" />
@@ -61,13 +153,29 @@ const BarInfoPage = () => {
             )}
           </BarImgBox>
           <BarNameBox>{barInfo.barName}</BarNameBox>
+          {isLoggedIn ? (
+            <FavoriteBox>
+              <FavoriteImg onClick={handleFavorite}>
+                <img
+                  src={
+                    isFavorite
+                      ? "/assets/images/mypage_favorite_active.png"
+                      : "/assets/images/mypage_favorite_nonactive.png"
+                  }
+                  alt="Favorite"
+                />
+              </FavoriteImg>
+            </FavoriteBox>
+          ) : (
+            <FavoriteBox></FavoriteBox>
+          )}
           <BarExplainBox>{barInfo.description}</BarExplainBox>
           <BarNumberBox>{barInfo.telephone}</BarNumberBox>
           <BarShareBox>
             <div>
               <img src="/assets/images/bar_share.png" alt="bar_share" />
             </div>
-            <div>공유하기</div>
+            <div>카카오톡으로 공유하기</div>
           </BarShareBox>
         </BarInfoWrapper>
         <DotImgBox>
@@ -138,5 +246,31 @@ const ReviewButton = styled.button`
   border-radius: 12px;
   cursor: pointer;
 `;
+const BasicStyle = `
+display: flex;
+flex-direction: row;
+justify-content: center;
+align-items: center;
+`;
+const FavoriteBox = styled.div`
+  ${BasicStyle}
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  padding: 0px 10px;
+  gap: 3px;
 
+  margin: 0 17px;
+  width: 26px;
+  height: 24px;
+`;
+const FavoriteImg = styled.div`
+  cursor: pointer;
+  img {
+    width: 16px;
+    height: 22px;
+    object-fit: contain;
+  }
+`;
 export default BarInfoPage;

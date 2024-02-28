@@ -1,33 +1,111 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
-import { CardReview } from "../../types/Common";
+import { FavoriteBar } from "../../types/Common";
+import useAuthStore from "../../stores/useAuthStore";
+import axios from "axios";
 
-const CardColReview: React.FC<CardReview> = ({
+const CardColReview: React.FC<FavoriteBar> = ({
   barId,
   barPhone,
   barName,
   barImg,
   score,
   content,
+  onFavoriteChange,
 }) => {
-  // const barPhone = "027935965";
+  const [isFavorite, setIsFavorite] = useState(false);
+  const [favoriteBarId, setFavoriteBarId] = useState<number[]>([]);
+  const [imageError, setImageError] = useState(false);
+
+  const isLoggedIn = useAuthStore.getState().isLoggedIn;
+
+  useEffect(() => {
+    fetchFavorite();
+  }, []);
+
+  useEffect(() => {
+    if (barId) {
+      setIsFavorite(favoriteBarId.includes(barId));
+    }
+  }, [favoriteBarId, barId]);
+
+  const fetchFavorite = async () => {
+    try {
+      const res = await axios.get("/api/favorite/favoriteList");
+      if (res.status == 200) {
+        setFavoriteBarId(res.data);
+        //console.log("favoriteList res : ", res);
+        console.log("favoriteList res.data : ", res.data);
+      }
+    } catch (error) {
+      console.log("fetch Favorite err: ", error);
+    }
+  };
+
+  //---favorite add delete
+  const handleFavorite = async () => {
+    console.log("favorite click");
+    const favoriteData = {
+      barId: barId,
+    };
+    console.log(favoriteData);
+    try {
+      if (isFavorite) {
+        const res = await axios.delete("/api/favorite/delete", {
+          data: {
+            barId: barId,
+          },
+        });
+        if (res.status == 200) {
+          console.log("delete res: ", res);
+          if (onFavoriteChange) {
+            console.log("onFavoriteChange?");
+            onFavoriteChange();
+          }
+        }
+      } else {
+        const res = await axios.post("/api/favorite/add", favoriteData, {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        });
+        if (res.status === 200) {
+          if (onFavoriteChange) {
+            console.log("onFavoriteChange?");
+            onFavoriteChange();
+          }
+          console.log("add res: ", res);
+        }
+      }
+      // 즐겨찾기 업데이트
+      fetchFavorite();
+    } catch (error) {
+      console.log("favorite err : ", error);
+    }
+  };
 
   return (
     <>
       <CardLayout>
         <TopBox>
           <TitleBox>{barName}</TitleBox>
-          <FavoriteBox>
-            <FavoriteImg>
-              <img
-                src={
-                  process.env.PUBLIC_URL + "assets/images/common_favorite.png"
-                }
-                alt="Score"
-              />
-            </FavoriteImg>
-          </FavoriteBox>
+          {isLoggedIn ? (
+            <FavoriteBox>
+              <FavoriteImg onClick={handleFavorite}>
+                <img
+                  src={
+                    isFavorite
+                      ? "assets/images/mypage_favorite_active.png"
+                      : "assets/images/mypage_favorite_nonactive.png"
+                  }
+                  alt="Score"
+                />
+              </FavoriteImg>
+            </FavoriteBox>
+          ) : (
+            <FavoriteBox></FavoriteBox>
+          )}
         </TopBox>
 
         <ContentLayout>
@@ -39,12 +117,14 @@ const CardColReview: React.FC<CardReview> = ({
               <ImgBox>
                 <img
                   src={
-                    barImg
-                      ? process.env.PUBLIC_URL + barImg
-                      : process.env.PUBLIC_URL +
-                        "assets/images/common_alternateImage.png"
+                    imageError
+                      ? "/assets/images/common_alternateImage.png"
+                      : barImg
+                      ? barImg
+                      : ""
                   }
                   alt={barName}
+                  onError={() => setImageError(true)}
                 />
               </ImgBox>
               <ScoreBox>
@@ -154,6 +234,7 @@ const FavoriteBox = styled.div`
   height: 24px;
 `;
 const FavoriteImg = styled.div`
+  cursor: pointer;
   img {
     width: 16px;
     height: 22px;
