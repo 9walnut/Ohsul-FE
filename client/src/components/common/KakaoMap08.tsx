@@ -5,10 +5,18 @@ import { State, MarkerInfo, SearchResult, SearchCenter } from "../../types/Map";
 import MapToggle from "./MapToggle";
 import CardColTag from "./CardColTag";
 import MapLoading from "./MapLoading";
+import axios from "axios";
+import { FavoriteBar } from "../../types/Common";
 
 interface SelectOptionsTypes {
   value: string;
   label: string;
+}
+
+interface BarDataTypes {
+  barName: string;
+  roadAddress: string;
+  telephone: string;
 }
 
 const SelectOptions: SelectOptionsTypes[] = [
@@ -56,7 +64,7 @@ const KakaoMap08 = ({
   const [data, setData] = useState<SearchCenter | null>(null);
   const [map, setMap] = useState<kakao.maps.Map | null>(null);
   const [moveKeyword, setMoveKeyword] = useState<string>("");
-  const [clickedResult, setClickedResult] = useState<SearchResult | null>(null);
+  const [clickedResult, setClickedResult] = useState<FavoriteBar | null>(null);
   const [selectedLabel, setSelectedLabel] = useState("지역명");
 
   const categories = [
@@ -211,14 +219,39 @@ const KakaoMap08 = ({
       handleMovedSearch();
     }
   }, [state.center, map, moveKeyword]);
+
+  // 핀 클릭 요청 1개
+  const postMarkerInfo = async (barData: BarDataTypes) => {
+    try {
+      console.log(barData, "postMarker barData!!");
+      const res = await axios.post("/api/ohsul/near", [barData], {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      console.log("postMarker resdata", res.data);
+      setClickedResult(res.data[0]);
+    } catch (error) {
+      console.log("getMarker err", error);
+    }
+  };
+
   // 마커 클릭 시 정보 설정
   const handleMarkerClick = (markerInfo: MarkerInfo) => {
     const result = searchResults.find(
       (result) => result.name === markerInfo.content
     );
+    // 가게 상세 정보 요청 추가.....합시...다
 
     if (result) {
-      setClickedResult(result);
+      const barData: BarDataTypes = {
+        barName: result.name,
+        roadAddress: result.address,
+        telephone: result.phone ? result.phone.replace(/-/g, "") : "",
+      };
+
+      postMarkerInfo(barData);
+      // setClickedResult(result);
     } else {
       setClickedResult(null);
     }
@@ -348,7 +381,15 @@ const KakaoMap08 = ({
 
       {clickedResult && (
         <>
-          <CardColTag barName={clickedResult.name} />
+          <CardColTag
+            barId={clickedResult.barId}
+            barName={clickedResult.barName}
+            barImg={clickedResult.barImg}
+            alcoholTags={clickedResult.alcoholTags}
+            moodTags={clickedResult.moodTags}
+            musicTags={clickedResult.musicTags}
+            score={clickedResult.barAvgScore}
+          />
         </>
       )}
       {data && (
