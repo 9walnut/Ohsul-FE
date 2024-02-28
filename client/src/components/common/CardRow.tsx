@@ -22,10 +22,11 @@ const CardRow: React.FC<BarData> = ({ bar }) => {
   const [isContent, setIsContent] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
 
+  console.log("들어온데이터", bar);
   useEffect(() => {
     const timer = setTimeout(() => {
       setIsLoading(false);
-    }, 1500);
+    }, 1000);
 
     return () => clearTimeout(timer);
   }, []);
@@ -33,6 +34,7 @@ const CardRow: React.FC<BarData> = ({ bar }) => {
   if (isLoading) {
     return <SkeletonCard />;
   }
+
   return (
     <>
       <CardLayout>
