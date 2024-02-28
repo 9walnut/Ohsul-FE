@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 export const PwCheckPageLayout = styled.div`
   position: relative;
   width: 100%;
-  height: 100vh;
+  height: 100%;
   overflow: hidden;
   margin-bottom: 78px;
 `;

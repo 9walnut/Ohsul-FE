@@ -6,7 +6,7 @@ export const MyReviewPageLayout = styled.div`
   align-items: center;
   padding: 10px 15px;
   gap: 4px;
-  height: 100vh;
+  height: 100%;
   overflow: hidden;
   margin-bottom: 78px;
   width: 100%;

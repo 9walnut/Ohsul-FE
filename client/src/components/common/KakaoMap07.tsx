@@ -548,7 +548,8 @@ const SearchBtn = styled.button`
 const SearchWrapper = styled.div`
   position: relative;
   input {
-    width: 300px;
+    box-sizing: border-box;
+    width: 100%;
     padding: 6px 20px;
     border-radius: 100px;
     border: 1px solid #4d607b;
