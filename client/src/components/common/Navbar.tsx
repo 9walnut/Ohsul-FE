@@ -54,9 +54,10 @@ const Navbar = () => {
 export default Navbar;
 
 const NavbarLayout = styled.nav`
-  font-family: YeongdeokSea;
+  font-family: ${({ theme }) => theme.fonts.ydFont};
   width: 100vw;
   max-width: 430px;
+  margin-top: 78px;
   height: 78px;
   display: flex;
   justify-content: space-around;

@@ -1,6 +1,12 @@
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 
+export const MyPageLayout = styled.div`
+  height: 100vh;
+  overflow: hidden;
+  margin-bottom: 78px;
+`;
+
 export const RegisterBox = styled.div`
   display: flex;
   flex-direction: column;

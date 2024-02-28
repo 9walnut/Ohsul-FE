@@ -7,6 +7,9 @@ export const FavoritePageLayout = styled.div`
   padding: 10px 15px;
   gap: 4px;
   width: 100%;
+  height: 100vh;
+  overflow: hidden;
+  margin-bottom: 78px;
 `;
 
 export const FavoriteCount = styled.div`
