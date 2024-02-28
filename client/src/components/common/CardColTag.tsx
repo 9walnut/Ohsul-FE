@@ -238,8 +238,7 @@ const CardLayout = styled.div`
   padding: 10px 10px;
   gap: 12px;
 
-  width: 382px;
-  /* width: 100%; */
+  width: 100%;
   height: 163px;
 
   background: ${({ theme }) => theme.colors.bgLightColor};
@@ -256,7 +255,6 @@ const LeftContent = styled.div`
   align-items: flex-start;
   padding: 2px 5px;
   gap: 3px;
-
   width: 90px;
   height: 149px;
 `;
@@ -299,7 +297,6 @@ const ScoreBox = styled.div`
   align-items: center;
   padding: 0px;
   gap: 2px;
-
   width: 35px;
   height: 15px;
 `;
@@ -315,11 +312,10 @@ const ScoreImg = styled.div`
 const ScoreText = styled.div`
   width: 17px;
   height: 15px;
-
   font-family: ${({ theme }) => theme.fonts.ydFont};
   font-style: normal;
   font-weight: 400;
-  font-size: 11px;
+  font-size: 12px;
   line-height: 14px;
 `;
 
@@ -329,7 +325,6 @@ const RightContent = styled.div`
   align-items: flex-start;
   padding: 2px 5px;
   gap: 20px;
-
   width: 100%;
   height: 149px;
 `;
@@ -360,7 +355,7 @@ const TagLayout = styled.div`
 `;
 const TagBasic = `
 height: 20px;
-font-size: 12px;
+font-size: 11px;
 border-radius: 5px;
 display: flex;
 justify-content: center;

@@ -56,6 +56,7 @@ interface BarInfoType extends BarDataTypes {
   moodTags: number[];
   musicTags: number[];
   barId: number;
+  barAvgScore?: number;
 }
 
 const SearchAlcoholPage: React.FC = () => {
@@ -180,8 +181,10 @@ const SearchAlcoholPage: React.FC = () => {
             <CardColReview
               barId={result.barId}
               barName={result.barName}
+              score={result.barAvgScore}
               key={index}
-              content={result.content}
+              // @ts-ignore
+              // content={result.barRecentReviews.content}
             />
           ))}
         </>
@@ -198,13 +201,12 @@ const SearchAlcoholPage: React.FC = () => {
 
           {barInfo.map((result, index) => (
             <CardColReview
-              // @ts-ignore
               barId={result.barId}
-              // @ts-ignore
               barName={result.barName}
+              score={result.barAvgScore}
               key={index}
               // @ts-ignore
-              barPhone={result.telephone}
+              // content={result.barRecentReviews[0].content}
             />
           ))}
         </>

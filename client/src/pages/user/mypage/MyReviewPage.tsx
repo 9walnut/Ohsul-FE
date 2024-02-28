@@ -9,7 +9,6 @@ import { CardBarReview } from "../../../types/Common";
 const MyReviewPage = () => {
   const [isReview, setIsReview] = useState(true);
   const [nickName, setNickName] = useState("");
-  const [isReviews, setIsReviews] = useState<boolean>(false);
   const [reviewData, setReviewData] = useState<CardBarReview[]>([]);
 
   useEffect(() => {
@@ -45,7 +44,6 @@ const MyReviewPage = () => {
     <>
       <S.MyReviewPageLayout>
         <S.ReviewCount>총 {reviewData.length}개의 리뷰</S.ReviewCount>
-        <p> content, reviewId 만 들어옴</p>
         {isReview ? (
           <>
             {reviewData.map((review, index) => (
@@ -53,8 +51,8 @@ const MyReviewPage = () => {
                 key={index}
                 barId={review.barId}
                 reviewId={review.reviewId}
-                userNickname={nickName}
-                score={review.avgScore}
+                nickname={review.barName}
+                score={review.score}
                 reviewImg={review.reviewImg}
                 alcoholTags={review.alcoholTags}
                 moodTags={review.moodTags}
