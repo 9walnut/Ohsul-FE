@@ -8,6 +8,7 @@ import { useNavigate } from "react-router";
 import CardColTag from "../../../components/common/CardColTag";
 import { FavoriteBar } from "../../../types/Common";
 import OnlyMember from "../../../components/common/OnlyMember";
+import WideButton from "../../../components/common/WideButton";
 
 const FavoritePage = () => {
   const navigate = useNavigate();
@@ -95,16 +96,14 @@ const FavoritePage = () => {
             ) : (
               <>
                 {modalOpen && (
-                  <CommonModal
-                    message={
-                      <>
-                        아직 즐겨찾기 한 장소가 없어요. <br /> 내 근처 술집
-                        둘러보러 가기 😀
-                      </>
-                    }
-                    isClose={false}
-                    onConfirm={handleNavigate}
-                  />
+                  <S.NoFavoritePlaceBox>
+                    <S.MessageBox>
+                      {" "}
+                      아직 즐겨찾기 한 장소가 없어요. <br /> 내 근처 술집
+                      둘러보러 가기 😀
+                    </S.MessageBox>
+                    <WideButton onClick={handleNavigate}>확인</WideButton>
+                  </S.NoFavoritePlaceBox>
                 )}
               </>
             )}
