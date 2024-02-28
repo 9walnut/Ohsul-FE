@@ -11,13 +11,16 @@ import FavoritePage from "./FavoritePage";
 import MyReviewPage from "./MyReviewPage";
 import CommonModal from "../../../components/common/CommonModal";
 import useAuthStore from "../../../stores/useAuthStore";
+import OnlyMember from "../../../components/common/OnlyMember";
 
 //렌더링 될 컴포넌트 지정
 type ComponentType = "favorite" | "myreview";
 
 const MyPage: React.FC = () => {
   const cookies = new Cookies();
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isLoggedInCookie, setIsLoggedInCookie] = useState(false);
+  const isLoggedIn = useAuthStore.getState().isLoggedIn;
+
   const navigate = useNavigate();
   const [selectedPage, setSelectedPage] = useState<ComponentType>("favorite");
   const { userNickname } = useAuthStore.getState();
@@ -52,7 +55,7 @@ const MyPage: React.FC = () => {
         );
 
         //--- cookie Logout
-        setIsLoggedIn(false);
+        setIsLoggedInCookie(false);
 
         //open modal
         setModalOpen(true);
@@ -68,32 +71,43 @@ const MyPage: React.FC = () => {
 
   return (
     <>
-      <Header title="마이페이지" />
-      <S.MyInfoBox>
-        <S.MsgBox>
-          <S.Msg1>안녕하세요 {userNickname}님!</S.Msg1>
-          <S.Msg2>오늘도 한 잔 하실까요? 🍻 </S.Msg2>
-        </S.MsgBox>
-        {modalOpen && (
-          <CommonModal
-            message={
-              <>
-                로그아웃 되었습니다. <br /> 오늘은 한 잔 쉬고 내일 다시
-                달려요!🍻
-              </>
-            }
-            isClose={true}
-            onConfirm={handleConfirm}
-          />
-        )}
+      {isLoggedIn ? (
+        <>
+          <Header title="마이페이지" />
+          <S.MyInfoBox>
+            <S.MsgBox>
+              <S.Msg1>안녕하세요 {userNickname}님!</S.Msg1>
+              <S.Msg2>오늘도 한 잔 하실까요? 🍻 </S.Msg2>
+            </S.MsgBox>
+            {modalOpen && (
+              <CommonModal
+                message={
+                  <>
+                    로그아웃 되었습니다. <br /> 오늘은 한 잔 쉬고 내일 다시
+                    달려요!🍻
+                  </>
+                }
+                isClose={true}
+                onConfirm={handleConfirm}
+              />
+            )}
 
-        <S.UserBox>
-          <S.StyledLink to="/mypage/editMyInfo">내 정보 수정</S.StyledLink>
-          <S.LogoutBtn onClick={handleLogout}>로그아웃</S.LogoutBtn>
-        </S.UserBox>
-      </S.MyInfoBox>
-      <MenuBar selectedPage={selectedPage} setSelectedPage={setSelectedPage} />
-      {renderPage()}
+            <S.UserBox>
+              <S.StyledLink to="/mypage/editMyInfo">내 정보 수정</S.StyledLink>
+              <S.LogoutBtn onClick={handleLogout}>로그아웃</S.LogoutBtn>
+            </S.UserBox>
+          </S.MyInfoBox>
+          <MenuBar
+            selectedPage={selectedPage}
+            setSelectedPage={setSelectedPage}
+          />
+          {renderPage()}
+        </>
+      ) : (
+        <>
+          <OnlyMember></OnlyMember>
+        </>
+      )}
     </>
   );
 };
