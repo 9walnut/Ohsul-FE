@@ -47,7 +47,7 @@ const FavoritePage = () => {
   }, [favoriteData]);
 
   const handleNavigate = () => {
-    navigate("/nearAlcohol");
+    navigate("/near");
   };
 
   const reloadFavorites = async () => {
