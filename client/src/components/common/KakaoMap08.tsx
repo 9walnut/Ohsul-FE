@@ -36,11 +36,6 @@ const KakaoMap08 = ({
     SelectOptions[0].value
   );
 
-  // useEffect(() => {
-  //   setIsReSearch(true);
-  //   handleMovedSearch();
-  // }, []);
-
   const handleChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     setSelectedValue(event.target.value);
   };
@@ -62,16 +57,8 @@ const KakaoMap08 = ({
   const [map, setMap] = useState<kakao.maps.Map | null>(null);
   const [moveKeyword, setMoveKeyword] = useState<string>("");
   const [clickedResult, setClickedResult] = useState<SearchResult | null>(null);
-  const [getInfo, setGetInfo] = useState("");
-  const [isOpen, setIsOpen] = useState(false);
   const [selectedLabel, setSelectedLabel] = useState("지역명");
 
-  const toggleDropdown = () => setIsOpen(!isOpen);
-
-  const handleSelect = (label: string) => {
-    setSelectedLabel(label);
-    setIsOpen(false);
-  };
   const categories = [
     "술집",
     "호프",
@@ -82,37 +69,50 @@ const KakaoMap08 = ({
     "일본식주점",
     "칵테일바",
   ];
-  // 현재 위치가 찾아지면 주변의 술집을 검색합니다.
-  // useEffect(() => {
-  //   console.log("go");
-  //   // handleSearch();
-  //   if (state.center) {
-  //     handleMovedSearch();
-  //   }
-  // }, []);
+
+  //mount 시 내 위치 설정
   useEffect(() => {
-    if (state.center && map) {
-      console.log(state.center);
-
-      const latlng = map.getCenter();
-      const bounds = new kakao.maps.LatLngBounds();
-      bounds.extend(latlng);
-      map.setLevel(3);
-      setData({
-        position: {
-          lat: latlng.getLat(),
-          lng: latlng.getLng(),
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          const newPos = {
+            lat: position.coords.latitude,
+            lng: position.coords.longitude,
+          };
+          setState({
+            center: newPos,
+            errMsg: null,
+            isLoading: false,
+          });
+          // 현재 위치 얻고, 좌표를 주소로 변환,  moveKeyword 설정
+          convertCoordsToAddress(newPos.lng, newPos.lat);
         },
+        (err) => {
+          setState({
+            center: null,
+            errMsg: err.message,
+            isLoading: false,
+          });
+        }
+      );
+    } else {
+      setState({
+        center: null,
+        errMsg: "Geolocation err",
+        isLoading: false,
       });
-      convertCoordsToAddress(latlng.getLng(), latlng.getLat());
-
-      {
-        moveKeyword && handleMovedSearch();
-      }
     }
-    console.log("!??", moveKeyword);
-  }, [state.center, map]);
+  }, []);
 
+  //state.center, map, moveKeyword 가 설정되면 검색 실행
+  useEffect(() => {
+    if (state.center && map && moveKeyword) {
+      handleMovedSearch();
+      console.log("🍪handleMovedSearch 실행");
+    }
+  }, [state.center, map, moveKeyword]);
+
+  //지도 이동 시 현재 위치 설정
   const handleMyLocation = () => {
     if (state.center && map) {
       const { lat, lng } = state.center;
@@ -124,61 +124,6 @@ const KakaoMap08 = ({
     } else {
       console.error("Map or center is not available.");
     }
-  };
-
-  // 검색 버튼 클릭
-  const handleSearch = () => {
-    if (!map || !searchWord) return;
-    map.setLevel(3);
-    const ps = new kakao.maps.services.Places();
-    let totalMarkers: MarkerInfo[] = [];
-    let totalResults: SearchResult[] = [];
-
-    categories.forEach((category, index) => {
-      let searchQuery = searchWord;
-      if (selectedLabel === "지역명") {
-        searchQuery += ` ${category}`;
-      }
-
-      ps.keywordSearch(searchQuery, (data, status, _pagination) => {
-        console.log("검색문", searchQuery);
-        if (status === kakao.maps.services.Status.OK) {
-          const bounds = new kakao.maps.LatLngBounds();
-          const newMarkers: MarkerInfo[] = data.map((item) => ({
-            position: {
-              lat: parseFloat(item.y),
-              lng: parseFloat(item.x),
-            },
-            content: item.place_name,
-          }));
-
-          const newResults: SearchResult[] = data.map((item) => ({
-            name: item.place_name,
-            address: item.address_name,
-            lat: parseFloat(item.y),
-            lng: parseFloat(item.x),
-            phone: item.phone,
-          }));
-
-          newMarkers.forEach((marker) => {
-            totalMarkers.push(marker);
-            bounds.extend(
-              new kakao.maps.LatLng(marker.position.lat, marker.position.lng)
-            );
-          });
-
-          totalResults = [...totalResults, ...newResults];
-
-          if (index === categories.length - 1) {
-            setMarkers(totalMarkers);
-            setSearchResults(totalResults);
-            onSearchResults(totalResults);
-            map.setBounds(bounds);
-          }
-        }
-      });
-    });
-    setSearchWord("");
   };
 
   // 지도 이동 시 검색
@@ -242,59 +187,35 @@ const KakaoMap08 = ({
     });
   };
 
-  useEffect(() => {
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(
-        (position) => {
-          const newPos = {
-            lat: position.coords.latitude,
-            lng: position.coords.longitude,
-          };
-          setState({
-            center: newPos,
-            errMsg: null,
-            isLoading: false,
-          });
-        },
-        (err) => {
-          setState({
-            center: null,
-            errMsg: err.message,
-            isLoading: false,
-          });
-        }
-      );
-    } else {
-      setState({
-        center: null,
-        errMsg: "Geolocation err",
-        isLoading: false,
-      });
-    }
-  }, []);
-
   // 좌표를 주소로 변환
   const convertCoordsToAddress = (x: number, y: number) => {
     const geocoder = new kakao.maps.services.Geocoder();
     const coord = new kakao.maps.LatLng(y, x);
     const callback = function (result: any, status: any) {
       if (status === kakao.maps.services.Status.OK) {
-        setAddress(result[0].address.address_name);
-        setMoveKeyword(result[0].address.region_2depth_name);
+        const addressName = result[0].address.address_name;
+        setAddress(addressName);
+        const regionName = result[0].address.region_2depth_name;
+        setMoveKeyword(regionName);
+        // setAddress(result[0].address.address_name);
+        // setMoveKeyword(result[0].address.region_2depth_name);
       } else {
         setAddress("주소 변환에 실패했습니다.");
       }
     };
     geocoder.coord2Address(coord.getLng(), coord.getLat(), callback);
   };
-
+  useEffect(() => {
+    if (state.center && map && moveKeyword) {
+      console.log("🍯 이 지역 재검색 실행:", moveKeyword);
+      handleMovedSearch();
+    }
+  }, [state.center, map, moveKeyword]);
   // 마커 클릭 시 정보 설정
   const handleMarkerClick = (markerInfo: MarkerInfo) => {
     const result = searchResults.find(
       (result) => result.name === markerInfo.content
     );
-
-    // 가게 상세 정보 요청 추가.....합시...다
 
     if (result) {
       setClickedResult(result);
@@ -337,36 +258,6 @@ const KakaoMap08 = ({
 
   return (
     <>
-      {/* <SearchWrapper>
-        <input
-          type="text"
-          value={searchWord}
-          onChange={(e) => setSearchWord(e.target.value)}
-          placeholder={`${selectedLabel}으로 찾기`}
-        />
-        <button onClick={handleSearch}>
-          <img src="/assets/images/map_search.png" alt="search" />
-        </button>
-        <Dropdown>
-          <DropdownButton onClick={toggleDropdown}>
-            {selectedLabel}
-            <img src="/assets/images/select_arrow.png" />
-          </DropdownButton>
-          {isOpen && (
-            <DropdownContent>
-              {SelectOptions.map((option) => (
-                <DropdownItem
-                  key={option.value}
-                  onClick={() => handleSelect(option.label)}
-                >
-                  {option.label}
-                </DropdownItem>
-              ))}
-            </DropdownContent>
-          )}
-        </Dropdown>
-      </SearchWrapper> */}
-
       {state.isLoading ? (
         <MapLoading />
       ) : state.center ? (
@@ -411,7 +302,6 @@ const KakaoMap08 = ({
                 convertCoordsToAddress(latlng.getLng(), latlng.getLat());
                 console.log("onDragEnd", moveKeyword);
                 handleDrag();
-                // handleMovedSearch();
               }}
             >
               <SearchBtn onClick={handleMyLocation}>
@@ -571,45 +461,4 @@ const SearchWrapper = styled.div`
   }
 `;
 
-const Dropdown = styled.div`
-  font-family: ${({ theme }) => theme.fonts.ydFont};
-  position: absolute;
-  z-index: 4;
-  left: 6px;
-  top: 4px;
-  width: 60px;
-  font-size: 14px;
-  border-radius: 14px;
-`;
-
-const DropdownButton = styled.div`
-  padding: 4px;
-  background-color: #ffffff;
-  cursor: pointer;
-  img {
-    margin-left: 4px;
-  }
-`;
-
-const DropdownContent = styled.ul`
-  opacity: 0.9;
-  position: absolute;
-  top: 100%;
-  left: 0;
-  right: 0;
-  background-color: #fff;
-  border: 1px solid #ddd;
-  padding: 0;
-  margin: 0;
-  list-style: none;
-  overflow-y: auto;
-`;
-
-const DropdownItem = styled.li`
-  padding: 8px;
-  cursor: pointer;
-  &:hover {
-    background-color: #f0f0f0;
-  }
-`;
 export default KakaoMap08;
