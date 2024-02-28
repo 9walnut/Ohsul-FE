@@ -64,9 +64,9 @@ const SearchAlcoholPage: React.FC = () => {
 
   // 태그박스 사용 시 필요 state
   const [tags, setTags]: [TagsState, SetTagsFunction] = useState<TagsState>({
-    alcoholTags: [1],
-    musicTags: [1],
-    moodTags: [1],
+    alcoholTags: [],
+    musicTags: [],
+    moodTags: [],
   });
 
   console.log("checked tag: ", tags);
@@ -185,7 +185,7 @@ const SearchAlcoholPage: React.FC = () => {
                 score={result.barAvgScore}
                 key={index}
                 // @ts-ignore
-                // content={result.barRecentReviews.content}
+                // content={result.barRecentReviews[0].content}
               />
             ))}
           </>

@@ -9,6 +9,7 @@ import { Button } from "./BarPageStyle";
 import BarReviewCard from "../../components/common/BarReviewCard";
 import { CardBarReview } from "../../types/Common";
 import * as S from "./BarPageStyle";
+import BackButton from "../../components/common/BackButton";
 
 const BarReviewPage = () => {
   const { barId } = useParams();
@@ -16,8 +17,7 @@ const BarReviewPage = () => {
   const navigate = useNavigate();
   const { barInfo } = location.state;
   const [reviewData, setReviewData] = useState<CardBarReview[]>([]);
-
-  // const {review, setReview} = useState({});
+  const [isReview, setIsReview] = useState(false);
 
   useEffect(() => {
     getReview();
@@ -27,6 +27,10 @@ const BarReviewPage = () => {
   const getReview = async () => {
     try {
       const res = await axios.get(`/api/ohsul/${barId}/review`);
+
+      if (res.status == 200) {
+        setIsReview(true);
+      }
       console.log("getReview res", res);
       console.log("barInfo", barInfo);
       console.log("res.datadatadatadata", res.data);
@@ -45,12 +49,13 @@ const BarReviewPage = () => {
     <>
       <S.ReviewPageLayout>
         <Header title="리뷰" />
+        <BackButton />
         <BarTitleWrapper>
           <BarTitle>{barInfo.barName}</BarTitle>
-          <BarRating>3.5</BarRating>
+          {/* <BarRating>3.5</BarRating> */}
         </BarTitleWrapper>
 
-        {reviewData ? (
+        {isReview ? (
           <>
             {reviewData.map((review, index) => (
               <BarReviewCard
@@ -84,6 +89,7 @@ const BarTitleWrapper = styled.div`
   padding: 8px;
   border-bottom: 1px solid #4d607b;
   font-family: ${({ theme }) => theme.fonts.ydFont};
+  margin-bottom: 12px;
 `;
 
 const BarTitle = styled.div`
