@@ -9,6 +9,7 @@ import { useNavigate } from "react-router";
 import axios from "axios";
 import useAuthStore from "../../../stores/useAuthStore";
 import ConfirmModal from "../../../components/common/ConfirmModal";
+import CommonModal from "../../../components/common/CommonModal";
 
 type EditMypageFormInputs = {
   userId: string;
@@ -22,6 +23,9 @@ const EditMyInfoPage = () => {
   const [userNameData, setUserNameData] = useState("");
   const [userNicknameData, setUserNicknameData] = useState("");
 
+  //회원 정보 수정 모달
+  const [editModal, setEditModal] = useState(false);
+  //회원 탈퇴 모달
   const [modalOpen, setModalOpen] = useState(false);
   const [showModal, setShowModal] = useState(false);
 
@@ -48,6 +52,11 @@ const EditMyInfoPage = () => {
 
     FetchData();
   }, []);
+
+  const handleEditOk = () => {
+    // setEditModal(true)
+    navigate("/mypage");
+  };
   //----------회원 탈퇴
   const handleDelUser = () => {
     setModalOpen(true);
@@ -111,7 +120,8 @@ const EditMyInfoPage = () => {
           userNickname: userNickname || userNicknameData,
         });
         useAuthStore.setState({ userName: userName || userNameData });
-        navigate("/mypage");
+
+        setEditModal(true);
       }
     } catch (error) {
       console.log("내정보수정 err1", error);
@@ -155,6 +165,13 @@ const EditMyInfoPage = () => {
 
   return (
     <>
+      {editModal && (
+        <CommonModal
+          message="내 정보가 수정되었습니다."
+          isClose={false}
+          onConfirm={handleEditOk}
+        />
+      )}
       {modalOpen && (
         <ConfirmModal
           message="정말 탈퇴하시겠습니까?"
