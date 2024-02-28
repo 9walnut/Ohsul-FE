@@ -8,10 +8,14 @@ export const ReviewPageLayout = styled.div`
 `;
 
 export const ImgUploadWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   margin: 24px 0px;
 `;
 
 export const ImgUploadBtn = styled.button`
+  width: 30%;
   padding: 4px;
   cursor: pointer;
   border: none;
@@ -19,16 +23,23 @@ export const ImgUploadBtn = styled.button`
   background-color: ${({ theme }) => theme.colors.btnBlue};
   color: ${({ theme }) => theme.colors.lightFont};
   font-family: ${({ theme }) => theme.fonts.ydFont};
+  &:disabled {
+    cursor: none;
+    opacity: 0.4;
+  }
 `;
 
 export const ImgBox = styled.div`
+  display: flex;
+  justify-content: center;
+
   margin-bottom: 12px;
   width: 150px;
   height: 150px;
   img {
-    width: 100%;
-    height: 100%;
-    object-fit: contain;
+    width: 150px;
+    height: 150px;
+    /* object-fit: contain; */
   }
 `;
 
@@ -76,6 +87,12 @@ export const ContentWrapper = styled.div`
   display: flex;
 `;
 
+export const StarWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`;
+
 export const ContentBox = styled.input`
   width: 100%;
   /* max-width: 430px; */
@@ -101,15 +118,22 @@ export const Button = styled.button`
   outline: none;
   border: none;
   border-radius: 12px;
+  cursor: pointer;
 `;
 
 export const NoReviewBox = styled.div`
-  width: 100%;
   width: 100%;
   height: 90px;
   font-size: 14px;
   background-color: ${({ theme }) => theme.colors.bgLightColor};
   border-radius: 14px;
   border: 1px solid ${({ theme }) => theme.colors.darkFont};
+  font-family: ${({ theme }) => theme.fonts.ydFont};
+`;
+
+export const AlertBox = styled.div`
+  padding: 8px;
+  width: 100%;
+  font-size: 18px;
   font-family: ${({ theme }) => theme.fonts.ydFont};
 `;

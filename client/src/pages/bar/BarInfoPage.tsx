@@ -9,15 +9,28 @@ import { useNavigate } from "react-router";
 import useAuthStore from "../../stores/useAuthStore";
 import { FavoriteBar } from "../../types/Common";
 import CommonModal from "../../components/common/CommonModal";
+import {
+  useAlcoholTags,
+  useMoodTags,
+  useMusicTags,
+} from "../../hooks/tagsChange";
 
 type UserParams = {
   barId: any;
 };
 
 const BarInfoPage = () => {
+  const getAlcoholTagName = useAlcoholTags();
+  const getMusicTagName = useMusicTags();
+  const getMoodTagName = useMoodTags();
   const navigate = useNavigate();
 
   const [isModal, setIsModal] = useState(false);
+  const [tags, setTags] = useState({
+    alcoholTags: [],
+    moodTags: [],
+    musicTags: [],
+  });
   const { barId } = useParams<UserParams>();
   const isLoggedIn = useAuthStore.getState().isLoggedIn;
 
@@ -46,6 +59,11 @@ const BarInfoPage = () => {
       const res = await axios.get(`/api/ohsul/bar/${barId}`);
       console.log(res.data, "응답와라젭아");
       setBarInfo(res.data);
+      setTags({
+        alcoholTags: res.data.alcoholTags,
+        moodTags: res.data.moodTags,
+        musicTags: res.data.musicTags,
+      });
       console.log("barInfo", barInfo);
     } catch (error) {
       console.log("get err", error);
@@ -136,6 +154,49 @@ const BarInfoPage = () => {
           <img src="/assets/images/border_dot.png" alt="border_dot" />
         </DotImgBox>
         {/* 태그 넣어오기 */}
+        <TagLayout>
+          {tags.alcoholTags?.length === 0 ? (
+            <TagBox>
+              <TagTitle>술</TagTitle>
+              <TagContent>아직 태그가 없어요</TagContent>
+            </TagBox>
+          ) : (
+            <TagBox>
+              <TagTitle>술</TagTitle>
+              {tags.alcoholTags?.slice(0, 5).map((item, index) => (
+                <TagContent key={index}>{getAlcoholTagName(item)}</TagContent>
+              ))}
+            </TagBox>
+          )}
+
+          {tags.moodTags?.length === 0 ? (
+            <TagBox>
+              <TagTitle>분위기</TagTitle>
+              <TagContent>아직 태그가 없어요</TagContent>
+            </TagBox>
+          ) : (
+            <TagBox>
+              <TagTitle>분위기</TagTitle>
+              {tags.moodTags?.slice(0, 5).map((item, index) => (
+                <TagContent key={index}>{getMoodTagName(item)}</TagContent>
+              ))}
+            </TagBox>
+          )}
+
+          {tags.musicTags?.length === 0 ? (
+            <TagBox>
+              <TagTitle>음악</TagTitle>
+              <TagContent>아직 태그가 없어요</TagContent>
+            </TagBox>
+          ) : (
+            <TagBox>
+              <TagTitle>음악</TagTitle>
+              {tags.musicTags?.slice(0, 5).map((item, index) => (
+                <TagContent key={index}>{getMusicTagName(item)}</TagContent>
+              ))}
+            </TagBox>
+          )}
+        </TagLayout>
         <DotImgBox>
           <img src="/assets/images/border_dot.png" alt="border_dot" />
         </DotImgBox>
@@ -207,6 +268,7 @@ const ReviewButton = styled.button`
 
 const AddFavoriteBtnWrapper = styled.div`
   width: 100%;
+  margin-bottom: 12px;
 `;
 const AddFavoriteBtn = styled.button`
   cursor: pointer;
@@ -230,5 +292,45 @@ const AddFavoriteBtn = styled.button`
     height: 22px;
     object-fit: contain;
   }
+`;
+
+const TagLayout = styled.div`
+  width: 100%;
+  /* height: 71px; */
+  margin-bottom: 14px;
+`;
+
+const TagBasic = `
+height: 20px;
+font-size: 14px;
+border-radius: 5px;
+display: flex;
+justify-content: center;
+align-items: center;
+margin: 2px 1px;
+`;
+
+const TagTitle = styled.div`
+  font-size: 24px;
+  color: ${({ theme }) => theme.colors.mainBlue};
+  font-family: ${({ theme }) => theme.fonts.ydFont};
+  margin-bottom: 8px;
+`;
+
+const TagBox = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 14px;
+`;
+
+const TagContent = styled.div`
+  display: inline;
+  color: ${({ theme }) => theme.colors.bgColor};
+  background: ${({ theme }) => theme.colors.mainBlue};
+  border: 1px solid ${({ theme }) => theme.colors.mainBlue};
+  padding: 12px;
+  margin: 4px;
+  ${TagBasic}
 `;
 export default BarInfoPage;

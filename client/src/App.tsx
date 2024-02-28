@@ -28,8 +28,8 @@ const MainLayout = styled.div`
   padding: 18px;
   max-width: 450px;
   height: 100%;
-
-  @media screen and (min-height: 950px) {
+  min-height: 932px;
+  @media screen and (min-height: 933px) {
     height: 100vh;
   }
 
