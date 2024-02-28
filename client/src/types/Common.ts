@@ -29,13 +29,17 @@ export type CardReview = Omit<Card, "tag">;
 //술집리뷰페이지 리뷰카드
 export type CardBarReview = {
   userNickname: string;
-  score: number;
+  avgScore?: number;
+  score?: number;
   reviewImg?: string;
   tag?: Tag;
   content?: string;
   date: string;
   barId: number;
   reviewId: number;
+  alcoholTags?: number[];
+  moodTags?: number[];
+  musicTags?: number[];
 };
 
 export type Modal = {
@@ -51,12 +55,13 @@ export type getBarInfo = {
   barName: string;
   name: string;
   phone: string;
-  alcoholTags?: string[];
-  moodTags?: string[];
-  musicTags?: string[];
+  alcoholTags?: number[];
+  moodTags?: number[];
+  musicTags?: number[];
 };
 
 export type FavoriteBar = {
+  avgScore?: number;
   barName: string;
   barPhone?: string;
   tag?: Tag;
@@ -64,4 +69,7 @@ export type FavoriteBar = {
   score?: number;
   content?: string;
   barId?: number;
+  alcoholTags?: number[];
+  moodTags?: number[];
+  musicTags?: number[];
 };
