@@ -6,16 +6,10 @@ export const MyReviewPageLayout = styled.div`
   align-items: center;
   padding: 10px 15px;
   gap: 4px;
-
   height: 100vh;
   overflow: hidden;
   margin-bottom: 78px;
-  /* position: absolute; */
-
   width: 100%;
-  top: 35%;
-
-  //background-color: bisque;
 `;
 
 export const ReviewCount = styled.div`

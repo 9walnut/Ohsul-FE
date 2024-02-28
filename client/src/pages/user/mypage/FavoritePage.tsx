@@ -8,6 +8,7 @@ import { useNavigate } from "react-router";
 import CardColTag from "../../../components/common/CardColTag";
 import { FavoriteBar } from "../../../types/Common";
 import OnlyMember from "../../../components/common/OnlyMember";
+import { MyPageLayout } from "./MyPageStyle";
 
 const FavoritePage = () => {
   const navigate = useNavigate();
@@ -72,43 +73,45 @@ const FavoritePage = () => {
     <>
       {isLoggedIn ? (
         <>
-          <S.FavoritePageLayout>
-            <S.FavoriteCount>
-              총 {favoriteData.length}개의 찜 목록
-            </S.FavoriteCount>
-            {isFavoritePlace ? (
-              <>
-                {favoriteData.map((content, index) => (
-                  <CardColTag
-                    key={index}
-                    barId={content.barId}
-                    barName={content.barName}
-                    score={content.avgScore}
-                    barImg={content.barImg}
-                    alcoholTags={content.alcoholTags}
-                    moodTags={content.moodTags}
-                    musicTags={content.musicTags}
-                    onFavoriteChange={reloadFavorites}
-                  />
-                ))}
-              </>
-            ) : (
-              <>
-                {modalOpen && (
-                  <CommonModal
-                    message={
-                      <>
-                        아직 즐겨찾기 한 장소가 없어요. <br /> 내 근처 술집
-                        둘러보러 가기 😀
-                      </>
-                    }
-                    isClose={false}
-                    onConfirm={handleNavigate}
-                  />
-                )}
-              </>
-            )}
-          </S.FavoritePageLayout>
+          <MyPageLayout>
+            <S.FavoritePageLayout>
+              <S.FavoriteCount>
+                총 {favoriteData.length}개의 찜 목록
+              </S.FavoriteCount>
+              {isFavoritePlace ? (
+                <>
+                  {favoriteData.map((content, index) => (
+                    <CardColTag
+                      key={index}
+                      barId={content.barId}
+                      barName={content.barName}
+                      score={content.avgScore}
+                      barImg={content.barImg}
+                      alcoholTags={content.alcoholTags}
+                      moodTags={content.moodTags}
+                      musicTags={content.musicTags}
+                      onFavoriteChange={reloadFavorites}
+                    />
+                  ))}
+                </>
+              ) : (
+                <>
+                  {modalOpen && (
+                    <CommonModal
+                      message={
+                        <>
+                          아직 즐겨찾기 한 장소가 없어요. <br /> 내 근처 술집
+                          둘러보러 가기 😀
+                        </>
+                      }
+                      isClose={false}
+                      onConfirm={handleNavigate}
+                    />
+                  )}
+                </>
+              )}
+            </S.FavoritePageLayout>
+          </MyPageLayout>
         </>
       ) : (
         <>

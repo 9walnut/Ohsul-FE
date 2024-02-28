@@ -2,6 +2,7 @@ import styled from "styled-components";
 import { Link } from "react-router-dom";
 
 export const MyPageLayout = styled.div`
+  width: 100%;
   height: 100vh;
   overflow: hidden;
   margin-bottom: 78px;

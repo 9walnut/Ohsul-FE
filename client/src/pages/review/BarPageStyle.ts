@@ -1,6 +1,7 @@
 import styled from "styled-components";
 
 export const ReviewPageLayout = styled.div`
+  width: 100%;
   height: 100vh;
   overflow: hidden;
   margin-bottom: 78px;
@@ -77,7 +78,7 @@ export const ContentWrapper = styled.div`
 
 export const ContentBox = styled.input`
   width: 100%;
-  max-width: 430px;
+  /* max-width: 430px; */
   height: 60px;
   padding: 20px;
   background-color: ${({ theme }) => theme.colors.bgLightColor};

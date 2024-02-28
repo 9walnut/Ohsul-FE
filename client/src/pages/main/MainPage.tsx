@@ -79,7 +79,9 @@ const MainPage: React.FC = () => {
   );
 };
 const MainPageWrapper = styled.div`
-  overflow-x: hidden;
+  width: 100%;
   height: 100vh;
+  overflow: hidden;
+  margin-bottom: 78px;
 `;
 export default MainPage;
