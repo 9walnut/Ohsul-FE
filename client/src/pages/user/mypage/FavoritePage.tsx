@@ -16,9 +16,9 @@ const DUMMYCardColTag = [
     barImg:
       "https://search.pstatic.net/common/?src=https%3A%2F%2Fpup-review-phinf.pstatic.net%2FMjAyMzAyMDNfNjkg%2FMDAxNjc1MzU3OTAwMDc1.nDuEbsyEjQNKrN5JJn4PN7QN2himoQXkjdsOidYPEQ4g.hc5nBIjfzB85bNZRKiYcGhwY3ETdxAtLQUQhAi_hZ3cg.JPEG%2Fimage.jpg",
     tag: {
-      drink: ["칵테일", "양주"],
-      mood: ["다같이 즐기는", "힙한"],
-      music: ["힙합"],
+      drink: [1],
+      mood: [1],
+      music: [1],
     },
   },
   {
@@ -28,9 +28,9 @@ const DUMMYCardColTag = [
     barImg:
       "https://search.pstatic.net/common/?src=https%3A%2F%2Fpup-review-phinf.pstatic.net%2FMjAyMzAyMDNfNjkg%2FMDAxNjc1MzU3OTAwMDc1.nDuEbsyEjQNKrN5JJn4PN7QN2himoQXkjdsOidYPEQ4g.hc5nBIjfzB85bNZRKiYcGhwY3ETdxAtLQUQhAi_hZ3cg.JPEG%2Fimage.jpg",
     tag: {
-      drink: ["칵테일", "양주"],
-      mood: ["다같이 즐기는", "힙한"],
-      music: ["힙합"],
+      drink: [1],
+      mood: [1],
+      music: [1],
     },
   },
 ];

@@ -14,3 +14,13 @@ export interface CheckboxProps {
   checked?: any;
   disabled?: boolean;
 }
+
+export interface TagsState {
+  alcoholTags: number[];
+  musicTags: number[];
+  moodTags: number[];
+}
+
+export type SetTagsFunction = (
+  value: TagsState | ((prevState: TagsState) => TagsState)
+) => void;

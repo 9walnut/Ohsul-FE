@@ -26,6 +26,7 @@ const CheckboxGroup: React.FC<CheckboxGroupProps> = ({
       onChange(values.filter((v) => v !== value));
     }
   };
+
   const isDisabled = () => disabled;
 
   return (

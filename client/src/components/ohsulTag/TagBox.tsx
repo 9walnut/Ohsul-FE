@@ -1,34 +1,30 @@
-import React, { useState } from "react";
+import React, { Dispatch, SetStateAction, useState } from "react";
 import styled from "styled-components";
 
 import CheckboxGroup from "./CheckboxGroup";
 import Checkbox from "./Checkbox";
+import { TagsState, SetTagsFunction } from "../../types/OhsulTag";
 
 // ✅ <TagBox checkedTags={DUMMYTags} disabled={true} />
 // 상위 컴포넌트 사용 시 disabled={true} 전달하면 클릭 불가!
 interface TagBoxProps {
-  checkedTags?: { [key: string]: number[] };
+  tags?: TagsState;
   disabled?: boolean;
+  setTags: SetTagsFunction;
+  checkedTags?: { [key: string]: number[] };
 }
-const TagBox: React.FC<TagBoxProps> = ({ checkedTags, disabled }) => {
-  const defaultTag = {
-    alcoholTags: [],
-    musicTags: [],
-    moodTags: [],
-    toilet: [],
-    parkingArea: [],
-    snack: [],
-  };
 
-  const [tags, setTags] = useState({ ...defaultTag, ...checkedTags });
-
+const TagBox: React.FC<TagBoxProps> = ({
+  tags,
+  setTags,
+  disabled,
+  checkedTags,
+}) => {
   const handleTagChange = (values: number[], tag: string) => {
     setTags((prevTags) => ({
       ...prevTags,
       [tag]: values,
     }));
-    console.log({ [tag]: values });
-    console.log(defaultTag, "defautl");
   };
 
   return (
@@ -36,7 +32,7 @@ const TagBox: React.FC<TagBoxProps> = ({ checkedTags, disabled }) => {
       <StyledGroupLayout>
         <CheckboxGroup
           label="술 선택"
-          values={tags.alcoholTags}
+          values={tags!.alcoholTags}
           onChange={(values: number[]) =>
             handleTagChange(values, "alcoholTags")
           }
@@ -81,7 +77,7 @@ const TagBox: React.FC<TagBoxProps> = ({ checkedTags, disabled }) => {
       <StyledGroupLayout>
         <CheckboxGroup
           label="음악 선택"
-          values={tags.musicTags}
+          values={tags!.musicTags}
           onChange={(values: number[]) => handleTagChange(values, "musicTags")}
           disabled={disabled}
         >
@@ -115,7 +111,7 @@ const TagBox: React.FC<TagBoxProps> = ({ checkedTags, disabled }) => {
       <StyledGroupLayout>
         <CheckboxGroup
           label="분위기 선택"
-          values={tags.moodTags}
+          values={tags!.moodTags}
           onChange={(values: number[]) => handleTagChange(values, "moodTags")}
           disabled={disabled}
         >
@@ -143,7 +139,8 @@ const TagBox: React.FC<TagBoxProps> = ({ checkedTags, disabled }) => {
           </StyledColGroup>
         </CheckboxGroup>
       </StyledGroupLayout>
-      <StyledGroupLayout>
+
+      {/* <StyledGroupLayout>
         <CheckboxGroup
           label="주차장 여부"
           values={tags.parkingArea}
@@ -195,7 +192,7 @@ const TagBox: React.FC<TagBoxProps> = ({ checkedTags, disabled }) => {
             </Checkbox>
           </StyledColGroup>
         </CheckboxGroup>
-      </StyledGroupLayout>
+      </StyledGroupLayout> */}
     </>
   );
 };

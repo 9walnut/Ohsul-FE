@@ -42,6 +42,7 @@ import { CardBarReview } from "../../../types/Common";
 
 const MyReviewPage = () => {
   const [isReview, setIsReview] = useState(true);
+  const [nickName, setNickName] = useState("");
   const [reviewData, setReviewData] = useState<CardBarReview[]>([]);
 
   useEffect(() => {
@@ -54,7 +55,7 @@ const MyReviewPage = () => {
         if (res.status == 200) {
           const { reviews, userNickname } = res.data;
           setReviewData(reviews);
-
+          setNickName(userNickname);
           console.log("User nickname:", userNickname);
           console.log("MyReviewPage res: ", res);
           console.log("MyReviewPage res.data: ", res.data);
@@ -76,9 +77,11 @@ const MyReviewPage = () => {
             {reviewData.map((review, index) => (
               <BarReviewCard
                 key={index}
-                userNickname={review.userNickname}
+                barId={review.barId}
+                reviewId={review.reviewId}
+                userNickname={nickName}
                 score={review.score}
-                barImg={review.barImg}
+                reviewImg={review.reviewImg}
                 tag={review.tag}
                 content={review.content}
                 date={review.date}

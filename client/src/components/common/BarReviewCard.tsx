@@ -1,20 +1,24 @@
 import React from "react";
 import styled from "styled-components";
-
+import axios from "axios";
 import { CardBarReview } from "../../types/Common";
+import { useNavigate } from "react-router-dom";
 
 const BarReviewCard: React.FC<CardBarReview> = ({
   userNickname,
   score,
-  barImg,
+  reviewImg,
   tag,
   content,
   date,
+  barId,
+  reviewId,
 }) => {
   const tagData = tag || { drink: [], mood: [], music: [] };
-  const drink: string[] = tagData.drink;
-  const mood: string[] = tagData.mood;
-  const music: string[] = tagData.music;
+  const drink: number[] = tagData.drink;
+  const mood: number[] = tagData.mood;
+  const music: number[] = tagData.music;
+  const navigate = useNavigate();
 
   console.log(drink);
 
@@ -23,6 +27,41 @@ const BarReviewCard: React.FC<CardBarReview> = ({
       return text.substring(0, maxLength) + "...";
     }
     return text;
+  };
+
+  const reviewPatch = async () => {
+    try {
+      // 리뷰 비밀번호 확인 요청
+      // const res = await axios.post("/api/");
+      // console.log("review patch res", res);
+      // if (res.status == 200) {
+      //   console.log("비밀번호 일치");
+      //   // 일치 시 해당 수정 페이지로 이동
+      //   navigate("/");
+      // } else {
+      //   console.log("비밀번호가 일치하지 않습니다.");
+      // }
+      navigate(`/ohsul/${barId}/editReview/${reviewId}`);
+    } catch (error) {
+      console.log("review patch err", error);
+    }
+  };
+
+  const reviewDelete = async () => {
+    try {
+      // 삭제 요청
+      const res = await axios.delete(`/api/ohsul/${barId}/review/${reviewId}`);
+      console.log("review delete res", res);
+      if (res.status == 200) {
+        // 응답 성공 시
+        console.log("삭제 성공");
+      } else {
+        // 비밀번호 들어오나 ?
+        console.log("비밀번호 에러");
+      }
+    } catch (error) {
+      console.log("review delete err", error);
+    }
   };
 
   return (
@@ -55,8 +94,8 @@ const BarReviewCard: React.FC<CardBarReview> = ({
           <ImgBox>
             <img
               src={
-                barImg
-                  ? process.env.PUBLIC_URL + barImg
+                reviewImg
+                  ? process.env.PUBLIC_URL + reviewImg
                   : process.env.PUBLIC_URL +
                     "assets/images/common_alternateImage.png"
               }
@@ -92,13 +131,23 @@ const BarReviewCard: React.FC<CardBarReview> = ({
         <ContentBox4>
           <DateBox>{date}</DateBox>
           <BtnBox>
-            <EditBtn onClick={() => console.log("리뷰 수정 클릭")}>
+            <EditBtn
+              onClick={() => {
+                console.log("리뷰 수정 클릭");
+                reviewPatch();
+              }}
+            >
               <img
                 src={process.env.PUBLIC_URL + "assets/images/common_edit.png"}
                 alt="리뷰 수정하기"
               />
             </EditBtn>
-            <DelBtn onClick={() => console.log("리뷰 삭제 클릭")}>
+            <DelBtn
+              onClick={() => {
+                console.log("리뷰 삭제 클릭");
+                reviewDelete();
+              }}
+            >
               <img
                 src={process.env.PUBLIC_URL + "assets/images/common_del.png"}
                 alt="리뷰 삭제하기"

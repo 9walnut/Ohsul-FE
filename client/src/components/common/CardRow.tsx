@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import styled from "styled-components";
+import React, { useState, useEffect } from "react";
+import styled, { keyframes } from "styled-components";
 import { Card } from "../../types/Common";
 import StarRating from "./StarRating";
 import { Link } from "react-router-dom";
@@ -20,6 +20,20 @@ interface BarData {
 const CardRow: React.FC<BarData> = ({ bar }) => {
   const [isTag, setIsTag] = useState(false);
   const [isContent, setIsContent] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setIsLoading(false);
+    }, 1500);
+
+    return () => clearTimeout(timer);
+  }, []);
+
+  if (isLoading) {
+    return <SkeletonCard />;
+  }
+
   console.log(bar, "바스바스");
   return (
     <>
@@ -106,5 +120,52 @@ const ScoreBox = styled.div`
 const TagBox = styled.div``;
 
 const BarWrapper = styled.div``;
+
+// 애니메이션 정의
+const loadingAnimation = keyframes`
+0% {
+  background-position: -200px 0;
+}
+100% {
+  background-position: 200px 0;
+}
+`;
+
+const Skeleton = styled.div`
+  width: 130px;
+  height: 130px;
+  background: linear-gradient(to right, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+  background-size: 200px 100%;
+  animation: ${loadingAnimation} 1.3s infinite linear;
+  border-radius: 14px;
+`;
+
+const SkeletonTitle = styled.div`
+  width: 130px;
+  height: 18px;
+  margin: 6px 0px;
+  background: linear-gradient(to right, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+  background-size: 200px 100%;
+  animation: ${loadingAnimation} 1.3s infinite linear;
+  border-radius: 14px;
+`;
+
+const SkeletonReview = styled.div`
+  width: 130px;
+  height: 50px;
+  background: linear-gradient(to right, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+  background-size: 200px 100%;
+  animation: ${loadingAnimation} 1.3s infinite linear;
+  border-radius: 14px;
+`;
+
+// 스켈레톤 UI 스타일 컴포넌트
+const SkeletonCard = () => (
+  <CardLayout>
+    <Skeleton />
+    <SkeletonTitle />
+    <SkeletonReview />
+  </CardLayout>
+);
 
 export default CardRow;
