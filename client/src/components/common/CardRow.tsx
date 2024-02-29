@@ -42,6 +42,12 @@ const CardRow: React.FC<BarData> = ({ bar }) => {
       return score.toFixed(1);
     }
   };
+  const etxText = (text: string, maxLength: number) => {
+    if (text.length > maxLength) {
+      return text.substring(0, maxLength) + "...";
+    }
+    return text;
+  };
 
   return (
     <>
@@ -65,8 +71,10 @@ const CardRow: React.FC<BarData> = ({ bar }) => {
                 <div id="recentReview">
                   최신 리뷰 <img src="/assets/images/arrow-down.png" />
                 </div>
-                {/* @ts-ignore */}
-                <div id="reviewContent">{bar.barRecentReviews[0].content}</div>
+                <div id="reviewContent">
+                  {/* @ts-ignore */}
+                  {etxText(bar.barRecentReviews[0].content, 20)}
+                </div>
               </BarReviewBox>
             ) : (
               <BarReviewBox>

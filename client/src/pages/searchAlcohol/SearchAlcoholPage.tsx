@@ -153,29 +153,6 @@ const SearchAlcoholPage: React.FC = () => {
         <TagBox tags={tags} setTags={setTags} />
         {/* dot Img */}
         <img src="/assets/images/border_dot.png" alt="border_dot" />
-        {/* {barInfo.map((result, index) => (
-        <CardColReview
-          // @ts-ignore
-          barId={result.barId}
-          // @ts-ignore
-          barName={result.barName}
-          key={index}
-          // @ts-ignore
-          barPhone={result.telephone}
-        />
-      ))} */}
-        {/* {DUMMYPlace.map((result, index) => (
-        <CardColReview
-          // @ts-ignore
-          barId={result.barId}
-          // @ts-ignore
-          barName={result.barName}
-          key={index}
-          content={result.content}
-          // @ts-ignore
-          //barPhone={result.telephone}
-        />
-      ))} */}
 
         {filteredBars.length > 0 ? (
           <>
@@ -187,7 +164,7 @@ const SearchAlcoholPage: React.FC = () => {
                 barImg={result.barImg}
                 key={index}
                 // @ts-ignore
-                // content={result.barRecentReviews[0].content}
+                content={result.barRecentReviews[0].content}
               />
             ))}
           </>
@@ -210,7 +187,7 @@ const SearchAlcoholPage: React.FC = () => {
                 score={result.barAvgScore}
                 key={index}
                 // @ts-ignore
-                // content={result.barRecentReviews[0].content}
+                content={result.barRecentReviews[0].content}
               />
             ))}
           </>
