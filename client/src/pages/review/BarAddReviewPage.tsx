@@ -49,6 +49,7 @@ const BarAddReviewPage: React.FC = () => {
       reader.readAsDataURL(file);
     }
   };
+
   const checkReview = () => {
     if (tags.alcoholTags.length <= 0) {
       setAlertMsg("📢 술 태그를 1개 이상 선택해주세요 !");
@@ -62,8 +63,6 @@ const BarAddReviewPage: React.FC = () => {
       setAlertMsg("📢 음악 태그를 1개 이상 선택해주세요 !");
     } else if (tags.musicTags.length > 3) {
       setAlertMsg("📢 음악 태그를 3개 이하로 선택해주세요 !");
-    } else if (reviewPw == "") {
-      setAlertMsg("📢 비밀번호를 입력해주세요.");
     } else {
       setAlertMsg("");
       postReview();

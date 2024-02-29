@@ -35,6 +35,7 @@ const BarEditReviewPage = () => {
   const [content, setContent] = useState("");
   const [reviewImg, setReviewImg] = useState(null);
   const [postImg, setPostImg] = useState(null);
+  const [alertMsg, setAlertMsg] = useState("");
 
   const [tags, setTags]: [TagsState, SetTagsFunction] = useState<TagsState>({
     alcoholTags: [1],
@@ -62,6 +63,25 @@ const BarEditReviewPage = () => {
     }
   };
 
+  const checkReview = () => {
+    if (tags.alcoholTags.length <= 0) {
+      setAlertMsg("📢 술 태그를 1개 이상 선택해주세요 !");
+    } else if (tags.alcoholTags.length > 3) {
+      setAlertMsg("📢 술 태그를 3개 이하로 선택해주세요 !");
+    } else if (tags.moodTags.length <= 0) {
+      setAlertMsg("📢 분위기 태그를 1개 이상 선택해주세요 !");
+    } else if (tags.moodTags.length > 3) {
+      setAlertMsg("📢 분위기 태그를 3개 이하로 선택해주세요 !");
+    } else if (tags.musicTags.length <= 0) {
+      setAlertMsg("📢 음악 태그를 1개 이상 선택해주세요 !");
+    } else if (tags.musicTags.length > 3) {
+      setAlertMsg("📢 음악 태그를 3개 이하로 선택해주세요 !");
+    } else {
+      setAlertMsg("");
+      patchReview();
+    }
+  };
+
   useEffect(() => {
     getReview();
   }, [reviewId]);
@@ -77,6 +97,7 @@ const BarEditReviewPage = () => {
         moodTags: res.data.moodTags,
       });
       setReviewImg(res.data.reviewImg);
+      setPostImg(res.data.reviewImg);
       setScore(res.data.score);
       setContent(res.data.content);
     } catch (error) {
@@ -209,7 +230,8 @@ const BarEditReviewPage = () => {
             placeholder="85자 이내 작성"
           />
         </S.ContentWrapper>
-        <S.Button onClick={patchReview}>리뷰 수정</S.Button>
+        <S.AlertBox>{alertMsg}</S.AlertBox>
+        <S.Button onClick={checkReview}>리뷰 수정</S.Button>
       </S.ReviewPageLayout>
     </>
   );
