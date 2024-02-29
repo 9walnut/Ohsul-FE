@@ -13,33 +13,45 @@ const MyReviewPage = () => {
   const [isReview, setIsReview] = useState(true);
   const [nickName, setNickName] = useState("");
   const [reviewData, setReviewData] = useState<CardBarReview[]>([]);
+  const { userNickname } = useAuthStore.getState();
+  const { userId } = useAuthStore.getState();
+  const FetchData = async () => {
+    try {
+      const res = await axios.get("/api/mypage/myReview", {
+        params: { userId },
+      });
+      if (res.status == 200) {
+        setNickName(res.data.userNickname);
+        console.log(res.data, "마이페이지 리뷰 목록 ");
+        const reviewList = res.data.reviews;
+        if (reviewList.length !== 0) {
+          setIsReview(true);
+          setReviewData(reviewList);
+        } else {
+          setIsReview(false);
+        }
+        console.log("Review data:", reviewData);
+      }
+    } catch (error) {
+      console.log("myReview render error : ", error);
+    }
+  };
 
   useEffect(() => {
-    const { userNickname } = useAuthStore.getState();
-    const { userId } = useAuthStore.getState();
-    const FetchData = async () => {
-      try {
-        const res = await axios.get("/api/mypage/myReview", {
-          params: { userId },
-        });
-        if (res.status == 200) {
-          setNickName(res.data.userNickname);
-          console.log(res.data, "마이페이지 리뷰 목록 ");
-          const reviewList = res.data.reviews;
-          if (reviewList.length !== 0) {
-            setIsReview(true);
-            setReviewData(reviewList);
-          } else {
-            setIsReview(false);
-          }
-          console.log("Review data:", reviewData);
-        }
-      } catch (error) {
-        console.log("myReview render error : ", error);
-      }
-    };
     FetchData();
   }, []);
+
+  // const onDeleteReview = async (reviewId: any) => {
+  //   // 리뷰 삭제 로직...
+  //   try {
+  //     await axios.delete(`/api/ohsul/${barId}/review/${reviewId}`);
+  //     // 삭제 후 리뷰 목록 새로고침
+  //     FetchData();
+  //   } catch (error) {
+  //     console.error("Review deletion error:", error);
+  //   }
+  // };
+
   return (
     <>
       {isLoggedIn ? (
@@ -62,6 +74,9 @@ const MyReviewPage = () => {
                     content={review.content}
                     date={review.date}
                     barName={review.barName}
+                    // @ts-ignore
+                    // onDelete={onDeleteReview}
+                    onDeleteSuccess={FetchData}
                   />
                 ))}
               </>

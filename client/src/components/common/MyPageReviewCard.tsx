@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import axios from "axios";
 import { CardBarReview } from "../../types/Common";
@@ -9,6 +9,7 @@ import {
   useMusicTags,
 } from "../../hooks/tagsChange";
 import useAuthStore from "../../stores/useAuthStore";
+import ConfirmModal from "./ConfirmModal";
 
 const MypageReviewCard: React.FC<CardBarReview> = ({
   nickname,
@@ -23,6 +24,7 @@ const MypageReviewCard: React.FC<CardBarReview> = ({
   moodTags,
   musicTags,
   barName,
+  onDeleteSuccess,
 }) => {
   const { userNickname } = useAuthStore.getState();
   const { userId } = useAuthStore.getState();
@@ -31,6 +33,8 @@ const MypageReviewCard: React.FC<CardBarReview> = ({
   const getAlcoholTagName = useAlcoholTags();
   const getMusicTagName = useMusicTags();
   const getMoodTagName = useMoodTags();
+  const [modalOpen, setModalOpen] = useState(false);
+
   const etxText = (text: string, maxLength: number) => {
     if (text.length > maxLength) {
       return text.substring(0, maxLength) + "...";
@@ -68,6 +72,7 @@ const MypageReviewCard: React.FC<CardBarReview> = ({
       console.log("review delete res", res);
       if (res.status === 200) {
         console.log("삭제 성공");
+        if (onDeleteSuccess) onDeleteSuccess(); // 삭제가 성공하면 FetchData()를 호출합니다.
       } else {
         console.log("삭제 실패:", res.data);
       }
@@ -76,8 +81,28 @@ const MypageReviewCard: React.FC<CardBarReview> = ({
     }
   };
 
+  const handleDelUser = () => {
+    setModalOpen(true);
+    console.log("탈퇴버튼클릭");
+  };
+
+  const handleCancel = () => {
+    setModalOpen(false);
+    //navigate("/mypage/editMyInfo");
+  };
+
   return (
     <>
+      {modalOpen && (
+        <ModalWrapper>
+          <ConfirmModal
+            message="삭제하시겠습니까?"
+            onCancel={handleCancel}
+            onConfirm={reviewDelete}
+            isClose={true}
+          />
+        </ModalWrapper>
+      )}
       <CardLayout>
         <ContentBox1>
           <UserBox>
@@ -169,7 +194,7 @@ const MypageReviewCard: React.FC<CardBarReview> = ({
             <DelBtn
               onClick={() => {
                 console.log("리뷰 삭제 클릭");
-                reviewDelete();
+                handleDelUser();
               }}
             >
               <img src="/assets/images/common_del.png" alt="리뷰 삭제하기" />
@@ -402,4 +427,10 @@ const DelBtn = styled.div`
     height: 100%;
     object-fit: contain;
   }
+`;
+
+const ModalWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;
