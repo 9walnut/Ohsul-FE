@@ -57,6 +57,14 @@ const CardColTag: React.FC<FavoriteBar> = ({
     }
   };
 
+  const scoreCheck = (score: any) => {
+    if (score == "NaN") {
+      return 0;
+    } else {
+      return score.toFixed(1);
+    }
+  };
+
   //------------------------------즐겨찾기 zustand
   // const favoriteStore = useFavoriteStore();
 
@@ -158,7 +166,7 @@ const CardColTag: React.FC<FavoriteBar> = ({
                   alt="Score"
                 />
               </ScoreImg>
-              <ScoreText>{score}</ScoreText>
+              <ScoreText>{scoreCheck(score)}</ScoreText>
             </ScoreBox>
           </Link>
         </LeftContent>

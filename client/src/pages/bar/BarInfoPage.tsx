@@ -270,6 +270,7 @@ const AddFavoriteBtnWrapper = styled.div`
   width: 100%;
   margin-bottom: 12px;
 `;
+
 const AddFavoriteBtn = styled.button`
   cursor: pointer;
   width: 100px;

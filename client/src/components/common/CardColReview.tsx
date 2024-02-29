@@ -35,7 +35,6 @@ const CardColReview: React.FC<FavoriteBar> = ({
       const res = await axios.get("/api/favorite/favoriteList");
       if (res.status == 200) {
         setFavoriteBarId(res.data);
-        //console.log("favoriteList res : ", res);
         console.log("favoriteList res.data : ", res.data);
       }
     } catch (error) {
@@ -82,6 +81,14 @@ const CardColReview: React.FC<FavoriteBar> = ({
       fetchFavorite();
     } catch (error) {
       console.log("favorite err : ", error);
+    }
+  };
+
+  const scoreCheck = (score: any) => {
+    if (score == "NaN") {
+      return 0;
+    } else {
+      return score;
     }
   };
 
@@ -136,13 +143,20 @@ const CardColReview: React.FC<FavoriteBar> = ({
                     alt="Score"
                   />
                 </ScoreImg>
-                <ScoreText>{score}</ScoreText>
+                <ScoreText>{scoreCheck(score)}</ScoreText>
               </ScoreBox>
             </LeftContent>
           </Link>
           <RightContent>
             <ContentWrapper>
-              <ReviewBox>{content}</ReviewBox>
+              {content ? (
+                <ReviewBox>{content}</ReviewBox>
+              ) : (
+                <ReviewBox>
+                  작성된 리뷰가 없습니다 ! <br />
+                  <br /> 리뷰를 작성해주세요
+                </ReviewBox>
+              )}
               <Button>
                 <Link
                   to={`/ohsul/bar/${barId}`}

@@ -40,6 +40,14 @@ const CardRowTag: React.FC<BarData> = ({ bar }) => {
     return () => clearTimeout(timer);
   }, []);
 
+  const scoreCheck = (score: any) => {
+    if (score == "NaN") {
+      return 0;
+    } else {
+      return score.toFixed(1);
+    }
+  };
+
   if (isLoading) {
     return <SkeletonCard />;
   }
@@ -113,7 +121,7 @@ const CardRowTag: React.FC<BarData> = ({ bar }) => {
                 />
               </div>
               {bar.barAvgScore ? (
-                <div>{bar.barAvgScore}</div>
+                <div>{scoreCheck(bar.barAvgScore)}</div>
               ) : (
                 <div>리뷰를 작성해주세요</div>
               )}

@@ -66,6 +66,7 @@ const BarEditReviewPage = () => {
     getReview();
   }, [reviewId]);
 
+  // 리뷰 가져오기
   const getReview = async () => {
     try {
       const res = await axios.get(`/api/ohsul/${barId}/review/${reviewId}`);
@@ -83,6 +84,7 @@ const BarEditReviewPage = () => {
     }
   };
 
+  // 리뷰 수정하기
   const patchReview = async () => {
     const formData = new FormData();
     if (postImg) {
@@ -102,6 +104,7 @@ const BarEditReviewPage = () => {
       "barReviewDTO",
       new Blob([reviewData], { type: "application/json" })
     );
+
     try {
       const res = await axios.patch(
         `/api/ohsul/${barId}/review/${reviewId}`,
@@ -135,7 +138,7 @@ const BarEditReviewPage = () => {
                 style={{ outline: "none", backgroundColor: "#ddd" }}
               />
             </S.InputBox>
-            <S.InputBox>
+            {/* <S.InputBox>
               <S.ExplainInput>비밀번호</S.ExplainInput>
               <S.StyledInput
                 type="password"
@@ -144,7 +147,7 @@ const BarEditReviewPage = () => {
                 }}
                 placeholder="비밀번호를 입력해주세요."
               />
-            </S.InputBox>
+            </S.InputBox> */}
           </S.InputBoxWrapper>
         )}
 
