@@ -76,6 +76,37 @@ const TagBox: React.FC<TagBoxProps> = ({
 
       <StyledGroupLayout>
         <CheckboxGroup
+          label="분위기 선택"
+          values={tags!.moodTags}
+          onChange={(values: number[]) => handleTagChange(values, "moodTags")}
+          disabled={disabled}
+        >
+          <StyledColGroup>
+            <Checkbox id="mood_1" value={1}>
+              혼술 가능한
+            </Checkbox>
+            <Checkbox id="mood_2" value={2}>
+              이야기 나누기 적당한
+            </Checkbox>
+          </StyledColGroup>
+          <StyledColGroup>
+            <Checkbox id="mood_3" value={3}>
+              프라이빗한
+            </Checkbox>
+            <Checkbox id="mood_4" value={4}>
+              다같이 즐기는
+            </Checkbox>
+            <Checkbox id="mood_5" value={5}>
+              감성적인
+            </Checkbox>
+            <Checkbox id="mood_6" value={6}>
+              힙한
+            </Checkbox>
+          </StyledColGroup>
+        </CheckboxGroup>
+      </StyledGroupLayout>
+      <StyledGroupLayout>
+        <CheckboxGroup
           label="음악 선택"
           values={tags!.musicTags}
           onChange={(values: number[]) => handleTagChange(values, "musicTags")}
@@ -104,37 +135,6 @@ const TagBox: React.FC<TagBoxProps> = ({
             </Checkbox>
             <Checkbox id="music_7" value={7}>
               그때그때 달라요
-            </Checkbox>
-          </StyledColGroup>
-        </CheckboxGroup>
-      </StyledGroupLayout>
-      <StyledGroupLayout>
-        <CheckboxGroup
-          label="분위기 선택"
-          values={tags!.moodTags}
-          onChange={(values: number[]) => handleTagChange(values, "moodTags")}
-          disabled={disabled}
-        >
-          <StyledColGroup>
-            <Checkbox id="mood_1" value={1}>
-              혼술 가능한
-            </Checkbox>
-            <Checkbox id="mood_2" value={2}>
-              이야기 나누기 적당한
-            </Checkbox>
-          </StyledColGroup>
-          <StyledColGroup>
-            <Checkbox id="mood_3" value={3}>
-              프라이빗한
-            </Checkbox>
-            <Checkbox id="mood_4" value={4}>
-              다같이 즐기는
-            </Checkbox>
-            <Checkbox id="mood_5" value={5}>
-              감성적인
-            </Checkbox>
-            <Checkbox id="mood_6" value={6}>
-              힙한
             </Checkbox>
           </StyledColGroup>
         </CheckboxGroup>
