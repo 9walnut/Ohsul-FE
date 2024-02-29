@@ -66,6 +66,7 @@ const BarEditReviewPage = () => {
     getReview();
   }, [reviewId]);
 
+  // 리뷰 가져오기
   const getReview = async () => {
     try {
       const res = await axios.get(`/api/ohsul/${barId}/review/${reviewId}`);
@@ -83,6 +84,7 @@ const BarEditReviewPage = () => {
     }
   };
 
+  // 리뷰 수정하기
   const patchReview = async () => {
     const formData = new FormData();
     if (postImg) {
@@ -102,6 +104,7 @@ const BarEditReviewPage = () => {
       "barReviewDTO",
       new Blob([reviewData], { type: "application/json" })
     );
+
     try {
       const res = await axios.patch(
         `/api/ohsul/${barId}/review/${reviewId}`,

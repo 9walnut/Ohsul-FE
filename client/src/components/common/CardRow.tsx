@@ -35,6 +35,14 @@ const CardRow: React.FC<BarData> = ({ bar }) => {
     return <SkeletonCard />;
   }
 
+  const scoreCheck = (score: any) => {
+    if (score == "NaN") {
+      return 0;
+    } else {
+      return score.toFixed(1);
+    }
+  };
+
   return (
     <>
       <CardLayout>
@@ -71,7 +79,7 @@ const CardRow: React.FC<BarData> = ({ bar }) => {
             <ScoreBox>
               <img src={"/assets/images/star.png"} alt="Score" />
               {bar.barAvgScore ? (
-                <div>{bar.barAvgScore}</div>
+                <div>{scoreCheck(bar.barAvgScore)}</div>
               ) : (
                 <div>리뷰를 작성해주세요</div>
               )}

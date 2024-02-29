@@ -60,7 +60,8 @@ const BarReviewPage = () => {
             {reviewData.map((review, index) => (
               <BarReviewCard
                 key={index}
-                barId={barInfo.barId}
+                //@ts-ignore
+                barId={barId}
                 reviewId={review.reviewId}
                 alcoholTags={review.alcoholTags}
                 moodTags={review.moodTags}
