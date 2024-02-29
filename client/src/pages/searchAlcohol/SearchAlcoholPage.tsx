@@ -145,6 +145,14 @@ const SearchAlcoholPage: React.FC = () => {
     return phone.replace(/-/g, "");
   };
 
+  const handleContent = (content: any) => {
+    if (content == null) {
+      return null;
+    } else {
+      return content[0].content;
+    }
+  };
+
   return (
     <>
       <SearchAlcoholPageLayout>
@@ -164,7 +172,7 @@ const SearchAlcoholPage: React.FC = () => {
                 barImg={result.barImg}
                 key={index}
                 // @ts-ignore
-                content={result.barRecentReviews[0].content}
+                content={handleContent(result.barRecentReviews)}
               />
             ))}
           </>
@@ -187,7 +195,7 @@ const SearchAlcoholPage: React.FC = () => {
                 score={result.barAvgScore}
                 key={index}
                 // @ts-ignore
-                content={result.barRecentReviews[0].content}
+                content={handleContent(result.barRecentReviews)}
               />
             ))}
           </>
