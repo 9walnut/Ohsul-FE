@@ -138,7 +138,7 @@ const BarEditReviewPage = () => {
                 style={{ outline: "none", backgroundColor: "#ddd" }}
               />
             </S.InputBox>
-            <S.InputBox>
+            {/* <S.InputBox>
               <S.ExplainInput>비밀번호</S.ExplainInput>
               <S.StyledInput
                 type="password"
@@ -147,7 +147,7 @@ const BarEditReviewPage = () => {
                 }}
                 placeholder="비밀번호를 입력해주세요."
               />
-            </S.InputBox>
+            </S.InputBox> */}
           </S.InputBoxWrapper>
         )}
 
