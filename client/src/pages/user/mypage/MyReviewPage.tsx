@@ -6,6 +6,7 @@ import useAuthStore from "../../../stores/useAuthStore";
 import BarReviewCard from "../../../components/common/BarReviewCard";
 import { CardBarReview } from "../../../types/Common";
 import OnlyMember from "../../../components/common/OnlyMember";
+import MypageReviewCard from "../../../components/common/MyPageReviewCard";
 
 const MyReviewPage = () => {
   const isLoggedIn = useAuthStore.getState().isLoggedIn;
@@ -48,11 +49,11 @@ const MyReviewPage = () => {
             {isReview ? (
               <>
                 {reviewData.map((review, index) => (
-                  <BarReviewCard
+                  <MypageReviewCard
                     key={index}
                     barId={review.barId}
                     reviewId={review.reviewId}
-                    nickname={review.barName}
+                    nickname={review.userNickname}
                     score={review.score}
                     reviewImg={review.reviewImg}
                     alcoholTags={review.alcoholTags}
@@ -60,6 +61,7 @@ const MyReviewPage = () => {
                     musicTags={review.musicTags}
                     content={review.content}
                     date={review.date}
+                    barName={review.barName}
                   />
                 ))}
               </>
