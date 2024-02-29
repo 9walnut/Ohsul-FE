@@ -16,7 +16,8 @@ interface Bar {
   alcoholTags: Array<number>;
   musicTags: Array<number>;
   moodTags: Array<number>;
-  barAvgScore: number;
+  barAvgScore?: number;
+  avgScore?: number;
 }
 
 interface BarData {
@@ -120,8 +121,8 @@ const CardRowTag: React.FC<BarData> = ({ bar }) => {
                   alt="Score"
                 />
               </div>
-              {bar.barAvgScore ? (
-                <div>{scoreCheck(bar.barAvgScore)}</div>
+              {bar.avgScore ? (
+                <div>{scoreCheck(bar.avgScore)}</div>
               ) : (
                 <div>리뷰를 작성해주세요</div>
               )}

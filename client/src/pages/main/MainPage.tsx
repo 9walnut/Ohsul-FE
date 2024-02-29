@@ -3,8 +3,8 @@ import Header from "../../components/common/Header";
 import ExplainBox from "../../components/main/ExplainBox";
 import useAuthStore from "../../stores/useAuthStore";
 import SlickSlider from "../../components/common/SlickSlider";
+import SlickSliderTag from "../../components/common/SlickSliderTag";
 import MainTitleList from "../../components/common/MainTitleList";
-
 import axios from "axios";
 import styled from "styled-components";
 interface Bar {
@@ -32,6 +32,7 @@ const MainPage: React.FC = () => {
   useEffect(() => {
     getMainBar();
   }, []);
+  const isLoggedIn = useAuthStore.getState().isLoggedIn;
   const [hipSul, setHipsul] = useState([]);
   const [nearSul, setNearSul] = useState([]);
   const [mySul, setMySul] = useState([]);
@@ -44,12 +45,15 @@ const MainPage: React.FC = () => {
       console.log("res bar", hipSul);
       setNearSul(hotBar.data);
       console.log("res hotBar", nearSul);
+      if (isLoggedIn == true) {
+        const myBar = await axios.get("/api/mypage/favorite");
+        console.log("res myBar🙌🙌🙌", myBar.data);
+        setMySul(myBar.data.favorites);
+      }
     } catch (error) {
       console.log("getMain err", error);
     }
   };
-
-  const isLoggedIn = useAuthStore.getState().isLoggedIn;
 
   console.log(
     "zustand MainPage isLoggedIn:",
@@ -73,7 +77,7 @@ const MainPage: React.FC = () => {
         <SlickSlider bars={nearSul} />
         <MainTitleList title="내가 저장한 술집" icon={iconPick} />
         {/* @ts-ignore */}
-        <SlickSlider bars={mySul} />
+        <SlickSliderTag bars={mySul} />
       </MainPageWrapper>
     </>
   );
