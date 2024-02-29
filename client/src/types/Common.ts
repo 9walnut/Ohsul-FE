@@ -28,6 +28,7 @@ export type CardReview = Omit<Card, "tag">;
 
 //술집리뷰페이지 리뷰카드
 export type CardBarReview = {
+  onDeleteSuccess?: () => void;
   barName?: string;
   userNickname?: string;
   nickname?: string;

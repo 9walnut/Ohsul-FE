@@ -19,11 +19,6 @@ const BarReviewPage = () => {
   const [reviewData, setReviewData] = useState<CardBarReview[]>([]);
   const [isReview, setIsReview] = useState(false);
 
-  useEffect(() => {
-    getReview();
-    console.log("barInfo", barInfo);
-  }, [barId]);
-
   const getReview = async () => {
     try {
       const res = await axios.get(`/api/ohsul/${barId}/review`);
@@ -40,6 +35,11 @@ const BarReviewPage = () => {
       console.log("getReview err", error);
     }
   };
+
+  useEffect(() => {
+    getReview();
+    console.log("barInfo", barInfo);
+  }, [barId]);
 
   const handleAddReview = () => {
     navigate(`/ohsul/${barId}/addReview`);
@@ -72,6 +72,7 @@ const BarReviewPage = () => {
                 tag={review.tag}
                 content={review.content}
                 date={review.date}
+                onDeleteSuccess={getReview}
               />
             ))}
           </>

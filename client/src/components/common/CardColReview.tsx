@@ -88,7 +88,7 @@ const CardColReview: React.FC<FavoriteBar> = ({
     if (score == "NaN") {
       return 0;
     } else {
-      return score;
+      return score.toFixed(1);
     }
   };
 
