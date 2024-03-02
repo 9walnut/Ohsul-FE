@@ -42,17 +42,11 @@ const MainLayout = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  box-shadow: rgba(0, 0, 0, 0.9) 0px 5px 18px -7px;
+  box-shadow: rgb(183 178 178 / 78%) 2px -18px 17px -2px;
 `;
 
 const CenterLayout = styled.div`
-  /* background: linear-gradient(
-    91.89978272135795deg,
-    rgba(239, 225, 210, 1) 21.958428939918665%,
-    rgba(219, 182, 140, 1) 74.17679426918728%
-  ); */
-
-  background-image: url("/assets/images/background_beige.jpg");
+  background-color: ${({ theme }) => theme.colors.bgColor};
 
   display: flex;
   justify-content: center;
