@@ -208,14 +208,14 @@ const BarEditReviewPage = () => {
             style={{ display: "none" }}
           />
           {reviewImg ? (
-            <S.ImgUploadBtn onClick={() => selectImg.current?.click()}>
+            <S.ImgUploadBtn
+              onClick={() => selectImg.current?.click()}
+              style={{ backgroundColor: "none" }}
+            >
               업로드
             </S.ImgUploadBtn>
           ) : (
-            <S.ImgUploadBtn
-              onClick={() => selectImg.current?.click()}
-              style={{ color: "black" }}
-            >
+            <S.ImgUploadBtn onClick={() => selectImg.current?.click()}>
               업로드
             </S.ImgUploadBtn>
           )}
