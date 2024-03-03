@@ -125,6 +125,9 @@ export const NoReviewBox = styled.div`
   width: 100%;
   height: 90px;
   font-size: 14px;
+  line-height: 23px;
+  padding: 20px;
+  margin: 20px 0px;
   background-color: ${({ theme }) => theme.colors.bgLightColor};
   border-radius: 14px;
   border: 1px solid ${({ theme }) => theme.colors.darkFont};

@@ -25,16 +25,23 @@ export const FavoriteCount = styled.div`
 `;
 
 export const NoFavoritePlaceBox = styled.div`
-  width: 80%;
+  cursor: pointer;
+  width: 85%;
   position: absolute;
   top: 35%;
-  background-color: ${({ theme }) => theme.colors.bgLightColor};
   border: 1px solid ${({ theme }) => theme.colors.blueFont};
-  padding: 4px 10px 15px 10px;
+  background-color: ${({ theme }) => theme.colors.bgLightColor};
+  padding: 4px 10px;
   border-radius: 15px;
+  &:hover {
+    background-color: ${({ theme }) => theme.colors.mainBlue};
+  }
 `;
 export const MessageBox = styled.div`
   padding: 20px;
   font-size: 14px;
-  line-height: 16px;
+  line-height: 25px;
+  &:hover {
+    color: ${({ theme }) => theme.colors.lightFont};
+  }
 `;

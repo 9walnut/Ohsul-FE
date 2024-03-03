@@ -40,7 +40,9 @@ const SlickSlider: React.FC<BarData> = ({ bars }) => {
             </Box>
           ))
         ) : (
-          <div>술집 정보가 없습니다🥹</div>
+          <MsgBox>
+            <div>술집 정보가 없습니다🥹</div>
+          </MsgBox>
         )}
       </CustomSlider>
     </div>
@@ -66,4 +68,10 @@ const Box = styled.div`
   width: 130px;
   height: 200px;
   margin-bottom: 40px;
+`;
+const MsgBox = styled.div`
+  width: 130px;
+  height: 200px;
+  margin-bottom: 40px;
+  margin-left: -20px;
 `;
