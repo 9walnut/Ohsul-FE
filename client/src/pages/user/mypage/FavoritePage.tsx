@@ -76,7 +76,7 @@ const FavoritePage = () => {
           <MyPageLayout>
             <S.FavoritePageLayout>
               <S.FavoriteCount>
-                총 {favoriteData.length}개의 찜 목록
+                총 {favoriteData.length}개의 즐겨찾기 목록
               </S.FavoriteCount>
               {isFavoritePlace ? (
                 <>

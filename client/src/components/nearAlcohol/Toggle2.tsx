@@ -29,12 +29,15 @@ export default Toggle2;
 
 const ToggleLayout = styled.div`
   width: 100%;
+  /* position: absolute; */
+  /* top: 65%; */
 `;
+
 const BtnWrapper = styled.div`
   display: flex;
   z-index: 0;
   width: 100%;
-  margin-left: 17px;
+  margin-left: 25px;
 `;
 
 const CheckBox = styled.input`

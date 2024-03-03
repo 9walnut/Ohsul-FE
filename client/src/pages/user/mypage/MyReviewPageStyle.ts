@@ -5,7 +5,7 @@ export const MyReviewPageLayout = styled.div`
   flex-direction: column;
   align-items: center;
   padding: 10px 15px;
-  gap: 4px;
+  gap: 35px;
   height: 100%;
   overflow: hidden;
   margin-bottom: 78px;
@@ -30,7 +30,7 @@ export const NoReviewBox = styled.div`
   align-items: center;
   justify-content: center;
   position: relative;
-  width: 100%;
+  width: 95%;
   height: 90px;
   font-size: 14px;
   background-color: ${({ theme }) => theme.colors.bgLightColor};
