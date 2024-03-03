@@ -10,6 +10,7 @@ import axios from "axios";
 import useAuthStore from "../../../stores/useAuthStore";
 import ConfirmModal from "../../../components/common/ConfirmModal";
 import CommonModal from "../../../components/common/CommonModal";
+import OnlyMember from "../../../components/common/OnlyMember";
 
 type EditMypageFormInputs = {
   userId: string;
@@ -19,6 +20,9 @@ type EditMypageFormInputs = {
 
 const EditMyInfoPage = () => {
   const navigate = useNavigate();
+  const isLoggedIn = useAuthStore.getState().isLoggedIn;
+  const { userId } = useAuthStore.getState();
+
   const [userIdData, setUserIdData] = useState("");
   const [userNameData, setUserNameData] = useState("");
   const [userNicknameData, setUserNicknameData] = useState("");
@@ -29,29 +33,29 @@ const EditMyInfoPage = () => {
   const [modalOpen, setModalOpen] = useState(false);
   const [showModal, setShowModal] = useState(false);
 
-  const { userId } = useAuthStore.getState();
-
   useEffect(() => {
     const { userId } = useAuthStore.getState();
 
-    const FetchData = async () => {
-      try {
-        const res = await axios.get("/api/mypage/info", {
-          params: { userId },
-        });
-        if (res.status == 200) {
-          console.log(res);
-          setUserIdData(res.data.userId);
-          setUserNameData(res.data.userName);
-          setUserNicknameData(res.data.userNickname);
+    if (isLoggedIn) {
+      const FetchData = async () => {
+        try {
+          const res = await axios.get("/api/mypage/info", {
+            params: { userId },
+          });
+          if (res.status == 200) {
+            console.log(res);
+            setUserIdData(res.data.userId);
+            setUserNameData(res.data.userName);
+            setUserNicknameData(res.data.userNickname);
+          }
+        } catch (error) {
+          console.log("fetchData err: ", error);
         }
-      } catch (error) {
-        console.log("fetchData err: ", error);
-      }
-    };
+      };
 
-    FetchData();
-  }, []);
+      FetchData();
+    }
+  }, [isLoggedIn]);
 
   const handleEditOk = () => {
     // setEditModal(true)
@@ -153,108 +157,120 @@ const EditMyInfoPage = () => {
     }
   };
   useEffect(() => {
-    const userNickname = watch("userNickname");
-    if (userNickname.length > 0) {
-      setTimeout(() => {
-        checkDuplicateNickname(userNickname);
-      }, 1000);
-    } else {
-      setUserNicknameMessage("");
+    if (isLoggedIn) {
+      const userNickname = watch("userNickname");
+      if (userNickname.length > 0) {
+        setTimeout(() => {
+          checkDuplicateNickname(userNickname);
+        }, 1000);
+      } else {
+        setUserNicknameMessage("");
+      }
     }
   }, [watch("userNickname")]);
 
   return (
     <>
-      {editModal && (
-        <CommonModal
-          message="내 정보가 수정되었습니다."
-          isClose={false}
-          onConfirm={handleEditOk}
-        />
+      {isLoggedIn ? (
+        <>
+          {editModal && (
+            <CommonModal
+              message="내 정보가 수정되었습니다."
+              isClose={false}
+              onConfirm={handleEditOk}
+            />
+          )}
+          {modalOpen && (
+            <ConfirmModal
+              message="정말 탈퇴하시겠습니까?"
+              onCancel={handleCancel}
+              onConfirm={handleDeleteConfirm}
+              isClose={true}
+            />
+          )}
+          <S.EditMyPageLayout>
+            <Header title="내 정보 수정" />
+            <BackButton />
+            <S.EditMyInfoBox>
+              <form onSubmit={handleSubmit(onSubmit)} method="POST">
+                <S.InputLayout>
+                  <S.StyledLabel htmlFor="id">아이디</S.StyledLabel>
+                  <S.InputFieldBox>
+                    <S.StyledInput
+                      type="text"
+                      id="userId"
+                      placeholder="아이디를 입력해주세요."
+                      value={userIdData}
+                      {...register("userId", { required: true })}
+                    />
+                  </S.InputFieldBox>
+                  <S.ErrorMessage>아이디는 변경 할 수 없습니다.</S.ErrorMessage>
+                </S.InputLayout>
+                <S.InputLayout>
+                  <S.StyledLabel htmlFor="name">이름</S.StyledLabel>
+                  <S.InputFieldBox>
+                    <S.StyledInput
+                      type="text"
+                      id="userName"
+                      placeholder="이름을 입력해주세요."
+                      defaultValue={userNameData}
+                      {...register("userName", {
+                        required: false,
+                        minLength: 2,
+                      })}
+                    />
+                  </S.InputFieldBox>
+                  {errors.userName?.type === "required" && (
+                    <S.ErrorMessage>이름을 입력해주세요.</S.ErrorMessage>
+                  )}
+                  {errors.userName?.type === "minLength" && (
+                    <S.ErrorMessage>
+                      이름은 최소 2글자 이상으로 작성해주세요.
+                    </S.ErrorMessage>
+                  )}
+                </S.InputLayout>
+                <S.InputLayout>
+                  <S.StyledLabel htmlFor="nickName">닉네임</S.StyledLabel>
+                  <S.InputFieldBox>
+                    <S.StyledInput
+                      type="text"
+                      id="userNickname"
+                      placeholder="사용하실 닉네임을 입력해주세요."
+                      defaultValue={userNicknameData}
+                      {...register("userNickname", {
+                        required: false,
+                        minLength: 2,
+                      })}
+                    />
+                  </S.InputFieldBox>
+                  <S.ErrorMessage>{userNicknameMessage}</S.ErrorMessage>
+                  {errors.userNickname?.type === "required" && (
+                    <S.ErrorMessage>닉네임을 입력해주세요.</S.ErrorMessage>
+                  )}
+                  {errors.userNickname?.type === "minLength" && (
+                    <S.ErrorMessage>
+                      닉네임은 최소 2글자 이상으로 작성해주세요.
+                    </S.ErrorMessage>
+                  )}
+                </S.InputLayout>
+                <S.ButtonBox>
+                  <RoundButton type="submit">수정하기</RoundButton>
+                  <RoundButton02 onClick={() => navigate("/mypage/pwCheck")}>
+                    비밀번호 변경
+                  </RoundButton02>
+                </S.ButtonBox>
+                <S.DelUserBtn onClick={handleDelUser}>
+                  회원 탈퇴하기
+                </S.DelUserBtn>
+              </form>
+            </S.EditMyInfoBox>
+          </S.EditMyPageLayout>
+        </>
+      ) : (
+        <>
+          <OnlyMember></OnlyMember>
+        </>
       )}
-      {modalOpen && (
-        <ConfirmModal
-          message="정말 탈퇴하시겠습니까?"
-          onCancel={handleCancel}
-          onConfirm={handleDeleteConfirm}
-          isClose={true}
-        />
-      )}
-      <S.EditMyPageLayout>
-        <Header title="내 정보 수정" />
-        <BackButton />
-        <S.EditMyInfoBox>
-          <form onSubmit={handleSubmit(onSubmit)} method="POST">
-            <S.InputLayout>
-              <S.StyledLabel htmlFor="id">아이디</S.StyledLabel>
-              <S.InputFieldBox>
-                <S.StyledInput
-                  type="text"
-                  id="userId"
-                  placeholder="아이디를 입력해주세요."
-                  value={userIdData}
-                  {...register("userId", { required: true })}
-                />
-              </S.InputFieldBox>
-              <S.ErrorMessage>아이디는 변경 할 수 없습니다.</S.ErrorMessage>
-            </S.InputLayout>
-            <S.InputLayout>
-              <S.StyledLabel htmlFor="name">이름</S.StyledLabel>
-              <S.InputFieldBox>
-                <S.StyledInput
-                  type="text"
-                  id="userName"
-                  placeholder="이름을 입력해주세요."
-                  defaultValue={userNameData}
-                  {...register("userName", {
-                    required: false,
-                    minLength: 2,
-                  })}
-                />
-              </S.InputFieldBox>
-              {errors.userName?.type === "required" && (
-                <S.ErrorMessage>이름을 입력해주세요.</S.ErrorMessage>
-              )}
-              {errors.userName?.type === "minLength" && (
-                <S.ErrorMessage>
-                  이름은 최소 2글자 이상으로 작성해주세요.
-                </S.ErrorMessage>
-              )}
-            </S.InputLayout>
-            <S.InputLayout>
-              <S.StyledLabel htmlFor="nickName">닉네임</S.StyledLabel>
-              <S.InputFieldBox>
-                <S.StyledInput
-                  type="text"
-                  id="userNickname"
-                  placeholder="사용하실 닉네임을 입력해주세요."
-                  defaultValue={userNicknameData}
-                  {...register("userNickname", {
-                    required: false,
-                    minLength: 2,
-                  })}
-                />
-              </S.InputFieldBox>
-              <S.ErrorMessage>{userNicknameMessage}</S.ErrorMessage>
-              {errors.userNickname?.type === "required" && (
-                <S.ErrorMessage>닉네임을 입력해주세요.</S.ErrorMessage>
-              )}
-              {errors.userNickname?.type === "minLength" && (
-                <S.ErrorMessage>
-                  닉네임은 최소 2글자 이상으로 작성해주세요.
-                </S.ErrorMessage>
-              )}
-            </S.InputLayout>
-            <S.ButtonBox>
-              <RoundButton type="submit">수정하기</RoundButton>
-              <RoundButton02 onClick={() => navigate("/mypage/pwCheck")}>
-                비밀번호 변경
-              </RoundButton02>
-            </S.ButtonBox>
-            <S.DelUserBtn onClick={handleDelUser}>회원 탈퇴하기</S.DelUserBtn>
-          </form>
-        </S.EditMyInfoBox>
-      </S.EditMyPageLayout>
     </>
   );
 };
