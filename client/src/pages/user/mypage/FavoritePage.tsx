@@ -1,9 +1,7 @@
 import React, { useEffect, useState } from "react";
-import Header from "../../../components/common/Header";
 import * as S from "./FavoritePageStyle";
 import axios from "axios";
 import useAuthStore from "../../../stores/useAuthStore";
-import CommonModal from "../../../components/common/CommonModal";
 import { useNavigate } from "react-router";
 import CardColTag from "../../../components/common/CardColTag";
 import { FavoriteBar } from "../../../types/Common";
@@ -24,10 +22,10 @@ const FavoritePage = () => {
       try {
         const res = await axios.get("/api/mypage/favorite");
         if (res.status == 200) {
-          console.log("FavoritePage res: ", res);
-          console.log("FavoritePage res.data", res.data.favorites);
+          //console.log("FavoritePage res: ", res);
+          //console.log("FavoritePage res.data", res.data.favorites);
           const favoriteList = res.data.favorites;
-          console.log(favoriteList.length);
+          //console.log(favoriteList.length);
           if (favoriteList.length !== 0) {
             setIsFavoritePlace(true);
             setFavoriteData(favoriteList);
@@ -44,7 +42,7 @@ const FavoritePage = () => {
   }, []);
 
   useEffect(() => {
-    console.log("데이터바낌");
+    //console.log("데이터바낌");
   }, [favoriteData]);
 
   const handleNavigate = () => {
@@ -76,7 +74,7 @@ const FavoritePage = () => {
           <MyPageLayout>
             <S.FavoritePageLayout>
               <S.FavoriteCount>
-                총 {favoriteData.length}개의 찜 목록
+                총 {favoriteData.length}개의 즐겨찾기 목록
               </S.FavoriteCount>
               {isFavoritePlace ? (
                 <>
@@ -97,16 +95,13 @@ const FavoritePage = () => {
               ) : (
                 <>
                   {modalOpen && (
-                    <CommonModal
-                      message={
-                        <>
-                          아직 즐겨찾기 한 장소가 없어요. <br /> 내 근처 술집
-                          둘러보러 가기 😀
-                        </>
-                      }
-                      isClose={false}
-                      onConfirm={handleNavigate}
-                    />
+                    <S.NoFavoritePlaceBox>
+                      <S.MessageBox onClick={handleNavigate}>
+                        {" "}
+                        아직 즐겨찾기 한 장소가 없어요. <br /> 내 근처 술집
+                        둘러보러 가기 😀
+                      </S.MessageBox>
+                    </S.NoFavoritePlaceBox>
                   )}
                 </>
               )}

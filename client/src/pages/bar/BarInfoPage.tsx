@@ -141,8 +141,8 @@ const BarInfoPage = () => {
           ) : (
             <AddFavoriteBtnWrapper></AddFavoriteBtnWrapper>
           )}
-          <BarExplainBox>{barInfo.description}</BarExplainBox>
-          <BarNumberBox>{barInfo.telephone}</BarNumberBox>
+          <BarExplainBox>📌 {barInfo.description}</BarExplainBox>
+          <BarNumberBox>☎️전화번호: {barInfo.telephone}</BarNumberBox>
           <BarShareBox>
             <div>
               <img src="/assets/images/bar_share.png" alt="bar_share" />
@@ -235,13 +235,14 @@ const BarExplainBox = styled.div`
 `;
 
 const BarNumberBox = styled.div`
-  font-size: 12px;
-  margin-bottom: 20px;
+  font-size: 14px;
+  margin-bottom: 35px;
 `;
 
 const BarShareBox = styled.div`
   margin-bottom: 10px;
   display: flex;
+  gap: 5px;
   justify-content: center;
   align-items: center;
   font-family: ${({ theme }) => theme.fonts.ydFont};
@@ -268,7 +269,7 @@ const ReviewButton = styled.button`
 
 const AddFavoriteBtnWrapper = styled.div`
   width: 100%;
-  margin-bottom: 12px;
+  margin-bottom: 35px;
 `;
 
 const AddFavoriteBtn = styled.button`
@@ -287,11 +288,9 @@ const AddFavoriteBtn = styled.button`
   text-align: center;
 
   color: ${({ theme }) => theme.colors.blueFont};
-
-  img {
-    width: 16px;
-    height: 22px;
-    object-fit: contain;
+  &:hover {
+    background-color: ${({ theme }) => theme.colors.btnBlue};
+    color: ${({ theme }) => theme.colors.lightFont};
   }
 `;
 

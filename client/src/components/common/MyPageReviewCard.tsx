@@ -28,7 +28,7 @@ const MypageReviewCard: React.FC<CardBarReview> = ({
 }) => {
   const { userNickname } = useAuthStore.getState();
   const { userId } = useAuthStore.getState();
-  console.log(userNickname);
+  // console.log(userNickname);
   const navigate = useNavigate();
   const getAlcoholTagName = useAlcoholTags();
   const getMusicTagName = useMusicTags();
@@ -44,16 +44,6 @@ const MypageReviewCard: React.FC<CardBarReview> = ({
 
   const reviewPatch = async () => {
     try {
-      // 리뷰 비밀번호 확인 요청
-      // const res = await axios.post("/api/");
-      // console.log("review patch res", res);
-      // if (res.status == 200) {
-      //   console.log("비밀번호 일치");
-      //   // 일치 시 해당 수정 페이지로 이동
-      //   navigate("/");
-      // } else {
-      //   console.log("비밀번호가 일치하지 않습니다.");
-      // }
       navigate(`/ohsul/${barId}/editReview/${reviewId}`);
     } catch (error) {
       console.log("review patch err", error);
@@ -72,7 +62,7 @@ const MypageReviewCard: React.FC<CardBarReview> = ({
       console.log("review delete res", res);
       if (res.status === 200) {
         console.log("삭제 성공");
-        if (onDeleteSuccess) onDeleteSuccess(); // 삭제가 성공하면 FetchData()를 호출합니다.
+        if (onDeleteSuccess) onDeleteSuccess();
       } else {
         console.log("삭제 실패:", res.data);
       }

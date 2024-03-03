@@ -24,12 +24,18 @@ const BarReviewPage = () => {
       const res = await axios.get(`/api/ohsul/${barId}/review`);
 
       if (res.status == 200) {
-        setIsReview(true);
+        setReviewData(res.data);
+        //setIsReview(true);
+        if (res.data.length !== 0) {
+          setIsReview(true);
+          //setReviewData(reviewData);
+        } else {
+          setIsReview(false);
+        }
       }
       console.log("getReview res", res);
       console.log("barInfo", barInfo);
-      console.log("res.datadatadatadata", res.data);
-      setReviewData(res.data);
+      console.log("res.data", res.data);
       console.log(reviewData, "리뷰데타");
     } catch (error) {
       console.log("getReview err", error);
@@ -77,7 +83,11 @@ const BarReviewPage = () => {
             ))}
           </>
         ) : (
-          <S.NoReviewBox>아직 등록된 리뷰가 없어요 🥹</S.NoReviewBox>
+          <S.NoReviewBox>
+            <>
+              아직 등록된 리뷰가 없어요. 🥹 <br /> 가장 먼저 리뷰를 작성해보세요.
+            </>
+          </S.NoReviewBox>
         )}
 
         <Button onClick={handleAddReview}>리뷰 작성 하기</Button>
@@ -88,7 +98,7 @@ const BarReviewPage = () => {
 
 const BarTitleWrapper = styled.div`
   width: 100%;
-  padding: 8px;
+  padding: 15px;
   border-bottom: 1px solid #4d607b;
   font-family: ${({ theme }) => theme.fonts.ydFont};
   margin-bottom: 12px;

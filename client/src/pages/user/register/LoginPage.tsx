@@ -36,40 +36,20 @@ const LoginPage = () => {
         },
       });
       if (res.status == 200) {
-        console.log(res);
+        //console.log(res);
         console.log(res.data);
 
-        //--- cookie LogIn
         const sessionId = "receivedSessionId";
         cookies.set("sessionId", sessionId, { path: "/" });
         cookies.set("isLoggedIn", true, { path: "/" });
 
-        //--- zustand LogIn
-        useAuthStore.setState({ isLoggedIn: true });
-        console.log("zustand isLoggedIn:", useAuthStore.getState().isLoggedIn);
-
-        //--- zustand userId 저장
-        const userId = res.data.userId;
-        useAuthStore.setState({ userId: userId });
-        console.log("zustand userId:", useAuthStore.getState().userId);
-
-        //--- zustand userName 저장
-        const userName = res.data.userName;
-        useAuthStore.setState({ userName: userName });
-        console.log("zustand userName:", useAuthStore.getState().userName);
-
-        //--- zustand userNumber 저장
-        const userNumber = res.data.userNumber;
-        useAuthStore.setState({ userNumber: userNumber });
-        console.log("zustand userNumber:", useAuthStore.getState().userNumber);
-
-        //--- zustand userNickname 저장
-        const userNickname = res.data.userNickname;
-        useAuthStore.setState({ userNickname: userNickname });
-        console.log(
-          "zustand userNickname:",
-          useAuthStore.getState().userNickname
-        );
+        useAuthStore.setState({
+          isLoggedIn: true,
+          userId: res.data.userId,
+          userName: res.data.userName,
+          userNumber: res.data.userNumber,
+          userNickname: res.data.userNickname,
+        });
 
         navigate("/");
       }

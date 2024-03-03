@@ -14,7 +14,7 @@ export const LoginBox = styled.div`
   align-items: center;
   padding: 0px 20px;
   gap: 10px;
-
+  margin: 30% 0%;
   height: 100%;
   position: relative;
   justify-content: center;

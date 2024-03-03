@@ -24,7 +24,7 @@ const MyPage: React.FC = () => {
   const navigate = useNavigate();
   const [selectedPage, setSelectedPage] = useState<ComponentType>("favorite");
   const { userNickname } = useAuthStore.getState();
-  console.log(userNickname);
+  // console.log(userNickname);
   const [modalOpen, setModalOpen] = useState(false);
 
   const renderPage = () => {
