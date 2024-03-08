@@ -7,6 +7,7 @@ import SlickSliderTag from "../../components/common/SlickSliderTag";
 import MainTitleList from "../../components/common/MainTitleList";
 import axios from "axios";
 import styled from "styled-components";
+import CommonModal from "../../components/common/CommonModal";
 interface Bar {
   barId: number;
   barName: string;
@@ -67,6 +68,19 @@ const MainPage: React.FC = () => {
   return (
     <>
       <MainPageWrapper>
+        <CommonModal
+          message={
+            <>
+              {" "}
+              ⚠️ 오늘의 술은 현재 테스트 단계입니다. ⚠️
+              <br />
+              <br />
+              메인 페이지에서 보여지는 술집은
+              <br /> <b>"용산구" 기준</b>으로 보여집니다.
+            </>
+          }
+          isClose={true}
+        />
         <Header title="오늘의 술" />
         <ExplainBox />
         <MainTitleList title="내 근처 힙한 술집" icon={iconLocation} />
@@ -87,5 +101,10 @@ const MainPageWrapper = styled.div`
   height: 100%;
   overflow: hidden;
   margin-bottom: 78px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
 `;
 export default MainPage;
