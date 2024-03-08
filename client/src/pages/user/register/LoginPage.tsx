@@ -19,6 +19,8 @@ const LoginPage = () => {
   const navigate = useNavigate();
   const cookies = new Cookies();
   const [modalOpen, setModalOpen] = useState(false);
+  const [ohsulId, setOhsulId] = useState("ohsul");
+  const [ohsulPw, setOhsulPw] = useState("1234qwer");
 
   const {
     register,
@@ -84,6 +86,7 @@ const LoginPage = () => {
                   type="text"
                   id="userId"
                   placeholder="아이디를 입력해주세요."
+                  defaultValue={ohsulId}
                   {...register("userId", { required: true })}
                 />
               </S.InputFieldBox>
@@ -97,6 +100,7 @@ const LoginPage = () => {
                 <S.StyledInput
                   type="password"
                   placeholder="8~20자 영문 숫자 조합."
+                  defaultValue={ohsulPw}
                   {...register("userPw", {
                     required: true,
                     minLength: 8,
