@@ -31,6 +31,7 @@ const SlickSlider: React.FC<BarData> = ({ bars }) => {
     slidesToShow: bars.length > 2 ? 2.5 : bars.length,
     slidesToScroll: bars.length > 2 ? 2.5 : bars.length,
     centerMode: false,
+    //slider ui 보완 필요
     //centerPadding: "200px",
   };
 
