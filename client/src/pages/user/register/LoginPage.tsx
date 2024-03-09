@@ -9,6 +9,7 @@ import axios from "axios";
 import Cookies from "universal-cookie";
 import useAuthStore from "../../../stores/useAuthStore";
 import CommonModal from "../../../components/common/CommonModal";
+import useOhsulAccountStore from "../../../stores/useOhsulAccountStore";
 
 type LoginFormInputs = {
   userId: string;
@@ -19,8 +20,12 @@ const LoginPage = () => {
   const navigate = useNavigate();
   const cookies = new Cookies();
   const [modalOpen, setModalOpen] = useState(false);
-  const [ohsulId, setOhsulId] = useState("ohsul");
-  const [ohsulPw, setOhsulPw] = useState("1234qwer");
+  const [ohsulId, setOhsulId] = useState(
+    useOhsulAccountStore.getState().ohsulId
+  );
+  const [ohsulPw, setOhsulPw] = useState(
+    useOhsulAccountStore.getState().ohsulPw
+  );
 
   const {
     register,
