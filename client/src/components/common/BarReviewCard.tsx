@@ -32,6 +32,8 @@ const BarReviewCard: React.FC<CardBarReview> = ({
   const getAlcoholTagName = useAlcoholTags();
   const getMusicTagName = useMusicTags();
   const getMoodTagName = useMoodTags();
+  const reviewDate = date.substring(0, 10);
+
   const [modalOpen, setModalOpen] = useState(false);
 
   const etxText = (text: string, maxLength: number) => {
@@ -190,7 +192,7 @@ const BarReviewCard: React.FC<CardBarReview> = ({
         </ContentBox3>
 
         <ContentBox4>
-          <DateBox>{date}</DateBox>
+          <DateBox>{reviewDate}</DateBox>
           {userNickname === nickname && (
             <BtnBox>
               <EditBtn
