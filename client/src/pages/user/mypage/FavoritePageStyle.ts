@@ -28,7 +28,7 @@ export const NoFavoritePlaceBox = styled.div`
   cursor: pointer;
   width: 85%;
   position: absolute;
-  top: 35%;
+  top: 44%;
   border: 1px solid ${({ theme }) => theme.colors.blueFont};
   background-color: ${({ theme }) => theme.colors.bgLightColor};
   padding: 4px 10px;
