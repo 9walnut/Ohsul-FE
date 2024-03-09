@@ -34,7 +34,7 @@ const MypageReviewCard: React.FC<CardBarReview> = ({
   const getMusicTagName = useMusicTags();
   const getMoodTagName = useMoodTags();
   const [modalOpen, setModalOpen] = useState(false);
-
+  const reviewDate = date.substring(0, 10);
   const etxText = (text: string, maxLength: number) => {
     if (text.length > maxLength) {
       return text.substring(0, maxLength) + "...";
@@ -170,7 +170,7 @@ const MypageReviewCard: React.FC<CardBarReview> = ({
         </ContentBox3>
 
         <ContentBox4>
-          <DateBox>{date}</DateBox>
+          <DateBox>{reviewDate}</DateBox>
 
           <BtnBox>
             <EditBtn
