@@ -11,6 +11,7 @@ import { Tag } from "../../types/Common";
 import { TagsState, SetTagsFunction } from "../../types/OhsulTag";
 import useAuthStore from "../../stores/useAuthStore";
 import { useNavigate } from "react-router-dom";
+import OnlyMember from "../../components/common/OnlyMember";
 
 const BarAddReviewPage: React.FC = () => {
   const navigate = useNavigate();
@@ -25,6 +26,7 @@ const BarAddReviewPage: React.FC = () => {
   const [reviewImg, setReviewImg] = useState(null);
   const [postImg, setPostImg] = useState(null);
   const [alertMsg, setAlertMsg] = useState("");
+  const isLoggedIn = useAuthStore.getState().isLoggedIn;
 
   const [tags, setTags]: [TagsState, SetTagsFunction] = useState<TagsState>({
     alcoholTags: [1],
@@ -113,23 +115,25 @@ const BarAddReviewPage: React.FC = () => {
 
   return (
     <>
-      <S.ReviewPageLayout>
-        <Header title="리뷰 등록" />
-        <BackButton />
-        {isLogin && (
-          <S.InputBoxWrapper>
-            <S.InputBox>
-              <S.ExplainInput>닉네임</S.ExplainInput>
-              <S.StyledInput
-                type="text"
-                // @ts-ignore
-                value={userNickname}
-                placeholder="리뷰 작성 시 사용할 닉네임을 입력해주세요."
-                readOnly={true}
-                style={{ outline: "none", backgroundColor: "#ddd" }}
-              />
-            </S.InputBox>
-            {/* <S.InputBox>
+      {isLoggedIn ? (
+        <>
+          <S.ReviewPageLayout>
+            <Header title="리뷰 등록" />
+            <BackButton />
+            {isLogin && (
+              <S.InputBoxWrapper>
+                <S.InputBox>
+                  <S.ExplainInput>닉네임</S.ExplainInput>
+                  <S.StyledInput
+                    type="text"
+                    // @ts-ignore
+                    value={userNickname}
+                    placeholder="리뷰 작성 시 사용할 닉네임을 입력해주세요."
+                    readOnly={true}
+                    style={{ outline: "none", backgroundColor: "#ddd" }}
+                  />
+                </S.InputBox>
+                {/* <S.InputBox>
               <S.ExplainInput>비밀번호</S.ExplainInput>
               <S.StyledInput
                 type="password"
@@ -139,71 +143,76 @@ const BarAddReviewPage: React.FC = () => {
                 placeholder="비밀번호를 입력해주세요."
               />
             </S.InputBox> */}
-          </S.InputBoxWrapper>
-        )}
-
-        <S.ExplainBox>
-          태그는 각 최소 1개씩 필수입니다 ! (각 최대 3개)
-        </S.ExplainBox>
-
-        <TagBox tags={tags} setTags={setTags} />
-
-        <S.ExplainBox>별점은 필수 선택입니다 !</S.ExplainBox>
-        <S.StarWrapper>
-          <StarRating ratingIndex={score} setRatingIndex={setScore} />
-        </S.StarWrapper>
-
-        <S.ImgUploadWrapper>
-          <S.ImgBox>
-            {reviewImg ? (
-              // 상태에 저장된 이미지 데이터 URL을 사용하여 미리보기 이미지를 표시합니다.
-              <img
-                src={reviewImg}
-                alt="Review"
-                // style={{ width: "100%", height: "auto" }}
-              />
-            ) : (
-              <img
-                src="/assets/images/common_AlternateImage.png"
-                alt="Placeholder"
-              />
+              </S.InputBoxWrapper>
             )}
-          </S.ImgBox>
 
-          <input
-            type="file"
-            onChange={onChangeImg}
-            accept=".png, .jpeg, .jpg"
-            ref={selectImg}
-            style={{ display: "none" }}
-          />
-          {reviewImg ? (
-            <S.ImgUploadBtn
-              onClick={() => selectImg.current?.click()}
-              style={{ backgroundColor: "none" }}
-            >
-              업로드
-            </S.ImgUploadBtn>
-          ) : (
-            <S.ImgUploadBtn onClick={() => selectImg.current?.click()}>
-              업로드
-            </S.ImgUploadBtn>
-          )}
-        </S.ImgUploadWrapper>
-        <S.ContentWrapper>
-          <S.ContentBox
-            type="textarea"
-            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-              setContent(e.target.value)
-            }
-            placeholder="85자 이내 작성"
-          />
-        </S.ContentWrapper>
-        <S.AlertBox>{alertMsg}</S.AlertBox>
-        <S.Button onClick={checkReview}>리뷰 작성하기</S.Button>
-      </S.ReviewPageLayout>
+            <S.ExplainBox>
+              태그는 각 최소 1개씩 필수입니다 ! (각 최대 3개)
+            </S.ExplainBox>
+
+            <TagBox tags={tags} setTags={setTags} />
+
+            <S.ExplainBox>별점은 필수 선택입니다 !</S.ExplainBox>
+            <S.StarWrapper>
+              <StarRating ratingIndex={score} setRatingIndex={setScore} />
+            </S.StarWrapper>
+
+            <S.ImgUploadWrapper>
+              <S.ImgBox>
+                {reviewImg ? (
+                  // 상태에 저장된 이미지 데이터 URL을 사용하여 미리보기 이미지를 표시합니다.
+                  <img
+                    src={reviewImg}
+                    alt="Review"
+                    // style={{ width: "100%", height: "auto" }}
+                  />
+                ) : (
+                  <img
+                    src="/assets/images/common_AlternateImage.png"
+                    alt="Placeholder"
+                  />
+                )}
+              </S.ImgBox>
+
+              <input
+                type="file"
+                onChange={onChangeImg}
+                accept=".png, .jpeg, .jpg"
+                ref={selectImg}
+                style={{ display: "none" }}
+              />
+              {reviewImg ? (
+                <S.ImgUploadBtn
+                  onClick={() => selectImg.current?.click()}
+                  style={{ backgroundColor: "none" }}
+                >
+                  업로드
+                </S.ImgUploadBtn>
+              ) : (
+                <S.ImgUploadBtn onClick={() => selectImg.current?.click()}>
+                  업로드
+                </S.ImgUploadBtn>
+              )}
+            </S.ImgUploadWrapper>
+            <S.ContentWrapper>
+              <S.ContentBox
+                type="textarea"
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                  setContent(e.target.value)
+                }
+                placeholder="85자 이내 작성"
+              />
+            </S.ContentWrapper>
+            <S.AlertBox>{alertMsg}</S.AlertBox>
+            <S.Button onClick={checkReview}>리뷰 작성하기</S.Button>
+          </S.ReviewPageLayout>
+        </>
+      ) : (
+        <>
+          <OnlyMember></OnlyMember>
+        </>
+      )}
     </>
   );
 };
-
 export default BarAddReviewPage;
