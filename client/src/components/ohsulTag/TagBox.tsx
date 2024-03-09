@@ -1,4 +1,4 @@
-import React, { Dispatch, SetStateAction, useState } from "react";
+import React, { Dispatch, SetStateAction, useEffect, useState } from "react";
 import styled from "styled-components";
 
 import CheckboxGroup from "./CheckboxGroup";
@@ -12,6 +12,7 @@ interface TagBoxProps {
   disabled?: boolean;
   setTags: SetTagsFunction;
   checkedTags?: { [key: string]: number[] };
+  isToggle?: any;
 }
 
 const TagBox: React.FC<TagBoxProps> = ({
@@ -19,6 +20,7 @@ const TagBox: React.FC<TagBoxProps> = ({
   setTags,
   disabled,
   checkedTags,
+  isToggle,
 }) => {
   const handleTagChange = (values: number[], tag: string) => {
     setTags((prevTags) => ({
@@ -27,8 +29,19 @@ const TagBox: React.FC<TagBoxProps> = ({
     }));
   };
 
-  return (
+  const [toggle, setToggle] = useState(false);
+
+  useEffect(() => {
+    if (isToggle == false) {
+      setToggle(true);
+    }
+  });
+
+  return toggle ? (
     <>
+      {isToggle && (
+        <TagToggle onClick={() => setToggle(!toggle)}>태그 숨기기 ▲</TagToggle>
+      )}
       <StyledGroupLayout>
         <CheckboxGroup
           label="술 선택"
@@ -128,7 +141,7 @@ const TagBox: React.FC<TagBoxProps> = ({
           </StyledColGroup>
           <StyledColGroup>
             <Checkbox id="music_5" value={5}>
-              재즈 / /클래식
+              재즈 / 클래식
             </Checkbox>
             <Checkbox id="music_6" value={6}>
               7080 / 올드팝
@@ -139,65 +152,20 @@ const TagBox: React.FC<TagBoxProps> = ({
           </StyledColGroup>
         </CheckboxGroup>
       </StyledGroupLayout>
-
-      {/* <StyledGroupLayout>
-        <CheckboxGroup
-          label="주차장 여부"
-          values={tags.parkingArea}
-          onChange={(values: number[]) =>
-            handleTagChange(values, "parkingArea")
-          }
-          disabled={disabled}
-        >
-          <StyledColGroup>
-            <Checkbox id="parkingArea_1" value={1}>
-              주차장 있어요
-            </Checkbox>
-            <Checkbox id="parkingArea_2" value={0}>
-              주차장 없어요
-            </Checkbox>
-          </StyledColGroup>
-        </CheckboxGroup>
-      </StyledGroupLayout>
-      <StyledGroupLayout>
-        <CheckboxGroup
-          label="화장실 여부"
-          values={tags.toilet}
-          onChange={(values: number[]) => handleTagChange(values, "toilet")}
-          disabled={disabled}
-        >
-          <StyledColGroup>
-            <Checkbox id="toilet_1" value={1}>
-              화장실 안에 있어요
-            </Checkbox>
-            <Checkbox id="toilet_2" value={0}>
-              화장실 안에 없어요
-            </Checkbox>
-          </StyledColGroup>
-        </CheckboxGroup>
-      </StyledGroupLayout>
-      <StyledGroupLayout>
-        <CheckboxGroup
-          label="맛"
-          values={tags.snack}
-          onChange={(values: number[]) => handleTagChange(values, "snack")}
-          disabled={disabled}
-        >
-          <StyledColGroup>
-            <Checkbox id="snack_1" value={1}>
-              안주 맛집 인정
-            </Checkbox>
-            <Checkbox id="snack_2" value={0}>
-              평범해요
-            </Checkbox>
-          </StyledColGroup>
-        </CheckboxGroup>
-      </StyledGroupLayout> */}
     </>
+  ) : (
+    isToggle && (
+      <TagToggle onClick={() => setToggle(!toggle)}>태그 검색 ▼</TagToggle>
+    )
   );
 };
 
 export default TagBox;
+
+const TagToggle = styled.div`
+  font-family: ${({ theme }) => theme.fonts.ydFont};
+  cursor: pointer;
+`;
 
 const BasicStyle = `
 display: flex;
