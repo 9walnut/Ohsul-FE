@@ -65,17 +65,26 @@ const KakaoMap08 = ({
   const [map, setMap] = useState<kakao.maps.Map | null>(null);
   const [moveKeyword, setMoveKeyword] = useState<string>("");
   const [clickedResult, setClickedResult] = useState<FavoriteBar | null>(null);
+  const [mapModal, setMapModal] = useState(false);
   const [selectedLabel, setSelectedLabel] = useState("지역명");
 
   const categories = [
     "술집",
     "호프",
+    "바",
     "요리주점",
     "포장마차",
     "오뎅바",
     "와인바",
     "일본식주점",
     "칵테일바",
+    "이자카야",
+    "룸술집",
+    "펍",
+    "라이브바",
+    "재즈바",
+    "민속주점",
+    "꼬치",
   ];
 
   //mount 시 내 위치 설정
@@ -88,27 +97,38 @@ const KakaoMap08 = ({
             lng: position.coords.longitude,
           };
           setState({
-            center: newPos,
+            // center: newPos,
+            center: { lat: 37.53475405474101, lng: 126.96380584903021 },
             errMsg: null,
             isLoading: false,
           });
-          // 현재 위치 얻고, 좌표를 주소로 변환,  moveKeyword 설정
-          convertCoordsToAddress(newPos.lng, newPos.lat);
+          setMapModal(true);
+          setTimeout(() => {
+            setMapModal(false);
+          }, 2000);
         },
-        (err) => {
+        () => {
           setState({
-            center: null,
-            errMsg: err.message,
+            center: { lat: 37.53475405474101, lng: 126.96380584903021 },
+            errMsg: null,
             isLoading: false,
           });
+          setMapModal(true);
+          setTimeout(() => {
+            setMapModal(false);
+          }, 2000);
         }
       );
     } else {
       setState({
-        center: null,
-        errMsg: "Geolocation err",
+        center: { lat: 37.53475405474101, lng: 126.96380584903021 },
+        errMsg: "Geolocation is not supported by this browser.",
         isLoading: false,
       });
+      setMapModal(true);
+      setTimeout(() => {
+        setMapModal(false);
+      }, 2000);
     }
   }, []);
 
@@ -213,6 +233,7 @@ const KakaoMap08 = ({
     };
     geocoder.coord2Address(coord.getLng(), coord.getLat(), callback);
   };
+
   useEffect(() => {
     if (state.center && map && moveKeyword) {
       console.log("🍯 이 지역 재검색 실행:", moveKeyword);
@@ -371,6 +392,16 @@ const KakaoMap08 = ({
                   }}
                 />
               )}
+              {mapModal && (
+                <MapModal>
+                  <MapTextBox>
+                    현재 오늘의 술🍺은 <strong>테스트 버전</strong>으로
+                    <br />
+                    현재 위치와 내 위치는 <br />"<strong>용산구</strong>"로 자동
+                    설정됩니다
+                  </MapTextBox>
+                </MapModal>
+              )}
             </Map>
           </MapWrapper>
         </>
@@ -500,6 +531,21 @@ const SearchWrapper = styled.div`
     right: 4px;
     top: 5px;
   }
+`;
+
+const MapModal = styled.div`
+  width: 70%;
+  position: absolute;
+  top: 35%;
+  left: 16%;
+  background-color: #fcfaf9;
+  border: 1px solid #4d607b;
+  border-radius: 15px;
+  z-index: 10;
+`;
+
+const MapTextBox = styled.div`
+  padding: 12px;
 `;
 
 export default KakaoMap08;
