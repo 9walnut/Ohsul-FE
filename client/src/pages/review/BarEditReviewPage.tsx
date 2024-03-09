@@ -180,7 +180,7 @@ const BarEditReviewPage = () => {
               태그는 각 최소 1개씩 필수입니다 ! (각 최대 3개)
             </S.ExplainBox>
 
-            <TagBox tags={tags} setTags={setTags} />
+            <TagBox tags={tags} setTags={setTags} isToggle={false} />
 
             <S.ExplainBox>별점은 필수 선택입니다 !</S.ExplainBox>
             <S.StarWrapper>

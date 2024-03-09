@@ -116,5 +116,12 @@ table {
 	border-collapse: collapse;
 	border-spacing: 0;
 }
+body{
+ -ms-overflow-style: none;
+ }
+::-webkit-scrollbar {
+  display: none;
+}
+
 
 `;
