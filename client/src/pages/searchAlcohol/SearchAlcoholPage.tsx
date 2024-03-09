@@ -158,7 +158,7 @@ const SearchAlcoholPage: React.FC = () => {
       <SearchAlcoholPageLayout>
         <Header title="오늘의 술 찾기" />
         <KakaoMap07 onSearchResults={handleSearchResults} />
-        <TagBox tags={tags} setTags={setTags} />
+        <TagBox tags={tags} setTags={setTags} isToggle={true} />
         {/* dot Img */}
         <img src="/assets/images/border_dot.png" alt="border_dot" />
 
@@ -211,4 +211,5 @@ const SearchAlcoholPageLayout = styled.div`
   overflow: hidden;
   margin-bottom: 78px;
 `;
+
 export default SearchAlcoholPage;
