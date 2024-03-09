@@ -11,6 +11,7 @@ import useAuthStore from "../../../stores/useAuthStore";
 import ConfirmModal from "../../../components/common/ConfirmModal";
 import CommonModal from "../../../components/common/CommonModal";
 import OnlyMember from "../../../components/common/OnlyMember";
+import useOhsulAccountStore from "../../../stores/useOhsulAccountStore";
 
 type EditMypageFormInputs = {
   userId: string;
@@ -32,6 +33,8 @@ const EditMyInfoPage = () => {
   //회원 탈퇴 모달
   const [modalOpen, setModalOpen] = useState(false);
   const [showModal, setShowModal] = useState(false);
+  //탈퇴 불가 모달
+  const [unableDelete, setUnableDelete] = useState(false);
 
   useEffect(() => {
     const { userId } = useAuthStore.getState();
@@ -63,7 +66,13 @@ const EditMyInfoPage = () => {
   };
   //----------회원 탈퇴
   const handleDelUser = () => {
-    setModalOpen(true);
+    const ohsulId = useOhsulAccountStore.getState().ohsulId;
+
+    if (ohsulId === userId) {
+      setUnableDelete(true);
+    } else {
+      setModalOpen(true);
+    }
     console.log("탈퇴버튼클릭");
   };
 
@@ -109,7 +118,7 @@ const EditMyInfoPage = () => {
       userNickname: userNickname || userNicknameData,
     };
 
-    console.log("내정보수정 입력", patchData);
+    //console.log("내정보수정 입력", patchData);
     try {
       const res = await axios.patch("/api/mypage/info", patchData, {
         headers: {
@@ -117,8 +126,8 @@ const EditMyInfoPage = () => {
         },
       });
       console.log("response data", res.data); // data
-      console.log("response status", res.status); // 200
-      console.log("response text", res.statusText); // OK
+      //console.log("response status", res.status); // 200
+      //console.log("response text", res.statusText); // OK
       if (res.status == 200) {
         useAuthStore.setState({
           userNickname: userNickname || userNicknameData,
@@ -186,6 +195,12 @@ const EditMyInfoPage = () => {
               onCancel={handleCancel}
               onConfirm={handleDeleteConfirm}
               isClose={true}
+            />
+          )}
+          {unableDelete && (
+            <CommonModal
+              message="해당 계정은 탈퇴가 불가능합니다."
+              isClose={false}
             />
           )}
           <S.EditMyPageLayout>
