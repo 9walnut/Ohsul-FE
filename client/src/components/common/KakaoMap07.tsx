@@ -47,6 +47,7 @@ const KakaoMap07 = ({
   const handleChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     setSelectedValue(event.target.value);
   };
+
   const [info, setInfo] = useState<MarkerInfo | null>(null);
   const [searchWord, setSearchWord] = useState<string>("");
   const [markers, setMarkers] = useState<MarkerInfo[]>([]);
@@ -68,22 +69,75 @@ const KakaoMap07 = ({
   const [getInfo, setGetInfo] = useState("");
   const [isOpen, setIsOpen] = useState(false);
   const [selectedLabel, setSelectedLabel] = useState("지역명");
-
+  const [mapModal, setMapModal] = useState(false);
   const toggleDropdown = () => setIsOpen(!isOpen);
-
   const handleSelect = (label: string) => {
     setSelectedLabel(label);
     setIsOpen(false);
   };
+
+  //mount 시 내 위치 설정
+  useEffect(() => {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          const newPos = {
+            lat: position.coords.latitude,
+            lng: position.coords.longitude,
+          };
+          setState({
+            // center: newPos,
+            center: { lat: 37.53475405474101, lng: 126.96380584903021 },
+            errMsg: null,
+            isLoading: false,
+          });
+          setMapModal(true);
+          setTimeout(() => {
+            setMapModal(false);
+          }, 2000);
+        },
+        () => {
+          setState({
+            center: { lat: 37.53475405474101, lng: 126.96380584903021 },
+            errMsg: null,
+            isLoading: false,
+          });
+          setMapModal(true);
+          setTimeout(() => {
+            setMapModal(false);
+          }, 2000);
+        }
+      );
+    } else {
+      setState({
+        center: { lat: 37.53475405474101, lng: 126.96380584903021 },
+        errMsg: "Geolocation is not supported by this browser.",
+        isLoading: false,
+      });
+      setMapModal(true);
+      setTimeout(() => {
+        setMapModal(false);
+      }, 2000);
+    }
+  }, []);
+
   const categories = [
     "술집",
     "호프",
+    "바",
     "요리주점",
     "포장마차",
     "오뎅바",
     "와인바",
     "일본식주점",
     "칵테일바",
+    "이자카야",
+    "룸술집",
+    "펍",
+    "라이브바",
+    "재즈바",
+    "민속주점",
+    "꼬치",
   ];
 
   const handleMyLocation = () => {
@@ -114,7 +168,6 @@ const KakaoMap07 = ({
       }
 
       ps.keywordSearch(searchQuery, (data, status, _pagination) => {
-        console.log("검색문", searchQuery);
         if (status === kakao.maps.services.Status.OK) {
           const bounds = new kakao.maps.LatLngBounds();
           const newMarkers: MarkerInfo[] = data.map((item) => ({
@@ -214,37 +267,6 @@ const KakaoMap07 = ({
       });
     });
   };
-
-  useEffect(() => {
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(
-        (position) => {
-          const newPos = {
-            lat: position.coords.latitude,
-            lng: position.coords.longitude,
-          };
-          setState({
-            center: newPos,
-            errMsg: null,
-            isLoading: false,
-          });
-        },
-        (err) => {
-          setState({
-            center: null,
-            errMsg: err.message,
-            isLoading: false,
-          });
-        }
-      );
-    } else {
-      setState({
-        center: null,
-        errMsg: "Geolocation err",
-        isLoading: false,
-      });
-    }
-  }, []);
 
   // 좌표를 주소로 변환
   const convertCoordsToAddress = (x: number, y: number) => {
@@ -379,7 +401,10 @@ const KakaoMap07 = ({
             )}
             <Map
               center={state.center}
-              style={{ width: "", height: "450px" }}
+              style={{
+                width: "",
+                height: "450px",
+              }}
               level={3}
               onCreate={setMap}
               onCenterChanged={(map) => {
@@ -442,6 +467,16 @@ const KakaoMap07 = ({
                     },
                   }}
                 />
+              )}
+              {mapModal && (
+                <MapModal>
+                  <MapTextBox>
+                    현재 오늘의 술🍺은 <strong>테스트 버전</strong>으로
+                    <br />
+                    현재 위치와 내 위치는 <br />"<strong>용산구</strong>"로 자동
+                    설정됩니다
+                  </MapTextBox>
+                </MapModal>
               )}
             </Map>
           </MapWrapper>
@@ -615,5 +650,20 @@ const DropdownItem = styled.li`
   &:hover {
     background-color: #f0f0f0;
   }
+`;
+
+const MapModal = styled.div`
+  width: 70%;
+  position: absolute;
+  top: 35%;
+  left: 16%;
+  background-color: #fcfaf9;
+  border: 1px solid #4d607b;
+  border-radius: 15px;
+  z-index: 10;
+`;
+
+const MapTextBox = styled.div`
+  padding: 12px;
 `;
 export default KakaoMap07;
