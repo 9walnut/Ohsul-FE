@@ -78,7 +78,7 @@ const CardRowTag: React.FC<BarData> = ({ bar }) => {
               ) : (
                 <TagBox>
                   <TagTitle>술</TagTitle>
-                  {bar.alcoholTags?.slice(0, 2).map((item, index) => (
+                  {bar.alcoholTags?.slice(0, 1).map((item, index) => (
                     <TagContent key={index}>
                       {getAlcoholTagName(item)}
                     </TagContent>
@@ -94,7 +94,7 @@ const CardRowTag: React.FC<BarData> = ({ bar }) => {
               ) : (
                 <TagBox>
                   <TagTitle>분위기</TagTitle>
-                  {bar.moodTags?.slice(0, 2).map((item, index) => (
+                  {bar.moodTags?.slice(0, 1).map((item, index) => (
                     <TagContent key={index}>{getMoodTagName(item)}</TagContent>
                   ))}
                 </TagBox>
@@ -108,7 +108,7 @@ const CardRowTag: React.FC<BarData> = ({ bar }) => {
               ) : (
                 <TagBox>
                   <TagTitle>음악</TagTitle>
-                  {bar.musicTags?.slice(0, 2).map((item, index) => (
+                  {bar.musicTags?.slice(0, 1).map((item, index) => (
                     <TagContent key={index}>{getMusicTagName(item)}</TagContent>
                   ))}
                 </TagBox>

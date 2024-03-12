@@ -5,7 +5,7 @@ export const MyReviewPageLayout = styled.div`
   flex-direction: column;
   align-items: center;
   padding: 10px 15px;
-  gap: 35px;
+  gap: 8px;
   height: 100%;
   overflow: hidden;
   margin-bottom: 78px;

@@ -30,10 +30,9 @@ const MainLayout = styled.div`
   width: 100vw;
   padding: 18px;
   max-width: 450px;
-  height: 100%;
+  /* height: 100%; */
   min-height: 100vh;
   height: -webkit-fill-available;
-  height: fill-available;
 
   background-color: ${({ theme }) => theme.colors.bgColor};
   text-align: center;
