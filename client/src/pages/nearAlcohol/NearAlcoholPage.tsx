@@ -85,7 +85,7 @@ const NearAlcoholPage: React.FC = () => {
               <S.NoFavoritePlaceBox>
                 <S.MessageBox>
                   {" "}
-                  주변에 술집 정보가 없어요 🥲 <br /> 위치를 다시 조정해주세요.
+                  주변에 술집 정보가 없어요. <br /> 위치를 다시 조정해주세요.
                 </S.MessageBox>
               </S.NoFavoritePlaceBox>
             ) : (

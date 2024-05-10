@@ -623,7 +623,7 @@ const Dropdown = styled.div`
 
 const DropdownButton = styled.div`
   padding: 4px;
-  background-color: #ffffff;
+  background-color: transparent;
   cursor: pointer;
   img {
     margin-left: 4px;
