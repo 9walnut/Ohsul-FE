@@ -286,6 +286,7 @@ const ContentBox2 = styled.div`
   align-items: center;
   padding: 2px 10px 2px 5px;
   gap: 15px;
+  overflow: scroll;
 
   /* width: 341px; */
   width: 100%;
@@ -305,8 +306,10 @@ const ImgBox = styled.div`
 `;
 
 const TagLayout = styled.div`
-  width: auto;
+  /* width: auto; */
+  min-width: 200px;
   height: 71px;
+  overflow: hidden;
 `;
 
 const TagBasic = `

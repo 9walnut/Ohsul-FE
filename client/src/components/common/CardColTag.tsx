@@ -346,6 +346,7 @@ const RightContent = styled.div`
   gap: 20px;
   width: 100%;
   height: 149px;
+  overflow: auto;
 `;
 
 const FavoriteBox = styled.div`
@@ -386,7 +387,8 @@ const TagTitle = styled.div`
   color: ${({ theme }) => theme.colors.mainBlue};
   background: ${({ theme }) => theme.colors.bgLightColor};
   border: 1px dashed ${({ theme }) => theme.colors.mainBlue};
-  width: 40px;
+  /* width: 40px; */
+  min-width: 40px;
   ${TagBasic}
 `;
 
@@ -399,7 +401,8 @@ const TagContent = styled.div`
   color: ${({ theme }) => theme.colors.bgColor};
   background: ${({ theme }) => theme.colors.mainBlue};
   border: 1px solid ${({ theme }) => theme.colors.mainBlue};
-  width: auto;
+  /* width: auto; */
+  width: max-content;
   padding: 7px;
   margin: 4px;
   ${TagBasic}
