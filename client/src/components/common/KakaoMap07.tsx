@@ -352,6 +352,22 @@ const KakaoMap07 = ({
     setIsReSearch(true);
   };
 
+  const handleDragEnd = (map: kakao.maps.Map) => {
+    const latlng = map.getCenter();
+    const bounds = new kakao.maps.LatLngBounds();
+    bounds.extend(latlng);
+    setData({
+      position: {
+        lat: latlng.getLat(),
+        lng: latlng.getLng(),
+      },
+    });
+    convertCoordsToAddress(latlng.getLng(), latlng.getLat());
+    console.log("onDragEnd", moveKeyword);
+    setIsReSearch(true);
+    // handleMovedSearch();
+  };
+
   return (
     <>
       <SearchWrapper>
@@ -417,22 +433,7 @@ const KakaoMap07 = ({
                 });
                 convertCoordsToAddress(latlng.getLng(), latlng.getLat());
               }}
-              onDragEnd={(map) => {
-                const latlng = map.getCenter();
-                const bounds = new kakao.maps.LatLngBounds();
-                bounds.extend(latlng);
-                map.setLevel(3);
-                setData({
-                  position: {
-                    lat: latlng.getLat(),
-                    lng: latlng.getLng(),
-                  },
-                });
-                convertCoordsToAddress(latlng.getLng(), latlng.getLat());
-                console.log("onDragEnd", moveKeyword);
-                handleDrag();
-                // handleMovedSearch();
-              }}
+              onDragEnd={(map) => handleDragEnd(map)}
             >
               <SearchBtn onClick={handleMyLocation}>
                 <img src="/assets/images/map_myloc.png" alt="myLoc" />내 위치
@@ -560,11 +561,11 @@ const MapWrapper = styled.div`
 
 const SearchBtn = styled.button`
   position: absolute;
-  width: 90px;
+  width: 80px;
   display: flex;
+  right: 40%;
   justify-content: space-around;
   bottom: 10px;
-  right: 35%;
   z-index: 2;
   border: 1px solid #4d607b;
   outline: none;
@@ -573,10 +574,12 @@ const SearchBtn = styled.button`
   color: ${({ theme }) => theme.colors.darkFont};
   font-family: ${({ theme }) => theme.fonts.ydFont};
   padding: 5px;
+  line-height: 1.5;
   cursor: pointer;
   img {
     width: 14px;
-    margin-top: 4px;
+    position: relative;
+    top: 4px;
   }
 `;
 
